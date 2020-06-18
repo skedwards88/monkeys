@@ -168,12 +168,13 @@ class Game extends React.Component {
 
         return (
             <div className="game">
+                <h1>Monkeys of the Caribbean</h1>
                 <div className="board">
                     <Board
                         squares={squares}
                     />
                 </div>
-                <div className="tray">
+                <div className="off-board">
                     <div className="score">
                         Score:
                         <div className="red-score">
@@ -186,11 +187,11 @@ class Game extends React.Component {
                     <Offer
                         offer={offer}
                         />
-                </div>
-                <div className="controls">
-                    <button onClick={this.handleUndo}>Undo</button>
-                    <button onClick={this.handleNewGame}>New</button>
-                    <button onClick={this.handleShow}>Rules</button>
+                    <div className="controls">
+                        <button onClick={this.handleUndo}>Undo</button>
+                        <button onClick={this.handleNewGame}>New</button>
+                        <button onClick={this.handleShow}>Rules</button>
+                    </div>
                 </div>
             </div>
         );
