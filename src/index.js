@@ -1,26 +1,51 @@
-import React from 'react';
+import React, { Component, useState } from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import { DragDropContainer, DropTarget } from 'react-drag-drop-container';
 
 
+class Tile {
+    constructor(id) {
+        this.id = id;
+        // todo actually define tile class
+    }
+}
+
+// todo define tiles elsewhere and import them
+let tiles = [
+    new Tile(1),
+    new Tile(2),
+    new Tile(3),
+    new Tile(4),
+    new Tile(5),
+    new Tile(6),
+    new Tile(7),
+    new Tile(8),
+]
+
 function Square(props) {
     let tile = props.tile;
-    // todo if tile is null, leave empty. If can't be played, empty. If tile, display. Maybe change class name to indicate which should display?
+    // todo figure out how to dictate tile image that should be displayed.
+    //  could just append id to class name and have css rule for each id
+    //  setting background image.
+    //  if tile is null, leave empty.
+    //  If can't be played, empty.
+    //  If tile, display.
     return (
         <div className="square"
              onDragOver={props.onDragOver}
              onDrop={props.onDrop}
         >
-TILE
+            {tile ? tile.id : null}
         </div>
     );
 }
 
-class Board extends React.Component {
+function Board(sq) {
 
-    renderTile(row, column) {
-        const tiles = this.props.squares;
+    function renderTile(row, column) {
+
+        const tiles = sq.squares;
         const tile = tiles[row][column];
         return (
             <DropTarget
@@ -38,39 +63,38 @@ class Board extends React.Component {
         );
     }
 
-    createBoard() {
+    function createBoard() {
         let num_rows = 5; // todo store in state instead
         let num_columns = 9;
         let rows = [];
         for (let row_index = 0; row_index < num_rows; row_index++) {
             let row = [];
             for (let column_index = 0; column_index < num_columns; column_index++) {
-                row.push(this.renderTile(row_index, column_index));
+                row.push(renderTile(row_index, column_index));
             }
             rows.push(<div className="board-row" key={row_index}>{row}</div>);
         }
         return rows;
     }
 
-    render() {
-        return (
-            <div>
-                {this.createBoard()}
-            </div>
-        );
-    }
+    return (
+        <div>
+            {createBoard()}
+        </div>
+    );
 }
 
-class Offer extends React.Component {
+function Offer(passed) {
 
-    renderOfferTile(offer_index) {
-        const offer = this.props.offer;
+    function renderOfferTile(offer_index) {
+        const offer = passed.offer;
         const tile = offer[offer_index];
         return (
             <DragDropContainer
-                targetKey="token"
+                targetKey="offer"
                 dragData={{tile: tile}}
-                onDrop={(e) => this.handleDrop(e)}
+                onDrop={(e) => passed.handleDrop(e)}
+                key={offer_index}
             >
                 <div className="tile"
                 >OFFER
@@ -79,123 +103,116 @@ class Offer extends React.Component {
         );
     }
 
-    createOffer() {
+    function createOffer() {
         let num_offers = 3;
         let offer = [];
         for (let offer_index = 0; offer_index < num_offers; offer_index++) {
-            offer.push(this.renderOfferTile(offer_index));
+            offer.push(renderOfferTile(offer_index));
         }
         return offer;
     }
 
-    render() {
-        return (
-            <div>
-                {this.createOffer()}
-            </div>
-        );
-    }
+    return (
+        <div>
+            {createOffer()}
+        </div>
+    );
 }
+function Game() {
 
+    let num_rows = 5;
+    let num_columns = 9;
+    let offer = [1,2,3]; //todo populate offer
 
-class Game extends React.Component {
-    constructor(props) {
-        super(props);
-        let num_rows = 5;
-        let num_columns = 9;
-        let offer = [1,2,3] //todo populate offer
-        this.state = {
-            num_rows: num_rows,
-            num_columns: num_columns,
-            history: {
-                squares: [Array.from({length: num_rows}, e => Array(num_columns).fill(null))],
-                offer: [offer],
-            },
-            showRules: false,
-            currentRule: 1,
-            red_score: 0,
-            blue_score: 0,
-        };
-        this.handleNewGame = this.handleNewGame.bind(this);
-    }
+    const [history, setHistory] = useState({
+        squares: [Array.from({length: num_rows}, e => Array(num_columns).fill(null))],
+        offer: [offer],
+    });
+    // showRules: false,
+    //     currentRule: 1,
+    //     red_score: 0,
+    //     blue_score: 0,
 
-    handleDrop(e) {
+    const handleDrop = (e) => {
+        console.log('DROP');
         const row = e.dropData.row;
         const column = e.dropData.column;
         let tile = e.dragData.tile;
-        let history = this.state.history;
+        // let history = history;
         const squaresHistory = history.squares.slice();
         let squares = squaresHistory[squaresHistory.length - 1].map(a => {return a.slice()})
         const offerHistory = history.offer.slice();
-        let offer = offerHistory[offerHistory.length - 1].map(a => {return a.slice()})
+        let offer = offerHistory[offerHistory.length - 1]
 
-        // If the selected symbol cannot be legally placed in the square, don't allow it
+        // If the square is already occupied, don't allow a tile to be dropped there
+        if (squares[row][column]) {
+            return;
+        }
 
         // Put a token in the square where the token was dropped
+        squares[row][column] = tile;
 
         // Update history (in state as well)
+        history.squares = squaresHistory.concat([squares])
+        setHistory(history)
+
+        // TODO board is not re-rendering on drop. Do i need to tell to rerender suqare?
+
     }
 
-    handleUndo = (event) => {
-        let history = this.state.history;
+    const handleUndo = (event) => {
+        let history = history;
         const squaresHistory = history.squares.length > 1 ? history.squares.slice(0,-1) : history.squares.slice();
         history.squares = squaresHistory;
-        this.setState({
-                history: history,
-            }
-        )
+        setHistory(history);
     }
 
-    handleNewGame = (event) => {
-        let history = this.state.history;
+    const handleNewGame = (event) => {
+        let history = history;
         const squaresHistory = history.squares.slice(0,1);
         history.squares = squaresHistory;
-        this.setState({
-                history: history,
-            }
-        )
+        setHistory(history);
     }
 
-    render() {
-        const history = this.state.history;
-        const squaresHistory = history.squares.slice();
-        let squares = squaresHistory[squaresHistory.length - 1].slice();
-        const offerHistory = history.offer.slice();
-        let offer = offerHistory[offerHistory.length - 1].slice();
+        // const history = this.state.history;
+        // const squaresHistory = history.squares.slice();
+        // let squares = squaresHistory[squaresHistory.length - 1].slice();
+        // const offerHistory = history.offer.slice();
+        // let offer = offerHistory[offerHistory.length - 1].slice();
 
 
         // Calculate score, game over, etc.
 
-        return (
-            <div className="game">
-                <h1>Monkeys of the Caribbean</h1>
-                <div className="board">
-                    <Board
-                        squares={squares}
-                    />
+    return (
+        <div className="game">
+            <h1>Monkeys of the Caribbean</h1>
+            <div className="board">
+                <Board
+                    squares={history.squares.slice()[history.squares.length - 1]}
+                />
+            </div>
+            <div className="off-board">
+                <div className="score">
+                    Score:
+                    <div className="red-score">
+                        0
+                    </div>
+                    <div className="blue-score">
+                        0
+                    </div>
                 </div>
-                <div className="off-board">
-                    <div className="score">
-                        Score:
-                        <div className="red-score">
-                            {this.state.red_score}
-                        </div>
-                        <div className="blue-score">
-                            {this.state.blue_score}
-                        </div>
-                    </div>
-                    <Offer
-                        offer={offer}
-                        />
-                    <div className="controls">
-                        <button onClick={this.handleUndo}>Undo</button>
-                        <button onClick={this.handleNewGame}>New</button>
-                        <button onClick={this.handleShow}>Rules</button>
-                    </div>
+                <Offer
+                    offer={offer}
+                    handleDrop={handleDrop}
+                    />
+                <div className="controls">
+                    <button onClick={handleUndo}>Undo</button>
+                    <button onClick={handleNewGame}>New</button>
+                    {/*<button onClick={handleShow}>Rules</button>*/}
                 </div>
             </div>
-        );
-    }
+        </div>
+    );
 }
 
 // ========================================
