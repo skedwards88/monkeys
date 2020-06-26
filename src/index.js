@@ -94,10 +94,8 @@ function Game() {
         let offer_index = e.dragData.offer_index;
         let offer = offerHistory[offerHistory.length - 1].slice();
         offer[offer_index] = newTile;
-        let no = offerHistory.concat([offer]);
-        setOffer(no);
-        let newO = offerHistory;
-
+        let newOffer = offerHistory.concat([offer]);
+        setOffer(newOffer);
     }
 
     const handleUndo = (event) => {
@@ -108,6 +106,10 @@ function Game() {
     const handleNewGame = (event) => {
         const squaresHistory = playedHistory.slice(0,1);
         setPlayed(squaresHistory);
+    }
+
+    const handleShow = (event) => {
+
     }
 
         // const history = this.state.history;
@@ -237,11 +239,14 @@ function Game() {
                         {blueScore}
                     </div>
                 </div>
-                <Offer/>
+                <div className="offer-area">
+                    <Offer/>
+                    {poolHistory[poolHistory.length-1].length}
+                </div>
                 <div className="controls">
                     <button onClick={handleUndo}>Undo</button>
                     <button onClick={handleNewGame}>New</button>
-                    {/*<button onClick={handleShow}>Rules</button>*/}
+                    <button onClick={handleShow}>Rules</button>
                 </div>
             </div>
         </div>
