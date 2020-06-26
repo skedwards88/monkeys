@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react';
+import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import { DragDropContainer, DropTarget } from 'react-drag-drop-container';
@@ -21,33 +21,57 @@ let tiles = [
     new Tile(6),
     new Tile(7),
     new Tile(8),
+    new Tile(9),
+    new Tile(10),
+    new Tile(11),
+    new Tile(12),
+    new Tile(13),
+    new Tile(14),
+    new Tile(15),
+    new Tile(16),
+    new Tile(17),
+    new Tile(18),
+    new Tile(19),
+    new Tile(20),
+    new Tile(21),
+    new Tile(22),
+    new Tile(23),
+    new Tile(24),
+    new Tile(25),
 ]
+
+let initialOffer = [
+    tiles.pop(), tiles.pop(), tiles.pop()
+];
 
 function Game() {
 
     let num_rows = 5;
     let num_columns = 9;
-    let offer = [tiles[0], tiles[1], tiles[2]]; //todo populate offer
+    // todo should randomize tiles at start of game
+    const [offerHistory, setOffer] = useState([initialOffer]);
 
-    const [history, setHistory] = useState({
-        squares: [Array.from({length: num_rows}, e => Array(num_columns).fill(null))],
-        offer: [offer],
-    });
+    const [poolHistory, setPool] = useState([tiles]);
+
+    const drawTile = () => {
+        let currentPool = poolHistory[poolHistory.length - 1].slice();
+        let tile = currentPool.pop();
+        const newPoolHistory = poolHistory.concat([currentPool]);
+        setPool(newPoolHistory);
+        return tile
+    };
+
+    const [playedHistory, setPlayed] = useState([Array.from({length: num_rows}, e => Array(num_columns).fill(null))])
     const [showRules, setShowRules] = useState(false);
     const [currentRule, setCurrentRule] = useState(1);
     const [redScore, setRedScore] = useState(0);
     const [blueScore, setBlueScore] = useState(0);
 
     const handleDrop = (e) => {
-        let nh = {...history}
         const row = e.dropData.row;
         const column = e.dropData.column;
         let tile = e.dragData.tile;
-        // let history = history;
-        const squaresHistory = nh.squares.slice();
-        let squares = squaresHistory[squaresHistory.length - 1].map(a => {return a.slice()})
-        const offerHistory = nh.offer.slice();
-        let offer = offerHistory[offerHistory.length - 1]
+        let squares = playedHistory[playedHistory.length - 1].map(a => {return a.slice()})
 
         // If the square is already occupied, don't allow a tile to be dropped there
         if (squares[row][column]) {
@@ -57,24 +81,33 @@ function Game() {
         // Put a token in the square where the token was dropped
         squares[row][column] = tile;
 
-        // Update history (in state as well)
-        nh.squares = squaresHistory.concat([squares])
-        setHistory(nh)
+        // Update squares
+        let nh = playedHistory.concat([squares])
+        setPlayed(nh)
 
-        // TODO board is not re-rendering on drop. Do i need to tell to rerender suqare?
+        // todo update routes
+
+        // todo update score
+
+        // Replenish offer
+        let newTile = drawTile()
+        let offer_index = e.dragData.offer_index;
+        let offer = offerHistory[offerHistory.length - 1].slice();
+        offer[offer_index] = newTile;
+        let no = offerHistory.concat([offer]);
+        setOffer(no);
+        let newO = offerHistory;
 
     }
 
     const handleUndo = (event) => {
-        const squaresHistory = history.squares.length > 1 ? history.squares.slice(0,-1) : history.squares.slice();
-        history.squares = squaresHistory;
-        setHistory(history);
+        const squaresHistory = playedHistory.length > 1 ? playedHistory.slice(0,-1) : playedHistory.slice();
+        setPlayed(squaresHistory);
     }
 
     const handleNewGame = (event) => {
-        const squaresHistory = history.squares.slice(0,1);
-        history.squares = squaresHistory;
-        setHistory(history);
+        const squaresHistory = playedHistory.slice(0,1);
+        setPlayed(squaresHistory);
     }
 
         // const history = this.state.history;
@@ -110,7 +143,7 @@ function Game() {
 
         function renderTile(row, column) {
 
-            const squaresHistory = history.squares.slice();
+            const squaresHistory = playedHistory.slice();
             let squares = squaresHistory[squaresHistory.length - 1].map(a => {return a.slice()});
             const tile = squares[row][column];
             return (
@@ -155,16 +188,17 @@ function Game() {
 
         function renderOfferTile(offer_index) {
 
-            const tile = offer[offer_index];
+            const currentOffer = offerHistory[offerHistory.length - 1];
+            const tile = currentOffer[offer_index];
             return (
                 <DragDropContainer
                     targetKey="offer"
-                    dragData={{tile: tile}}
+                    dragData={{tile: tile, offer_index: offer_index}}
                     onDrop={(e) => handleDrop(e)}
                     key={offer_index}
                 >
                     <div className="tile"
-                    >OFFER
+                    >{tile.id}
                     </div>
                 </DragDropContainer>
             );
@@ -191,9 +225,7 @@ function Game() {
         <div className="game">
             <h1>Monkeys of the Caribbean</h1>
             <div className="board">
-                <Board
-
-                />
+                <Board/>
             </div>
             <div className="off-board">
                 <div className="score">
@@ -205,8 +237,7 @@ function Game() {
                         {blueScore}
                     </div>
                 </div>
-                <Offer
-                    />
+                <Offer/>
                 <div className="controls">
                     <button onClick={handleUndo}>Undo</button>
                     <button onClick={handleNewGame}>New</button>
