@@ -3,11 +3,40 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import { DragDropContainer, DropTarget } from 'react-drag-drop-container';
 
+class Route {
+    constructor() {
+    }
+}
+
+class TileRoute {
+    constructor(head, tail, coconuts, redShips, blueShips, redAnchors, blueAnchors) {
+        this.head = head;
+        this.tail = tail;
+        this.coconuts = coconuts;
+        this.redShips = redShips;
+        this.blueShips = blueShips;
+        this.redAnchors = redAnchors;
+        this.blueAnchors = blueAnchors;
+    }
+}
 
 class Tile {
-    constructor(id) {
+    constructor(id, routes) {
         this.id = id;
-        // todo actually define tile class
+        this.routes = routes;
+    }
+}
+
+class BoardRoute {
+    constructor(head, tail, coconuts, redShips, blueShips, redAnchors, blueAnchors) {
+        this.head = head;
+        this.tail = tail;
+        this.coconuts = coconuts;
+        this.redShips = redShips;
+        this.blueShips = blueShips;
+        this.redAnchors = redAnchors;
+        this.blueAnchors = blueAnchors;
+        this.score = 0;
     }
 }
 
