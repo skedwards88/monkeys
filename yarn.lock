@@ -8579,6 +8579,13 @@ react-dom@^16.13.1:
     prop-types "^15.6.2"
     scheduler "^0.19.1"
 
+react-drag-drop-container@^6.1.1:
+  version "6.1.1"
+  resolved "https://registry.yarnpkg.com/react-drag-drop-container/-/react-drag-drop-container-6.1.1.tgz#9ba08eb2bfe14202f179d601227b0ae5b589de48"
+  integrity sha512-GfKE4L/t5TnxOfCEfYkc0tsMvQQ+HXg88NmDwi2nBmFG7JHsZUJjIn1EnI0Uia5xocXtJSrk/9A3cF1ja9kx1g==
+  dependencies:
+    prop-types "^15.6.2"
+
 react-error-overlay@^6.0.7:
   version "6.0.7"
   resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-6.0.7.tgz#1dcfb459ab671d53f660a991513cb2f0a0553108"

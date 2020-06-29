@@ -3,6 +3,10 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import { DragDropContainer, DropTarget } from 'react-drag-drop-container';
 
+import tile1 from './images/Monkeys_Tile_1.png';
+
+console.log(tile1);
+
 class Route {
     constructor() {
     }
@@ -62,11 +66,6 @@ let tiles = [
     new Tile(18),
     new Tile(19),
     new Tile(20),
-    new Tile(21),
-    new Tile(22),
-    new Tile(23),
-    new Tile(24),
-    new Tile(25),
 ]
 
 let initialOffer = [
@@ -152,7 +151,7 @@ function Game() {
 
     function Square(props) {
         let tile = props.tile;
-        const val = tile ? tile.id : null;
+        let className = tile ? "square filled tile"+tile.id : "square";
 
         // todo figure out how to dictate tile image that should be displayed.
         //  could just append id to class name and have css rule for each id
@@ -161,11 +160,10 @@ function Game() {
         //  If can't be played, empty.
         //  If tile, display.
         return (
-            <div className="square"
+            <div className={className}
                  onDragOver={props.onDragOver}
                  onDrop={props.onDrop}
             >
-                {tile ? tile.id : null}
             </div>
         );
     }
@@ -221,6 +219,7 @@ function Game() {
 
             const currentOffer = offerHistory[offerHistory.length - 1];
             const tile = currentOffer[offer_index];
+            let className = tile ? "square filled tile"+tile.id+" offer" : "square offer";
             return (
                 <DragDropContainer
                     targetKey="offer"
@@ -228,8 +227,8 @@ function Game() {
                     onDrop={(e) => handleDrop(e)}
                     key={offer_index}
                 >
-                    <div className="tile"
-                    >{tile.id}
+                    <div className={className}
+                    >
                     </div>
                 </DragDropContainer>
             );

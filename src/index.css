@@ -70,6 +70,85 @@ h2 {
   color: black;
 }
 
+.square.filled {
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    background-size: cover; /* Resize the background image to cover the entire container */
+}
+
+.square.filled.tile1 {
+    background-image: url('./images/Monkeys_Tile_1.png');
+}
+.square.filled.tile2 {
+    background-image: url('./images/Monkeys_Tile_2.png');
+}
+.square.filled.tile3 {
+    background-image: url('./images/Monkeys_Tile_3.png');
+}
+.square.filled.tile4 {
+    background-image: url('./images/Monkeys_Tile_4.png');
+}
+.square.filled.tile5 {
+    background-image: url('./images/Monkeys_Tile_5.png');
+}
+.square.filled.tile6 {
+    background-image: url('./images/Monkeys_Tile_6.png');
+}
+.square.filled.tile7 {
+    background-image: url('./images/Monkeys_Tile_7.png');
+}
+.square.filled.tile8 {
+    background-image: url('./images/Monkeys_Tile_8.png');
+}
+.square.filled.tile9 {
+    background-image: url('./images/Monkeys_Tile_9.png');
+}
+.square.filled.tile10 {
+    background-image: url('./images/Monkeys_Tile_10.png');
+}
+.square.filled.tile11 {
+    background-image: url('./images/Monkeys_Tile_11.png');
+}
+.square.filled.tile12 {
+    background-image: url('./images/Monkeys_Tile_12.png');
+}
+.square.filled.tile13 {
+    background-image: url('./images/Monkeys_Tile_13.png');
+}
+.square.filled.tile14 {
+    background-image: url('./images/Monkeys_Tile_14.png');
+}
+.square.filled.tile15 {
+    background-image: url('./images/Monkeys_Tile_15.png');
+}
+.square.filled.tile16 {
+    background-image: url('./images/Monkeys_Tile_16.png');
+}
+.square.filled.tile17 {
+    background-image: url('./images/Monkeys_Tile_17.png');
+}
+.square.filled.tile18 {
+    background-image: url('./images/Monkeys_Tile_18.png');
+}
+.square.filled.tile19 {
+    background-image: url('./images/Monkeys_Tile_19.png');
+}
+.square.filled.tile20 {
+    background-image: url('./images/Monkeys_Tile_20.png');
+}
+
+.offer {
+  margin: 10px;
+}
+
+/*square.filled.tile25 {*/
+/*  background-position: center; !* Center the image *!*/
+/*  background-repeat: no-repeat; !* Do not repeat the image *!*/
+/*  background-size: cover; !* Resize the background image to cover the entire container *!*/
+/*  background-image: url('./images/Monkeys_Tile_1.png');*/
+/*}*/
+
+
 .off-board {
   display: flex;
   flex-direction: row;
