@@ -3,9 +3,6 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import { DragDropContainer, DropTarget } from 'react-drag-drop-container';
 
-import tile1 from './images/Monkeys_Tile_1.png';
-
-console.log(tile1);
 
 class Route {
     constructor() {
@@ -124,21 +121,21 @@ function Game() {
         offer[offer_index] = newTile;
         let newOffer = offerHistory.concat([offer]);
         setOffer(newOffer);
-    }
+    };
 
     const handleUndo = (event) => {
         const squaresHistory = playedHistory.length > 1 ? playedHistory.slice(0,-1) : playedHistory.slice();
         setPlayed(squaresHistory);
-    }
+    };
 
     const handleNewGame = (event) => {
         const squaresHistory = playedHistory.slice(0,1);
         setPlayed(squaresHistory);
-    }
+    };
 
     const handleShow = (event) => {
 
-    }
+    };
 
         // const history = this.state.history;
         // const squaresHistory = history.squares.slice();
@@ -269,7 +266,7 @@ function Game() {
                 </div>
                 <div className="offer-area">
                     <Offer/>
-                    {poolHistory[poolHistory.length-1].length}
+                    {Math.max(0, poolHistory[poolHistory.length-1].length)} remaining
                 </div>
                 <div className="controls">
                     <button onClick={handleUndo}>Undo</button>

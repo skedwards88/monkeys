@@ -4,7 +4,7 @@ html {
 }
 
 body {
-  font-size: 24px;
+  font-size: 18px;
   font-weight: bold;
   font-family: "Century Gothic", Futura, sans-serif;
   margin: 20px;
@@ -23,7 +23,7 @@ button {
 }
 
 h1 {
-  font-size: 24px;
+  font-size: 18px;
   text-align: center;
   line-height: 1;
 }
@@ -44,31 +44,62 @@ h2 {
 .board {
   /*todo min-width: 230px;*/
 }
-
-.board-row:after {
-  clear: both;
-  content: "";
-  display: table;
+.board {
 }
 
+
+
+.board-row {
+    display: table;
+    position: relative;
+
+}
+
+.board-row:nth-child(1) {
+    top: 0px;
+
+}
+
+.board-row:nth-child(2) {
+    top: -25px;
+}
+
+.board-row:nth-child(3) {
+    top: -50px;
+}
+
+.board-row:nth-child(4) {
+    top: -75px;
+}
+
+.board-row:nth-child(5) {
+    top: -100px;
+}
+
+.droptarget {
+    outline: 1px solid #999;
+    float: left;
+    line-height: 34px;
+    height: var(--square-diameter);
+    /*margin-right: -1px;*/
+    /*margin-top: -1px;*/
+    padding: 0;
+    width: var(--square-diameter);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
 .square {
-  background: #fff;
-  border: 1px solid #999;
-  float: left;
-  line-height: 34px;
   height: var(--square-diameter);
-  margin-right: -1px;
-  margin-top: -1px;
-  padding: 0;
-  text-align: center;
   width: var(--square-diameter);
-  font-size: 24px;
-  font-weight: bold;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: black;
 }
+
+.highlighted {
+    outline: 5px solid deepskyblue;
+
+}
+
 
 .square.filled {
     background-position: center; /* Center the image */
@@ -141,23 +172,18 @@ h2 {
   margin: 10px;
 }
 
-/*square.filled.tile25 {*/
-/*  background-position: center; !* Center the image *!*/
-/*  background-repeat: no-repeat; !* Do not repeat the image *!*/
-/*  background-size: cover; !* Resize the background image to cover the entire container *!*/
-/*  background-image: url('./images/Monkeys_Tile_1.png');*/
-/*}*/
-
 
 .off-board {
   display: flex;
   flex-direction: row;
   justify-content: center;
+    position: relative;
+
 }
 
 .score {
   font-weight: normal;
-  font-size: 24px;
+  font-size: 18px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
