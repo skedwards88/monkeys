@@ -129,8 +129,14 @@ function Game() {
     };
 
     const handleUndo = (event) => {
-        const squaresHistory = playedHistory.length > 1 ? playedHistory.slice(0,-1) : playedHistory.slice();
-        setPlayed(squaresHistory);
+        const newPlayedHistory = playedHistory.length > 1 ? playedHistory.slice(0,-1) : playedHistory.slice();
+        setPlayed(newPlayedHistory);
+
+        const newOfferHistory = offerHistory.length > 1 ? offerHistory.slice(0,-1) : offerHistory.slice();
+        setOffer(newOfferHistory);
+
+        const newPoolHistory = poolHistory.length > 1 ? poolHistory.slice(0,-1) : poolHistory.slice();
+        setPool(newPoolHistory);
     };
 
     const handleNewGame = (event) => {
