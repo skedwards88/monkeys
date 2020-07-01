@@ -63,7 +63,7 @@ let tiles = [
     new Tile(18),
     new Tile(19),
     new Tile(20),
-]
+];
 
 let initialOffer = [
     tiles.pop(), tiles.pop(), tiles.pop()
@@ -98,7 +98,8 @@ function Game() {
         let tile = e.dragData.tile;
         let squares = playedHistory[playedHistory.length - 1].map(a => {return a.slice()})
 
-        // If the square is already occupied, don't allow a tile to be dropped there
+        // If the square or the overlapping one above/below is already occupied,
+        // don't allow a tile to be dropped there todo
         if (squares[row][column]) {
             return;
         }

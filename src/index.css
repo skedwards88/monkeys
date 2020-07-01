@@ -42,17 +42,15 @@ h2 {
 }
 
 .board {
-  /*todo min-width: 230px;*/
+    /*todo min-width: 230px;*/
+    max-height: 150px;
+    border: 1px solid black;
 }
-.board {
-}
-
 
 
 .board-row {
     display: table;
     position: relative;
-
 }
 
 .board-row:nth-child(1) {
@@ -77,12 +75,9 @@ h2 {
 }
 
 .droptarget {
-    outline: 1px solid #999;
     float: left;
     line-height: 34px;
     height: var(--square-diameter);
-    /*margin-right: -1px;*/
-    /*margin-top: -1px;*/
     padding: 0;
     width: var(--square-diameter);
     display: flex;
@@ -96,7 +91,8 @@ h2 {
 }
 
 .highlighted {
-    outline: 5px solid deepskyblue;
+    outline: 3px solid darkblue;
+    background-color: deepskyblue;
 
 }
 
