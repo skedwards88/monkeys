@@ -65,18 +65,68 @@ let tiles = [
     new Tile(20),
 ];
 
-let initialOffer = [
-    tiles.pop(), tiles.pop(), tiles.pop()
-];
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        let j = Math.floor(Math.random() * (i + 1));
+        let temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
+}
+
+const getInitialSetup = (num_rows, num_columns) => {
+    // Shuffle the tiles
+    const pool = tiles.slice();
+    shuffleArray(pool);
+
+    // Draw 3 tiles for the starting offer
+    let initialOffer = [
+        pool.pop(), pool.pop(), pool.pop()
+    ];
+
+    // Draw 4 tiles for the starting board
+    let initialTiles = [
+        pool.pop(), pool.pop(), pool.pop(), pool.pop()
+    ];
+
+    // Make the initial board
+    let startingBoard = Array.from({length: num_rows}, e => Array(num_columns).fill(null));
+    startingBoard[1][4] = initialTiles[0];
+    startingBoard[3][4] = initialTiles[1];
+    startingBoard[5][4] = initialTiles[2];
+    startingBoard[7][4] = initialTiles[3];
+
+    return([pool, initialOffer, startingBoard])
+};
+
 
 function Game() {
 
-    let num_rows = 5;
+    let num_rows = 9;
     let num_columns = 9;
-    // todo should randomize tiles at start of game
+
+    const [newGameRequested, setNewGameRequested] = useState(true);  // todo can I find a better way to do this?
+
+    let [pool, initialOffer, startingBoard] = [[],[],[]];
+
     const [offerHistory, setOffer] = useState([initialOffer]);
 
-    const [poolHistory, setPool] = useState([tiles]);
+    const [poolHistory, setPool] = useState([pool]);
+
+    const [playedHistory, setPlayed] = useState([startingBoard])
+    const [showRules, setShowRules] = useState(false);
+    const [currentRule, setCurrentRule] = useState(1);
+    const [redScore, setRedScore] = useState(0);
+    const [blueScore, setBlueScore] = useState(0);
+
+    if (newGameRequested) {
+        console.log('making new game');
+        setNewGameRequested(false);
+        [pool, initialOffer, startingBoard] = getInitialSetup(num_rows, num_columns);
+        setPlayed([startingBoard]);
+        setOffer([initialOffer]);
+        setPool([pool]);
+    }
 
     const drawTile = () => {
         let currentPool = poolHistory[poolHistory.length - 1].slice();
@@ -85,12 +135,6 @@ function Game() {
         setPool(newPoolHistory);
         return tile
     };
-
-    const [playedHistory, setPlayed] = useState([Array.from({length: num_rows}, e => Array(num_columns).fill(null))])
-    const [showRules, setShowRules] = useState(false);
-    const [currentRule, setCurrentRule] = useState(1);
-    const [redScore, setRedScore] = useState(0);
-    const [blueScore, setBlueScore] = useState(0);
 
     const handleDrop = (e) => {
         const row = e.dropData.row;
@@ -139,9 +183,11 @@ function Game() {
         setPool(newPoolHistory);
     };
 
-    const handleNewGame = (event) => {
-        const squaresHistory = playedHistory.slice(0,1);
-        setPlayed(squaresHistory);
+
+    const handleNewGame = () => {
+        console.log('new game requested');
+
+        setNewGameRequested(true);
     };
 
     const handleShow = (event) => {
@@ -201,8 +247,6 @@ function Game() {
 
         function createBoard() {
 
-            let num_rows = 5; // todo store in state instead
-            let num_columns = 9;
             let rows = [];
             for (let row_index = 0; row_index < num_rows; row_index++) {
                 let row = [];
