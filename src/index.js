@@ -153,12 +153,6 @@ function Game() {
         }
 
         //If the square does not touch a tile to the left or right, don't allow the drop
-        console.log(!squares[row][column + 1]);
-        console.log(!squares[row][column - 1]);
-        console.log(!(squares[row + 1] && squares[row + 1][column + 1]));
-        console.log(!(squares[row + 1] && squares[row + 1][column - 1]));
-        console.log(!(squares[row - 1] && squares[row - 1][column + 1]));
-        console.log(!(squares[row - 1] && squares[row - 1][column - 1]));
         if (
 !(            squares[row][column + 1] //
             || squares[row][column - 1]
