@@ -99,8 +99,12 @@ function Game() {
         let squares = playedHistory[playedHistory.length - 1].map(a => {return a.slice()})
 
         // If the square or the overlapping one above/below is already occupied,
-        // don't allow a tile to be dropped there todo
-        if (squares[row][column]) {
+        // don't allow a tile to be dropped there
+        if (
+            squares[row][column]
+            || (squares[row + 1] && squares[row + 1][column])
+            || (squares[row - 1] && squares[row - 1][column])
+        ){
             return;
         }
 
