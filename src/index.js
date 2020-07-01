@@ -2,68 +2,7 @@ import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import { DragDropContainer, DropTarget } from 'react-drag-drop-container';
-
-
-class Route {
-    constructor() {
-    }
-}
-
-class TileRoute {
-    constructor(head, tail, coconuts, redShips, blueShips, redAnchors, blueAnchors) {
-        this.head = head;
-        this.tail = tail;
-        this.coconuts = coconuts;
-        this.redShips = redShips;
-        this.blueShips = blueShips;
-        this.redAnchors = redAnchors;
-        this.blueAnchors = blueAnchors;
-    }
-}
-
-class Tile {
-    constructor(id, routes) {
-        this.id = id;
-        this.routes = routes;
-    }
-}
-
-class BoardRoute {
-    constructor(head, tail, coconuts, redShips, blueShips, redAnchors, blueAnchors) {
-        this.head = head;
-        this.tail = tail;
-        this.coconuts = coconuts;
-        this.redShips = redShips;
-        this.blueShips = blueShips;
-        this.redAnchors = redAnchors;
-        this.blueAnchors = blueAnchors;
-        this.score = 0;
-    }
-}
-
-// todo define tiles elsewhere and import them
-let tiles = [
-    new Tile(1),
-    new Tile(2),
-    new Tile(3),
-    new Tile(4),
-    new Tile(5),
-    new Tile(6),
-    new Tile(7),
-    new Tile(8),
-    new Tile(9),
-    new Tile(10),
-    new Tile(11),
-    new Tile(12),
-    new Tile(13),
-    new Tile(14),
-    new Tile(15),
-    new Tile(16),
-    new Tile(17),
-    new Tile(18),
-    new Tile(19),
-    new Tile(20),
-];
+import { tiles } from './tiles.js'
 
 function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
@@ -129,6 +68,7 @@ function Game() {
     }
 
     const drawTile = () => {
+        // Take a tile from the pool. Update the pool and return the tile.
         let currentPool = poolHistory[poolHistory.length - 1].slice();
         let tile = currentPool.pop();
         const newPoolHistory = poolHistory.concat([currentPool]);
@@ -154,13 +94,15 @@ function Game() {
 
         //If the square does not touch a tile to the left or right, don't allow the drop
         if (
-!(            squares[row][column + 1] //
-            || squares[row][column - 1]
-            || (squares[row + 1] && squares[row + 1][column + 1])
-            || (squares[row + 1] && squares[row + 1][column - 1])
-            || (squares[row - 1] && squares[row - 1][column + 1])
-            || (squares[row - 1] && squares[row - 1][column - 1])
-)        ) {
+            !(
+                squares[row][column + 1]
+                || squares[row][column - 1]
+                || (squares[row + 1] && squares[row + 1][column + 1])
+                || (squares[row + 1] && squares[row + 1][column - 1])
+                || (squares[row - 1] && squares[row - 1][column + 1])
+                || (squares[row - 1] && squares[row - 1][column - 1])
+            )
+        ) {
             return;
         }
 
@@ -168,8 +110,8 @@ function Game() {
         squares[row][column] = tile;
 
         // Update squares
-        let nh = playedHistory.concat([squares])
-        setPlayed(nh)
+        let newHistory = playedHistory.concat([squares]);
+        setPlayed(newHistory);
 
         // todo update routes
 
@@ -197,40 +139,24 @@ function Game() {
 
 
     const handleNewGame = () => {
-        console.log('new game requested');
-
         setNewGameRequested(true);
     };
 
     const handleShow = (event) => {
-
+        // todo
     };
 
-        // const history = this.state.history;
-        // const squaresHistory = history.squares.slice();
-        // let squares = squaresHistory[squaresHistory.length - 1].slice();
-        // const offerHistory = history.offer.slice();
-        // let offer = offerHistory[offerHistory.length - 1].slice();
-
-
-        // Calculate score, game over, etc.
+        // todo Calculate score, game over, etc.
 
     function Square(props) {
         let tile = props.tile;
         let className = tile ? "square filled tile"+tile.id : "square";
 
-        // todo figure out how to dictate tile image that should be displayed.
-        //  could just append id to class name and have css rule for each id
-        //  setting background image.
-        //  if tile is null, leave empty.
-        //  If can't be played, empty.
-        //  If tile, display.
         return (
             <div className={className}
                  onDragOver={props.onDragOver}
                  onDrop={props.onDrop}
-            >
-            </div>
+            />
         );
     }
 
