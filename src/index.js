@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import { DragDropContainer, DropTarget } from 'react-drag-drop-container';
-import { tiles } from './tiles.js'
+import { tiles, BoardRoute } from './tiles.js'
+// import {BoardRoute} from "./tiles";
 
 function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
@@ -13,13 +14,21 @@ function shuffleArray(array) {
     }
 }
 
+function getBoardNodesFromRowCol(row, column, num_columns) {
+    let top_left = (row * (num_columns + 1) + column);
+    let top_right = top_left + 1;
+    let bottom_left = top_left + num_columns + 1;
+    let bottom_right = bottom_left + 1;
+    return [top_left, top_right, bottom_left, bottom_right]
+}
+
 const getInitialSetup = (num_rows, num_columns) => {
     // Shuffle the tiles
     const pool = tiles.slice();
     shuffleArray(pool);
 
     // Draw 3 tiles for the starting offer
-    let initialOffer = [
+    let startingOffer = [
         pool.pop(), pool.pop(), pool.pop()
     ];
 
@@ -28,14 +37,33 @@ const getInitialSetup = (num_rows, num_columns) => {
         pool.pop(), pool.pop(), pool.pop(), pool.pop()
     ];
 
-    // Make the initial board
+    // Make the starting board
+    let startingPositions = [{row:1,column:4},{row:3,column:4},{row:5,column:4},{row:7,column:4}];
     let startingBoard = Array.from({length: num_rows}, e => Array(num_columns).fill(null));
-    startingBoard[1][4] = initialTiles[0];
-    startingBoard[3][4] = initialTiles[1];
-    startingBoard[5][4] = initialTiles[2];
-    startingBoard[7][4] = initialTiles[3];
+    initialTiles.forEach((tile, index) => {
+        let startingPosition = startingPositions[index];
+        startingBoard[startingPosition.row][startingPosition.column] = tile
+    });
 
-    return([pool, initialOffer, startingBoard])
+    // Calculate the routes present on the starting tiles
+    // (Right now, each route on the tile will be a unique route; don't need to worry about the tiles connecting)
+    let startingRoutes = [];
+    initialTiles.forEach((tile, index) => {
+        // Convert the row/col where the tile was placed to board node numbers
+        let startingPosition = startingPositions[index];
+        let board_nodes = getBoardNodesFromRowCol(startingPosition.row, startingPosition.column, num_columns);
+
+        // For each route on the tile, convert the tile-relative head/tail to board-relative head/tail
+        // and add the route to the starting routes
+        for (let route of tile.routes) {
+            let head = board_nodes[route.tile_head];
+            let tail = board_nodes[route.tile_tail];
+            let board_route = new BoardRoute({boardHead: head, boardTail: tail, tile_routes: [route]});
+            startingRoutes.push(board_route);
+        }
+    });
+
+    return([pool, startingOffer, startingBoard, startingRoutes])
 };
 
 
@@ -43,28 +71,25 @@ function Game() {
 
     let num_rows = 9;
     let num_columns = 9;
+    let [pool, startingOffer, startingBoard, startingRoutes] = [[],[],[], []];
 
     const [newGameRequested, setNewGameRequested] = useState(true);  // todo can I find a better way to do this?
-
-    let [pool, initialOffer, startingBoard] = [[],[],[]];
-
-    const [offerHistory, setOffer] = useState([initialOffer]);
-
+    const [offerHistory, setOffer] = useState([startingOffer]);
     const [poolHistory, setPool] = useState([pool]);
-
-    const [playedHistory, setPlayed] = useState([startingBoard])
+    const [playedHistory, setPlayed] = useState([startingBoard]);
+    const [routesHistory, setRoutes] = useState([startingRoutes]);
     const [showRules, setShowRules] = useState(false);
     const [currentRule, setCurrentRule] = useState(1);
     const [redScore, setRedScore] = useState(0);
     const [blueScore, setBlueScore] = useState(0);
 
     if (newGameRequested) {
-        console.log('making new game');
         setNewGameRequested(false);
-        [pool, initialOffer, startingBoard] = getInitialSetup(num_rows, num_columns);
-        setPlayed([startingBoard]);
-        setOffer([initialOffer]);
+        [pool, startingOffer, startingBoard, startingRoutes] = getInitialSetup(num_rows, num_columns);
         setPool([pool]);
+        setOffer([startingOffer]);
+        setPlayed([startingBoard]);
+        setRoutes([startingRoutes]);
     }
 
     const drawTile = () => {
@@ -113,9 +138,29 @@ function Game() {
         let newHistory = playedHistory.concat([squares]);
         setPlayed(newHistory);
 
-        // todo update routes
+        // Convert the row/col where the tile was placed to board node numbers
+        let board_nodes = getBoardNodesFromRowCol(row, column, num_columns);
 
-        // todo update score
+        // todo update routes
+        debugger;
+        let oldRoutes = routesHistory[routesHistory.length - 1].slice();
+        let routes = oldRoutes;  //TODO
+        // the tile is numbered 0,1,2,3. convert tile to the above
+        // merge with any existing board routes
+
+        let newRoutes = routesHistory.concat([routes]);
+        setRoutes(newRoutes);
+
+        // Update score  // in undo and new, need to reset score as well
+        let newRedScore = 0;
+        let newBlueScore = 0;
+        for (let route of routes) {
+            let score = route.score;
+            newRedScore += score.red;
+            newBlueScore += score.blue;
+        }
+        setRedScore(newRedScore);
+        setBlueScore(newBlueScore); // todo may want to make this a list as well for history. In undo, need to make sure undo.
 
         // Replenish offer
         let newTile = drawTile()
@@ -146,7 +191,7 @@ function Game() {
         // todo
     };
 
-        // todo Calculate score, game over, etc.
+    // todo Calculate score, game over, etc.
 
     function Square(props) {
         let tile = props.tile;
