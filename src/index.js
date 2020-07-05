@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import { DragDropContainer, DropTarget } from 'react-drag-drop-container';
-import { tiles, BoardRoute } from './tiles.js'
-// import {BoardRoute} from "./tiles";
+import { tiles, BoardRoute, Tile } from './tiles.js'
 
 function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
@@ -20,6 +19,17 @@ function getBoardNodesFromRowCol(row, column, num_columns) {
     let bottom_left = top_left + num_columns + 1;
     let bottom_right = bottom_left + 1;
     return [top_left, top_right, bottom_left, bottom_right]
+}
+
+function tallyScore(routes){
+    let newRedScore = 0;
+    let newBlueScore = 0;
+    for (let route of routes) {
+        let score = route.score;
+        newRedScore += score.red;
+        newBlueScore += score.blue;
+    }
+    return {red:newRedScore, blue:newBlueScore}
 }
 
 const getInitialSetup = (num_rows, num_columns) => {
@@ -63,7 +73,9 @@ const getInitialSetup = (num_rows, num_columns) => {
         }
     });
 
-    return([pool, startingOffer, startingBoard, startingRoutes])
+    let startingScore = tallyScore(startingRoutes);
+
+    return([pool, startingOffer, startingBoard, startingRoutes, startingScore])
 };
 
 
@@ -71,7 +83,7 @@ function Game() {
 
     let num_rows = 9;
     let num_columns = 9;
-    let [pool, startingOffer, startingBoard, startingRoutes] = [[],[],[], []];
+    let [pool, startingOffer, startingBoard, startingRoutes, startingScore] = [[],[],[], [], []];
 
     const [newGameRequested, setNewGameRequested] = useState(true);  // todo can I find a better way to do this?
     const [offerHistory, setOffer] = useState([startingOffer]);
@@ -80,16 +92,16 @@ function Game() {
     const [routesHistory, setRoutes] = useState([startingRoutes]);
     const [showRules, setShowRules] = useState(false);
     const [currentRule, setCurrentRule] = useState(1);
-    const [redScore, setRedScore] = useState(0);
-    const [blueScore, setBlueScore] = useState(0);
+    const [scoreHistory,setScore] = useState([startingScore]);
 
     if (newGameRequested) {
         setNewGameRequested(false);
-        [pool, startingOffer, startingBoard, startingRoutes] = getInitialSetup(num_rows, num_columns);
+        [pool, startingOffer, startingBoard, startingRoutes, startingScore] = getInitialSetup(num_rows, num_columns);
         setPool([pool]);
         setOffer([startingOffer]);
         setPlayed([startingBoard]);
         setRoutes([startingRoutes]);
+        setScore([startingScore]);
     }
 
     const drawTile = () => {
@@ -105,7 +117,7 @@ function Game() {
         const row = e.dropData.row;
         const column = e.dropData.column;
         let tile = e.dragData.tile;
-        let squares = playedHistory[playedHistory.length - 1].map(a => {return a.slice()})
+        let squares = playedHistory[playedHistory.length - 1].map(a => {return a.slice()});
 
         // If the square or the overlapping one above/below is already occupied,
         // don't allow a tile to be dropped there
@@ -117,7 +129,7 @@ function Game() {
             return;
         }
 
-        //If the square does not touch a tile to the left or right, don't allow the drop
+        // If the square does not touch a tile to the left or right, don't allow the drop
         if (
             !(
                 squares[row][column + 1]
@@ -142,7 +154,6 @@ function Game() {
         let board_nodes = getBoardNodesFromRowCol(row, column, num_columns);
 
         // todo update routes
-        debugger;
         let oldRoutes = routesHistory[routesHistory.length - 1].slice();
         let routes = oldRoutes;  //TODO
         // the tile is numbered 0,1,2,3. convert tile to the above
@@ -151,22 +162,18 @@ function Game() {
         let newRoutes = routesHistory.concat([routes]);
         setRoutes(newRoutes);
 
-        // Update score  // in undo and new, need to reset score as well
-        let newRedScore = 0;
-        let newBlueScore = 0;
-        for (let route of routes) {
-            let score = route.score;
-            newRedScore += score.red;
-            newBlueScore += score.blue;
-        }
-        setRedScore(newRedScore);
-        setBlueScore(newBlueScore); // todo may want to make this a list as well for history. In undo, need to make sure undo.
+        // Update score
+        let newScore = tallyScore(routes);
+        setScore(scoreHistory.concat([newScore]));
 
         // Replenish offer
-        let newTile = drawTile()
+        let newTile = drawTile();
         let offer_index = e.dragData.offer_index;
         let offer = offerHistory[offerHistory.length - 1].slice();
         offer[offer_index] = newTile;
+        if (offer.every(t => t === undefined)) {
+            alert("Game over!")
+        }
         let newOffer = offerHistory.concat([offer]);
         setOffer(newOffer);
     };
@@ -180,6 +187,9 @@ function Game() {
 
         const newPoolHistory = poolHistory.length > 1 ? poolHistory.slice(0,-1) : poolHistory.slice();
         setPool(newPoolHistory);
+
+        const newScoreHistory = scoreHistory.length > 1 ? scoreHistory.slice(0,-1) : scoreHistory.slice();
+        setScore(newScoreHistory);
     };
 
 
@@ -190,8 +200,6 @@ function Game() {
     const handleShow = (event) => {
         // todo
     };
-
-    // todo Calculate score, game over, etc.
 
     function Square(props) {
         let tile = props.tile;
@@ -296,10 +304,10 @@ function Game() {
                 <div className="score">
                     Score:
                     <div className="red-score">
-                        {redScore}
+                        {scoreHistory[scoreHistory.length-1].red}
                     </div>
                     <div className="blue-score">
-                        {blueScore}
+                        {scoreHistory[scoreHistory.length-1].blue}
                     </div>
                 </div>
                 <div className="offer-area">
