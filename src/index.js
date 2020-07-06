@@ -87,7 +87,7 @@ function updateRoutes(oldRoutes, tile, row, column, num_columns) {
         else if (head_match === tail_match) {
             head_match.boardHead = null;
             head_match.boardTail = null;
-            head_match.tile_routes.add(tile_route);
+            head_match.tile_routes.push(tile_route);
         }
         // Otherwise, head and tail match different routes; the routes are now joined.
         // Update head/tail on one route, add the new tile and the tiles from the other route, delete the other route
@@ -170,33 +170,32 @@ function Game() {
 
     let num_rows = 9;
     let num_columns = 9;
-    let [pool, startingOffer, startingBoard, startingRoutes, startingScore] = [[],[],[], [], []];
+    let [initialPool, startingOffer, startingBoard, startingRoutes, startingScore] = [[],[],[], [], []];
 
     const [newGameRequested, setNewGameRequested] = useState(true);  // todo can I find a better way to do this?
-    const [offerHistory, setOffer] = useState([startingOffer]);
-    const [poolHistory, setPool] = useState([pool]);
-    const [playedHistory, setPlayed] = useState([startingBoard]);
-    const [routesHistory, setRoutes] = useState([startingRoutes]);
+    const [offer, setOffer] = useState(startingOffer);
+    const [pool, setPool] = useState(initialPool);
+    const [played, setPlayed] = useState(startingBoard);
+    const [routes, setRoutes] = useState(startingRoutes);
     const [showRules, setShowRules] = useState(false);
     const [currentRule, setCurrentRule] = useState(1);
-    const [scoreHistory,setScore] = useState([startingScore]);
+    const [score,setScore] = useState(startingScore);
 
     if (newGameRequested) {
         setNewGameRequested(false);
-        [pool, startingOffer, startingBoard, startingRoutes, startingScore] = getInitialSetup(num_rows, num_columns);
-        setPool([pool]);
-        setOffer([startingOffer]);
-        setPlayed([startingBoard]);
-        setRoutes([startingRoutes]);
-        setScore([startingScore]);
+        [initialPool, startingOffer, startingBoard, startingRoutes, startingScore] = getInitialSetup(num_rows, num_columns);
+        setPool(initialPool);
+        setOffer(startingOffer);
+        setPlayed(startingBoard);
+        setRoutes(startingRoutes);
+        setScore(startingScore);
     }
 
     const drawTile = () => {
         // Take a tile from the pool. Update the pool and return the tile.
-        let currentPool = poolHistory[poolHistory.length - 1].slice();
-        let tile = currentPool.pop();
-        const newPoolHistory = poolHistory.concat([currentPool]);
-        setPool(newPoolHistory);
+        let newPool = pool.slice();
+        let tile = newPool.pop();
+        setPool(newPool);
         return tile
     };
 
@@ -204,7 +203,7 @@ function Game() {
         const row = e.dropData.row;
         const column = e.dropData.column;
         let tile = e.dragData.tile;
-        let squares = playedHistory[playedHistory.length - 1].map(a => {return a.slice()});
+        let squares = played.slice();
 
         // If the square or the overlapping one above/below is already occupied,
         // don't allow a tile to be dropped there
@@ -234,45 +233,27 @@ function Game() {
         squares[row][column] = tile;
 
         // Update squares
-        let newHistory = playedHistory.concat([squares]);
-        setPlayed(newHistory);
+        setPlayed(squares);
 
         // update routes
-        let oldRoutes = routesHistory[routesHistory.length - 1].slice();
-        let routes = updateRoutes(oldRoutes, tile, row, column, num_columns);
-        let newRoutes = routesHistory.concat([routes]);
+        let oldRoutes = routes.slice();
+        let newRoutes = updateRoutes(oldRoutes, tile, row, column, num_columns);
         setRoutes(newRoutes);
 
         // Update score
         let newScore = tallyScore(routes);
-        setScore(scoreHistory.concat([newScore]));
+        setScore(newScore);
 
         // Replenish offer
         let newTile = drawTile();
         let offer_index = e.dragData.offer_index;
-        let offer = offerHistory[offerHistory.length - 1].slice();
-        offer[offer_index] = newTile;
-        if (offer.every(t => t === undefined)) {
+        let newOffer = offer.slice();
+        newOffer[offer_index] = newTile;
+        if (newOffer.every(t => t === undefined)) {
             alert("Game over!")
         }
-        let newOffer = offerHistory.concat([offer]);
         setOffer(newOffer);
     };
-
-    const handleUndo = (event) => {
-        const newPlayedHistory = playedHistory.length > 1 ? playedHistory.slice(0,-1) : playedHistory.slice();
-        setPlayed(newPlayedHistory);
-
-        const newOfferHistory = offerHistory.length > 1 ? offerHistory.slice(0,-1) : offerHistory.slice();
-        setOffer(newOfferHistory);
-
-        const newPoolHistory = poolHistory.length > 1 ? poolHistory.slice(0,-1) : poolHistory.slice();
-        setPool(newPoolHistory);
-
-        const newScoreHistory = scoreHistory.length > 1 ? scoreHistory.slice(0,-1) : scoreHistory.slice();
-        setScore(newScoreHistory);
-    };
-
 
     const handleNewGame = () => {
         setNewGameRequested(true);
@@ -297,9 +278,7 @@ function Game() {
     function Board() {
 
         function renderTile(row, column) {
-
-            const squaresHistory = playedHistory.slice();
-            let squares = squaresHistory[squaresHistory.length - 1].map(a => {return a.slice()});
+            let squares = played.slice();
             const tile = squares[row][column];
             return (
                 <DropTarget
@@ -341,7 +320,7 @@ function Game() {
 
         function renderOfferTile(offer_index) {
 
-            const currentOffer = offerHistory[offerHistory.length - 1];
+            const currentOffer = offer.slice();
             const tile = currentOffer[offer_index];
             let className = tile ? "square filled tile"+tile.id+" offer" : "square offer";
             return (
@@ -385,18 +364,17 @@ function Game() {
                 <div className="score">
                     Score:
                     <div className="red-score">
-                        {scoreHistory[scoreHistory.length-1].red}
+                        {score.red}
                     </div>
                     <div className="blue-score">
-                        {scoreHistory[scoreHistory.length-1].blue}
+                        {score.blue}
                     </div>
                 </div>
                 <div className="offer-area">
                     <Offer/>
-                    {Math.max(0, poolHistory[poolHistory.length-1].length)} remaining
+                    {Math.max(0, pool.length)} remaining
                 </div>
                 <div className="controls">
-                    <button onClick={handleUndo}>Undo</button>
                     <button onClick={handleNewGame}>New</button>
                     <button onClick={handleShow}>Rules</button>
                 </div>
