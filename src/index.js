@@ -21,6 +21,93 @@ function getBoardNodesFromRowCol(row, column, num_columns) {
     return [top_left, top_right, bottom_left, bottom_right]
 }
 
+function updateRoutes(oldRoutes, tile, row, column, num_columns) {
+
+    // Convert the row/col where the tile was placed to board node numbers
+    let board_nodes = getBoardNodesFromRowCol(row, column, num_columns);
+
+    // For each route on the tile:
+    for (let tile_route of tile.routes) {
+
+        // Convert the tile head/tail (0,1,2,3, or null) to be the corresponding board node
+        let converted_tile_head = typeof(tile_route.tile_head)==="number" ? board_nodes[tile_route.tile_head] : null;
+        let converted_tile_tail = typeof(tile_route.tile_tail)==="number" ? board_nodes[tile_route.tile_tail] : null;
+
+        // Find if there is an existing board route that matches the tile route head/tail
+        // There will be max 1 route match for head and tail each
+        let head_match = null;
+        let tail_match = null;
+
+        for (let board_route of oldRoutes) {
+            // If there is a head on the tile route and we haven't found a head match
+            // and the board route head or tail matches the tile route head
+            if (converted_tile_head
+                && !head_match
+                && (board_route.boardHead === converted_tile_head || board_route.boardTail === converted_tile_head)) {
+                head_match = board_route
+            }
+            // If there is a tail on the tile route and we haven't found a tail match
+            // and the board route head or tail matches the tile route head
+            if (converted_tile_tail
+                && !tail_match
+                && (board_route.boardHead === converted_tile_tail || board_route.boardTail === converted_tile_tail)) {
+                tail_match = board_route
+            }
+            // If we found all possible matches, exit.
+            // (There will be a max 1 route matching the head and 1 matching the tail.)
+            if (
+                ((converted_tile_head && head_match) || !converted_tile_head)
+                && ((converted_tile_tail && tail_match) || !converted_tile_tail)
+            ) {
+                break;
+            }
+        }
+
+        // If no match found for the tile route head or tail, add the tile route as a new board route
+        if (!head_match && !tail_match) {
+            let newRoute = new BoardRoute({
+                boardHead:converted_tile_head,
+                boardTail:converted_tile_tail,
+                tile_routes:[tile_route]});
+            oldRoutes.push(newRoute);
+        }
+        // If only a head or tail (but not both) match was found,
+        // update the matching board route head/tail with the head/tail non-match and update the board route members
+        else if ((head_match && !tail_match) || (tail_match && !head_match)) {
+            let match = head_match ? head_match : tail_match; // todo is there a better way?
+            if (match.boardHead === converted_tile_head) {
+                match.boardHead = converted_tile_tail
+            } else {
+                match.boardTail = converted_tile_head
+            }
+            match.tile_routes.push(tile_route)
+        }
+        // If head and tail match the same board route, the route is now a loop.
+        // Set the route head/tail to null and update the board route members
+        else if (head_match === tail_match) {
+            head_match.boardHead = null;
+            head_match.boardTail = null;
+            head_match.tile_routes.add(tile_route);
+        }
+        // Otherwise, head and tail match different routes; the routes are now joined.
+        // Update head/tail on one route, add the new tile and the tiles from the other route, delete the other route
+        else {
+            let newHead = ((head_match.boardHead === converted_tile_head) || (head_match.boardHead === converted_tile_tail)) ? head_match.boardTail : head_match.boardHead;
+            let newTail = ((tail_match.boardHead === converted_tile_head) || (tail_match.boardHead === converted_tile_tail)) ? tail_match.boardTail : tail_match.boardHead;
+            head_match.boardHead = newHead;
+            head_match.boardTail = newTail;
+
+            head_match.tile_routes = head_match.tile_routes.concat(tail_match.tile_routes);
+            head_match.tile_routes.push(tile_route);
+
+            let indexToDelete = oldRoutes.indexOf(tail_match);
+            oldRoutes.splice(indexToDelete, 1);
+        }
+    }
+    console.log(oldRoutes);
+    return oldRoutes
+}
+
 function tallyScore(routes){
     let newRedScore = 0;
     let newBlueScore = 0;
@@ -150,15 +237,9 @@ function Game() {
         let newHistory = playedHistory.concat([squares]);
         setPlayed(newHistory);
 
-        // Convert the row/col where the tile was placed to board node numbers
-        let board_nodes = getBoardNodesFromRowCol(row, column, num_columns);
-
-        // todo update routes
+        // update routes
         let oldRoutes = routesHistory[routesHistory.length - 1].slice();
-        let routes = oldRoutes;  //TODO
-        // the tile is numbered 0,1,2,3. convert tile to the above
-        // merge with any existing board routes
-
+        let routes = updateRoutes(oldRoutes, tile, row, column, num_columns);
         let newRoutes = routesHistory.concat([routes]);
         setRoutes(newRoutes);
 
