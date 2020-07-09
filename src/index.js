@@ -2,7 +2,19 @@ import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import { DragDropContainer, DropTarget } from 'react-drag-drop-container';
-import { tiles, BoardRoute, Tile } from './tiles.js'
+import { tiles, BoardRoute } from './tiles.js'
+
+
+// would like draw pile to visually reflect number left
+// make offer on side for screen size less that x
+// make variables pascal not snake case
+// TESTS!
+// lock in place? Or center to mouse?
+// add rules
+// add rule images/animations
+// able to build images through css? worth it? able to have layer images for chest and anchors on/off instead?
+// resolve errors/warnings in console
+// todo items
 
 function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
