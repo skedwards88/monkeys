@@ -41,7 +41,8 @@ export function shuffleArray(array) {
     }
 }
 
-function getBoardNodesFromRowCol(row, column, num_columns) {
+export function getBoardNodesFromRowCol(row, column, num_columns) {
+    // Convert a 0-indexed row/column to 0-indexed corner numbers of that row/column square in a grid
     let top_left = (row * (num_columns + 1) + column);
     let top_right = top_left + 1;
     let bottom_left = top_left + num_columns + 1;
