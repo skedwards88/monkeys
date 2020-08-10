@@ -198,10 +198,13 @@ function updateRoutes(boardRoutes, tile, row, column, num_columns) {
 }
 
 function tallyScore(routes){
+    console.log("tallying");
     let newRedScore = 0;
     let newBlueScore = 0;
     for (let route of routes) {
         let score = route.score;
+        console.log(score.red);
+        console.log(score.blue);
         newRedScore += score.red;
         newBlueScore += score.blue;
     }
@@ -330,7 +333,7 @@ function Game() {
         setRoutes(newRoutes);
 
         // Update score
-        let newScore = tallyScore(routes);
+        let newScore = tallyScore(newRoutes);
         setScore(newScore);
 
         // Replenish offer
