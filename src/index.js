@@ -17,6 +17,7 @@ import { tiles, BoardRoute } from './tiles.js'
 // resolve errors/warnings in console
 // make favicon
 // check color accessibility
+// When resize screen too small, board gets jumbled. either restrict min size or after a certain point, start shrinking the squares
 
 export function shuffleArray(array) {
     // Swap each value in an array, starting at the end of the array, with a position equal or earlier in the array.
@@ -193,18 +194,15 @@ function updateRoutes(boardRoutes, tile, row, column, num_columns) {
 
         }
     }
-    console.log(boardRoutes);
     return boardRoutes
 }
 
-function tallyScore(routes){
-    console.log("tallying");
+export function tallyScore(routes){
+    debugger;
     let newRedScore = 0;
     let newBlueScore = 0;
     for (let route of routes) {
         let score = route.score;
-        console.log(score.red);
-        console.log(score.blue);
         newRedScore += score.red;
         newBlueScore += score.blue;
     }
