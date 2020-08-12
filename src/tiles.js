@@ -1,7 +1,7 @@
 export class TileRoute {
     constructor({
-                    tile_head=null,
-                    tile_tail=null,
+                    tileHead=null,
+                    tileTail=null,
                     coconuts=0,
                     chests=0,
                     redShips=0,
@@ -12,8 +12,8 @@ export class TileRoute {
         // head and tail will be coordinates (0,0) to (1,1) which will be converted to an int referring to board
         // placement once placed.
         // Head or tail may be null if the route terminates.
-        this.tile_head = tile_head;
-        this.tile_tail = tile_tail;
+        this.tileHead = tileHead;
+        this.tileTail = tileTail;
 
         // The number of each type of feature on the route
         this.coconuts = coconuts;
@@ -36,14 +36,14 @@ export class BoardRoute {
     constructor({
                     boardHead=null,
                     boardTail=null,
-                    tile_routes=[],
+                    tileRoutes=[],
                 }) {
         // head and tail are ints corresponding to location on the board.
         // Head and/or tail may be null if the route terminates.
         this.boardHead = boardHead;
         this.boardTail = boardTail;
 
-        this.tile_routes = tile_routes;
+        this.tileRoutes = tileRoutes;
     }
 
     // Getter
@@ -59,21 +59,21 @@ export class BoardRoute {
         let blueShips = 0;
         let redAnchors = 0;
         let blueAnchors = 0;
-        for (let tile_route of this.tile_routes) {
-            coconuts += tile_route.coconuts;
-            chests += tile_route.chests;
-            redShips += tile_route.redShips;
-            blueShips += tile_route.blueShips;
-            redAnchors += tile_route.redAnchors;
-            blueAnchors += tile_route.blueAnchors;
+        for (let tileRoute of this.tileRoutes) {
+            coconuts += tileRoute.coconuts;
+            chests += tileRoute.chests;
+            redShips += tileRoute.redShips;
+            blueShips += tileRoute.blueShips;
+            redAnchors += tileRoute.redAnchors;
+            blueAnchors += tileRoute.blueAnchors;
         }
 
         let value = chests ? coconuts * 2 : coconuts;
-        let num_red = redAnchors ? redShips * 2 : redShips;
-        let num_blue = blueAnchors ? blueShips * 2 : blueShips;
-        if (num_blue > num_red) {
+        let numRed = redAnchors ? redShips * 2 : redShips;
+        let numBlue = blueAnchors ? blueShips * 2 : blueShips;
+        if (numBlue > numRed) {
             return {red: 0, blue: value};
-        } else if (num_red > num_blue) {
+        } else if (numRed > numBlue) {
             return {red: value, blue: 0};
         } else {
             return {red: 0, blue: 0};
@@ -86,13 +86,13 @@ export const tiles = [
         id: 1,
         routes: [
             new TileRoute({
-                tile_head: 0,
-                tile_tail: 2,
+                tileHead: 0,
+                tileTail: 2,
                 coconuts: 1,
             }),
             new TileRoute({
-                tile_head: 1,
-                tile_tail: 3,
+                tileHead: 1,
+                tileTail: 3,
                 coconuts: 1,
             }),
         ]
@@ -101,19 +101,19 @@ export const tiles = [
         id:2,
         routes:[
             new TileRoute({
-                tile_head: 0,
-                tile_tail: null,
+                tileHead: 0,
+                tileTail: null,
                 blueShips: 1,
             }),
             new TileRoute({
-                tile_head: 1,
-                tile_tail: 2,
+                tileHead: 1,
+                tileTail: 2,
                 coconuts: 1,
                 redShips: 1,
             }),
             new TileRoute({
-                tile_head: 3,
-                tile_tail: null,
+                tileHead: 3,
+                tileTail: null,
                 blueAnchors: 1
             }),
         ]
@@ -122,13 +122,13 @@ export const tiles = [
         id:3,
         routes:[
             new TileRoute({
-                tile_head: 0,
-                tile_tail: 1,
+                tileHead: 0,
+                tileTail: 1,
                 chests: 1,
             }),
             new TileRoute({
-                tile_head: 2,
-                tile_tail: 3,
+                tileHead: 2,
+                tileTail: 3,
                 blueShips: 2,
             }),
         ]
@@ -137,18 +137,18 @@ export const tiles = [
         id:4,
         routes:[
             new TileRoute({
-                tile_head: 0,
-                tile_tail: null,
+                tileHead: 0,
+                tileTail: null,
                 coconuts: 1
             }),
             new TileRoute({
-                tile_head: 2,
-                tile_tail: null,
+                tileHead: 2,
+                tileTail: null,
                 blueAnchors: 1,
             }),
             new TileRoute({
-                tile_head: 1,
-                tile_tail: 3,
+                tileHead: 1,
+                tileTail: 3,
                 redShips: 1,
             }),
         ]
@@ -157,18 +157,18 @@ export const tiles = [
         id:5,
         routes:[
             new TileRoute({
-                tile_head: 0,
-                tile_tail: null,
+                tileHead: 0,
+                tileTail: null,
                 coconuts: 1,
             }),
             new TileRoute({
-                tile_head: 1,
-                tile_tail: 2,
+                tileHead: 1,
+                tileTail: 2,
                 redShips: 1,
             }),
             new TileRoute({
-                tile_head: 3,
-                tile_tail: null,
+                tileHead: 3,
+                tileTail: null,
                 coconuts: 2,
             }),
         ]
@@ -177,18 +177,18 @@ export const tiles = [
         id:6,
         routes:[
             new TileRoute({
-                tile_head: 0,
-                tile_tail: 1,
+                tileHead: 0,
+                tileTail: 1,
                 coconuts: 2,
             }),
             new TileRoute({
-                tile_head: null,
-                tile_tail: 2,
+                tileHead: null,
+                tileTail: 2,
                 redShips: 1,
             }),
             new TileRoute({
-                tile_head: 3,
-                tile_tail: null,
+                tileHead: 3,
+                tileTail: null,
                 blueShips: 1,
             }),
         ]
@@ -197,18 +197,18 @@ export const tiles = [
         id:7,
         routes:[
             new TileRoute({
-                tile_head: 0,
-                tile_tail: 2,
+                tileHead: 0,
+                tileTail: 2,
                 redShips: 1,
             }),
             new TileRoute({
-                tile_head: 1,
-                tile_tail: null,
+                tileHead: 1,
+                tileTail: null,
                 coconuts: 1,
             }),
             new TileRoute({
-                tile_head: 3,
-                tile_tail: null,
+                tileHead: 3,
+                tileTail: null,
                 redShips: 1
             }),
         ]
@@ -217,13 +217,13 @@ export const tiles = [
         id:8,
         routes:[
             new TileRoute({
-                tile_head: 0,
-                tile_tail: 3,
+                tileHead: 0,
+                tileTail: 3,
                 blueShips: 1,
             }),
             new TileRoute({
-                tile_head: 1,
-                tile_tail: 2,
+                tileHead: 1,
+                tileTail: 2,
                 redShips: 1,
             }),
         ]
@@ -232,19 +232,19 @@ export const tiles = [
         id:9,
         routes:[
             new TileRoute({
-                tile_head: 0,
-                tile_tail: 3,
+                tileHead: 0,
+                tileTail: 3,
                 blueShips: 1,
                 coconuts: 1,
             }),
             new TileRoute({
-                tile_head: null,
-                tile_tail: 2,
+                tileHead: null,
+                tileTail: 2,
                 redAnchors: 1,
             }),
             new TileRoute({
-                tile_head: 1,
-                tile_tail: null,
+                tileHead: 1,
+                tileTail: null,
                 redShips: 1,
             }),
         ]
@@ -253,18 +253,18 @@ export const tiles = [
         id:10,
         routes:[
             new TileRoute({
-                tile_head: 0,
-                tile_tail: null,
+                tileHead: 0,
+                tileTail: null,
                 redShips: 1,
             }),
             new TileRoute({
-                tile_head: 1,
-                tile_tail: null,
+                tileHead: 1,
+                tileTail: null,
                 redAnchors: 1,
             }),
             new TileRoute({
-                tile_head: 2,
-                tile_tail: 3,
+                tileHead: 2,
+                tileTail: 3,
                 coconuts: 1,
                 chests: 1,
             }),
@@ -274,16 +274,16 @@ export const tiles = [
         id:11,
         routes:[
             new TileRoute({
-                tile_head: 0,
+                tileHead: 0,
                 blueAnchors: 1,
             }),
             new TileRoute({
-                tile_head: 1,
+                tileHead: 1,
                 blueShips: 1,
             }),
             new TileRoute({
-                tile_head: 2,
-                tile_tail: 3,
+                tileHead: 2,
+                tileTail: 3,
                 redShips: 1,
                 coconuts: 1,
             }),
@@ -293,16 +293,16 @@ export const tiles = [
         id:12,
         routes:[
             new TileRoute({
-                tile_head: 0,
-                tile_tail: 3,
+                tileHead: 0,
+                tileTail: 3,
                 redShips: 2,
             }),
             new TileRoute({
-                tile_head: 1,
+                tileHead: 1,
                 blueAnchors: 1,
             }),
             new TileRoute({
-                tile_head: 2,
+                tileHead: 2,
                 coconuts: 1,
             }),
         ]
@@ -311,13 +311,13 @@ export const tiles = [
         id:13,
         routes:[
             new TileRoute({
-                tile_head: 0,
-                tile_tail: 3,
+                tileHead: 0,
+                tileTail: 3,
                 redShips: 1,
             }),
             new TileRoute({
-                tile_head: 1,
-                tile_tail: 2,
+                tileHead: 1,
+                tileTail: 2,
                 coconuts: 2,
             }),
         ]
@@ -326,16 +326,16 @@ export const tiles = [
         id:14,
         routes:[
             new TileRoute({
-                tile_head: 0,
-                tile_tail: 2,
+                tileHead: 0,
+                tileTail: 2,
                 blueShips: 1,
             }),
             new TileRoute({
-                tile_head: 1,
+                tileHead: 1,
                 coconuts: 1,
             }),
             new TileRoute({
-                tile_head: 3,
+                tileHead: 3,
                 redAnchors: 1,
             }),
         ]
@@ -344,13 +344,13 @@ export const tiles = [
         id:15,
         routes:[
             new TileRoute({
-                tile_head: 0,
-                tile_tail: 1,
+                tileHead: 0,
+                tileTail: 1,
                 coconuts: 2,
             }),
             new TileRoute({
-                tile_head: 2,
-                tile_tail: 3,
+                tileHead: 2,
+                tileTail: 3,
                 chests: 1,
             }),
         ]
@@ -359,16 +359,16 @@ export const tiles = [
         id:16,
         routes:[
             new TileRoute({
-                tile_head: 0,
+                tileHead: 0,
                 coconuts: 2,
             }),
             new TileRoute({
-                tile_head: 1,
-                tile_tail: 2,
+                tileHead: 1,
+                tileTail: 2,
                 blueShips: 1,
             }),
             new TileRoute({
-                tile_head: 3,
+                tileHead: 3,
                 coconuts: 1,
             }),
         ]
@@ -377,16 +377,16 @@ export const tiles = [
         id:17,
         routes:[
             new TileRoute({
-                tile_head: 0,
+                tileHead: 0,
                 coconuts: 1,
             }),
             new TileRoute({
-                tile_head: 2,
+                tileHead: 2,
                 blueShips: 1,
             }),
             new TileRoute({
-                tile_head: 1,
-                tile_tail: 3,
+                tileHead: 1,
+                tileTail: 3,
                 blueShips: 1,
             }),
         ]
@@ -395,13 +395,13 @@ export const tiles = [
         id:18,
         routes:[
             new TileRoute({
-                tile_head: 0,
-                tile_tail: 3,
+                tileHead: 0,
+                tileTail: 3,
                 coconuts: 2,
             }),
             new TileRoute({
-                tile_head: 1,
-                tile_tail: 2,
+                tileHead: 1,
+                tileTail: 2,
                 blueShips: 1,
             }),
         ]
@@ -410,16 +410,16 @@ export const tiles = [
         id:19,
         routes:[
             new TileRoute({
-                tile_head: 0,
+                tileHead: 0,
                 redAnchors: 1,
             }),
             new TileRoute({
-                tile_head: 1,
-                tile_tail: 2,
+                tileHead: 1,
+                tileTail: 2,
                 blueShips: 2,
             }),
             new TileRoute({
-                tile_head: 3,
+                tileHead: 3,
                 coconuts: 1,
             }),
         ]
@@ -428,13 +428,13 @@ export const tiles = [
         id: 20,
         routes: [
             new TileRoute({
-                tile_head: 0,
-                tile_tail: 1,
+                tileHead: 0,
+                tileTail: 1,
                 chests: 1,
             }),
             new TileRoute({
-                tile_head: 2,
-                tile_tail: 3,
+                tileHead: 2,
+                tileTail: 3,
                 redShips: 2,
             }),
         ]

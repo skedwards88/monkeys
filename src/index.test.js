@@ -27,7 +27,7 @@ test.skip("getBoardNodesFromRowCol", () => {
 test.skip("tallyScore: If a board route is tied, neither player receives points", () => {
 
     let routes = [
-        new BoardRoute({tile_routes:[
+        new BoardRoute({tileRoutes:[
                     new TileRoute({
                         coconuts: 2,
                         chests: 0,
@@ -55,7 +55,7 @@ test.skip("tallyScore: If a board route is tied, neither player receives points"
 test.skip("tallyScore: If the score is tied overall but players earned points for separate routes, the points are displayed:", () => {
 
     let routes = [
-        new BoardRoute({tile_routes:[
+        new BoardRoute({tileRoutes:[
 
                     new TileRoute({
                         coconuts: 2,
@@ -74,7 +74,7 @@ test.skip("tallyScore: If the score is tied overall but players earned points fo
                         blueAnchors: 0,
                     }),
             ]}),
-        new BoardRoute({tile_routes:[
+        new BoardRoute({tileRoutes:[
                     new TileRoute({
                         coconuts: 2,
                         chests: 0,

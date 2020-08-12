@@ -42,62 +42,62 @@ export function shuffleArray(array) {
     }
 }
 
-export function getBoardNodesFromRowCol(row, column, num_columns) {
+export function getBoardNodesFromRowCol(row, column, numColumns) {
     // Convert a 0-indexed row/column to 0-indexed corner numbers of that row/column square in a grid
-    let top_left = (row * (num_columns + 1) + column);
-    let top_right = top_left + 1;
-    let bottom_left = top_left + num_columns + 1;
-    let bottom_right = bottom_left + 1;
-    return [top_left, top_right, bottom_left, bottom_right]
+    let topLeft = (row * (numColumns + 1) + column);
+    let topRight = topLeft + 1;
+    let bottomLeft = topLeft + numColumns + 1;
+    let bottomRight = bottomLeft + 1;
+    return [topLeft, topRight, bottomLeft, bottomRight]
 }
 
-function updateRoutes(boardRoutes, tile, row, column, num_columns) {
+function updateRoutes(boardRoutes, tile, row, column, numColumns) {
 
     // Convert the row/col where the tile was placed to numbers describing the corner positions ("nodes") of the tile
-    let board_nodes = getBoardNodesFromRowCol(row, column, num_columns);
+    let boardNodes = getBoardNodesFromRowCol(row, column, numColumns);
 
     // For each route on the placed tile:
-    for (let tile_route of tile.routes) {
-        console.log('Tile route: ', tile_route.tile_head, tile_route.tile_tail);
+    for (let tileRoute of tile.routes) {
+        console.log('Tile route: ', tileRoute.tileHead, tileRoute.tileTail);
 
         // Convert the tile head/tail (0, 1, 2, 3, or null) to the corresponding board node
-        let converted_tile_head = typeof(tile_route.tile_head)==="number" ? board_nodes[tile_route.tile_head] : null;
-        let converted_tile_tail = typeof(tile_route.tile_tail)==="number" ? board_nodes[tile_route.tile_tail] : null;
-        console.log('converted nodes: ', converted_tile_head, converted_tile_tail);
+        let convertedTileHead = typeof(tileRoute.tileHead)==="number" ? boardNodes[tileRoute.tileHead] : null;
+        let convertedTileTail = typeof(tileRoute.tileTail)==="number" ? boardNodes[tileRoute.tileTail] : null;
+        console.log('converted nodes: ', convertedTileHead, convertedTileTail);
 
         //
         // Find if there is an existing board route that matches the tile route head/tail
         // There will be max 1 route match for head and tail each
         //
-        let head_match = null;
-        let tail_match = null;
+        let headMatch = null;
+        let tailMatch = null;
 
-        for (let board_route of boardRoutes) {
+        for (let boardRoute of boardRoutes) {
             // If there is a head on the tile route
             // and we haven't found a head match
             // and the board route head or tail position matches the position of the tile route head
             // record the board route as the head match
-            if (converted_tile_head
-                && !head_match
-                && (board_route.boardHead === converted_tile_head || board_route.boardTail === converted_tile_head)) {
-                head_match = board_route
+            if (convertedTileHead
+                && !headMatch
+                && (boardRoute.boardHead === convertedTileHead || boardRoute.boardTail === convertedTileHead)) {
+                headMatch = boardRoute
             }
 
             // If there is a tail on the tile route
             // and we haven't found a tail match
             // and the board route head or tail position matches the position of the tile route tail
             // record the board route as the tail match
-            if (converted_tile_tail
-                && !tail_match
-                && (board_route.boardHead === converted_tile_tail || board_route.boardTail === converted_tile_tail)) {
-                tail_match = board_route
+            if (convertedTileTail
+                && !tailMatch
+                && (boardRoute.boardHead === convertedTileTail || boardRoute.boardTail === convertedTileTail)) {
+                tailMatch = boardRoute
             }
 
             // If all possible matches have been found, exit.
             // (There will be a max 1 route matching the head and 1 matching the tail.)
             if (
-                (head_match || !converted_tile_head)
-                && (tail_match || !converted_tile_tail)
+                (headMatch || !convertedTileHead)
+                && (tailMatch || !convertedTileTail)
             ) {
                 break;
             }
@@ -105,55 +105,55 @@ function updateRoutes(boardRoutes, tile, row, column, num_columns) {
 
         // If no match was found for the tile route head or tail,
         // add the tile route as a new board route
-        if (!head_match && !tail_match) {
+        if (!headMatch && !tailMatch) {
             console.log('New route: ');
             let newRoute = new BoardRoute({
-                boardHead:converted_tile_head,
-                boardTail:converted_tile_tail,
-                tile_routes:[tile_route]});
+                boardHead:convertedTileHead,
+                boardTail:convertedTileTail,
+                tileRoutes:[tileRoute]});
             boardRoutes.push(newRoute);
         }
 
         // If only a head or tail (but not both) match was found,
         // update the matching board route head/tail with the head/tail non-match
         // and update the board route members
-        else if ((head_match && !tail_match) || (tail_match && !head_match)) {
+        else if ((headMatch && !tailMatch) || (tailMatch && !headMatch)) {
             console.log('Append route: ');
 
             // Get the matching board route
-            let matchingRoute = head_match ? head_match : tail_match;
-            console.log("appending to: ", matchingRoute, matchingRoute.boardHead, matchingRoute.boardTail, matchingRoute.tile_routes.slice());
+            let matchingRoute = headMatch ? headMatch : tailMatch;
+            console.log("appending to: ", matchingRoute, matchingRoute.boardHead, matchingRoute.boardTail, matchingRoute.tileRoutes.slice());
 
             // If the board route matched at the head of the tile route,
             // the tile tail will replace the board route head or tail
             // Otherwise, the tile head will replace the board route head or tail
-            let new_value = head_match ? converted_tile_tail : converted_tile_head;
+            let newValue = headMatch ? convertedTileTail : convertedTileHead;
 
             // Find the node where the board route joins the tile route
-            let matching_value = head_match ? converted_tile_head : converted_tile_tail;
+            let matchingValue = headMatch ? convertedTileHead : convertedTileTail;
 
             // Update the board route head or tail (whichever joins to the new tile) to be the new value
-            matchingRoute.boardHead === matching_value ?
-                matchingRoute.boardHead = new_value :
-                matchingRoute.boardTail = new_value;
+            matchingRoute.boardHead === matchingValue ?
+                matchingRoute.boardHead = newValue :
+                matchingRoute.boardTail = newValue;
 
             // Add the new tile to the route
-            matchingRoute.tile_routes.push(tile_route);
-            console.log("post append: ", matchingRoute, matchingRoute.boardHead, matchingRoute.boardTail, matchingRoute.tile_routes.slice());
+            matchingRoute.tileRoutes.push(tileRoute);
+            console.log("post append: ", matchingRoute, matchingRoute.boardHead, matchingRoute.boardTail, matchingRoute.tileRoutes.slice());
 
         }
 
         // If head and tail match the same board route, the route is now a loop.
         // Set the route head/tail to null
         // and update the board route members
-        else if (head_match === tail_match) {
+        else if (headMatch === tailMatch) {
             console.log('Loop: ');
-            console.log("looping to: ", head_match, head_match.boardHead, head_match.boardTail, head_match.tile_routes.slice());
+            console.log("looping to: ", headMatch, headMatch.boardHead, headMatch.boardTail, headMatch.tileRoutes.slice());
 
-            head_match.boardHead = null;
-            head_match.boardTail = null;
-            head_match.tile_routes.push(tile_route);
-            console.log("post loop: ", head_match, head_match.boardHead, head_match.boardTail, head_match.tile_routes.slice());
+            headMatch.boardHead = null;
+            headMatch.boardTail = null;
+            headMatch.tileRoutes.push(tileRoute);
+            console.log("post loop: ", headMatch, headMatch.boardHead, headMatch.boardTail, headMatch.tileRoutes.slice());
 
         }
 
@@ -165,32 +165,32 @@ function updateRoutes(boardRoutes, tile, row, column, num_columns) {
             console.log('Join: ');
 
             // For both matching board routes, set the terminus that doesn't connect to the new tile to be the new head/tail
-            let newHead = ((head_match.boardHead === converted_tile_head) || (head_match.boardHead === converted_tile_tail)) ?
-                head_match.boardTail :
-                head_match.boardHead;
-            let newTail = ((tail_match.boardHead === converted_tile_head) || (tail_match.boardHead === converted_tile_tail)) ?
-                tail_match.boardTail :
-                tail_match.boardHead;
+            let newHead = ((headMatch.boardHead === convertedTileHead) || (headMatch.boardHead === convertedTileTail)) ?
+                headMatch.boardTail :
+                headMatch.boardHead;
+            let newTail = ((tailMatch.boardHead === convertedTileHead) || (tailMatch.boardHead === convertedTileTail)) ?
+                tailMatch.boardTail :
+                tailMatch.boardHead;
 
             // Arbitrarily keep the "head route" as the base route
 
-            console.log("join 1: ", head_match, head_match.boardHead, head_match.boardTail, head_match.tile_routes.slice());
-            console.log("join 2: ", tail_match, tail_match.boardHead, tail_match.boardTail, tail_match.tile_routes.slice());
+            console.log("join 1: ", headMatch, headMatch.boardHead, headMatch.boardTail, headMatch.tileRoutes.slice());
+            console.log("join 2: ", tailMatch, tailMatch.boardHead, tailMatch.boardTail, tailMatch.tileRoutes.slice());
 
 
             // Update the head and tail
-            head_match.boardHead = newHead;
-            head_match.boardTail = newTail;
+            headMatch.boardHead = newHead;
+            headMatch.boardTail = newTail;
 
             // Update the tiles in the route
-            head_match.tile_routes = head_match.tile_routes.concat(tail_match.tile_routes);
-            head_match.tile_routes.push(tile_route);
+            headMatch.tileRoutes = headMatch.tileRoutes.concat(tailMatch.tileRoutes);
+            headMatch.tileRoutes.push(tileRoute);
 
             // Delete the other board route
-            let indexToDelete = boardRoutes.indexOf(tail_match);
+            let indexToDelete = boardRoutes.indexOf(tailMatch);
             boardRoutes.splice(indexToDelete, 1);
 
-            console.log("post join: ", head_match, head_match.boardHead, head_match.boardTail, head_match.tile_routes.slice());
+            console.log("post join: ", headMatch, headMatch.boardHead, headMatch.boardTail, headMatch.tileRoutes.slice());
 
         }
     }
@@ -209,7 +209,8 @@ export function tallyScore(routes){
     return {red:newRedScore, blue:newBlueScore}
 }
 
-const getInitialSetup = (num_rows, num_columns) => {
+const getInitialSetup = (numRows, numColumns) => {
+
     // Shuffle the tiles
     const pool = tiles.slice();
     shuffleArray(pool);
@@ -222,7 +223,7 @@ const getInitialSetup = (num_rows, num_columns) => {
 
     // Make the starting board
     let startingPositions = [{row:1,column:4},{row:3,column:4},{row:5,column:4},{row:7,column:4}];
-    let startingBoard = Array.from({length: num_rows}, e => Array(num_columns).fill(null));
+    let startingBoard = Array.from({length: numRows}, e => Array(numColumns).fill(null));
     initialTiles.forEach((tile, index) => {
         let startingPosition = startingPositions[index];
         startingBoard[startingPosition.row][startingPosition.column] = tile
@@ -234,15 +235,15 @@ const getInitialSetup = (num_rows, num_columns) => {
     initialTiles.forEach((tile, index) => {
         // Convert the row/col where the tile was placed to board node numbers
         let startingPosition = startingPositions[index];
-        let board_nodes = getBoardNodesFromRowCol(startingPosition.row, startingPosition.column, num_columns);
+        let boardNodes = getBoardNodesFromRowCol(startingPosition.row, startingPosition.column, numColumns);
 
         // For each route on the tile, convert the tile-relative head/tail to board-relative head/tail
         // and add the route to the starting routes
         for (let route of tile.routes) {
-            let head = board_nodes[route.tile_head];
-            let tail = board_nodes[route.tile_tail];
-            let board_route = new BoardRoute({boardHead: head, boardTail: tail, tile_routes: [route]});
-            startingRoutes.push(board_route);
+            let head = boardNodes[route.tileHead];
+            let tail = boardNodes[route.tileTail];
+            let boardRoute = new BoardRoute({boardHead: head, boardTail: tail, tileRoutes: [route]});
+            startingRoutes.push(boardRoute);
         }
     });
 
@@ -254,8 +255,8 @@ const getInitialSetup = (num_rows, num_columns) => {
 
 function Game() {
 
-    let num_rows = 9;
-    let num_columns = 9;
+    let numRows = 9;
+    let numColumns = 9;
     let [initialPool, startingOffer, startingBoard, startingRoutes, startingScore] = [[],[],[], [], []];
 
     const [newGameRequested, setNewGameRequested] = useState(true);  // todo can I find a better way to do this?
@@ -269,7 +270,7 @@ function Game() {
 
     if (newGameRequested) {
         setNewGameRequested(false);
-        [initialPool, startingOffer, startingBoard, startingRoutes, startingScore] = getInitialSetup(num_rows, num_columns);
+        [initialPool, startingOffer, startingBoard, startingRoutes, startingScore] = getInitialSetup(numRows, numColumns);
         setPool(initialPool);
         setOffer(startingOffer);
         setPlayed(startingBoard);
@@ -323,7 +324,7 @@ function Game() {
 
         // update routes
         let oldRoutes = routes.slice();
-        let newRoutes = updateRoutes(oldRoutes, tile, row, column, num_columns);
+        let newRoutes = updateRoutes(oldRoutes, tile, row, column, numColumns);
         setRoutes(newRoutes);
 
         // Update score
@@ -332,9 +333,9 @@ function Game() {
 
         // Replenish offer
         let newTile = drawTile();
-        let offer_index = e.dragData.offer_index;
+        let offerIndex = e.dragData.offerIndex;
         let newOffer = offer.slice();
-        newOffer[offer_index] = newTile;
+        newOffer[offerIndex] = newTile;
         if (newOffer.every(t => t === undefined)) {
             alert("Game over!")
         }
@@ -385,12 +386,12 @@ function Game() {
         function createBoard() {
 
             let rows = [];
-            for (let row_index = 0; row_index < num_rows; row_index++) {
+            for (let rowIndex = 0; rowIndex < numRows; rowIndex++) {
                 let row = [];
-                for (let column_index = 0; column_index < num_columns; column_index++) {
-                    row.push(renderTile(row_index, column_index));
+                for (let columnIndex = 0; columnIndex < numColumns; columnIndex++) {
+                    row.push(renderTile(rowIndex, columnIndex));
                 }
-                rows.push(<div className="board-row" key={row_index}>{row}</div>);
+                rows.push(<div className="board-row" key={rowIndex}>{row}</div>);
             }
             return rows;
         }
@@ -404,17 +405,17 @@ function Game() {
 
     function Offer() {
 
-        function renderOfferTile(offer_index) {
+        function renderOfferTile(offerIndex) {
 
             const currentOffer = offer.slice();
-            const tile = currentOffer[offer_index];
+            const tile = currentOffer[offerIndex];
             let className = tile ? "square filled tile"+tile.id+" offer" : "square offer";
             return (
                 <DragDropContainer
                     targetKey="offer"
-                    dragData={{tile: tile, offer_index: offer_index}}
+                    dragData={{tile: tile, offerIndex: offerIndex}}
                     onDrop={(e) => handleDrop(e)}
-                    key={offer_index}
+                    key={offerIndex}
                 >
                     <div className={className}
                     >
@@ -425,10 +426,10 @@ function Game() {
 
         function createOffer() {
 
-            let num_offers = 3;
+            let numOffers = 3;
             let offer = [];
-            for (let offer_index = 0; offer_index < num_offers; offer_index++) {
-                offer.push(renderOfferTile(offer_index));
+            for (let offerIndex = 0; offerIndex < numOffers; offerIndex++) {
+                offer.push(renderOfferTile(offerIndex));
             }
             return offer;
         }
