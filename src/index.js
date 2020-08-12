@@ -215,14 +215,10 @@ const getInitialSetup = (num_rows, num_columns) => {
     shuffleArray(pool);
 
     // Draw 3 tiles for the starting offer
-    let startingOffer = [
-        pool.pop(), pool.pop(), pool.pop()
-    ];
+    let startingOffer = pool.splice(0, 3);
 
     // Draw 4 tiles for the starting board
-    let initialTiles = [
-        pool.pop(), pool.pop(), pool.pop(), pool.pop()
-    ];
+    let initialTiles = pool.splice(0, 4);
 
     // Make the starting board
     let startingPositions = [{row:1,column:4},{row:3,column:4},{row:5,column:4},{row:7,column:4}];
