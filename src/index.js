@@ -3,12 +3,14 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import { DragDropContainer, DropTarget } from 'react-drag-drop-container';
 import { tiles, BoardRoute } from './tiles.js'
+import Tutorial from './rules.js';
+import './rules.css';
+
 
 
 // todo items
 // would like draw pile to visually reflect number left
 // make offer on side for screen size less that x
-// make variables pascal not snake case
 // TESTS!
 // lock in place? Or center to mouse?
 // add rules
@@ -18,6 +20,7 @@ import { tiles, BoardRoute } from './tiles.js'
 // make favicon
 // check color accessibility
 // When resize screen too small, board gets jumbled. either restrict min size or after a certain point, start shrinking the squares
+// how to not duplicate modal.js between monkeys and stars?
 
 export function shuffleArray(array) {
     // Swap each value in an array, starting at the end of the array, with a position equal or earlier in the array.
@@ -198,7 +201,6 @@ function updateRoutes(boardRoutes, tile, row, column, numColumns) {
 }
 
 export function tallyScore(routes){
-    debugger;
     let newRedScore = 0;
     let newBlueScore = 0;
     for (let route of routes) {
@@ -346,8 +348,23 @@ function Game() {
         setNewGameRequested(true);
     };
 
-    const handleShow = (event) => {
-        // todo
+    const handleShow = () => {
+        setShowRules(true);
+    };
+
+    const handleHide = () => {
+        setShowRules(false);
+        setCurrentRule(1);
+    };
+
+    const handlePrevious = () => {
+        let newRule =  currentRule - 1;
+        setCurrentRule(newRule);
+    };
+
+    const handleNext = () => {
+        let newRule =  currentRule + 1;
+        setCurrentRule(newRule);
     };
 
     function Square(props) {
@@ -465,6 +482,15 @@ function Game() {
                     <button onClick={handleNewGame}>New</button>
                     <button onClick={handleShow}>Rules</button>
                 </div>
+            </div>
+            <div className="tutorial">
+                <Tutorial
+                    showRules={showRules}
+                    currentRule={currentRule}
+                    handleHide={handleHide}
+                    handlePrevious={handlePrevious}
+                    handleNext={handleNext}
+                />
             </div>
         </div>
     );
