@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import Modal from "./modal";
 
 const rules = [
@@ -101,38 +101,48 @@ function NextButton(props) {
 
 function Tutorial(props) {
     const totalSteps = rules.length;
-    let ruleDisplay = Array.from(Array(totalSteps)).map((_, step) => <Rule
-        ruleNumber = {step+1}
-        currentRule = {props.currentRule}
-        key = {step+1}
-    />);
-    if (props.showRules) {
-        return (
-            <Modal>
-                <div className="modal">
-                    <div className="tutorial">
-                        <div className="tutorial-navigation">
-                            <PreviousButton
-                                currentRule={props.currentRule}
-                                handlePrevious={props.handlePrevious}
-                            />
-                            <div>{props.currentRule}/{totalSteps}</div>
-                            <NextButton
-                                currentRule={props.currentRule}
-                                totalSteps={totalSteps}
-                                handleNext={props.handleNext}
-                            />
-                            <button onClick={props.handleHide}>Exit</button>
-                        </div>
-                        {ruleDisplay}
-                    </div>
-                </div>
-            </Modal>
-        );
-    } else {
-        return null;
-    }
+    const [currentRule, setCurrentRule] = useState(1);
 
+    let ruleDisplay = Array.from(Array(totalSteps)).map((_, step) =>
+        <Rule
+            ruleNumber = {step+1}
+            currentRule = {currentRule}
+            key = {step+1}
+        />
+        );
+
+    const handlePrevious = () => {
+        let newRule =  currentRule - 1;
+        setCurrentRule(newRule);
+    };
+
+    const handleNext = () => {
+        let newRule =  currentRule + 1;
+        setCurrentRule(newRule);
+    };
+
+    return (
+        <Modal>
+            <div className="modal">
+                <div className="tutorial">
+                    <div className="tutorial-navigation">
+                        <PreviousButton
+                            currentRule={currentRule}
+                            handlePrevious={handlePrevious}
+                        />
+                        <div>{currentRule}/{totalSteps}</div>
+                        <NextButton
+                            currentRule={currentRule}
+                            totalSteps={totalSteps}
+                            handleNext={handleNext}
+                        />
+                        <button onClick={props.handleHide}>Exit</button>
+                    </div>
+                    {ruleDisplay}
+                </div>
+            </div>
+        </Modal>
+    );
 }
 
 export default Tutorial;

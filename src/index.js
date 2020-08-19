@@ -267,7 +267,6 @@ function Game() {
     const [played, setPlayed] = useState(startingBoard);
     const [routes, setRoutes] = useState(startingRoutes);
     const [showRules, setShowRules] = useState(false);
-    const [currentRule, setCurrentRule] = useState(1);
     const [score,setScore] = useState(startingScore);
 
     if (newGameRequested) {
@@ -354,17 +353,6 @@ function Game() {
 
     const handleHide = () => {
         setShowRules(false);
-        setCurrentRule(1);
-    };
-
-    const handlePrevious = () => {
-        let newRule =  currentRule - 1;
-        setCurrentRule(newRule);
-    };
-
-    const handleNext = () => {
-        let newRule =  currentRule + 1;
-        setCurrentRule(newRule);
     };
 
     function Square(props) {
@@ -458,6 +446,10 @@ function Game() {
         );
     }
 
+    let tutorial = showRules ?
+        <Tutorial handleHide={handleHide}/> :
+        null;
+
     return (
         <div className="game">
             <h1>Monkeys of the Caribbean</h1>
@@ -484,13 +476,7 @@ function Game() {
                 </div>
             </div>
             <div className="tutorial">
-                <Tutorial
-                    showRules={showRules}
-                    currentRule={currentRule}
-                    handleHide={handleHide}
-                    handlePrevious={handlePrevious}
-                    handleNext={handleNext}
-                />
+                {tutorial}
             </div>
         </div>
     );
