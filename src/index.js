@@ -13,7 +13,6 @@ import './rules.css';
 // make offer on side for screen size less that x
 // TESTS!
 // lock in place? Or center to mouse?
-// add rules
 // add rule images/animations
 // able to build images through css? worth it? able to have layer images for chest and anchors on/off instead?
 // resolve errors/warnings in console
@@ -21,6 +20,7 @@ import './rules.css';
 // check color accessibility
 // When resize screen too small, board gets jumbled. either restrict min size or after a certain point, start shrinking the squares
 // how to not duplicate modal.js between monkeys and stars?
+// Add monkeys background or art to rules
 
 export function shuffleArray(array) {
     // Swap each value in an array, starting at the end of the array, with a position equal or earlier in the array.

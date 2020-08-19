@@ -69,18 +69,6 @@ const rules = [
 
 ];
 
-class Rule extends React.Component {
-    render () {
-        let ruleNumber = this.props.ruleNumber;
-        if (this.props.currentRule !== ruleNumber) {
-            return null
-        }
-        return(
-            rules[ruleNumber-1]
-        )
-    }
-}
-
 function PreviousButton(props) {
     if(props.currentRule !== 1) {
         return (
@@ -102,14 +90,6 @@ function NextButton(props) {
 function Tutorial(props) {
     const totalSteps = rules.length;
     const [currentRule, setCurrentRule] = useState(1);
-
-    let ruleDisplay = Array.from(Array(totalSteps)).map((_, step) =>
-        <Rule
-            ruleNumber = {step+1}
-            currentRule = {currentRule}
-            key = {step+1}
-        />
-        );
 
     const handlePrevious = () => {
         let newRule =  currentRule - 1;
@@ -133,12 +113,11 @@ function Tutorial(props) {
                         <div>{currentRule}/{totalSteps}</div>
                         <NextButton
                             currentRule={currentRule}
-                            totalSteps={totalSteps}
                             handleNext={handleNext}
                         />
                         <button onClick={props.handleHide}>Exit</button>
                     </div>
-                    {ruleDisplay}
+                    {rules[currentRule-1]}
                 </div>
             </div>
         </Modal>
