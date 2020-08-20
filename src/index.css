@@ -105,14 +105,21 @@ h2 {
 .highlighted {
     outline: 3px solid darkblue;
     background-color: deepskyblue;
-
 }
-
 
 .square.filled {
     background-position: center; /* Center the image */
     background-repeat: no-repeat; /* Do not repeat the image */
     background-size: cover; /* Resize the background image to cover the entire container */
+}
+
+.square.filled.draw-pile {
+    background-color: rgb(27, 211, 235);
+    box-shadow: var(--deck-size);
+    margin: 10px 20px 0 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .square.filled.tile1 {
@@ -186,7 +193,6 @@ h2 {
   flex-direction: row;
   justify-content: center;
     position: relative;
-
 }
 
 .score {

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import { DragDropContainer, DropTarget } from 'react-drag-drop-container';
@@ -261,6 +261,35 @@ function Game() {
     let numColumns = 9;
     let [initialPool, startingOffer, startingBoard, startingRoutes, startingScore] = [[],[],[], [], []];
 
+    let startingDrawEffect = [
+        "1px 1px rgba(27, 211, 235, 0.35)",
+        "1px 1px rgba(0,0,0, 0.15)",
+        "2px 2px rgba(27, 211, 235, 0.35)",
+        "2px 2px rgba(0,0,0, 0.05)",
+        "3px 3px rgba(27, 211, 235, 0.35)",
+        "3px 3px rgba(0,0,0, 0.35)",
+        "4px 4px rgba(27, 211, 235, 0.35)",
+        "4px 4px rgba(0,0,0, 0.25)",
+        "5px 5px rgba(27, 211, 235, 0.35)",
+        "5px 5px rgba(0,0,0, 0.45)",
+        "6px 6px rgba(27, 211, 235, 0.35)",
+        "6px 6px rgba(0,0,0, 0.35)",
+        "7px 7px rgba(27, 211, 235, 0.35)",
+        "7px 7px rgba(0,0,0, 0.15)",
+        "8px 8px rgba(27, 211, 235, 0.35)",
+        "8px 8px rgba(0,0,0, 0.25)",
+        "9px 9px rgba(27, 211, 235, 0.35)",
+        "9px 9px rgba(0,0,0, 0.35)",
+        "10px 10px rgba(27, 211, 235, 0.35)",
+        "10px 10px rgba(0,0,0, 0.45)",
+        "11px 11px rgba(27, 211, 235, 0.35)",
+        "11px 11px rgba(0,0,0, 0.35)",
+        "12px 12px rgba(27, 211, 235, 0.35)",
+        "12px 12px rgba(0,0,0, 0.15)",
+        "13px 13px rgba(27, 211, 235, 0.35)",
+        "13px 13px rgba(0,0,0, 0.35)",
+    ];
+
     const [newGameRequested, setNewGameRequested] = useState(true);  // todo can I find a better way to do this?
     const [offer, setOffer] = useState(startingOffer);
     const [pool, setPool] = useState(initialPool);
@@ -268,6 +297,11 @@ function Game() {
     const [routes, setRoutes] = useState(startingRoutes);
     const [showRules, setShowRules] = useState(false);
     const [score,setScore] = useState(startingScore);
+    const [drawEffect, setDrawEffect] = useState(startingDrawEffect);
+    useEffect(() => {
+        let body = document.getElementsByTagName("body")[0];
+        body.style.setProperty("--deck-size", drawEffect.join(","));
+    });
 
     if (newGameRequested) {
         setNewGameRequested(false);
@@ -277,6 +311,7 @@ function Game() {
         setPlayed(startingBoard);
         setRoutes(startingRoutes);
         setScore(startingScore);
+        setDrawEffect(startingDrawEffect);
     }
 
     const drawTile = () => {
@@ -284,6 +319,12 @@ function Game() {
         let newPool = pool.slice();
         let tile = newPool.pop();
         setPool(newPool);
+
+        // Update draw stack visual
+        drawEffect.splice(-2,2);
+        setDrawEffect(drawEffect);
+        console.log(drawEffect.length);
+
         return tile
     };
 
@@ -468,7 +509,9 @@ function Game() {
                 </div>
                 <div className="offer-area">
                     <Offer/>
-                    {Math.max(0, pool.length)} remaining
+                </div>
+                <div className="square filled draw-pile">
+                    {Math.max(0, pool.length)}
                 </div>
                 <div className="controls">
                     <button onClick={handleNewGame}>New</button>
