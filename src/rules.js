@@ -104,7 +104,7 @@ function Tutorial(props) {
     return (
         <Modal>
             <div className="modal">
-                <div className="tutorial">
+                <div className="tutoriall">
                     <div className="tutorial-navigation">
                         <PreviousButton
                             currentRule={currentRule}

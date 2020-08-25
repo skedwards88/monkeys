@@ -261,6 +261,7 @@ function Game() {
     let numColumns = 9;
     let [initialPool, startingOffer, startingBoard, startingRoutes, startingScore] = [[],[],[], [], []];
 
+    // The box shadow around the draw stack
     let startingDrawEffect = [
         "1px 1px rgba(27, 211, 235, 0.35)",
         "1px 1px rgba(0,0,0, 0.15)",
@@ -443,7 +444,7 @@ function Game() {
         }
 
         return (
-            <div>
+            <div className="board">
                 {createBoard()}
             </div>
         );
@@ -481,7 +482,7 @@ function Game() {
         }
 
         return (
-            <div>
+            <div className="offer-area">
                 {createOffer()}
             </div>
         );
@@ -494,33 +495,31 @@ function Game() {
     return (
         <div className="game">
             <h1>Monkeys of the Caribbean</h1>
-            <div className="board">
+            <div className="play-area">
                 <Board/>
-            </div>
-            <div className="off-board">
-                <div className="score">
-                    Score:
-                    <div className="red-score">
-                        {score.red}
-                    </div>
-                    <div className="blue-score">
-                        {score.blue}
-                    </div>
-                </div>
-                <div className="offer-area">
+                <div className="off-board">
                     <Offer/>
-                </div>
-                <div className="square filled draw-pile">
-                    {Math.max(0, pool.length)}
-                </div>
-                <div className="controls">
-                    <button onClick={handleNewGame}>New</button>
-                    <button onClick={handleShow}>Rules</button>
+                    <div className="square filled draw-pile">
+                        {Math.max(0, pool.length)}
+                    </div>
+                    <div className="score">
+                        <div className="red-score">
+                            <div className="score-icon red"/>
+                            {score.red}
+                        </div>
+                        <div className="blue-score">
+                            <div className="score-icon blue"/>
+                            {score.blue}
+                        </div>
+                    </div>
+
+                    <div className="controls">
+                        <button className="new-game-button" onClick={handleNewGame}></button>
+                        <button className="rules-button" onClick={handleShow}></button>
+                    </div>
                 </div>
             </div>
-            <div className="tutorial">
-                {tutorial}
-            </div>
+            {tutorial}
         </div>
     );
 }

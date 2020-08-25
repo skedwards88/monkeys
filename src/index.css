@@ -41,6 +41,10 @@ h2 {
   /*todo max-width: 250px;*/
 }
 
+.play-area {
+    display: flex;
+    flex-direction: row;
+}
 .board {
     /*todo min-width: 230px;*/
     max-height: 250px;
@@ -116,7 +120,7 @@ h2 {
 .square.filled.draw-pile {
     background-color: rgb(27, 211, 235);
     box-shadow: var(--deck-size);
-    margin: 10px 20px 0 10px;
+    margin: 0 0 5px 5px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -183,14 +187,18 @@ h2 {
     background-image: url('./images/Monkeys_Tile_20.png');
 }
 
-.offer {
-  margin: 10px;
+.offer-area{
+    display: flex;
+    flex-direction: column;
 }
 
+.offer {
+  margin: 0 0 5px 5px;
+}
 
 .off-board {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
     position: relative;
 }
@@ -204,24 +212,65 @@ h2 {
   margin: 10px;
 }
 
+.score-icon {
+    width: 20px;
+    height: 20px;
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    background-size: cover; /* Resize the background image to cover the entire container */
+    margin-right: 5px;
+}
+
+.score-icon.red {
+    background-image: url('./images/Red_Icon.png');
+}
+
+.score-icon.blue {
+    background-image: url('./images/Blue_Icon.png');
+}
+
 .red-score {
   color: var(--red_color);
   font-weight: bold;
+    display: flex;
+    flex-direction: row;
 }
 
 .blue-score {
   color: var(--blue_color);
   font-weight: bold;
   padding-right: 50px;
+    display: flex;
+    flex-direction: row;
 }
 
 .controls {
   font-weight: normal;
   font-size: 14px;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
 }
 
 .tile {
   margin: 10px;
+}
+
+.new-game-button {
+    width: 30px;
+    height: 30px;
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    background-size: cover; /* Resize the background image to cover the entire container */
+    margin-right: 5px;
+    background-image: url('./images/new_game_icon.png');
+}
+
+.rules-button {
+    width: 30px;
+    height: 30px;
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    background-size: cover; /* Resize the background image to cover the entire container */
+    margin-right: 5px;
+    background-image: url('./images/rules_icon.png');
 }
