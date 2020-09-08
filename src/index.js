@@ -9,8 +9,6 @@ import './rules.css';
 
 
 // todo items
-// would like draw pile to visually reflect number left
-// make offer on side for screen size less that x
 // TESTS!
 // lock in place? Or center to mouse?
 // add rule images/animations
@@ -21,6 +19,7 @@ import './rules.css';
 // When resize screen too small, board gets jumbled. either restrict min size or after a certain point, start shrinking the squares
 // how to not duplicate modal.js between monkeys and stars?
 // Add monkeys background or art to rules
+// would be so cool to change color of route to indicate owner
 
 export function shuffleArray(array) {
     // Swap each value in an array, starting at the end of the array, with a position equal or earlier in the array.

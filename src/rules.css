@@ -4,9 +4,13 @@
 }
 
 .modal {
-    font-size: 16px;
+    font-size: 14px; /* fall back */
+    font-size: 4.0vh;
     font-weight: normal;
-    background-color: rgb(0, 0, 0);
+    background-image: url('./images/sea_background.png');
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    background-size: cover; /* Resize the background image to cover the entire container */
     position: fixed;
     height: 100%;
     width: 100%;
@@ -16,43 +20,69 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    text-align: center;
 }
 
+.icon {
+    height: 100px;
+    margin: 10px;
+}
 
 .tutorial {
-    height: 450px;
-    width: 250px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 100%;
+    width: 100%;
+}
+
+.tutorial-navigation {
+    color: black;
     display: flex;
     flex-direction: column;
+    /*justify-content: space-between;*/
+    margin: 10px;
+    background-color: red;
+    align-items: center;
+}
+
+button {
+    background-color: transparent;
+    margin-right: 0;
+    border-radius: 0;
+    border: 0;
+    color: gray;
+}
+
+button:disabled {
+    color: darkgray;
+}
+
+.navigation-button {
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+.exit-button {
+    height: 20px;
+    width: 20px;
+    position: absolute;
+    right: 0;
 }
 
 .tutorialStep {
     overflow: hidden;
-    color: lightgray;
-    max-width: 250px;
+    color: black;
+    display: flex;
+    flex-direction: column;
 }
 
 .tutorial-text {
     margin: 10px;
 }
 
-.tutorial-board {
-    max-width: 230px;
-    margin: auto;
-}
-
 .red_token {
     color: var(--red_color);
 }
 
-.tutorial-navigation {
-    color: lightgray;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    margin: 10px;
-}
-
-button:disabled {
-    color: gray;
-}
