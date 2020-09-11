@@ -4,8 +4,6 @@
 }
 
 .modal {
-    font-size: 14px; /* fall back */
-    font-size: 4.0vh;
     font-weight: normal;
     background-image: url('./images/sea_background.png');
     background-position: center; /* Center the image */
@@ -21,32 +19,36 @@
     align-items: center;
     justify-content: center;
     text-align: center;
-}
-
-.icon {
-    height: 100px;
-    margin: 10px;
+    border: 1px solid purple;
 }
 
 .tutorial {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    max-height: 700px;
+    min-height: 20px;
+    max-width: 600px;
+    min-width: 250px;
     height: 100%;
     width: 100%;
+    background-color: tan;
+    overflow: scroll;
+    border: 1px solid blue;
 }
 
-.tutorial-navigation {
-    color: black;
+.tutorial-step {
+    max-height: 700px;
+    border: 1px blue solid;
     display: flex;
     flex-direction: column;
-    /*justify-content: space-between;*/
-    margin: 10px;
-    background-color: red;
-    align-items: center;
+    justify-content: flex-start;
+    overflow: scroll;
+    background-color: lightblue;
 }
 
 button {
+    font-size: 18px;
     background-color: transparent;
     margin-right: 0;
     border-radius: 0;
@@ -58,6 +60,11 @@ button:disabled {
     color: darkgray;
 }
 
+button:focus {
+    outline: none;
+    box-shadow: none;
+}
+
 .navigation-button {
     display: flex;
     align-items: center;
@@ -66,23 +73,12 @@ button:disabled {
 
 .exit-button {
     height: 20px;
-    width: 20px;
+    width: 30px;
     position: absolute;
     right: 0;
 }
 
-.tutorialStep {
-    overflow: hidden;
-    color: black;
-    display: flex;
-    flex-direction: column;
+img {
+    min-height: 1px;
+    object-fit: contain;
 }
-
-.tutorial-text {
-    margin: 10px;
-}
-
-.red_token {
-    color: var(--red_color);
-}
-
