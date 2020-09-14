@@ -20,6 +20,7 @@ import './rules.css';
 // how to not duplicate modal.js between monkeys and stars?
 // Add monkeys background or art to rules
 // would be so cool to change color of route to indicate owner
+// make rules swipable on mobile
 
 export function shuffleArray(array) {
     // Swap each value in an array, starting at the end of the array, with a position equal or earlier in the array.
