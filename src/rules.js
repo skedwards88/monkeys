@@ -112,7 +112,7 @@ const rules = [
         </div>
         <img src={require('./images/coconuts.png')} alt="coconuts" className="icon"/>
     </div>,
-
+// todo change points to coconuts
 ];
 
 function PreviousButton(props) {

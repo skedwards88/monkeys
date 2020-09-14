@@ -19,7 +19,6 @@
     align-items: center;
     justify-content: center;
     text-align: center;
-    border: 1px solid purple;
 }
 
 .tutorial {
@@ -32,19 +31,17 @@
     min-width: 250px;
     height: 100%;
     width: 100%;
-    background-color: tan;
     overflow: scroll;
-    border: 1px solid blue;
 }
 
 .tutorial-step {
     max-height: 700px;
-    border: 1px blue solid;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     overflow: scroll;
-    background-color: lightblue;
+    font-size: 14px; /* fall -back */
+    font-size: clamp(10px, 4.0vh, 16px); /*not compatible with all browsers */
 }
 
 button {
@@ -79,6 +76,7 @@ button:focus {
 }
 
 img {
-    min-height: 1px;
+    min-height: 50px;
+    max-height: 300px;
     object-fit: contain;
 }
