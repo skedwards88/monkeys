@@ -107,7 +107,7 @@ h2 {
 }
 
 .highlighted {
-    outline: 3px solid darkblue;
+    /*outline: 3px solid darkblue;*/
     background-color: darkblue;
     z-index: 1;
 }

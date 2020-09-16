@@ -11,8 +11,6 @@ import './rules.css';
 // todo items
 // TESTS!
 // lock in place? Or center to mouse?
-// add rule images/animations
-// able to build images through css? worth it? able to have layer images for chest and anchors on/off instead?
 // resolve errors/warnings in console
 // make favicon
 // check color accessibility
