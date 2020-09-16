@@ -46,7 +46,7 @@ html,body {
     justify-content: flex-start;
     overflow: scroll;
     font-size: 14px; /* fall -back */
-    font-size: clamp(10px, 4.0vh, 16px); /*not compatible with all browsers */
+    font-size: clamp(10px, 4.0vh, 16px); /* not compatible with all browsers */
 }
 
 button {
@@ -84,25 +84,89 @@ img {
     min-height: 50px;
     max-height: 300px;
     object-fit: contain;
-    padding: 20px;
+    margin: 20px;
 }
 
-/*@keyframes walk {*/
-/*    from { background-position: 0; }*/
-/*    to { background-position: -1475px; } !* <-- width of spritesheet*!*/
-/*}*/
+.illustration {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    justify-content: flex-start;
 
+}
 
-/*.sprite {*/
-/*    border: 1px red solid;*/
-/*    width: calc(1475px/4); height: 167px; !* <--  size of a single frame*!*/
-/*    background-image: url('./images/coconut_points_h2.png'); !* <-- url to spritesheet*!*/
-/*    !*background: url('./images/coconut_points_h.png'); !* <-- url to spritesheet*!*!*/
+.image {
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    background-size: contain; /* Resize the background image to cover the entire container */
 
-/*    !*max-width: 25%;*!*/
-/*    !*margin: 0 auto;*!*/
-/*    !*transform: scale(0.1);*!*/
-/*    !*background-size: 10% auto;*!*/
-/*    !*zoom: 0.25;*!*/
-/*    animation: walk 2s steps(4) infinite; !* <-- animation parameters, see below*!*/
-/*}*/
+    /*min-height: 50px;*/
+    /*max-height: 300px;*/
+    /*object-fit: contain;*/
+    /*height: 20%;*/
+    /*padding: 20px;*/
+    /*height: 50vh;*/
+    /*max-height: 20px;*/
+    min-height: 100px;
+    max-height: 80%;
+    /*height: 170px;*/
+    margin: 20px 20px 0 20px;
+}
+
+.caption {
+    font-style: italic;
+}
+
+.turns {
+    animation: turns-animation 6s infinite;
+    animation-timing-function: step-end;
+    background-color: rgba(0,0,0,.1);
+    flex: 1;
+}
+
+@keyframes turns-animation {
+    0% {
+        background-image: url('./images/board_0.png');
+    }
+    25% {
+        background-image: url('./images/board_1.png');
+    }
+    50% {
+        background-image: url('./images/board_2.png');
+    }
+    75% {
+        background-image: url('./images/board_3.png');
+    }
+}
+
+.coconuts {
+    animation: coconuts-animation 6s infinite;
+    animation-timing-function: step-end;
+}
+
+@keyframes coconuts-animation {
+    0% {
+        background-image: url('./images/coconut_count_0.png');
+    }
+    25% {
+        background-image: url('./images/coconut_count_1.png');
+    }
+    50% {
+        background-image: url('./images/coconut_count_2.png');
+    }
+    75% {
+        background-image: url('./images/coconut_count_3.png');
+    }
+}
+
+.chest {
+    background-image: url('./images/chest.png');
+}
+
+.route {
+    background-image: url('./images/route.png');
+}
+
+.anchor {
+    background-image: url('./images/route_and_anchor.png');
+}

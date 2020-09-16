@@ -5,7 +5,7 @@ const rules = [
 
     <div className="tutorial-step">
         <div className="tutorial-text">
-            Monkeys of the Caribbean
+            <h1>Monkeys of the Caribbean</h1>
             <br/>
             <br/>
             2 Players
@@ -17,8 +17,6 @@ const rules = [
             <br/>
             Built by Sarah Edwards
         </div>
-        {/*<div className="sprite"/>*/}
-        {/*<img src={require('./images/coconut_points_h.png')} alt="monkey pirate" className="coconut-points"/>*/}
         <img src={require('./images/monkey_3.png')} alt="monkey pirate" className="icon"/>
     </div>,
 
@@ -54,7 +52,9 @@ const rules = [
             Players take turns dragging a tile from the offer to the board.
             At least one sea route on the new tile must connect to an existing sea route.
         </div>
-        <img src={require('./images/board_3.png')} alt="coconuts" className="icon"/>
+        <div className="illustration">
+            <div className="image turns"/>
+        </div>
     </div>,
 
     <div className="tutorial-step">
@@ -62,9 +62,12 @@ const rules = [
             The number of coconuts on the route determines the value of the route.
             <br/>
         </div>
-        <img src={require('./images/coconut_count.png')} alt="1 single and 2 double coconuts for 3 total coconuts" className="icon"/>
-    </div>,
+        <div className="illustration">
+            <div className="image coconuts"/>
+            <div className="caption">1 single and 2 double coconuts for 3 total coconuts</div>
+        </div>
 
+    </div>,
 
     <div className="tutorial-step">
         <div className="tutorial-text">
@@ -72,9 +75,12 @@ const rules = [
             <br/>
             Multiple chests on the route have the same effect as a single chest.
         </div>
-        <img src={require('./images/chest.png')} alt="1 single and 2 double coconuts and a chest for 6 total coconuts" className="icon"/>
-        <div className="caption">Three coconuts and a chest makes this route worth 6 coconuts.</div>
+        <div className="illustration">
+            <div className="image chest"/>
+            <div className="caption">The chest makes these 3 coconuts count as 6 coconuts</div>
+        </div>
     </div>,
+
 
     <div className="tutorial-step">
         <div className="tutorial-text">
@@ -82,14 +88,21 @@ const rules = [
             If players tie, neither player owns the coconuts for the route.
             As players vie for control, the score will change.
         </div>
-        <img src={require('./images/route.png')} alt="coconuts" className="icon"/>
+        <div className="illustration">
+            <div className="image route"/>
+            <div className="caption">2 red ships and 3 blue ships means blue controls all of the coconuts on this route</div>
+        </div>
+
     </div>,
 
     <div className="tutorial-step">
         <div className="tutorial-text">
             An anchor at the end of a route doubles the ships of that color on the route. Two anchors of the same color on the route have the same effect as a single anchor.
         </div>
-        <img src={require('./images/route_and anchor.png')} alt="coconuts" className="icon"/>
+        <div className="illustration">
+            <div className="image anchor"/>
+            <div className="caption">The red anchor makes the 2 red ships count as 4 ships, so red owns all of the coconuts on this route.</div>
+        </div>
     </div>,
 
     <div className="tutorial-step">
