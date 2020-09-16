@@ -224,7 +224,13 @@ const getInitialSetup = (numRows, numColumns) => {
     let initialTiles = pool.splice(0, 4);
 
     // Make the starting board
-    let startingPositions = [{row:1,column:4},{row:3,column:4},{row:5,column:4},{row:7,column:4}];
+    let starting_column = Math.round(numColumns/2)-1;
+    console.log(starting_column);
+    let startingPositions = [
+        {row:1,column:starting_column},
+        {row:3,column:starting_column},
+        {row:5,column:starting_column},
+        {row:7,column:starting_column}];
     let startingBoard = Array.from({length: numRows}, e => Array(numColumns).fill(null));
     initialTiles.forEach((tile, index) => {
         let startingPosition = startingPositions[index];
@@ -258,7 +264,7 @@ const getInitialSetup = (numRows, numColumns) => {
 function Game() {
 
     let numRows = 9;
-    let numColumns = 9;
+    let numColumns = 7;
     let [initialPool, startingOffer, startingBoard, startingRoutes, startingScore] = [[],[],[], [], []];
 
     // The box shadow around the draw stack
