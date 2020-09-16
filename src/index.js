@@ -12,11 +12,9 @@ import './rules.css';
 // TESTS!
 // lock in place? Or center to mouse?
 // resolve errors/warnings in console
-// make favicon
 // check color accessibility
 // When resize screen too small, board gets jumbled. either restrict min size or after a certain point, start shrinking the squares
 // how to not duplicate modal.js between monkeys and stars?
-// Add monkeys background or art to rules
 // would be so cool to change color of route to indicate owner
 // make rules swipable on mobile
 
