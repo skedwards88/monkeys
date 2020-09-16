@@ -1,5 +1,5 @@
-html,body {
-    height:100%;
+html, body {
+    height: 100%;
 }
 
 #modal-root {
@@ -39,7 +39,7 @@ html,body {
 }
 
 .tutorial-step {
-    /*max-height: 700px;*/
+    margin: 10px 35px;
     width: 550px;
     display: flex;
     flex-direction: column;
@@ -56,10 +56,16 @@ button {
     border-radius: 0;
     border: 0;
     color: gray;
+    /*opacity: 0.5;*/
 }
 
 button:disabled {
     color: darkgray;
+}
+
+button:active {
+    color: black;
+    font-weight: bold
 }
 
 button:focus {
@@ -68,9 +74,19 @@ button:focus {
 }
 
 .navigation-button {
-    display: flex;
-    align-items: center;
+    background-color: white;
+    opacity: .5;
+    position: absolute;
     height: 100%;
+    width: 30px;
+}
+
+.prev-button {
+    left: 0;
+}
+
+.next-button {
+    right: 0;
 }
 
 .exit-button {
@@ -78,6 +94,7 @@ button:focus {
     width: 30px;
     position: absolute;
     right: 0;
+    z-index: 1;
 }
 
 img {
@@ -92,24 +109,14 @@ img {
     flex-direction: column;
     flex: 1;
     justify-content: flex-start;
-
 }
 
 .image {
-    background-position: center; /* Center the image */
-    background-repeat: no-repeat; /* Do not repeat the image */
-    background-size: contain; /* Resize the background image to cover the entire container */
-
-    /*min-height: 50px;*/
-    /*max-height: 300px;*/
-    /*object-fit: contain;*/
-    /*height: 20%;*/
-    /*padding: 20px;*/
-    /*height: 50vh;*/
-    /*max-height: 20px;*/
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
     min-height: 100px;
     max-height: 80%;
-    /*height: 170px;*/
     margin: 20px 20px 0 20px;
 }
 
@@ -120,7 +127,7 @@ img {
 .turns {
     animation: turns-animation 6s infinite;
     animation-timing-function: step-end;
-    background-color: rgba(0,0,0,.1);
+    background-color: rgba(0, 0, 0, .1);
     flex: 1;
 }
 

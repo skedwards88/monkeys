@@ -118,10 +118,10 @@ const rules = [
 function PreviousButton(props) {
     if(props.currentRule !== 1) {
         return (
-            <button className="navigation-button" onClick={props.handlePrevious}>&lt;</button>
+            <button className="navigation-button prev-button" onClick={props.handlePrevious}>&lt;</button>
         )
     }
-    return <button disabled className="navigation-button">&lt;</button>;
+    return <button disabled className="navigation-button prev-button">&lt;</button>;
 }
 
 // TODO how to consolidate Prev active/disabled?
@@ -129,10 +129,10 @@ function PreviousButton(props) {
 function NextButton(props) {
     if(props.currentRule < rules.length) {
         return (
-            <button className="navigation-button" onClick={props.handleNext}>&gt;</button>
+            <button className="navigation-button next-button" onClick={props.handleNext}>&gt;</button>
         )
     }
-    return <button disabled className="navigation-button">&gt;</button>;
+    return <button disabled className="navigation-button next-button">&gt;</button>;
 }
 
 function Tutorial(props) {
