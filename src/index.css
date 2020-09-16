@@ -110,7 +110,8 @@ h2 {
 
 .highlighted {
     outline: 3px solid darkblue;
-    background-color: deepskyblue;
+    background-color: darkblue;
+    z-index: 1;
 }
 
 .square.filled {
