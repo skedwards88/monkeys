@@ -48,7 +48,10 @@ h2 {
 .board {
     /*todo min-width: 230px;*/
     max-height: 250px;
-    border: 1px solid black;
+    background-image: url('./images/sea_background.png');
+    background-position: center;
+    background-repeat: repeat;
+    background-size: calc(100%/5) calc(100%/5);
 }
 
 
@@ -118,7 +121,7 @@ h2 {
 }
 
 .square.filled.draw-pile {
-    background-color: rgb(27, 211, 235);
+    background-image: url('./images/sea_background.png');
     box-shadow: var(--deck-size);
     margin: 0 0 5px 5px;
     display: flex;
