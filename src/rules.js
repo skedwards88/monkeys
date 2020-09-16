@@ -17,16 +17,16 @@ const rules = [
             <br/>
             Built by Sarah Edwards
         </div>
+        {/*<div className="sprite"/>*/}
+        {/*<img src={require('./images/coconut_points_h.png')} alt="monkey pirate" className="coconut-points"/>*/}
         <img src={require('./images/monkey_3.png')} alt="monkey pirate" className="icon"/>
     </div>,
 
     <div className="tutorial-step">
         <div className="tutorial-text">
-            A crew of monkeys--with you as the captain--overthrew the pirates.
-            <br/>
-            But it is not gold you want. Nay, coconuts are the bounty you seek!
-            <br/>
-            Alas! There be limited space on the sea. Gain control of the sea routes to get the most coconuts.
+            A crew of monkeys&mdash;with you as the captain&mdash;overthrew their pirate overlords.
+            But it is not gold you want. Nay, coconuts are the bounty you seek.
+            Alas! There be limited space on the sea. Compete for control of sea routes to get the most coconuts.
         </div>
         <img src={require('./images/coconuts.png')} alt="coconuts" className="icon"/>
     </div>,
@@ -34,85 +34,72 @@ const rules = [
 
     <div className="tutorial-step">
         <div className="tutorial-text">
-            Two competing monkey crews vie for the most coconuts.
+            Two competing monkey pirate fleets vie for the most coconuts.
             <br/>
-            Each player will control a color.
+            Each player will control a fleet.
         </div>
         <img src={require('./images/two_ships.png')} alt="ships" className="icon"/>
     </div>,
 
     <div className="tutorial-step">
         <div className="tutorial-text">
-            The board starts with the routes that existed immediately after the mutinies.
-            <br/>
-            New routes will be built from there.
-            <br/>
-            TODO show starting stack.
+            The board starts with the sea routes (black lines) that existed immediately after the mutinies.
+            New routes will be built from these initial routes.
         </div>
-        <img src={require('./images/coconuts.png')} alt="coconuts" className="icon"/>
+        <img src={require('./images/board_0.png')} alt="coconuts" className="icon"/>
     </div>,
 
     <div className="tutorial-step">
         <div className="tutorial-text">
             Players take turns dragging a tile from the offer to the board.
-            <br/>
-            At least one sea route (black line) on the new tile must connect to an existing sea route.
-            <br/>
-            Tiles may be staggered vertically.
-            TODO show a tile being dragged from side to board. Maybe just make static, or just have cycle through 1,2,3 tiles played.
+            At least one sea route on the new tile must connect to an existing sea route.
         </div>
-        <img src={require('./images/coconuts.png')} alt="coconuts" className="icon"/>
-    </div>,
-
-    <div className="tutorial-step">
-        <div className="tutorial-text">
-            The player with the most ships on a route receives points for the route.
-            <br/>
-            If players tie, neither player receives points for the route.
-            <br/>
-            As players vie for control, the score will change.
-            TODO Show a route with 2 red, 3 blue = blue wins.
-        </div>
-        <img src={require('./images/coconuts.png')} alt="coconuts" className="icon"/>
-    </div>,
-
-    <div className="tutorial-step">
-        <div className="tutorial-text">
-            An anchor at the end of a route doubles the ships of that color on the route. Two anchors of the same color on the route have the same effect as a single anchor.
-            <br/>
-            TODO Show 2 red, 3 blue, and blue anchor = red owns (build from above)
-        </div>
-        <img src={require('./images/coconuts.png')} alt="coconuts" className="icon"/>
+        <img src={require('./images/board_3.png')} alt="coconuts" className="icon"/>
     </div>,
 
     <div className="tutorial-step">
         <div className="tutorial-text">
             The number of coconuts on the route determines the value of the route.
             <br/>
-            TODO show a single + double = 3
         </div>
-        <img src={require('./images/coconuts.png')} alt="coconuts" className="icon"/>
+        <img src={require('./images/coconut_count.png')} alt="1 single and 2 double coconuts for 3 total coconuts" className="icon"/>
     </div>,
 
 
     <div className="tutorial-step">
         <div className="tutorial-text">
-            A chest doubles the number of coconuts on the route. Multiple chests on the route have the same effect as a single chest.
+            A chest doubles the number of coconuts on the route.
             <br/>
-            TODO show a single + double + chest = 6
+            Multiple chests on the route have the same effect as a single chest.
         </div>
-        <img src={require('./images/coconuts.png')} alt="coconuts" className="icon"/>
+        <img src={require('./images/chest.png')} alt="1 single and 2 double coconuts and a chest for 6 total coconuts" className="icon"/>
+        <div className="caption">Three coconuts and a chest makes this route worth 6 coconuts.</div>
+    </div>,
+
+    <div className="tutorial-step">
+        <div className="tutorial-text">
+            The player with the most ships on a route owns the coconuts on that route.
+            If players tie, neither player owns the coconuts for the route.
+            As players vie for control, the score will change.
+        </div>
+        <img src={require('./images/route.png')} alt="coconuts" className="icon"/>
+    </div>,
+
+    <div className="tutorial-step">
+        <div className="tutorial-text">
+            An anchor at the end of a route doubles the ships of that color on the route. Two anchors of the same color on the route have the same effect as a single anchor.
+        </div>
+        <img src={require('./images/route_and anchor.png')} alt="coconuts" className="icon"/>
     </div>,
 
     <div className="tutorial-step">
         <div className="tutorial-text">
             The game ends once all tiles have been placed.
             <br/>
-            The player with the most points wins!
+            The player that owns the most coconuts at the end of the game wins!
         </div>
         <img src={require('./images/coconuts.png')} alt="coconuts" className="icon"/>
     </div>,
-// todo change points to coconuts
 ];
 
 function PreviousButton(props) {

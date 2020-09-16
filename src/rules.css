@@ -1,3 +1,7 @@
+html,body {
+    height:100%;
+}
+
 #modal-root {
     position: relative;
     z-index: 999;
@@ -35,7 +39,8 @@
 }
 
 .tutorial-step {
-    max-height: 700px;
+    /*max-height: 700px;*/
+    width: 550px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -79,4 +84,25 @@ img {
     min-height: 50px;
     max-height: 300px;
     object-fit: contain;
+    padding: 20px;
 }
+
+/*@keyframes walk {*/
+/*    from { background-position: 0; }*/
+/*    to { background-position: -1475px; } !* <-- width of spritesheet*!*/
+/*}*/
+
+
+/*.sprite {*/
+/*    border: 1px red solid;*/
+/*    width: calc(1475px/4); height: 167px; !* <--  size of a single frame*!*/
+/*    background-image: url('./images/coconut_points_h2.png'); !* <-- url to spritesheet*!*/
+/*    !*background: url('./images/coconut_points_h.png'); !* <-- url to spritesheet*!*!*/
+
+/*    !*max-width: 25%;*!*/
+/*    !*margin: 0 auto;*!*/
+/*    !*transform: scale(0.1);*!*/
+/*    !*background-size: 10% auto;*!*/
+/*    !*zoom: 0.25;*!*/
+/*    animation: walk 2s steps(4) infinite; !* <-- animation parameters, see below*!*/
+/*}*/
