@@ -8,8 +8,6 @@ body {
   font-weight: bold;
   font-family: Verdana, Geneva, sans-serif;
   margin: 20px;
-  --blue_color: rgb(0,139,139);
-  --red_color: rgb(220,20,60);
   --square-diameter: 50px;
   display: table-cell;
   vertical-align: middle;
@@ -190,20 +188,24 @@ h2 {
     background-image: url('./images/Monkeys_Tile_20.png');
 }
 
-.offer-area{
+.offer {
     display: flex;
     flex-direction: column;
 }
 
-.offer {
+.offer-tile {
   margin: 0 0 5px 5px;
 }
 
 .off-board {
   display: flex;
   flex-direction: column;
-  justify-content: center;
     position: relative;
+    margin: 0 0 0 10px;
+}
+
+.off-board > * {
+    margin: 0 0 10px 10px;
 }
 
 .score {
@@ -212,15 +214,14 @@ h2 {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  margin: 10px;
 }
 
 .score-icon {
     width: 20px;
     height: 20px;
-    background-position: center; /* Center the image */
-    background-repeat: no-repeat; /* Do not repeat the image */
-    background-size: cover; /* Resize the background image to cover the entire container */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
     margin-right: 5px;
 }
 
@@ -233,25 +234,18 @@ h2 {
 }
 
 .red-score {
-  color: var(--red_color);
+  color: red;
   font-weight: bold;
     display: flex;
     flex-direction: row;
 }
 
 .blue-score {
-  color: var(--blue_color);
+  color: blue;
   font-weight: bold;
   padding-right: 50px;
     display: flex;
     flex-direction: row;
-}
-
-.controls {
-  font-weight: normal;
-  font-size: 14px;
-  display: flex;
-  flex-direction: row;
 }
 
 .tile {

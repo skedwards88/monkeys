@@ -422,7 +422,7 @@ function Game() {
             const tile = squares[row][column];
             return (
                 <DropTarget
-                    targetKey="offer"
+                    targetKey="offer-tile"
                     dropData={{'row':row, 'column':column}}
                     key={row + ',' + column}
                 >
@@ -462,10 +462,10 @@ function Game() {
 
             const currentOffer = offer.slice();
             const tile = currentOffer[offerIndex];
-            let className = tile ? "square filled tile"+tile.id+" offer" : "square offer";
+            let className = tile ? "square filled tile"+tile.id+" offer-tile" : "square offer-tile";
             return (
                 <DragDropContainer
-                    targetKey="offer"
+                    targetKey="offer-tile"
                     dragData={{tile: tile, offerIndex: offerIndex}}
                     onDrop={(e) => handleDrop(e)}
                     key={offerIndex}
@@ -488,7 +488,7 @@ function Game() {
         }
 
         return (
-            <div className="offer-area">
+            <div className="offer">
                 {createOffer()}
             </div>
         );
@@ -503,11 +503,13 @@ function Game() {
             <h1>Monkeys of the Caribbean</h1>
             <div className="play-area">
                 <Board/>
+                <div className="offer-area">
+                <Offer/>
+                <div className="square filled draw-pile">
+                    {Math.max(0, pool.length)}
+                </div>
+            </div>
                 <div className="off-board">
-                    <Offer/>
-                    <div className="square filled draw-pile">
-                        {Math.max(0, pool.length)}
-                    </div>
                     <div className="score">
                         <div className="red-score">
                             <div className="score-icon red"/>
@@ -518,11 +520,8 @@ function Game() {
                             {score.blue}
                         </div>
                     </div>
-
-                    <div className="controls">
-                        <button className="new-game-button" onClick={handleNewGame}></button>
-                        <button className="rules-button" onClick={handleShow}></button>
-                    </div>
+                    <button className="new-game-button" onClick={handleNewGame}></button>
+                    <button className="rules-button" onClick={handleShow}></button>
                 </div>
             </div>
             {tutorial}
