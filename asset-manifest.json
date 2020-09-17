@@ -1,0 +1,27 @@
+{
+  "files": {
+    "main.css": "/monkeys/static/css/main.df82349c.chunk.css",
+    "main.js": "/monkeys/static/js/main.261fe0d2.chunk.js",
+    "main.js.map": "/monkeys/static/js/main.261fe0d2.chunk.js.map",
+    "runtime-main.js": "/monkeys/static/js/runtime-main.1ec2a951.js",
+    "runtime-main.js.map": "/monkeys/static/js/runtime-main.1ec2a951.js.map",
+    "static/js/2.132a2f25.chunk.js": "/monkeys/static/js/2.132a2f25.chunk.js",
+    "static/js/2.132a2f25.chunk.js.map": "/monkeys/static/js/2.132a2f25.chunk.js.map",
+    "index.html": "/monkeys/index.html",
+    "precache-manifest.2271647bbd2fb4f3e8147b9a81330c3e.js": "/monkeys/precache-manifest.2271647bbd2fb4f3e8147b9a81330c3e.js",
+    "service-worker.js": "/monkeys/service-worker.js",
+    "static/css/main.df82349c.chunk.css.map": "/monkeys/static/css/main.df82349c.chunk.css.map",
+    "static/js/2.132a2f25.chunk.js.LICENSE.txt": "/monkeys/static/js/2.132a2f25.chunk.js.LICENSE.txt",
+    "static/media/index.css": "/monkeys/static/media/Red_Icon.53678ea0.png",
+    "static/media/rules.css": "/monkeys/static/media/sea_background.2c45f88d.png",
+    "static/media/coconuts.png": "/monkeys/static/media/coconuts.1ae6fa30.png",
+    "static/media/monkey_3.png": "/monkeys/static/media/monkey_3.481f421f.png",
+    "static/media/two_ships.png": "/monkeys/static/media/two_ships.846e2372.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.1ec2a951.js",
+    "static/js/2.132a2f25.chunk.js",
+    "static/css/main.df82349c.chunk.css",
+    "static/js/main.261fe0d2.chunk.js"
+  ]
+}
