@@ -12,7 +12,6 @@ body {
     vertical-align: middle;
     background: linear-gradient(rgba(242, 234, 150, .5), rgba(217, 200, 43, .5)),
     url('./images/sand_texture.svg');
-
 }
 
 button {
@@ -119,7 +118,7 @@ h2 {
 .square.filled.draw-pile {
     background-image: url('./images/sea_background.png');
     box-shadow: var(--deck-size);
-    margin: 0 0 5px 5px;
+    margin: 0 5px 5px 0;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -205,13 +204,24 @@ h2 {
     background-image: url('./images/Monkeys_Tile_20.png');
 }
 
+.offer-area {
+    margin: 3px 0 0 0;
+}
+
 .offer {
     display: flex;
     flex-direction: column;
+    /*justify-content: space-between;*/
+
 }
 
 .offer-tile {
-    margin: 0 0 5px 5px;
+    margin: 0 5px 5px 0;
+}
+
+.ddcontainersource {
+    box-shadow: -4px 4px 3px -2px darkgrey;
+
 }
 
 .off-board {

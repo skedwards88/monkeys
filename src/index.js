@@ -1,18 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import { DragDropContainer, DropTarget } from 'react-drag-drop-container';
-import { tiles, BoardRoute } from './tiles.js'
+import {DragDropContainer, DropTarget} from 'react-drag-drop-container';
+import {tiles, BoardRoute} from './tiles.js'
 import Tutorial from './rules.js';
 import './rules.css';
-
 
 
 // todo items
 // SVG tiles???
 // make game over alert show _after_ the last tile is dropped
 // Move tiles to L side of board, keep score/buttons on R. will also want to shift direction of shaddow
-// change background from white to sandy. palegoldenrod. can css do texture?
 // images are slow. Make smaller? Cache?
 // For rules animations, can I overlay the new part instead of the whole image? Would be multiple background images with transparency.
 // Enable keyboard navigation for rules?
@@ -75,8 +73,8 @@ function updateRoutes(boardRoutes, tile, row, column, numColumns) {
         console.log('Tile route: ', tileRoute.tileHead, tileRoute.tileTail);
 
         // Convert the tile head/tail (0, 1, 2, 3, or null) to the corresponding board node
-        let convertedTileHead = typeof(tileRoute.tileHead)==="number" ? boardNodes[tileRoute.tileHead] : null;
-        let convertedTileTail = typeof(tileRoute.tileTail)==="number" ? boardNodes[tileRoute.tileTail] : null;
+        let convertedTileHead = typeof (tileRoute.tileHead) === "number" ? boardNodes[tileRoute.tileHead] : null;
+        let convertedTileTail = typeof (tileRoute.tileTail) === "number" ? boardNodes[tileRoute.tileTail] : null;
         console.log('converted nodes: ', convertedTileHead, convertedTileTail);
 
         //
@@ -122,9 +120,10 @@ function updateRoutes(boardRoutes, tile, row, column, numColumns) {
         if (!headMatch && !tailMatch) {
             console.log('New route: ');
             let newRoute = new BoardRoute({
-                boardHead:convertedTileHead,
-                boardTail:convertedTileTail,
-                tileRoutes:[tileRoute]});
+                boardHead: convertedTileHead,
+                boardTail: convertedTileTail,
+                tileRoutes: [tileRoute]
+            });
             boardRoutes.push(newRoute);
         }
 
@@ -211,7 +210,7 @@ function updateRoutes(boardRoutes, tile, row, column, numColumns) {
     return boardRoutes
 }
 
-export function tallyScore(routes){
+export function tallyScore(routes) {
     let newRedScore = 0;
     let newBlueScore = 0;
     for (let route of routes) {
@@ -219,7 +218,7 @@ export function tallyScore(routes){
         newRedScore += score.red;
         newBlueScore += score.blue;
     }
-    return {red:newRedScore, blue:newBlueScore}
+    return {red: newRedScore, blue: newBlueScore}
 }
 
 const getInitialSetup = (numRows, numColumns) => {
@@ -235,13 +234,13 @@ const getInitialSetup = (numRows, numColumns) => {
     let initialTiles = pool.splice(0, 4);
 
     // Make the starting board
-    let starting_column = Math.round(numColumns/2)-1;
+    let starting_column = Math.round(numColumns / 2) - 1;
     console.log(starting_column);
     let startingPositions = [
-        {row:1,column:starting_column},
-        {row:3,column:starting_column},
-        {row:5,column:starting_column},
-        {row:7,column:starting_column}];
+        {row: 1, column: starting_column},
+        {row: 3, column: starting_column},
+        {row: 5, column: starting_column},
+        {row: 7, column: starting_column}];
     let startingBoard = Array.from({length: numRows}, e => Array(numColumns).fill(null));
     initialTiles.forEach((tile, index) => {
         let startingPosition = startingPositions[index];
@@ -268,7 +267,7 @@ const getInitialSetup = (numRows, numColumns) => {
 
     let startingScore = tallyScore(startingRoutes);
 
-    return([pool, startingOffer, startingBoard, startingRoutes, startingScore])
+    return ([pool, startingOffer, startingBoard, startingRoutes, startingScore])
 };
 
 
@@ -276,36 +275,36 @@ function Game() {
 
     let numRows = 9;
     let numColumns = 7;
-    let [initialPool, startingOffer, startingBoard, startingRoutes, startingScore] = [[],[],[], [], []];
+    let [initialPool, startingOffer, startingBoard, startingRoutes, startingScore] = [[], [], [], [], []];
 
     // The box shadow around the draw stack
     let startingDrawEffect = [
-        "1px 1px rgba(27, 211, 235, 0.35)",
-        "1px 1px rgba(0,0,0, 0.15)",
-        "2px 2px rgba(27, 211, 235, 0.35)",
-        "2px 2px rgba(0,0,0, 0.05)",
-        "3px 3px rgba(27, 211, 235, 0.35)",
-        "3px 3px rgba(0,0,0, 0.35)",
-        "4px 4px rgba(27, 211, 235, 0.35)",
-        "4px 4px rgba(0,0,0, 0.25)",
-        "5px 5px rgba(27, 211, 235, 0.35)",
-        "5px 5px rgba(0,0,0, 0.45)",
-        "6px 6px rgba(27, 211, 235, 0.35)",
-        "6px 6px rgba(0,0,0, 0.35)",
-        "7px 7px rgba(27, 211, 235, 0.35)",
-        "7px 7px rgba(0,0,0, 0.15)",
-        "8px 8px rgba(27, 211, 235, 0.35)",
-        "8px 8px rgba(0,0,0, 0.25)",
-        "9px 9px rgba(27, 211, 235, 0.35)",
-        "9px 9px rgba(0,0,0, 0.35)",
-        "10px 10px rgba(27, 211, 235, 0.35)",
-        "10px 10px rgba(0,0,0, 0.45)",
-        "11px 11px rgba(27, 211, 235, 0.35)",
-        "11px 11px rgba(0,0,0, 0.35)",
-        "12px 12px rgba(27, 211, 235, 0.35)",
-        "12px 12px rgba(0,0,0, 0.15)",
-        "13px 13px rgba(27, 211, 235, 0.35)",
-        "13px 13px rgba(0,0,0, 0.35)",
+        "-1px 1px rgba(27, 211, 235, 0.35)",
+        "-1px 1px rgba(0,0,0, 0.15)",
+        "-2px 2px rgba(27, 211, 235, 0.35)",
+        "-2px 2px rgba(0,0,0, 0.05)",
+        "-3px 3px rgba(27, 211, 235, 0.35)",
+        "-3px 3px rgba(0,0,0, 0.35)",
+        "-4px 4px rgba(27, 211, 235, 0.35)",
+        "-4px 4px rgba(0,0,0, 0.25)",
+        "-5px 5px rgba(27, 211, 235, 0.35)",
+        "-5px 5px rgba(0,0,0, 0.45)",
+        "-6px 6px rgba(27, 211, 235, 0.35)",
+        "-6px 6px rgba(0,0,0, 0.35)",
+        "-7px 7px rgba(27, 211, 235, 0.35)",
+        "-7px 7px rgba(0,0,0, 0.15)",
+        "-8px 8px rgba(27, 211, 235, 0.35)",
+        "-8px 8px rgba(0,0,0, 0.25)",
+        "-9px 9px rgba(27, 211, 235, 0.35)",
+        "-9px 9px rgba(0,0,0, 0.35)",
+        "-10px 10px rgba(27, 211, 235, 0.35)",
+        "-10px 10px rgba(0,0,0, 0.45)",
+        "-11px 11px rgba(27, 211, 235, 0.35)",
+        "-11px 11px rgba(0,0,0, 0.35)",
+        "-12px 12px rgba(27, 211, 235, 0.35)",
+        "-12px 12px rgba(0,0,0, 0.15)",
+        "-13px 13px rgba(27, 211, 235, 0.35)",
+        "-13px 13px rgba(0,0,0, 0.35)",
     ];
 
     const [newGameRequested, setNewGameRequested] = useState(true);  // todo can I find a better way to do this?
@@ -314,7 +313,7 @@ function Game() {
     const [played, setPlayed] = useState(startingBoard);
     const [routes, setRoutes] = useState(startingRoutes);
     const [showRules, setShowRules] = useState(false);
-    const [score,setScore] = useState(startingScore);
+    const [score, setScore] = useState(startingScore);
     const [drawEffect, setDrawEffect] = useState(startingDrawEffect);
     useEffect(() => {
         let body = document.getElementsByTagName("body")[0];
@@ -339,7 +338,7 @@ function Game() {
         setPool(newPool);
 
         // Update draw stack visual
-        drawEffect.splice(-2,2);
+        drawEffect.splice(-2, 2);
         setDrawEffect(drawEffect);
         console.log(drawEffect.length);
 
@@ -358,7 +357,7 @@ function Game() {
             squares[row][column]
             || (squares[row + 1] && squares[row + 1][column])
             || (squares[row - 1] && squares[row - 1][column])
-        ){
+        ) {
             return;
         }
 
@@ -416,7 +415,7 @@ function Game() {
 
     function Square(props) {
         let tile = props.tile;
-        let className = tile ? "square filled tile"+tile.id : "square";
+        let className = tile ? "square filled tile" + tile.id : "square";
 
         return (
             <div className={className}
@@ -434,7 +433,7 @@ function Game() {
             return (
                 <DropTarget
                     targetKey="offer-tile"
-                    dropData={{'row':row, 'column':column}}
+                    dropData={{'row': row, 'column': column}}
                     key={row + ',' + column}
                 >
                     <Square
@@ -473,7 +472,7 @@ function Game() {
 
             const currentOffer = offer.slice();
             const tile = currentOffer[offerIndex];
-            let className = tile ? "square filled tile"+tile.id+" offer-tile" : "square offer-tile";
+            let className = tile ? "square filled tile" + tile.id + " offer-tile" : "square offer-tile";
             return (
                 <DragDropContainer
                     targetKey="offer-tile"
@@ -510,29 +509,29 @@ function Game() {
         null;
 
     return (
-            <div className="game">
-                <Board/>
-                <div className="offer-area">
+        <div className="game">
+            <div className="offer-area">
                 <Offer/>
                 <div className="square filled draw-pile">
                     {Math.max(0, pool.length)}
                 </div>
             </div>
-                <div className="off-board">
-                    <div className="score">
-                        <div className="red-score">
-                            <div className="score-icon red"/>
-                            {score.red}
-                        </div>
-                        <div className="blue-score">
-                            <div className="score-icon blue"/>
-                            {score.blue}
-                        </div>
+            <Board/>
+            <div className="off-board">
+                <div className="score">
+                    <div className="red-score">
+                        <div className="score-icon red"/>
+                        {score.red}
                     </div>
-                    <button className="new-game-button" onClick={handleNewGame}></button>
-                    <button className="rules-button" onClick={handleShow}></button>
-                    {/*<div className="temp"/>*/}
+                    <div className="blue-score">
+                        <div className="score-icon blue"/>
+                        {score.blue}
+                    </div>
                 </div>
+                <button className="new-game-button" onClick={handleNewGame}></button>
+                <button className="rules-button" onClick={handleShow}></button>
+                {/*<div className="temp"/>*/}
+            </div>
             {tutorial}
         </div>
     );
@@ -542,6 +541,6 @@ function Game() {
 
 // ReactDOM.render(<Game />, document.getElementById("root")); todo
 ReactDOM.render(
-    (<Game />),
+    (<Game/>),
     document.getElementById('root') || document.createElement('div') // for testing purposes
 );
