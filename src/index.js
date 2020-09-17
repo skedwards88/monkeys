@@ -9,7 +9,7 @@ import './rules.css';
 
 
 // todo items
-// When resize screen too small, board gets jumbled. either restrict min size or after a certain point, start shrinking the squares
+// force landscape mode?
 // lock in place? Or center to mouse?
 // resolve errors/warnings in console
 // TESTS!
