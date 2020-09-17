@@ -44,6 +44,8 @@ h2 {
     background-position: center;
     background-repeat: repeat;
     background-size: calc(100% / 5) calc(100% / 5);
+    border: 3px #44eaef solid;
+    border-radius: 10px;
 }
 
 .board-row {
