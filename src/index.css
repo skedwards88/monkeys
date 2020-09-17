@@ -10,7 +10,6 @@ body {
   --square-diameter: 17vmin; /* fallback */
   --square-diameter: clamp(40px, 17vmin, 100px);
   vertical-align: middle;
-    background-color: palegoldenrod;
     background:
             linear-gradient(rgba(242, 234, 150,.5), rgba(217, 200, 43,.5)),
             url('./images/sand_texture.svg');
