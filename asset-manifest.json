@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/monkeys/static/css/main.5cb34321.chunk.css",
+    "main.css": "/monkeys/static/css/main.41ed7ea8.chunk.css",
     "main.js": "/monkeys/static/js/main.261fe0d2.chunk.js",
     "main.js.map": "/monkeys/static/js/main.261fe0d2.chunk.js.map",
     "runtime-main.js": "/monkeys/static/js/runtime-main.1ec2a951.js",
@@ -8,9 +8,9 @@
     "static/js/2.132a2f25.chunk.js": "/monkeys/static/js/2.132a2f25.chunk.js",
     "static/js/2.132a2f25.chunk.js.map": "/monkeys/static/js/2.132a2f25.chunk.js.map",
     "index.html": "/monkeys/index.html",
-    "precache-manifest.107609b0e5644e7c8ae4b9ad3100a1e5.js": "/monkeys/precache-manifest.107609b0e5644e7c8ae4b9ad3100a1e5.js",
+    "precache-manifest.1b1616003b95394b5aa898d7401ab386.js": "/monkeys/precache-manifest.1b1616003b95394b5aa898d7401ab386.js",
     "service-worker.js": "/monkeys/service-worker.js",
-    "static/css/main.5cb34321.chunk.css.map": "/monkeys/static/css/main.5cb34321.chunk.css.map",
+    "static/css/main.41ed7ea8.chunk.css.map": "/monkeys/static/css/main.41ed7ea8.chunk.css.map",
     "static/js/2.132a2f25.chunk.js.LICENSE.txt": "/monkeys/static/js/2.132a2f25.chunk.js.LICENSE.txt",
     "static/media/index.css": "/monkeys/static/media/Red_Icon.53678ea0.png",
     "static/media/rules.css": "/monkeys/static/media/sea_background.2c45f88d.png",
@@ -21,7 +21,7 @@
   "entrypoints": [
     "static/js/runtime-main.1ec2a951.js",
     "static/js/2.132a2f25.chunk.js",
-    "static/css/main.5cb34321.chunk.css",
+    "static/css/main.41ed7ea8.chunk.css",
     "static/js/main.261fe0d2.chunk.js"
   ]
 }
