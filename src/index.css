@@ -54,35 +54,35 @@ h2 {
 }
 
 .board-row:nth-child(2) {
-    top: calc(var(--square-diameter)*-.5);
+    top: calc(var(--square-diameter)*(-.5));
 }
 
 .board-row:nth-child(3) {
-    top: calc(var(--square-diameter)*-1);
+    top: calc(var(--square-diameter)*(-1));
 }
 
 .board-row:nth-child(4) {
-    top: calc(var(--square-diameter)*-1.5);
+    top: calc(var(--square-diameter)*(-1.5));
 }
 
 .board-row:nth-child(5) {
-    top: calc(var(--square-diameter)*-2);
+    top: calc(var(--square-diameter)* -2);
 }
 
 .board-row:nth-child(6) {
-    top: calc(var(--square-diameter)*-2.5);
+    top: calc(var(--square-diameter)*(-2.5));
 }
 
 .board-row:nth-child(7) {
-    top: calc(var(--square-diameter)*-3);
+    top: calc(var(--square-diameter)*(-3));
 }
 
 .board-row:nth-child(8) {
-    top: calc(var(--square-diameter)*-3.5);
+    top: calc(var(--square-diameter)*(-3.5));
 }
 
 .board-row:nth-child(9) {
-    top: calc(var(--square-diameter)*-4);
+    top: calc(var(--square-diameter)*(-4));
 }
 
 .droptarget {
