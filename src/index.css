@@ -41,7 +41,6 @@ h2 {
     background-position: center;
     background-repeat: repeat;
     background-size: calc(100%/5) calc(100%/5);
-    /*outline: 1px red solid;*/
 }
 
 .board-row {
@@ -52,7 +51,6 @@ h2 {
 
 .board-row:nth-child(1) {
     top: 0px;
-    background-color: red;
 }
 
 .board-row:nth-child(2) {
