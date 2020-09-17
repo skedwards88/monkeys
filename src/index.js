@@ -9,11 +9,11 @@ import './rules.css';
 
 
 // todo items
-// TESTS!
+// When resize screen too small, board gets jumbled. either restrict min size or after a certain point, start shrinking the squares
 // lock in place? Or center to mouse?
 // resolve errors/warnings in console
+// TESTS!
 // check color accessibility
-// When resize screen too small, board gets jumbled. either restrict min size or after a certain point, start shrinking the squares
 // how to not duplicate modal.js between monkeys and stars?
 // would be so cool to change color of route to indicate owner
 // make rules swipable on mobile
@@ -495,9 +495,7 @@ function Game() {
         null;
 
     return (
-        <div className="game">
-            <h1>Monkeys of the Caribbean</h1>
-            <div className="play-area">
+            <div className="game">
                 <Board/>
                 <div className="offer-area">
                 <Offer/>
@@ -518,8 +516,8 @@ function Game() {
                     </div>
                     <button className="new-game-button" onClick={handleNewGame}></button>
                     <button className="rules-button" onClick={handleShow}></button>
+                    {/*<div className="temp"/>*/}
                 </div>
-            </div>
             {tutorial}
         </div>
     );

@@ -1,5 +1,4 @@
 html {
-  display: table;
   margin: auto;
 }
 
@@ -8,8 +7,8 @@ body {
   font-weight: bold;
   font-family: Verdana, Geneva, sans-serif;
   margin: 20px;
-  --square-diameter: 50px;
-  display: table-cell;
+  --square-diameter: 17vmin; /* fallback */
+  --square-diameter: clamp(40px, 17vmin, 100px);
   vertical-align: middle;
 }
 
@@ -34,80 +33,76 @@ h2 {
 
 .game {
   display: flex;
-  flex-direction: column;
-  /*todo max-width: 250px;*/
 }
 
-.play-area {
-    display: flex;
-    flex-direction: row;
-}
 .board {
-    /*todo min-width: 230px;*/
-    max-height: 250px;
+    height: calc(var(--square-diameter)*5);
     background-image: url('./images/sea_background.png');
     background-position: center;
     background-repeat: repeat;
     background-size: calc(100%/5) calc(100%/5);
+    /*outline: 1px red solid;*/
 }
-
 
 .board-row {
     display: table;
     position: relative;
+    width: calc(1px + var(--square-diameter)*7);
 }
 
 .board-row:nth-child(1) {
     top: 0px;
-
+    background-color: red;
 }
 
 .board-row:nth-child(2) {
-    top: -25px;
+    top: calc(var(--square-diameter)*-.5);
 }
 
 .board-row:nth-child(3) {
-    top: -50px;
+    top: calc(var(--square-diameter)*-1);
 }
 
 .board-row:nth-child(4) {
-    top: -75px;
+    top: calc(var(--square-diameter)*-1.5);
 }
 
 .board-row:nth-child(5) {
-    top: -100px;
+    top: calc(var(--square-diameter)*-2);
 }
+
 .board-row:nth-child(6) {
-    top: -125px;
+    top: calc(var(--square-diameter)*-2.5);
 }
+
 .board-row:nth-child(7) {
-    top: -150px;
+    top: calc(var(--square-diameter)*-3);
 }
+
 .board-row:nth-child(8) {
-    top: -175px;
+    top: calc(var(--square-diameter)*-3.5);
 }
+
 .board-row:nth-child(9) {
-    top: -200px;
+    top: calc(var(--square-diameter)*-4);
 }
 
 .droptarget {
     float: left;
-    line-height: 34px;
     height: var(--square-diameter);
     padding: 0;
     width: var(--square-diameter);
     display: flex;
     justify-content: center;
     align-items: center;
-
 }
+
 .square {
   height: var(--square-diameter);
   width: var(--square-diameter);
 }
 
 .highlighted {
-    /*outline: 3px solid darkblue;*/
     background-color: darkblue;
     z-index: 1;
 }
