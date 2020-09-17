@@ -1,56 +1,55 @@
 html {
-  margin: auto;
+    margin: auto;
 }
 
 body {
-  font-size: 18px;
-  font-weight: bold;
-  font-family: Verdana, Geneva, sans-serif;
-  margin: 20px;
-  --square-diameter: 17vmin; /* fallback */
-  --square-diameter: clamp(40px, 17vmin, 100px);
-  vertical-align: middle;
-    background:
-            linear-gradient(rgba(242, 234, 150,.5), rgba(217, 200, 43,.5)),
-            url('./images/sand_texture.svg');
+    font-size: 18px;
+    font-weight: bold;
+    font-family: Verdana, Geneva, sans-serif;
+    margin: 20px;
+    --square-diameter: 17vmin; /* fallback */
+    --square-diameter: clamp(40px, 17vmin, 100px);
+    vertical-align: middle;
+    background: linear-gradient(rgba(242, 234, 150, .5), rgba(217, 200, 43, .5)),
+    url('./images/sand_texture.svg');
 
 }
 
 button {
-  margin-right: 10px;
-  border-radius: 5px;
-  font-family: inherit;
-  background-color: lightgrey;
+    margin-right: 10px;
+    border-radius: 5px;
+    font-family: inherit;
+    background-color: lightgrey;
 }
 
 h1 {
-  font-size: 18px;
-  text-align: center;
-  line-height: 1;
+    font-size: 18px;
+    text-align: center;
+    line-height: 1;
 }
 
 h2 {
-  font-size: 16px;
-  text-align: center;
-  line-height: 1;
+    font-size: 16px;
+    text-align: center;
+    line-height: 1;
 }
 
 .game {
-  display: flex;
+    display: flex;
 }
 
 .board {
-    height: calc(var(--square-diameter)*5);
+    height: calc(var(--square-diameter) * 5);
     background-image: url('./images/sea_background.png');
     background-position: center;
     background-repeat: repeat;
-    background-size: calc(100%/5) calc(100%/5);
+    background-size: calc(100% / 5) calc(100% / 5);
 }
 
 .board-row {
     display: table;
     position: relative;
-    width: calc(1px + var(--square-diameter)*7);
+    width: calc(1px + var(--square-diameter) * 7);
 }
 
 .board-row:nth-child(1) {
@@ -58,35 +57,35 @@ h2 {
 }
 
 .board-row:nth-child(2) {
-    top: calc(var(--square-diameter)*(-.5));
+    top: calc(var(--square-diameter) * (-.5));
 }
 
 .board-row:nth-child(3) {
-    top: calc(var(--square-diameter)*(-1));
+    top: calc(var(--square-diameter) * (-1));
 }
 
 .board-row:nth-child(4) {
-    top: calc(var(--square-diameter)*(-1.5));
+    top: calc(var(--square-diameter) * (-1.5));
 }
 
 .board-row:nth-child(5) {
-    top: calc(var(--square-diameter)* -2);
+    top: calc(var(--square-diameter) * -2);
 }
 
 .board-row:nth-child(6) {
-    top: calc(var(--square-diameter)*(-2.5));
+    top: calc(var(--square-diameter) * (-2.5));
 }
 
 .board-row:nth-child(7) {
-    top: calc(var(--square-diameter)*(-3));
+    top: calc(var(--square-diameter) * (-3));
 }
 
 .board-row:nth-child(8) {
-    top: calc(var(--square-diameter)*(-3.5));
+    top: calc(var(--square-diameter) * (-3.5));
 }
 
 .board-row:nth-child(9) {
-    top: calc(var(--square-diameter)*(-4));
+    top: calc(var(--square-diameter) * (-4));
 }
 
 .droptarget {
@@ -100,8 +99,8 @@ h2 {
 }
 
 .square {
-  height: var(--square-diameter);
-  width: var(--square-diameter);
+    height: var(--square-diameter);
+    width: var(--square-diameter);
 }
 
 .highlighted {
@@ -127,60 +126,79 @@ h2 {
 .square.filled.tile1 {
     background-image: url('./images/Monkeys_Tile_1.png');
 }
+
 .square.filled.tile2 {
     background-image: url('./images/Monkeys_Tile_2.png');
 }
+
 .square.filled.tile3 {
     background-image: url('./images/Monkeys_Tile_3.png');
 }
+
 .square.filled.tile4 {
     background-image: url('./images/Monkeys_Tile_4.png');
 }
+
 .square.filled.tile5 {
     background-image: url('./images/Monkeys_Tile_5.png');
 }
+
 .square.filled.tile6 {
     background-image: url('./images/Monkeys_Tile_6.png');
 }
+
 .square.filled.tile7 {
     background-image: url('./images/Monkeys_Tile_7.png');
 }
+
 .square.filled.tile8 {
     background-image: url('./images/Monkeys_Tile_8.png');
 }
+
 .square.filled.tile9 {
     background-image: url('./images/Monkeys_Tile_9.png');
 }
+
 .square.filled.tile10 {
     background-image: url('./images/Monkeys_Tile_10.png');
 }
+
 .square.filled.tile11 {
     background-image: url('./images/Monkeys_Tile_11.png');
 }
+
 .square.filled.tile12 {
     background-image: url('./images/Monkeys_Tile_12.png');
 }
+
 .square.filled.tile13 {
     background-image: url('./images/Monkeys_Tile_13.png');
 }
+
 .square.filled.tile14 {
     background-image: url('./images/Monkeys_Tile_14.png');
 }
+
 .square.filled.tile15 {
     background-image: url('./images/Monkeys_Tile_15.png');
 }
+
 .square.filled.tile16 {
     background-image: url('./images/Monkeys_Tile_16.png');
 }
+
 .square.filled.tile17 {
     background-image: url('./images/Monkeys_Tile_17.png');
 }
+
 .square.filled.tile18 {
     background-image: url('./images/Monkeys_Tile_18.png');
 }
+
 .square.filled.tile19 {
     background-image: url('./images/Monkeys_Tile_19.png');
 }
+
 .square.filled.tile20 {
     background-image: url('./images/Monkeys_Tile_20.png');
 }
@@ -191,12 +209,12 @@ h2 {
 }
 
 .offer-tile {
-  margin: 0 0 5px 5px;
+    margin: 0 0 5px 5px;
 }
 
 .off-board {
-  display: flex;
-  flex-direction: column;
+    display: flex;
+    flex-direction: column;
     position: relative;
     margin: 0 0 0 10px;
 }
@@ -206,11 +224,11 @@ h2 {
 }
 
 .score {
-  font-weight: normal;
-  font-size: 18px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+    font-weight: normal;
+    font-size: 18px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .score-icon {
@@ -231,22 +249,22 @@ h2 {
 }
 
 .red-score {
-  color: red;
-  font-weight: bold;
+    color: red;
+    font-weight: bold;
     display: flex;
     flex-direction: row;
 }
 
 .blue-score {
-  color: blue;
-  font-weight: bold;
-  padding-right: 50px;
+    color: blue;
+    font-weight: bold;
+    padding-right: 50px;
     display: flex;
     flex-direction: row;
 }
 
 .tile {
-  margin: 10px;
+    margin: 10px;
 }
 
 .new-game-button {
