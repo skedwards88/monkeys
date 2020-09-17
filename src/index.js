@@ -9,7 +9,22 @@ import './rules.css';
 
 
 // todo items
+// SVG tiles???
+// make game over alert show _after_ the last tile is dropped
+// Move tiles to L side of board, keep score/buttons on R. will also want to shift direction of shaddow
+// change background from white to sandy. palegoldenrod. can css do texture?
+// images are slow. Make smaller? Cache?
+// For rules animations, can I overlay the new part instead of the whole image? Would be multiple background images with transparency.
+// Enable keyboard navigation for rules?
+// Enable keyboard navigation for tiles?
 // force landscape mode?
+// Also have score and buttons resize
+// Have # remaining tiles resize
+// Add shadow to the offer tiles
+// Tooltip for buttons. What is tooltip alternative for mobile?
+// Space the offer to match board height
+// art-make the routes more level at the edges so connections are smoother
+// art- make sure things aren't too close to L/R
 // lock in place? Or center to mouse?
 // resolve errors/warnings in console
 // TESTS!
