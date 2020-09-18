@@ -7,12 +7,12 @@ body {
     font-size: clamp(10px, 4.0vh, 32px); /* not compatible with all browsers */
     font-weight: bold;
     font-family: Verdana, Geneva, sans-serif;
-    margin: 20px;
     --square-diameter: 17vmin; /* fallback */
     --square-diameter: clamp(40px, 17vmin, 100px);
     vertical-align: middle;
     background: linear-gradient(rgba(242, 234, 150, .5), rgba(217, 200, 43, .5)),
     url('./images/sand_texture.svg');
+    background-attachment: fixed;
 }
 
 button {
@@ -24,6 +24,7 @@ button {
 
 .game {
     display: flex;
+    margin: 20px;
 }
 
 .board {
