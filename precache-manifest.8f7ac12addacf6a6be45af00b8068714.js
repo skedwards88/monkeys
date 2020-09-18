@@ -1,11 +1,11 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "bc883c0f307dae855e446c381a745c50",
+    "revision": "410023f95bcef723d15223a2474797ae",
     "url": "/monkeys/index.html"
   },
   {
-    "revision": "3386f4205a2e5a60e145",
-    "url": "/monkeys/static/css/main.39d96cdc.chunk.css"
+    "revision": "b0e4558fce2ce6d2628c",
+    "url": "/monkeys/static/css/main.f9077ceb.chunk.css"
   },
   {
     "revision": "0fc43e6916e8bf2c37d6",
@@ -16,7 +16,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/monkeys/static/js/2.132a2f25.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "3386f4205a2e5a60e145",
+    "revision": "b0e4558fce2ce6d2628c",
     "url": "/monkeys/static/js/main.2178c043.chunk.js"
   },
   {
@@ -112,36 +112,36 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/monkeys/static/media/board_0.f1c66207.png"
   },
   {
-    "revision": "e39bb7ce8b99cce316883b5a501a7841",
-    "url": "/monkeys/static/media/board_1.e39bb7ce.png"
+    "revision": "8f3f5a98cc039f450795b7c24b24288e",
+    "url": "/monkeys/static/media/board_1.8f3f5a98.png"
   },
   {
-    "revision": "cee73207e498055b364c1b05c8fb287d",
-    "url": "/monkeys/static/media/board_2.cee73207.png"
+    "revision": "bf76705ff8b2ab3b1520cec032be3def",
+    "url": "/monkeys/static/media/board_2.bf76705f.png"
   },
   {
-    "revision": "e524f6292e5a63b9bacee200dc868daa",
-    "url": "/monkeys/static/media/board_3.e524f629.png"
+    "revision": "e81f1a831a0db636e57083baa6deb61a",
+    "url": "/monkeys/static/media/board_3.e81f1a83.png"
   },
   {
     "revision": "3b453d2808f3f2822421b1ff61e44fa6",
     "url": "/monkeys/static/media/chest.3b453d28.png"
   },
   {
-    "revision": "bcf7147cf3c3145ae44309733a89cddb",
-    "url": "/monkeys/static/media/coconut_count_0.bcf7147c.png"
+    "revision": "f45d5dd6754b404ae314c17de322e491",
+    "url": "/monkeys/static/media/coconut_count_0_200.f45d5dd6.png"
   },
   {
-    "revision": "5b7ebbd15d8a2e111c2d041feadf1c81",
-    "url": "/monkeys/static/media/coconut_count_1.5b7ebbd1.png"
+    "revision": "52868f757fd7ce0c6aa2dd4fe117dd4a",
+    "url": "/monkeys/static/media/coconut_count_1.52868f75.svg"
   },
   {
-    "revision": "b56000ece83fd748ef5528adbbea61d2",
-    "url": "/monkeys/static/media/coconut_count_2.b56000ec.png"
+    "revision": "beabadfb64e4c824acb212ec52f15886",
+    "url": "/monkeys/static/media/coconut_count_2.beabadfb.svg"
   },
   {
-    "revision": "4f799a637afeb51f8dbb93cbefdb806a",
-    "url": "/monkeys/static/media/coconut_count_3.4f799a63.png"
+    "revision": "568a69a353a5abc99a81ce3c0d07abca",
+    "url": "/monkeys/static/media/coconut_count_3.568a69a3.svg"
   },
   {
     "revision": "1ae6fa30d4b889fe74a47fd9decef36b",
