@@ -10,7 +10,6 @@ import './rules.css';
 // todo items
 // SVG tiles???
 // if screen is above certain height, move tiles and buttons/score below?
-// make game over alert show _after_ the last tile is dropped
 // images are slow. Make smaller? Cache?
 // For rules animations, can I overlay the new part instead of the whole image? Would be multiple background images with transparency.
 // Enable keyboard navigation for rules?

@@ -106,7 +106,7 @@ button {
 }
 
 .square.filled.draw-pile {
-    background-image: url('./images/Monkey_3_teal.png'), url('./images/sea_background.png');
+    background-image: url('./images/monkey_3_teal.svg'), url('./images/sea_background.png');
     box-shadow: var(--deck-size);
     margin: 0 5px 5px 0;
     display: flex;
@@ -115,83 +115,83 @@ button {
 }
 
 .square.filled.tile1 {
-    background-image: url('./images/Monkeys_Tile_1.png');
+    background-image: url('./images/Monkeys_Tile_1_200.png');
 }
 
 .square.filled.tile2 {
-    background-image: url('./images/Monkeys_Tile_2.png');
+    background-image: url('./images/Monkeys_Tile_2_200.png');
 }
 
 .square.filled.tile3 {
-    background-image: url('./images/Monkeys_Tile_3.png');
+    background-image: url('./images/Monkeys_Tile_3_200.png');
 }
 
 .square.filled.tile4 {
-    background-image: url('./images/Monkeys_Tile_4.png');
+    background-image: url('./images/Monkeys_Tile_4_200.png');
 }
 
 .square.filled.tile5 {
-    background-image: url('./images/Monkeys_Tile_5.png');
+    background-image: url('./images/Monkeys_Tile_5_200.png');
 }
 
 .square.filled.tile6 {
-    background-image: url('./images/Monkeys_Tile_6.png');
+    background-image: url('./images/Monkeys_Tile_6_200.png');
 }
 
 .square.filled.tile7 {
-    background-image: url('./images/Monkeys_Tile_7.png');
+    background-image: url('./images/Monkeys_Tile_7_200.png');
 }
 
 .square.filled.tile8 {
-    background-image: url('./images/Monkeys_Tile_8.png');
+    background-image: url('./images/Monkeys_Tile_8_200.png');
 }
 
 .square.filled.tile9 {
-    background-image: url('./images/Monkeys_Tile_9.png');
+    background-image: url('./images/Monkeys_Tile_9_200.png');
 }
 
 .square.filled.tile10 {
-    background-image: url('./images/Monkeys_Tile_10.png');
+    background-image: url('./images/Monkeys_Tile_10_200.png');
 }
 
 .square.filled.tile11 {
-    background-image: url('./images/Monkeys_Tile_11.png');
+    background-image: url('./images/Monkeys_Tile_11_200.png');
 }
 
 .square.filled.tile12 {
-    background-image: url('./images/Monkeys_Tile_12.png');
+    background-image: url('./images/Monkeys_Tile_12_200.png');
 }
 
 .square.filled.tile13 {
-    background-image: url('./images/Monkeys_Tile_13.png');
+    background-image: url('./images/Monkeys_Tile_13_200.png');
 }
 
 .square.filled.tile14 {
-    background-image: url('./images/Monkeys_Tile_14.png');
+    background-image: url('./images/Monkeys_Tile_14_200.png');
 }
 
 .square.filled.tile15 {
-    background-image: url('./images/Monkeys_Tile_15.png');
+    background-image: url('./images/Monkeys_Tile_15_200.png');
 }
 
 .square.filled.tile16 {
-    background-image: url('./images/Monkeys_Tile_16.png');
+    background-image: url('./images/Monkeys_Tile_16_200.png');
 }
 
 .square.filled.tile17 {
-    background-image: url('./images/Monkeys_Tile_17.png');
+    background-image: url('./images/Monkeys_Tile_17_200.png');
 }
 
 .square.filled.tile18 {
-    background-image: url('./images/Monkeys_Tile_18.png');
+    background-image: url('./images/Monkeys_Tile_18_200.png');
 }
 
 .square.filled.tile19 {
-    background-image: url('./images/Monkeys_Tile_19.png');
+    background-image: url('./images/Monkeys_Tile_19_200.png');
 }
 
 .square.filled.tile20 {
-    background-image: url('./images/Monkeys_Tile_20.png');
+    background-image: url('./images/Monkeys_Tile_20_200.png');
 }
 
 .offer-area {
@@ -241,11 +241,12 @@ button {
 }
 
 .score-icon.red {
-    background-image: url('./images/Red_Icon.png');
+    background-image: url('./images/red_icon.svg');
+    fill: green;
 }
 
 .score-icon.blue {
-    background-image: url('./images/Blue_Icon.png');
+    background-image: url('./images/blue_icon.svg');
 }
 
 .red-score {
@@ -276,7 +277,7 @@ button {
     background-repeat: no-repeat; /* Do not repeat the image */
     background-size: cover; /* Resize the background image to cover the entire container */
     margin-right: 5px;
-    background-image: url('./images/new_game_icon.png');
+    background-image: url('./images/new_game_icon.svg');
 }
 
 .rules-button {
@@ -286,5 +287,5 @@ button {
     background-repeat: no-repeat; /* Do not repeat the image */
     background-size: cover; /* Resize the background image to cover the entire container */
     margin-right: 5px;
-    background-image: url('./images/rules_icon.png');
+    background-image: url('./images/rules_icon.svg');
 }
