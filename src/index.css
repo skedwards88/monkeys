@@ -29,7 +29,7 @@ button {
 
 .board {
     height: calc(var(--square-diameter) * 5);
-    background-image: url('./images/sea_background.png');
+    background-image: url('./images/sea_background_200.png');
     background-position: center;
     background-repeat: repeat;
     background-size: calc(100% / 5) calc(100% / 5);
@@ -106,7 +106,7 @@ button {
 }
 
 .square.filled.draw-pile {
-    background-image: url('./images/monkey_3_teal.svg'), url('./images/sea_background.png');
+    background-image: url('./images/monkey_3_teal.svg'), url('./images/sea_background_200.png');
     box-shadow: var(--deck-size);
     margin: 0 5px 5px 0;
     display: flex;
