@@ -153,21 +153,16 @@ function Tutorial(props) {
         <Modal>
             <div className="modal">
                 <div className="tutorial">
-                    {/*<div className="tutorial-navigation">*/}
                         <PreviousButton
                             currentRule={currentRule}
                             handlePrevious={handlePrevious}
                         />
-                    {/*</div>*/}
                     {rules[currentRule-1]}
-
-                    {/*<div className="tutorial-navigation">*/}
                         <button className="exit-button" onClick={props.handleHide}>&#10005;</button>
                         <NextButton
                             currentRule={currentRule}
                             handleNext={handleNext}
                         />
-                    {/*</div>*/}
                 </div>
             </div>
         </Modal>
