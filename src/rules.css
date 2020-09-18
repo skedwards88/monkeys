@@ -136,13 +136,13 @@ img {
         background-image: url('./images/board_0.png');
     }
     25% {
-        background-image: url('./images/board_1.png');
+        background-image: url('./images/board_1.png'), url('./images/board_0.png');
     }
     50% {
-        background-image: url('./images/board_2.png');
+        background-image: url('./images/board_2.png'), url('./images/board_1.png'), url('./images/board_0.png');
     }
     75% {
-        background-image: url('./images/board_3.png');
+        background-image: url('./images/board_3.png'), url('./images/board_2.png'), url('./images/board_1.png'), url('./images/board_0.png');
     }
 }
 
@@ -153,16 +153,16 @@ img {
 
 @keyframes coconuts-animation {
     0% {
-        background-image: url('./images/coconut_count_0.png');
+        background-image: url('./images/coconut_count_0_200.png');
     }
     25% {
-        background-image: url('./images/coconut_count_1.png');
+        background-image: url('./images/coconut_count_1.svg'), url('./images/coconut_count_0_200.png');
     }
     50% {
-        background-image: url('./images/coconut_count_2.png');
+        background-image: url('./images/coconut_count_2.svg'), url('./images/coconut_count_1.svg'), url('./images/coconut_count_0_200.png');
     }
     75% {
-        background-image: url('./images/coconut_count_3.png');
+        background-image: url('./images/coconut_count_3.svg'), url('./images/coconut_count_2.svg'), url('./images/coconut_count_1.svg'), url('./images/coconut_count_0_200.png');
     }
 }
 
