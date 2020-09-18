@@ -392,9 +392,6 @@ function Game() {
         let offerIndex = e.dragData.offerIndex;
         let newOffer = offer.slice();
         newOffer[offerIndex] = newTile;
-        if (newOffer.every(t => t === undefined)) {
-            alert("Game over!")
-        }
         setOffer(newOffer);
     };
 
