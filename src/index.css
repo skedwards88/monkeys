@@ -112,6 +112,7 @@ button {
     display: flex;
     justify-content: center;
     align-items: center;
+    font-size: calc(var(--square-diameter)* .5);
 }
 
 .square.filled.tile1 {
