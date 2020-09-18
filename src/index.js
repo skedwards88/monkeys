@@ -16,8 +16,6 @@ import './rules.css';
 // Enable keyboard navigation for rules?
 // Enable keyboard navigation for tiles?
 // force landscape mode?
-// Have # remaining tiles resize
-// Add shadow to the offer tiles
 // Tooltip for buttons. What is tooltip alternative for mobile?
 // Space the offer to match board height
 // art-make the routes more level at the edges so connections are smoother

@@ -99,13 +99,13 @@ button {
 }
 
 .square.filled {
-    background-position: center; /* Center the image */
-    background-repeat: no-repeat; /* Do not repeat the image */
-    background-size: cover; /* Resize the background image to cover the entire container */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
 }
 
 .square.filled.draw-pile {
-    background-image: url('./images/sea_background.png');
+    background-image: url('./images/Monkey_3_teal.png'), url('./images/sea_background.png');
     box-shadow: var(--deck-size);
     margin: 0 5px 5px 0;
     display: flex;
