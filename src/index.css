@@ -208,9 +208,8 @@ button {
     margin: 0 5px 5px 0;
 }
 
-.ddcontainersource {
+.filled.offer-tile {
     box-shadow: -4px 4px 3px -2px darkgrey;
-
 }
 
 .off-board {
