@@ -9,14 +9,13 @@ import './rules.css';
 
 // todo items
 // SVG tiles???
+// if screen is above certain height, move tiles and buttons/score below?
 // make game over alert show _after_ the last tile is dropped
-// Move tiles to L side of board, keep score/buttons on R. will also want to shift direction of shaddow
 // images are slow. Make smaller? Cache?
 // For rules animations, can I overlay the new part instead of the whole image? Would be multiple background images with transparency.
 // Enable keyboard navigation for rules?
 // Enable keyboard navigation for tiles?
 // force landscape mode?
-// Also have score and buttons resize
 // Have # remaining tiles resize
 // Add shadow to the offer tiles
 // Tooltip for buttons. What is tooltip alternative for mobile?

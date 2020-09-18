@@ -3,7 +3,8 @@ html {
 }
 
 body {
-    font-size: 18px;
+    font-size: 24px; /* fall -back */
+    font-size: clamp(10px, 4.0vh, 32px); /* not compatible with all browsers */
     font-weight: bold;
     font-family: Verdana, Geneva, sans-serif;
     margin: 20px;
@@ -19,18 +20,6 @@ button {
     border-radius: 5px;
     font-family: inherit;
     background-color: lightgrey;
-}
-
-h1 {
-    font-size: 18px;
-    text-align: center;
-    line-height: 1;
-}
-
-h2 {
-    font-size: 16px;
-    text-align: center;
-    line-height: 1;
 }
 
 .game {
@@ -228,7 +217,7 @@ h2 {
     display: flex;
     flex-direction: column;
     position: relative;
-    margin: 0 0 0 10px;
+    margin: 3px 0 0 10px;
 }
 
 .off-board > * {
@@ -237,15 +226,14 @@ h2 {
 
 .score {
     font-weight: normal;
-    font-size: 18px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 }
 
 .score-icon {
-    width: 20px;
-    height: 20px;
+    width: calc(var(--square-diameter) / 3);
+    height: calc(var(--square-diameter) / 3);
     background-position: center;
     background-repeat: no-repeat;
     background-size: contain;
@@ -265,9 +253,11 @@ h2 {
     font-weight: bold;
     display: flex;
     flex-direction: row;
+    align-items: center;
 }
 
 .blue-score {
+    align-items: center;
     color: blue;
     font-weight: bold;
     padding-right: 50px;
@@ -280,8 +270,8 @@ h2 {
 }
 
 .new-game-button {
-    width: 30px;
-    height: 30px;
+    width: calc(var(--square-diameter) / 2);
+    height: calc(var(--square-diameter) / 2);
     background-position: center; /* Center the image */
     background-repeat: no-repeat; /* Do not repeat the image */
     background-size: cover; /* Resize the background image to cover the entire container */
@@ -290,8 +280,8 @@ h2 {
 }
 
 .rules-button {
-    width: 30px;
-    height: 30px;
+    width: calc(var(--square-diameter) / 2);
+    height: calc(var(--square-diameter) / 2);
     background-position: center; /* Center the image */
     background-repeat: no-repeat; /* Do not repeat the image */
     background-size: cover; /* Resize the background image to cover the entire container */
