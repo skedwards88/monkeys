@@ -46,8 +46,14 @@ html, body {
     justify-content: flex-start;
     overflow: scroll;
     font-size: 14px; /* fall -back */
-    font-size: clamp(10px, 4.0vh, 16px); /* not compatible with all browsers */
 }
+
+@supports (width: clamp(10px, 4.0vh, 16px)) {
+    .tutorial-step {
+        font-size: clamp(10px, 4.0vh, 16px);
+    }
+}
+
 
 button {
     font-size: 18px;

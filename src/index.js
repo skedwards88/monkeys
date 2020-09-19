@@ -9,6 +9,9 @@ import './rules.css';
 
 // todo items
 // SVG tiles???
+// lighten bakground to make clear what is empty still
+// maybe add node to end of routes
+// maybe add undo
 // if screen is above certain height, move tiles and buttons/score below?
 // images are slow. Make smaller? Cache?
 // For rules animations, can I overlay the new part instead of the whole image? Would be multiple background images with transparency.

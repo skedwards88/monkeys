@@ -3,17 +3,25 @@ html {
 }
 
 body {
-    font-size: 24px; /* fall -back */
-    font-size: clamp(10px, 4.0vh, 32px); /* not compatible with all browsers */
+    font-size: 18px;  /* fall-back fall-back */
+    font-size: 4.0vh; /* fall-back */
     font-weight: bold;
     font-family: Verdana, Geneva, sans-serif;
+    --square-diameter: 50px; /* fallback fallback */
     --square-diameter: 17vmin; /* fallback */
-    --square-diameter: clamp(40px, 17vmin, 100px);
     vertical-align: middle;
     background: linear-gradient(rgba(242, 234, 150, .5), rgba(217, 200, 43, .5)),
     url('./images/sand_texture.svg');
     background-attachment: fixed;
 }
+
+@supports (width: clamp(40px, 17vmin, 100px)) {
+    body {
+        --square-diameter: clamp(40px, 17vmin, 100px);
+        font-size: clamp(10px, 4.0vh, 32px);
+    }
+}
+
 
 button {
     margin-right: 10px;
