@@ -3,8 +3,8 @@ html {
 }
 
 body {
-    font-size: 18px;  /* fall-back fall-back */
-    font-size: 4.0vh; /* fall-back */
+    font-size: 18px;  /* fallback fallback */
+    font-size: 4.0vh; /* fallback */
     font-weight: bold;
     font-family: Verdana, Geneva, sans-serif;
     --square-diameter: 50px; /* fallback fallback */
@@ -37,12 +37,11 @@ button {
 
 .board {
     height: calc(var(--square-diameter) * 5);
-    background-image: url('./images/sea_background_200.png');
-    background-position: center;
-    background-repeat: repeat;
-    background-size: calc(100% / 5) calc(100% / 5);
     border: 3px #44eaef solid;
     border-radius: 10px;
+    background: linear-gradient(rgba(150, 200, 230, .5), rgba(150, 200, 230, .5)), url('./images/waves.svg');
+    /* todo how to have bkg not linear gradient*/
+    background-attachment: fixed;
 }
 
 .board-row {
@@ -52,7 +51,7 @@ button {
 }
 
 .board-row:nth-child(1) {
-    top: 0px;
+    top: 0;
 }
 
 .board-row:nth-child(2) {
@@ -108,13 +107,11 @@ button {
 }
 
 .square.filled {
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: contain;
 }
 
 .square.filled.draw-pile {
-    background-image: url('./images/monkey_3_teal.svg'), url('./images/sea_background_200.png');
+    background: url('./images/monkey_3_teal.svg'), url('./images/waves.svg');
+    background-size: contain, auto;
     box-shadow: var(--deck-size);
     margin: 0 5px 5px 0;
     display: flex;
@@ -124,83 +121,103 @@ button {
 }
 
 .square.filled.tile1 {
-    background-image: url('./images/Monkeys_Tile_1_200.png');
+    background: url('./images/trans_tile.png'), url('./images/waves.svg');
+    background-size: contain, auto;
 }
 
 .square.filled.tile2 {
-    background-image: url('./images/Monkeys_Tile_2_200.png');
+    background: url('./images/trans_tile.png'), url('./images/waves.svg');
+    background-size: contain, auto;
 }
 
 .square.filled.tile3 {
-    background-image: url('./images/Monkeys_Tile_3_200.png');
+    background: url('./images/trans_tile.png'), url('./images/waves.svg');
+    background-size: contain, auto;
 }
 
 .square.filled.tile4 {
-    background-image: url('./images/Monkeys_Tile_4_200.png');
+    background: url('./images/trans_tile.png'), url('./images/waves.svg');
+    background-size: contain, auto;
 }
 
 .square.filled.tile5 {
-    background-image: url('./images/Monkeys_Tile_5_200.png');
+    background: url('./images/trans_tile.png'), url('./images/waves.svg');
+    background-size: contain, auto;
 }
 
 .square.filled.tile6 {
-    background-image: url('./images/Monkeys_Tile_6_200.png');
+    background: url('./images/trans_tile.png'), url('./images/waves.svg');
+    background-size: contain, auto;
 }
 
 .square.filled.tile7 {
-    background-image: url('./images/Monkeys_Tile_7_200.png');
+    background: url('./images/trans_tile.png'), url('./images/waves.svg');
+    background-size: contain, auto;
 }
 
 .square.filled.tile8 {
-    background-image: url('./images/Monkeys_Tile_8_200.png');
+    background: url('./images/trans_tile.png'), url('./images/waves.svg');
+    background-size: contain, auto;
 }
 
 .square.filled.tile9 {
-    background-image: url('./images/Monkeys_Tile_9_200.png');
+    background: url('./images/trans_tile.png'), url('./images/waves.svg');
+    background-size: contain, auto;
 }
 
 .square.filled.tile10 {
-    background-image: url('./images/Monkeys_Tile_10_200.png');
+    background: url('./images/trans_tile.png'), url('./images/waves.svg');
+    background-size: contain, auto;
 }
 
 .square.filled.tile11 {
-    background-image: url('./images/Monkeys_Tile_11_200.png');
+    background: url('./images/trans_tile.png'), url('./images/waves.svg');
+    background-size: contain, auto;
 }
 
 .square.filled.tile12 {
-    background-image: url('./images/Monkeys_Tile_12_200.png');
+    background: url('./images/trans_tile.png'), url('./images/waves.svg');
+    background-size: contain, auto;
 }
 
 .square.filled.tile13 {
-    background-image: url('./images/Monkeys_Tile_13_200.png');
+    background: url('./images/trans_tile.png'), url('./images/waves.svg');
+    background-size: contain, auto;
 }
 
 .square.filled.tile14 {
-    background-image: url('./images/Monkeys_Tile_14_200.png');
+    background: url('./images/trans_tile.png'), url('./images/waves.svg');
+    background-size: contain, auto;
 }
 
 .square.filled.tile15 {
-    background-image: url('./images/Monkeys_Tile_15_200.png');
+    background: url('./images/trans_tile.png'), url('./images/waves.svg');
+    background-size: contain, auto;
 }
 
 .square.filled.tile16 {
-    background-image: url('./images/Monkeys_Tile_16_200.png');
+    background: url('./images/trans_tile.png'), url('./images/waves.svg');
+    background-size: contain, auto;
 }
 
 .square.filled.tile17 {
-    background-image: url('./images/Monkeys_Tile_17_200.png');
+    background: url('./images/trans_tile.png'), url('./images/waves.svg');
+    background-size: contain, auto;
 }
 
 .square.filled.tile18 {
-    background-image: url('./images/Monkeys_Tile_18_200.png');
+    background: url('./images/trans_tile.png'), url('./images/waves.svg');
+    background-size: contain, auto;
 }
 
 .square.filled.tile19 {
-    background-image: url('./images/Monkeys_Tile_19_200.png');
+    background: url('./images/trans_tile.png'), url('./images/waves.svg');
+    background-size: contain, auto;
 }
 
 .square.filled.tile20 {
-    background-image: url('./images/Monkeys_Tile_20_200.png');
+    background: url('./images/trans_tile.png'), url('./images/waves.svg');
+    background-size: contain, auto;
 }
 
 .offer-area {
@@ -210,8 +227,6 @@ button {
 .offer {
     display: flex;
     flex-direction: column;
-    /*justify-content: space-between;*/
-
 }
 
 .offer-tile {
@@ -282,9 +297,9 @@ button {
 .new-game-button {
     width: calc(var(--square-diameter) / 2);
     height: calc(var(--square-diameter) / 2);
-    background-position: center; /* Center the image */
-    background-repeat: no-repeat; /* Do not repeat the image */
-    background-size: cover; /* Resize the background image to cover the entire container */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
     margin-right: 5px;
     background-image: url('./images/new_game_icon.svg');
 }
@@ -292,9 +307,9 @@ button {
 .rules-button {
     width: calc(var(--square-diameter) / 2);
     height: calc(var(--square-diameter) / 2);
-    background-position: center; /* Center the image */
-    background-repeat: no-repeat; /* Do not repeat the image */
-    background-size: cover; /* Resize the background image to cover the entire container */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
     margin-right: 5px;
     background-image: url('./images/rules_icon.svg');
 }
