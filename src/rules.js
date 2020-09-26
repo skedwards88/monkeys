@@ -17,7 +17,7 @@ const rules = [
             <br/>
             Built by Sarah Edwards
         </div>
-        <img src={require('./images/monkey_3.png')} alt="monkey pirate" className="icon"/>
+        <img src={require('./images/monkey_3.svg')} alt="monkey pirate" className="icon"/>
     </div>,
 
     <div className="tutorial-step">

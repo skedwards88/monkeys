@@ -9,10 +9,8 @@ html, body {
 
 .modal {
     font-weight: normal;
-    background-image: url('./images/sea_background.png');
-    background-position: center; /* Center the image */
-    background-repeat: no-repeat; /* Do not repeat the image */
-    background-size: cover; /* Resize the background image to cover the entire container */
+    background-image: url('./images/waves.svg');
+    background-attachment: fixed;
     position: fixed;
     height: 100%;
     width: 100%;
