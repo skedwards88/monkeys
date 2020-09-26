@@ -1,0 +1,27 @@
+<svg
+        xmlns='http://www.w3.org/2000/svg'
+        xmlns:xlink='http://www.w3.org/1999/xlink'
+        width='900' height='900'>
+
+    <filter id='n' x='0' y='0'>
+        <feTurbulence
+                type='fractalNoise'
+                baseFrequency='0.025 0.1'
+                numOctaves="5"
+                stitchTiles="stitch"
+        />
+        <feDiffuseLighting
+                lighting-color="cyan"
+                surfaceScale="4"
+                >
+            <feDistantLight
+                    azimuth="40"
+                    elevation="60"
+                    />
+        </feDiffuseLighting>
+
+    </filter>
+
+    <rect width='900' height='900' fill='cyan'/>
+    <rect width='900' height='900' filter="url(#n)" opacity='0.70'/>
+</svg>
