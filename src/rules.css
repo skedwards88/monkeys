@@ -128,11 +128,24 @@ img {
     font-style: italic;
 }
 
+.monkey {
+    background-image: url('./images/monkey_3.svg');
+    flex: 1;
+}
+
+.starting {
+    background-color: rgba(0, 0, 0, .1);
+    flex: 1;
+    background-image: url('./images/board_0.png');
+}
+
+
 .turns {
-    animation: turns-animation 6s infinite;
+    animation: turns-animation 6s;
     animation-timing-function: step-end;
     background-color: rgba(0, 0, 0, .1);
     flex: 1;
+    animation-fill-mode: forwards;
 }
 
 @keyframes turns-animation {
@@ -145,14 +158,15 @@ img {
     50% {
         background-image: url('./images/board_2.png'), url('./images/board_1.png'), url('./images/board_0.png');
     }
-    75% {
+    75%, 100% {
         background-image: url('./images/board_3.png'), url('./images/board_2.png'), url('./images/board_1.png'), url('./images/board_0.png');
     }
 }
 
 .coconuts {
-    animation: coconuts-animation 6s infinite;
+    animation: coconuts-animation 6s;
     animation-timing-function: step-end;
+    animation-fill-mode: forwards;
 }
 
 @keyframes coconuts-animation {
@@ -165,7 +179,7 @@ img {
     50% {
         background-image: url('./images/coconut_count_2.svg'), url('./images/coconut_count_1.svg'), url('./images/coconut_count_0_200.png');
     }
-    75% {
+    75%, 100% {
         background-image: url('./images/coconut_count_3.svg'), url('./images/coconut_count_2.svg'), url('./images/coconut_count_1.svg'), url('./images/coconut_count_0_200.png');
     }
 }

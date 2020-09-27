@@ -17,7 +17,9 @@ const rules = [
             <br/>
             Built by Sarah Edwards
         </div>
-        <img src={require('./images/monkey_3.svg')} alt="monkey pirate" className="icon"/>
+        <div className="illustration">
+            <div className="image monkey"/>
+        </div>
     </div>,
 
     <div className="tutorial-step">
@@ -44,7 +46,9 @@ const rules = [
             The board starts with the sea routes (black lines) that existed immediately after the mutinies.
             New routes will be built from these initial routes.
         </div>
-        <img src={require('./images/board_0.png')} alt="coconuts" className="icon"/>
+        <div className="illustration">
+            <div className="image starting"/>
+        </div>
     </div>,
 
     <div className="tutorial-step">

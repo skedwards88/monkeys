@@ -37,10 +37,9 @@ button {
 
 .board {
     height: calc(var(--square-diameter) * 5);
-    border: 3px #44eaef solid;
+    border: 3px rgb(150, 200, 230) solid;
     border-radius: 10px;
     background: linear-gradient(rgba(150, 200, 230, .5), rgba(150, 200, 230, .5)), url('./images/waves.svg');
-    /* todo how to have bkg not linear gradient*/
     background-attachment: fixed;
 }
 
