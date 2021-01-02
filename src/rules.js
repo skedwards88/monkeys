@@ -140,7 +140,6 @@ function NextButton(props) {
 }
 
 function Tutorial(props) {
-    const totalSteps = rules.length;
     const [currentRule, setCurrentRule] = useState(1);
 
     const handlePrevious = () => {

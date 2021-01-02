@@ -9,8 +9,10 @@ export class TileRoute {
                     redAnchors=0,
                     blueAnchors=0
                 }) {
-        // head and tail will be coordinates (0,0) to (1,1) which will be converted to an int referring to board
-        // placement once placed.
+        // head and tail will be coordinates (0,0) to (1,1) 
+        // describing their location on the tile.
+        // They will be converted to an int referring to 
+        // board placement once placed.
         // Head or tail may be null if the route terminates.
         this.tileHead = tileHead;
         this.tileTail = tileTail;

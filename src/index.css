@@ -3,12 +3,12 @@ html {
 }
 
 body {
-    font-size: 18px;  /* fallback fallback */
-    font-size: 4.0vh; /* fallback */
+    font-size: 18px;  /* fallback fallback  (if clamp and vh are not supported) */
+    font-size: 4.0vh; /* fallback (if clamp is not supported) */
     font-weight: bold;
     font-family: Verdana, Geneva, sans-serif;
-    --square-diameter: 50px; /* fallback fallback */
-    --square-diameter: 17vmin; /* fallback */
+    --square-diameter: 50px; /* fallback fallback (if clamp and vmin are not supported) */
+    --square-diameter: 17vmin; /* fallback (if clamp is not supported) */
     vertical-align: middle;
     background: linear-gradient(rgba(242, 234, 150, .5), rgba(217, 200, 43, .5)),
     url('./images/sand_texture.svg');
@@ -21,7 +21,6 @@ body {
         font-size: clamp(10px, 4.0vh, 32px);
     }
 }
-
 
 button {
     margin-right: 10px;
@@ -103,9 +102,6 @@ button {
 .highlighted {
     background-color: darkblue;
     z-index: 1;
-}
-
-.square.filled {
 }
 
 .square.filled.draw-pile {
@@ -265,7 +261,6 @@ button {
 
 .score-icon.red {
     background-image: url('./images/red_icon.svg');
-    fill: green;
 }
 
 .score-icon.blue {
