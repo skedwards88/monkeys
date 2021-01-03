@@ -1,8 +1,8 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import {DragDropContainer, DropTarget} from 'react-drag-drop-container';
-import {tiles, BoardRoute} from './tiles.js'
+import { DragDropContainer, DropTarget } from 'react-drag-drop-container';
+import { tiles, BoardRoute } from './tiles.js'
 import Tutorial from './rules.js';
 import './rules.css';
 
@@ -62,22 +62,19 @@ export function getBoardNodesFromRowCol(row, column, numColumns) {
 
 function updateRoutes(boardRoutes, tile, row, column, numColumns) {
 
-    // Convert the row/col where the tile was placed to numbers describing the corner positions ("nodes") of the tile
+    // Convert the row/col where the tile was placed to numbers describing 
+    // the corner positions ("nodes") of the tile on the board
     let boardNodes = getBoardNodesFromRowCol(row, column, numColumns);
 
     // For each route on the placed tile:
     for (let tileRoute of tile.routes) {
-        console.log('Tile route: ', tileRoute.tileHead, tileRoute.tileTail);
 
         // Convert the tile head/tail (0, 1, 2, 3, or null) to the corresponding board node
         let convertedTileHead = typeof (tileRoute.tileHead) === "number" ? boardNodes[tileRoute.tileHead] : null;
         let convertedTileTail = typeof (tileRoute.tileTail) === "number" ? boardNodes[tileRoute.tileTail] : null;
-        console.log('converted nodes: ', convertedTileHead, convertedTileTail);
 
-        //
         // Find if there is an existing board route that matches the tile route head/tail
         // There will be max 1 route match for head and tail each
-        //
         let headMatch = null;
         let tailMatch = null;
 
@@ -115,7 +112,6 @@ function updateRoutes(boardRoutes, tile, row, column, numColumns) {
         // If no match was found for the tile route head or tail,
         // add the tile route as a new board route
         if (!headMatch && !tailMatch) {
-            console.log('New route: ');
             let newRoute = new BoardRoute({
                 boardHead: convertedTileHead,
                 boardTail: convertedTileTail,
@@ -128,11 +124,9 @@ function updateRoutes(boardRoutes, tile, row, column, numColumns) {
         // update the matching board route head/tail with the head/tail non-match
         // and update the board route members
         else if ((headMatch && !tailMatch) || (tailMatch && !headMatch)) {
-            console.log('Append route: ');
 
             // Get the matching board route
             let matchingRoute = headMatch ? headMatch : tailMatch;
-            console.log("appending to: ", matchingRoute, matchingRoute.boardHead, matchingRoute.boardTail, matchingRoute.tileRoutes.slice());
 
             // If the board route matched at the head of the tile route,
             // the tile tail will replace the board route head or tail
@@ -149,22 +143,15 @@ function updateRoutes(boardRoutes, tile, row, column, numColumns) {
 
             // Add the new tile to the route
             matchingRoute.tileRoutes.push(tileRoute);
-            console.log("post append: ", matchingRoute, matchingRoute.boardHead, matchingRoute.boardTail, matchingRoute.tileRoutes.slice());
-
         }
 
         // If head and tail match the same board route, the route is now a loop.
         // Set the route head/tail to null
         // and update the board route members
         else if (headMatch === tailMatch) {
-            console.log('Loop: ');
-            console.log("looping to: ", headMatch, headMatch.boardHead, headMatch.boardTail, headMatch.tileRoutes.slice());
-
             headMatch.boardHead = null;
             headMatch.boardTail = null;
             headMatch.tileRoutes.push(tileRoute);
-            console.log("post loop: ", headMatch, headMatch.boardHead, headMatch.boardTail, headMatch.tileRoutes.slice());
-
         }
 
         // Otherwise, head and tail match different routes; the routes are now joined.
@@ -172,8 +159,6 @@ function updateRoutes(boardRoutes, tile, row, column, numColumns) {
         // add the new tile and the tiles from the other route to the updated route,
         // delete the other route
         else {
-            console.log('Join: ');
-
             // For both matching board routes, set the terminus that doesn't connect to the new tile to be the new head/tail
             let newHead = ((headMatch.boardHead === convertedTileHead) || (headMatch.boardHead === convertedTileTail)) ?
                 headMatch.boardTail :
@@ -183,11 +168,6 @@ function updateRoutes(boardRoutes, tile, row, column, numColumns) {
                 tailMatch.boardHead;
 
             // Arbitrarily keep the "head route" as the base route
-
-            console.log("join 1: ", headMatch, headMatch.boardHead, headMatch.boardTail, headMatch.tileRoutes.slice());
-            console.log("join 2: ", tailMatch, tailMatch.boardHead, tailMatch.boardTail, tailMatch.tileRoutes.slice());
-
-
             // Update the head and tail
             headMatch.boardHead = newHead;
             headMatch.boardTail = newTail;
@@ -199,26 +179,28 @@ function updateRoutes(boardRoutes, tile, row, column, numColumns) {
             // Delete the other board route
             let indexToDelete = boardRoutes.indexOf(tailMatch);
             boardRoutes.splice(indexToDelete, 1);
-
-            console.log("post join: ", headMatch, headMatch.boardHead, headMatch.boardTail, headMatch.tileRoutes.slice());
-
         }
     }
     return boardRoutes
 }
 
 export function tallyScore(routes) {
-    let newRedScore = 0;
-    let newBlueScore = 0;
-    for (let route of routes) {
-        let score = route.score;
-        newRedScore += score.red;
-        newBlueScore += score.blue;
-    }
-    return {red: newRedScore, blue: newBlueScore}
+    // Get the red/blue score for each route and sum them up
+    let scores = routes.map(route => route.score)
+    let redScore = scores
+        .map(score => score.red)
+        .reduce((accumulator, currentValue, currentIndex, array) => {
+            return accumulator + currentValue
+        }, 0);
+    let blueScore = scores
+        .map(score => score.blue)
+        .reduce((accumulator, currentValue, currentIndex, array) => {
+            return accumulator + currentValue
+        }, 0);
+    return { red: redScore, blue: blueScore }
 }
 
-const getInitialSetup = (numRows, numColumns) => {
+function getInitialSetup(numRows, numColumns) {
 
     // Shuffle the tiles
     const pool = tiles.slice();
@@ -232,13 +214,12 @@ const getInitialSetup = (numRows, numColumns) => {
 
     // Make the starting board
     let starting_column = Math.round(numColumns / 2) - 1;
-    console.log(starting_column);
     let startingPositions = [
-        {row: 1, column: starting_column},
-        {row: 3, column: starting_column},
-        {row: 5, column: starting_column},
-        {row: 7, column: starting_column}];
-    let startingBoard = Array.from({length: numRows}, e => Array(numColumns).fill(null));
+        { row: 1, column: starting_column },
+        { row: 3, column: starting_column },
+        { row: 5, column: starting_column },
+        { row: 7, column: starting_column }];
+    let startingBoard = Array.from({ length: numRows }, e => Array(numColumns).fill(null));
     initialTiles.forEach((tile, index) => {
         let startingPosition = startingPositions[index];
         startingBoard[startingPosition.row][startingPosition.column] = tile
@@ -257,7 +238,7 @@ const getInitialSetup = (numRows, numColumns) => {
         for (let route of tile.routes) {
             let head = boardNodes[route.tileHead];
             let tail = boardNodes[route.tileTail];
-            let boardRoute = new BoardRoute({boardHead: head, boardTail: tail, tileRoutes: [route]});
+            let boardRoute = new BoardRoute({ boardHead: head, boardTail: tail, tileRoutes: [route] });
             startingRoutes.push(boardRoute);
         }
     });
@@ -266,7 +247,6 @@ const getInitialSetup = (numRows, numColumns) => {
 
     return ([pool, startingOffer, startingBoard, startingRoutes, startingScore])
 };
-
 
 function Game() {
 
@@ -413,8 +393,8 @@ function Game() {
 
         return (
             <div className={className}
-                 onDragOver={props.onDragOver}
-                 onDrop={props.onDrop}
+                onDragOver={props.onDragOver}
+                onDrop={props.onDrop}
             />
         );
     }
@@ -427,7 +407,7 @@ function Game() {
             return (
                 <DropTarget
                     targetKey="offer-tile"
-                    dropData={{'row': row, 'column': column}}
+                    dropData={{ 'row': row, 'column': column }}
                     key={row + ',' + column}
                 >
                     <Square
@@ -470,7 +450,7 @@ function Game() {
             return (
                 <DragDropContainer
                     targetKey="offer-tile"
-                    dragData={{tile: tile, offerIndex: offerIndex}}
+                    dragData={{ tile: tile, offerIndex: offerIndex }}
                     onDrop={(e) => handleDrop(e)}
                     key={offerIndex}
                 >
@@ -499,26 +479,26 @@ function Game() {
     }
 
     let tutorial = showRules ?
-        <Tutorial handleHide={handleHide}/> :
+        <Tutorial handleHide={handleHide} /> :
         null;
 
     return (
         <div className="game">
             <div className="offer-area">
-                <Offer/>
+                <Offer />
                 <div className="square filled draw-pile">
                     {Math.max(0, pool.length)}
                 </div>
             </div>
-            <Board/>
+            <Board />
             <div className="off-board">
                 <div className="score">
                     <div className="red-score">
-                        <div className="score-icon red"/>
+                        <div className="score-icon red" />
                         {score.red}
                     </div>
                     <div className="blue-score">
-                        <div className="score-icon blue"/>
+                        <div className="score-icon blue" />
                         {score.blue}
                     </div>
                 </div>
@@ -535,6 +515,6 @@ function Game() {
 
 // ReactDOM.render(<Game />, document.getElementById("root")); todo
 ReactDOM.render(
-    (<Game/>),
+    (<Game />),
     document.getElementById('root') || document.createElement('div') // for testing purposes
 );
