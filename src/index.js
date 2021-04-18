@@ -203,7 +203,7 @@ export function tallyScore(routes) {
 function getInitialSetup(numRows, numColumns) {
 
     // Shuffle the tiles
-    const pool = tiles.slice();
+    const pool = JSON.parse(JSON.stringify(tiles));
     shuffleArray(pool);
 
     // Draw 3 tiles for the starting offer
@@ -310,7 +310,7 @@ function Game() {
 
     const drawTile = () => {
         // Take a tile from the pool. Update the pool and return the tile.
-        let newPool = pool.slice();
+        let newPool = JSON.parse(JSON.stringify(pool));
         let tile = newPool.pop();
         setPool(newPool);
 
@@ -370,7 +370,7 @@ function Game() {
         // Replenish offer
         let newTile = drawTile();
         let offerIndex = e.dragData.offerIndex;
-        let newOffer = offer.slice();
+        let newOffer = JSON.parse(JSON.stringify(offer));
         newOffer[offerIndex] = newTile;
         setOffer(newOffer);
     };
@@ -402,7 +402,7 @@ function Game() {
     function Board() {
 
         function renderTile(row, column) {
-            let squares = played.slice();
+            let squares = JSON.parse(JSON.stringify(played));
             const tile = squares[row][column];
             return (
                 <DropTarget
@@ -444,7 +444,7 @@ function Game() {
 
         function renderOfferTile(offerIndex) {
 
-            const currentOffer = offer.slice();
+            const currentOffer = JSON.parse(JSON.stringify(offer));
             const tile = currentOffer[offerIndex];
             let className = tile ? "square filled tile" + tile.id + " offer-tile" : "square offer-tile";
             return (
