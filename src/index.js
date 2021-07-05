@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import { DragDropContainer, DropTarget } from 'react-drag-drop-container';
 import { tiles, BoardRoute } from './tiles.js'
 import Tutorial from './rules.js';
 import './rules.css';
 
+import Offer from './Offer'
+import Board from './Board'
 
 // todo items
 // SVG tiles???
@@ -387,110 +388,22 @@ function Game() {
         setShowRules(false);
     };
 
-    function Square(props) {
-        let tile = props.tile;
-        let className = tile ? "square filled tile" + tile.id : "square";
-
-        return (
-            <div className={className}
-                onDragOver={props.onDragOver}
-                onDrop={props.onDrop}
-            />
-        );
-    }
-
-    function Board() {
-
-        function renderTile(row, column) {
-            let squares = played.slice();
-            const tile = squares[row][column];
-            return (
-                <DropTarget
-                    targetKey="offer-tile"
-                    dropData={{ 'row': row, 'column': column }}
-                    key={row + ',' + column}
-                >
-                    <Square
-                        tile={tile}
-                        key={row + ',' + column}
-                        row={row}
-                        column={column}
-                    />
-                </DropTarget>
-            );
-        }
-
-        function createBoard() {
-
-            let rows = [];
-            for (let rowIndex = 0; rowIndex < numRows; rowIndex++) {
-                let row = [];
-                for (let columnIndex = 0; columnIndex < numColumns; columnIndex++) {
-                    row.push(renderTile(rowIndex, columnIndex));
-                }
-                rows.push(<div className="board-row" key={rowIndex}>{row}</div>);
-            }
-            return rows;
-        }
-
-        return (
-            <div className="board">
-                {createBoard()}
-            </div>
-        );
-    }
-
-    function Offer() {
-
-        function renderOfferTile(offerIndex) {
-
-            const currentOffer = offer.slice();
-            const tile = currentOffer[offerIndex];
-            let className = tile ? "square filled tile" + tile.id + " offer-tile" : "square offer-tile";
-            return (
-                <DragDropContainer
-                    targetKey="offer-tile"
-                    dragData={{ tile: tile, offerIndex: offerIndex }}
-                    onDrop={(e) => handleDrop(e)}
-                    key={offerIndex}
-                >
-                    <div className={className}
-                    >
-                    </div>
-                </DragDropContainer>
-            );
-        }
-
-        function createOffer() {
-
-            let numOffers = 3;
-            let offer = [];
-            for (let offerIndex = 0; offerIndex < numOffers; offerIndex++) {
-                offer.push(renderOfferTile(offerIndex));
-            }
-            return offer;
-        }
-
-        return (
-            <div className="offer">
-                {createOffer()}
-            </div>
-        );
-    }
-
     let tutorial = showRules ?
         <Tutorial handleHide={handleHide} /> :
         null;
 
     return (
         <div className="game">
-            <div className="offer-area">
-                <Offer />
-                <div className="square filled draw-pile">
-                    {Math.max(0, pool.length)}
-                </div>
-            </div>
-            <Board />
+            <Offer
+                offer={offer}
+                pool={pool}
+                handleDrop={handleDrop}
+            />
+            <Board 
+                played={played}
+                numRows={numRows}
+                numColumns={numColumns}
+            />
             <div className="off-board">
                 <div className="score">
                     <div className="red-score">
@@ -504,7 +417,6 @@ function Game() {
                 </div>
                 <button className="new-game-button" onClick={handleNewGame}></button>
                 <button className="rules-button" onClick={handleShow}></button>
-                {/*<div className="temp"/>*/}
             </div>
             {tutorial}
         </div>
