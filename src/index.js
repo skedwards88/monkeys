@@ -2,11 +2,12 @@ import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import { tiles, BoardRoute } from './tiles.js'
-import Tutorial from './rules.js';
 import './rules.css';
 
 import Offer from './Offer'
 import Board from './Board'
+import Score from './Score'
+import Tutorial from './Tutorial';
 
 // todo items
 // SVG tiles???
@@ -380,18 +381,6 @@ function Game() {
         setNewGameRequested(true);
     };
 
-    const handleShow = () => {
-        setShowRules(true);
-    };
-
-    const handleHide = () => {
-        setShowRules(false);
-    };
-
-    let tutorial = showRules ?
-        <Tutorial handleHide={handleHide} /> :
-        null;
-
     return (
         <div className="game">
             <Offer
@@ -405,20 +394,10 @@ function Game() {
                 numColumns={numColumns}
             />
             <div className="off-board">
-                <div className="score">
-                    <div className="red-score">
-                        <div className="score-icon red" />
-                        {score.red}
-                    </div>
-                    <div className="blue-score">
-                        <div className="score-icon blue" />
-                        {score.blue}
-                    </div>
-                </div>
+                <Score score={score}/>
                 <button className="new-game-button" onClick={handleNewGame}></button>
-                <button className="rules-button" onClick={handleShow}></button>
+                <Tutorial showRules={showRules} setShowRules={setShowRules}/>
             </div>
-            {tutorial}
         </div>
     );
 }
