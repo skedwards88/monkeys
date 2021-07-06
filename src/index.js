@@ -186,22 +186,6 @@ function updateRoutes(boardRoutes, tile, row, column, numColumns) {
     return boardRoutes
 }
 
-export function tallyScore(routes) {
-    // Get the red/blue score for each route and sum them up
-    let scores = routes.map(route => route.score)
-    let redScore = scores
-        .map(score => score.red)
-        .reduce((accumulator, currentValue, currentIndex, array) => {
-            return accumulator + currentValue
-        }, 0);
-    let blueScore = scores
-        .map(score => score.blue)
-        .reduce((accumulator, currentValue, currentIndex, array) => {
-            return accumulator + currentValue
-        }, 0);
-    return { red: redScore, blue: blueScore }
-}
-
 function getInitialSetup(numRows, numColumns) {
 
     // Shuffle the tiles
@@ -245,16 +229,14 @@ function getInitialSetup(numRows, numColumns) {
         }
     });
 
-    let startingScore = tallyScore(startingRoutes);
-
-    return ([pool, startingOffer, startingBoard, startingRoutes, startingScore])
+    return ([pool, startingOffer, startingBoard, startingRoutes])
 };
 
 function Game() {
 
-    let numRows = 9;
-    let numColumns = 7;
-    let [initialPool, startingOffer, startingBoard, startingRoutes, startingScore] = [[], [], [], [], []];
+    const numRows = 9;
+    const numColumns = 7;
+    let [initialPool, startingOffer, startingBoard, startingRoutes] = [[], [], [], []];
 
     // The box shadow around the draw stack
     let startingDrawEffect = [
@@ -292,7 +274,6 @@ function Game() {
     const [played, setPlayed] = useState(startingBoard);
     const [routes, setRoutes] = useState(startingRoutes);
     const [showRules, setShowRules] = useState(false);
-    const [score, setScore] = useState(startingScore);
     const [drawEffect, setDrawEffect] = useState(startingDrawEffect);
     useEffect(() => {
         let body = document.getElementsByTagName("body")[0];
@@ -301,35 +282,15 @@ function Game() {
 
     if (newGameRequested) {
         setNewGameRequested(false);
-        [initialPool, startingOffer, startingBoard, startingRoutes, startingScore] = getInitialSetup(numRows, numColumns);
+        [initialPool, startingOffer, startingBoard, startingRoutes] = getInitialSetup(numRows, numColumns);
         setPool(initialPool);
         setOffer(startingOffer);
         setPlayed(startingBoard);
         setRoutes(startingRoutes);
-        setScore(startingScore);
         setDrawEffect(startingDrawEffect);
     }
 
-    const drawTile = () => {
-        // Take a tile from the pool. Update the pool and return the tile.
-        let newPool = pool.slice();
-        let tile = newPool.pop();
-        setPool(newPool);
-
-        // Update draw stack visual
-        drawEffect.splice(-2, 2);
-        setDrawEffect(drawEffect);
-        console.log(drawEffect.length);
-
-        return tile
-    };
-
-    const handleDrop = (e) => {
-        const row = e.dropData.row;
-        const column = e.dropData.column;
-        let tile = e.dragData.tile;
-        let squares = played.slice();
-
+    function validDropQ(squares, row, column) {
         // If the square or the overlapping one above/below is already occupied,
         // don't allow a tile to be dropped there
         if (
@@ -337,7 +298,7 @@ function Game() {
             || (squares[row + 1] && squares[row + 1][column])
             || (squares[row - 1] && squares[row - 1][column])
         ) {
-            return;
+            return false;
         }
 
         // If the square does not touch a tile to the left or right, don't allow the drop
@@ -351,7 +312,18 @@ function Game() {
                 || (squares[row - 1] && squares[row - 1][column - 1])
             )
         ) {
-            return;
+            return false;
+        }
+        return true;
+    }
+    const handleDrop = (event) => {
+        const row = event.dropData.row;
+        const column = event.dropData.column;
+        const tile = event.dragData.tile;
+        const squares = played.slice();//todo squares could just be flat list of id or null
+
+        if (!validDropQ(squares, row, column)) {
+            return
         }
 
         // Put a token in the square where the token was dropped
@@ -361,17 +333,21 @@ function Game() {
         setPlayed(squares);
 
         // update routes
-        let oldRoutes = routes.slice();
-        let newRoutes = updateRoutes(oldRoutes, tile, row, column, numColumns);
-        setRoutes(newRoutes);
-
-        // Update score
-        let newScore = tallyScore(newRoutes);
-        setScore(newScore);
+        let updatedRoutes = updateRoutes(routes.slice(), tile, row, column, numColumns);
+        setRoutes(updatedRoutes);
 
         // Replenish offer
-        let newTile = drawTile();
-        let offerIndex = e.dragData.offerIndex;
+        //todo dont have offer state; can just be last 3 from pool. and draw effect can be similar.
+        // Take a tile from the pool. Update the pool and return the tile.
+        let newPool = pool.slice();
+        let newTile = newPool.pop();
+        setPool(newPool);
+
+        // Update draw stack visual
+        drawEffect.splice(-2, 2);
+        setDrawEffect(drawEffect);
+        
+        let offerIndex = event.dragData.offerIndex;
         let newOffer = offer.slice();
         newOffer[offerIndex] = newTile;
         setOffer(newOffer);
@@ -394,7 +370,7 @@ function Game() {
                 numColumns={numColumns}
             />
             <div className="off-board">
-                <Score score={score}/>
+                <Score routes={routes}/>
                 <button className="new-game-button" onClick={handleNewGame}></button>
                 <Tutorial showRules={showRules} setShowRules={setShowRules}/>
             </div>

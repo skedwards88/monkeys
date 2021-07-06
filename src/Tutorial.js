@@ -153,7 +153,6 @@ function NextButton({ currentRule, setCurrentRule }) {
 
 export default function Tutorial({ showRules, setShowRules }) {
 
-
   const [currentRule, setCurrentRule] = useState(1);
 
   if (showRules) {

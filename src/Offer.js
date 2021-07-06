@@ -19,7 +19,6 @@ function OfferTile({offerIndex, currentOffer, handleDrop}) {
 }
 
 export default function Offer({ offer, pool, handleDrop }) {
-
   const currentOffer = JSON.parse(JSON.stringify(offer));
 
   return (

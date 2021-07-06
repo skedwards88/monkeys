@@ -2,7 +2,7 @@ import React from 'react'
 import { DropTarget } from 'react-drag-drop-container';
 
 export default function Board({ played, numRows, numColumns }) {
-
+    // debugger;
   function renderTile(row, column) {
       let squares = JSON.parse(JSON.stringify(played));
       const tile = squares[row][column];
