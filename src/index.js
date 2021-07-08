@@ -9,48 +9,33 @@ import Board from './Board'
 import Score from './Score'
 import Tutorial from './Tutorial';
 
-// todo items
-// SVG tiles???
-// maybe add node to end of routes
-// maybe add undo
-// if screen is above certain height, move tiles and buttons/score below?
-// images are slow. Make smaller? Cache?
-// Enable keyboard navigation for rules?
-// Enable keyboard navigation for tiles?
-// force landscape mode?
-// Tooltip for buttons. What is tooltip alternative for mobile?
-// Space the offer to match board height
-// art-make the routes more level at the edges so connections are smoother
-// art- make sure things aren't too close to L/R
-// lock in place? Or center to mouse?
-// resolve errors/warnings in console
-// TESTS!
-// check color accessibility
-// how to not duplicate modal.js between monkeys and stars?
-// would be so cool to change color of route to indicate owner
-// make rules swipable on mobile
 
-export function shuffleArray(array) {
-    // Swap each value in an array, starting at the end of the array, with a position equal or earlier in the array.
-    for (let index = array.length - 1; index > 0; index--) {
 
-        // Get a random index from 0 to the current index of the array
-        // So for an array of length 3, the first round will be 0, 1, or 2, second round 0 or 1, and last round 0
-        // The values at this index and the current index will be swapped
-        let swapIndex = Math.floor(Math.random() * (index + 1));
-
-        // If the current index and index to swap are the same, move on to the next loop iteration
-        if (index === swapIndex) {
-            continue;
-        }
-
-        // Get the original value at index,
-        // set the value at the index to be the value at the swap index,
-        // then set the value at the swap index to be the original value at the index
-        let swapValue = array[index];
-        array[index] = array[swapIndex];
-        array[swapIndex] = swapValue;
+function validDropQ(squares, row, column) {
+    // If the square or the overlapping one above/below is already occupied,
+    // don't allow a tile to be dropped there
+    if (
+        squares[row][column] //todo this is the problem!
+        || (squares[row + 1] && squares[row + 1][column])
+        || (squares[row - 1] && squares[row - 1][column])
+    ) {
+        return false;
     }
+
+    // If the square does not touch a tile to the left or right, don't allow the drop
+    if (
+        !(
+            squares[row][column + 1]
+            || squares[row][column - 1]
+            || (squares[row + 1] && squares[row + 1][column + 1])
+            || (squares[row + 1] && squares[row + 1][column - 1])
+            || (squares[row - 1] && squares[row - 1][column + 1])
+            || (squares[row - 1] && squares[row - 1][column - 1])
+        )
+    ) {
+        return false;
+    }
+    return true;
 }
 
 export function getBoardNodesFromRowCol(row, column, numColumns) {
@@ -186,31 +171,15 @@ function updateRoutes(boardRoutes, tile, row, column, numColumns) {
     return boardRoutes
 }
 
-function getInitialSetup(numRows, numColumns) {
-
-    // Shuffle the tiles
-    const pool = tiles.slice();
-    shuffleArray(pool);
-
-    // Draw 3 tiles for the starting offer
-    let startingOffer = pool.splice(0, 3);
-
-    // Draw 4 tiles for the starting board
-    let initialTiles = pool.splice(0, 4);
-
-    // Make the starting board
-    let starting_column = Math.round(numColumns / 2) - 1;
-    let startingPositions = [
-        { row: 1, column: starting_column },
-        { row: 3, column: starting_column },
-        { row: 5, column: starting_column },
-        { row: 7, column: starting_column }];
-    let startingBoard = Array.from({ length: numRows }, e => Array(numColumns).fill(null));
-    initialTiles.forEach((tile, index) => {
-        let startingPosition = startingPositions[index];
-        startingBoard[startingPosition.row][startingPosition.column] = tile
-    });
-
+function getInitialRoutes(initialTiles, numColumns){
+        // Make the starting board
+        let starting_column = Math.round(numColumns / 2) - 1;
+        let startingPositions = [
+            { row: 1, column: starting_column },
+            { row: 3, column: starting_column },
+            { row: 5, column: starting_column },
+            { row: 7, column: starting_column }];
+    
     // Calculate the routes present on the starting tiles
     // (Right now, each route on the tile will be a unique route; don't need to worry about the tiles connecting)
     let startingRoutes = [];
@@ -221,7 +190,7 @@ function getInitialSetup(numRows, numColumns) {
 
         // For each route on the tile, convert the tile-relative head/tail to board-relative head/tail
         // and add the route to the starting routes
-        for (let route of tile.routes) {
+        for (let route of tiles[tile].routes) {
             let head = boardNodes[route.tileHead];
             let tail = boardNodes[route.tileTail];
             let boardRoute = new BoardRoute({ boardHead: head, boardTail: tail, tileRoutes: [route] });
@@ -229,17 +198,46 @@ function getInitialSetup(numRows, numColumns) {
         }
     });
 
-    return ([pool, startingOffer, startingBoard, startingRoutes])
+    return startingRoutes
+
+}
+
+function getInitialSetup(numRows, numColumns) {
+
+    // Shuffle the tiles
+    const remainingTileIDs = Object.keys(tiles)
+    // shuffleArray(remainingTileIDs);
+
+    // Draw 4 tiles for the starting board
+    const startingTiles = remainingTileIDs.splice(0, 4);
+
+    // Make the starting board
+    let starting_column = Math.round(numColumns / 2) - 1;
+    //todo could also cal starting row
+    let startingPositions = [
+        { row: 1, column: starting_column },
+        { row: 3, column: starting_column },
+        { row: 5, column: starting_column },
+        { row: 7, column: starting_column }];
+    let startingBoard = Array.from({ length: numRows }, e => Array(numColumns).fill(null));
+    startingTiles.forEach((tile, index) => {
+        let startingPosition = startingPositions[index];
+        startingBoard[startingPosition.row][startingPosition.column] = tile
+    });
+
+
+    // return ([remainingTileIDs, startingBoard, startingRoutes])
 };
+
 
 function Game() {
 
     const numRows = 9;
     const numColumns = 7;
-    let [initialPool, startingOffer, startingBoard, startingRoutes] = [[], [], [], []];
-
+    const initialRoutes = getInitialRoutes(["0", "1", "2", "4"], numColumns)
+    console.log(initialRoutes)
     // The box shadow around the draw stack
-    let startingDrawEffect = [
+    let drawEffect = [
         "-1px 1px rgba(27, 211, 235, 0.35)",
         "-1px 1px rgba(0,0,0, 0.15)",
         "-2px 2px rgba(27, 211, 235, 0.35)",
@@ -267,111 +265,155 @@ function Game() {
         "-13px 13px rgba(27, 211, 235, 0.35)",
         "-13px 13px rgba(0,0,0, 0.35)",
     ];
-
-    const [newGameRequested, setNewGameRequested] = useState(true);  // todo can I find a better way to do this?
-    const [offer, setOffer] = useState(startingOffer);
-    const [pool, setPool] = useState(initialPool);
-    const [played, setPlayed] = useState(startingBoard);
-    const [routes, setRoutes] = useState(startingRoutes);
+    const [remainingTileIDs, setRemainingTileIDs] = useState(["4", "5", "6", "7", "8", "9"]);
+    const [played, setPlayed] = useState([
+        [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+        ],
+        [
+            null,
+            null,
+            null,
+            "0",
+            null,
+            null,
+            null
+        ],
+        [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+        ],
+        [
+            null,
+            null,
+            null,
+            "1",
+            null,
+            null,
+            null
+        ],
+        [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+        ],
+        [
+            null,
+            null,
+            null,
+            "2",
+            null,
+            null,
+            null
+        ],
+        [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+        ],
+        [
+            null,
+            null,
+            null,
+            "3",
+            null,
+            null,
+            null
+        ],
+        [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+        ]
+    ]);
+    const [routes, setRoutes] = useState(initialRoutes);
     const [showRules, setShowRules] = useState(false);
-    const [drawEffect, setDrawEffect] = useState(startingDrawEffect);
     useEffect(() => {
+        const effectiveDrawEffect = drawEffect.slice(0,2*(remainingTileIDs.length - 3))
         let body = document.getElementsByTagName("body")[0];
-        body.style.setProperty("--deck-size", drawEffect.join(","));
+        body.style.setProperty("--deck-size", effectiveDrawEffect.join(","));
     });
 
-    if (newGameRequested) {
-        setNewGameRequested(false);
-        [initialPool, startingOffer, startingBoard, startingRoutes] = getInitialSetup(numRows, numColumns);
-        setPool(initialPool);
-        setOffer(startingOffer);
-        setPlayed(startingBoard);
-        setRoutes(startingRoutes);
-        setDrawEffect(startingDrawEffect);
-    }
 
-    function validDropQ(squares, row, column) {
-        // If the square or the overlapping one above/below is already occupied,
-        // don't allow a tile to be dropped there
-        if (
-            squares[row][column]
-            || (squares[row + 1] && squares[row + 1][column])
-            || (squares[row - 1] && squares[row - 1][column])
-        ) {
-            return false;
-        }
 
-        // If the square does not touch a tile to the left or right, don't allow the drop
-        if (
-            !(
-                squares[row][column + 1]
-                || squares[row][column - 1]
-                || (squares[row + 1] && squares[row + 1][column + 1])
-                || (squares[row + 1] && squares[row + 1][column - 1])
-                || (squares[row - 1] && squares[row - 1][column + 1])
-                || (squares[row - 1] && squares[row - 1][column - 1])
-            )
-        ) {
-            return false;
-        }
-        return true;
-    }
+    
     const handleDrop = (event) => {
-        const row = event.dropData.row;
+        const row = event.dropData.row;//todo if flat list col and row would just be square
         const column = event.dropData.column;
         const tile = event.dragData.tile;
-        const squares = played.slice();//todo squares could just be flat list of id or null
+        const newPlayed = played.slice();//todo played could just be flat list of id or null
 
-        if (!validDropQ(squares, row, column)) {
-            return
-        }
+        // if (!validDropQ(squares, row, column)) {
+        //     return
+        // } todo this is causing problems
 
         // Put a token in the square where the token was dropped
-        squares[row][column] = tile;
+        newPlayed[row][column] = tile;
 
-        // Update squares
-        setPlayed(squares);
+        // Update played
+        setPlayed(newPlayed);
 
         // update routes
-        let updatedRoutes = updateRoutes(routes.slice(), tile, row, column, numColumns);
+        let updatedRoutes = updateRoutes(routes.slice(), tiles[tile], row, column, numColumns);
         setRoutes(updatedRoutes);
-
-        // Replenish offer
-        //todo dont have offer state; can just be last 3 from pool. and draw effect can be similar.
-        // Take a tile from the pool. Update the pool and return the tile.
-        let newPool = pool.slice();
-        let newTile = newPool.pop();
-        setPool(newPool);
-
-        // Update draw stack visual
-        drawEffect.splice(-2, 2);
-        setDrawEffect(drawEffect);
         
-        let offerIndex = event.dragData.offerIndex;
-        let newOffer = offer.slice();
-        newOffer[offerIndex] = newTile;
-        setOffer(newOffer);
+
+        const offerIndex = event.dragData.offerIndex;
+        let newRemainingTileIDs = [...remainingTileIDs]
+        if (newRemainingTileIDs.length > 3) {
+            // replace the played tile with the tile at the bottom of the pool
+            newRemainingTileIDs[offerIndex] = newRemainingTileIDs[newRemainingTileIDs.length - 1]
+            // remove the tile at the bottom of the pool
+            newRemainingTileIDs.splice(-1,1)
+
+        } else {
+            // If there aren't unrevealed tiles left, replace the played tile with null
+            newRemainingTileIDs[offerIndex] = null
+        }
+
+        setRemainingTileIDs(newRemainingTileIDs)
     };
 
-    const handleNewGame = () => {
-        setNewGameRequested(true);
-    };
+
 
     return (
         <div className="game">
             <Offer
-                offer={offer}
-                pool={pool}
+                remainingTileIDs={remainingTileIDs}
                 handleDrop={handleDrop}
             />
-            <Board 
+            <Board
+                tiles={tiles}
                 played={played}
                 numRows={numRows}
                 numColumns={numColumns}
             />
             <div className="off-board">
                 <Score routes={routes}/>
-                <button className="new-game-button" onClick={handleNewGame}></button>
+                {/* <button className="new-game-button" onClick={handleNewGame}></button> */}
                 <Tutorial showRules={showRules} setShowRules={setShowRules}/>
             </div>
         </div>

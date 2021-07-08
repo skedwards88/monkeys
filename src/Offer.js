@@ -1,10 +1,9 @@
 import React from 'react'
 import { DragDropContainer } from 'react-drag-drop-container';
 
-function OfferTile({offerIndex, currentOffer, handleDrop}) {
-
-  const tile = currentOffer[offerIndex];
-  const className = tile ? "square filled tile" + tile.id + " offer-tile" : "square offer-tile";
+function OfferTile({offerIndex, remainingTileIDs, handleDrop}) {
+  const tile = remainingTileIDs[offerIndex]
+  const className = tile ? "square filled tile" + tile + " offer-tile" : "square offer-tile";
 
   return (
     <DragDropContainer
@@ -18,18 +17,19 @@ function OfferTile({offerIndex, currentOffer, handleDrop}) {
   )
 }
 
-export default function Offer({ offer, pool, handleDrop }) {
-  const currentOffer = JSON.parse(JSON.stringify(offer));
-
+export default function Offer({ remainingTileIDs, handleDrop }) {
+  // console.log('offer render')
+  // console.log(remainingTileIDs)
+  // console.log('^ from offer')
   return (
     <div className="offer-area">
       <div className="offer">
-        <OfferTile offerIndex={0} currentOffer={currentOffer} handleDrop={handleDrop}/>
-        <OfferTile offerIndex={1} currentOffer={currentOffer} handleDrop={handleDrop}/>
-        <OfferTile offerIndex={2} currentOffer={currentOffer} handleDrop={handleDrop}/>
+        <OfferTile offerIndex={0} remainingTileIDs={remainingTileIDs} handleDrop={handleDrop}/>
+        <OfferTile offerIndex={1} remainingTileIDs={remainingTileIDs} handleDrop={handleDrop}/>
+        <OfferTile offerIndex={2} remainingTileIDs={remainingTileIDs} handleDrop={handleDrop}/>
       </div>
       <div className="square filled draw-pile">
-        {Math.max(0, pool.length)}
+        {Math.max(0, remainingTileIDs.length - 3)}
       </div>
     </div>
   );
