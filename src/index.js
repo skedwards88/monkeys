@@ -71,8 +71,10 @@ export function getBoardNodesFromFlatIndex(flatIndex, numColumns) {
     return [topLeft, topRight, bottomLeft, bottomRight]
 }
 
-function updateRoutes(boardRoutes, tile, flatIndex, numColumns) {
-
+export function updateRoutes(boardRoutes, tile, flatIndex, numColumns) {
+    console.log('in')
+    console.log(boardRoutes)
+    debugger
     // Convert the row/col where the tile was placed to numbers describing 
     // the corner positions ("nodes") of the tile on the board
     let boardNodes = getBoardNodesFromFlatIndex(flatIndex, numColumns);
@@ -192,13 +194,15 @@ function updateRoutes(boardRoutes, tile, flatIndex, numColumns) {
             boardRoutes.splice(indexToDelete, 1);
         }
     }
+    console.log('recalc')
+    console.log(boardRoutes)
     return boardRoutes
 }
 
-function getInitialSetup(numRows, numColumns) {
+export function getInitialSetup(numRows, numColumns) {
 
     // Shuffle the tiles
-    const remainingTileIDs = Object.keys(tiles)
+    let remainingTileIDs = Object.keys(tiles)
     // shuffleArray(remainingTileIDs);
 
     // Draw 4 tiles for the starting board
@@ -296,7 +300,6 @@ function Game() {
 
         // update routes
         let updatedRoutes = updateRoutes(routes.slice(), tiles[tile], flatIndex, numColumns);
-        console.log(updatedRoutes)
         setRoutes(updatedRoutes);
 
         const offerIndex = event.dragData.offerIndex;
