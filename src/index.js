@@ -9,8 +9,6 @@ import Board from './Board'
 import Score from './Score'
 import Tutorial from './Tutorial';
 
-
-
 function validDropQ(squares, row, column) {
     // If the square or the overlapping one above/below is already occupied,
     // don't allow a tile to be dropped there
@@ -38,8 +36,11 @@ function validDropQ(squares, row, column) {
     return true;
 }
 
-export function getBoardNodesFromRowCol(row, column, numColumns) {
-    // Convert a 0-indexed row/column to 0-indexed corner numbers of that row/column square in a grid
+export function getBoardNodesFromFlatIndex(flatIndex, numColumns) {
+    // Convert a 0-indexed grid position to 0-indexed corner numbers of that square in a grid
+    const row = Math.floor(flatIndex / numColumns)
+    const column = flatIndex - (row * numColumns)
+
     let topLeft = (row * (numColumns + 1) + column);
     let topRight = topLeft + 1;
     let bottomLeft = topLeft + numColumns + 1;
@@ -47,11 +48,11 @@ export function getBoardNodesFromRowCol(row, column, numColumns) {
     return [topLeft, topRight, bottomLeft, bottomRight]
 }
 
-function updateRoutes(boardRoutes, tile, row, column, numColumns) {
+function updateRoutes(boardRoutes, tile, flatIndex, numColumns) {
 
     // Convert the row/col where the tile was placed to numbers describing 
     // the corner positions ("nodes") of the tile on the board
-    let boardNodes = getBoardNodesFromRowCol(row, column, numColumns);
+    let boardNodes = getBoardNodesFromFlatIndex(flatIndex, numColumns);
 
     // For each route on the placed tile:
     for (let tileRoute of tile.routes) {
@@ -171,22 +172,31 @@ function updateRoutes(boardRoutes, tile, row, column, numColumns) {
     return boardRoutes
 }
 
-function getInitialRoutes(initialTiles, numColumns){
-        // Make the starting board
-        let starting_column = Math.round(numColumns / 2) - 1;
-        let startingPositions = [
-            { row: 1, column: starting_column },
-            { row: 3, column: starting_column },
-            { row: 5, column: starting_column },
-            { row: 7, column: starting_column }];
-    
+function getInitialSetup(numRows, numColumns) {
+
+    // Shuffle the tiles
+    const remainingTileIDs = Object.keys(tiles)
+    // shuffleArray(remainingTileIDs);
+
+    // Draw 4 tiles for the starting board
+    const initialTiles = remainingTileIDs.splice(0, 4);
+
+    // Make the starting board
+    const startingPositions = [10, 24, 38, 52]; // todo can calc instead
+    const numSquares = numColumns * numRows
+    let startingBoard = Array(numSquares).fill(null);
+    initialTiles.forEach((tile, index) => {
+        let startingPosition = startingPositions[index];
+        startingBoard[startingPosition] = tile;
+    });
+
     // Calculate the routes present on the starting tiles
     // (Right now, each route on the tile will be a unique route; don't need to worry about the tiles connecting)
     let startingRoutes = [];
     initialTiles.forEach((tile, index) => {
         // Convert the row/col where the tile was placed to board node numbers
         let startingPosition = startingPositions[index];
-        let boardNodes = getBoardNodesFromRowCol(startingPosition.row, startingPosition.column, numColumns);
+        let boardNodes = getBoardNodesFromFlatIndex(startingPosition, startingPosition, numColumns);
 
         // For each route on the tile, convert the tile-relative head/tail to board-relative head/tail
         // and add the route to the starting routes
@@ -198,46 +208,17 @@ function getInitialRoutes(initialTiles, numColumns){
         }
     });
 
-    return startingRoutes
 
-}
-
-function getInitialSetup(numRows, numColumns) {
-
-    // Shuffle the tiles
-    const remainingTileIDs = Object.keys(tiles)
-    // shuffleArray(remainingTileIDs);
-
-    // Draw 4 tiles for the starting board
-    const startingTiles = remainingTileIDs.splice(0, 4);
-
-    // Make the starting board
-    let starting_column = Math.round(numColumns / 2) - 1;
-    //todo could also cal starting row
-    let startingPositions = [
-        { row: 1, column: starting_column },
-        { row: 3, column: starting_column },
-        { row: 5, column: starting_column },
-        { row: 7, column: starting_column }];
-    let startingBoard = Array.from({ length: numRows }, e => Array(numColumns).fill(null));
-    startingTiles.forEach((tile, index) => {
-        let startingPosition = startingPositions[index];
-        startingBoard[startingPosition.row][startingPosition.column] = tile
-    });
-
-
-    // return ([remainingTileIDs, startingBoard, startingRoutes])
+    return ([remainingTileIDs, startingBoard, startingRoutes])
 };
-
 
 function Game() {
 
     const numRows = 9;
     const numColumns = 7;
-    const initialRoutes = getInitialRoutes(["0", "1", "2", "4"], numColumns)
-    console.log(initialRoutes)
+    const [startingTileIDs, startingBoard, startingRoutes] = getInitialSetup(numRows, numColumns)
     // The box shadow around the draw stack
-    let drawEffect = [
+    const drawEffect = [
         "-1px 1px rgba(27, 211, 235, 0.35)",
         "-1px 1px rgba(0,0,0, 0.15)",
         "-2px 2px rgba(27, 211, 235, 0.35)",
@@ -265,121 +246,35 @@ function Game() {
         "-13px 13px rgba(27, 211, 235, 0.35)",
         "-13px 13px rgba(0,0,0, 0.35)",
     ];
-    const [remainingTileIDs, setRemainingTileIDs] = useState(["4", "5", "6", "7", "8", "9"]);
-    const [played, setPlayed] = useState([
-        [
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null
-        ],
-        [
-            null,
-            null,
-            null,
-            "0",
-            null,
-            null,
-            null
-        ],
-        [
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null
-        ],
-        [
-            null,
-            null,
-            null,
-            "1",
-            null,
-            null,
-            null
-        ],
-        [
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null
-        ],
-        [
-            null,
-            null,
-            null,
-            "2",
-            null,
-            null,
-            null
-        ],
-        [
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null
-        ],
-        [
-            null,
-            null,
-            null,
-            "3",
-            null,
-            null,
-            null
-        ],
-        [
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null
-        ]
-    ]);
-    const [routes, setRoutes] = useState(initialRoutes);
+    const [remainingTileIDs, setRemainingTileIDs] = useState(startingTileIDs);
+    const [played, setPlayed] = useState(startingBoard);
+    const [routes, setRoutes] = useState(startingRoutes);
     const [showRules, setShowRules] = useState(false);
     useEffect(() => {
-        const effectiveDrawEffect = drawEffect.slice(0,2*(remainingTileIDs.length - 3))
+        const effectiveDrawEffect = drawEffect.slice(0, 2 * (remainingTileIDs.length - 3))
         let body = document.getElementsByTagName("body")[0];
         body.style.setProperty("--deck-size", effectiveDrawEffect.join(","));
     });
 
-
-
-    
     const handleDrop = (event) => {
-        const row = event.dropData.row;//todo if flat list col and row would just be square
-        const column = event.dropData.column;
+        const flatIndex = event.dropData.flatIndex;
         const tile = event.dragData.tile;
-        const newPlayed = played.slice();//todo played could just be flat list of id or null
+        const newPlayed = [...played];
 
-        // if (!validDropQ(squares, row, column)) {
+        // if (!validDropQ(newPlayed, row, column)) {
         //     return
-        // } todo this is causing problems
+        // } //todo this is causing problems. also need to convert to use flat index
 
         // Put a token in the square where the token was dropped
-        newPlayed[row][column] = tile;
+        newPlayed[flatIndex] = tile;
 
         // Update played
         setPlayed(newPlayed);
 
         // update routes
-        let updatedRoutes = updateRoutes(routes.slice(), tiles[tile], row, column, numColumns);
+        let updatedRoutes = updateRoutes(routes.slice(), tiles[tile], flatIndex, numColumns);
+        console.log(updatedRoutes)
         setRoutes(updatedRoutes);
-        
 
         const offerIndex = event.dragData.offerIndex;
         let newRemainingTileIDs = [...remainingTileIDs]
@@ -387,7 +282,7 @@ function Game() {
             // replace the played tile with the tile at the bottom of the pool
             newRemainingTileIDs[offerIndex] = newRemainingTileIDs[newRemainingTileIDs.length - 1]
             // remove the tile at the bottom of the pool
-            newRemainingTileIDs.splice(-1,1)
+            newRemainingTileIDs.splice(-1, 1)
 
         } else {
             // If there aren't unrevealed tiles left, replace the played tile with null
@@ -406,15 +301,14 @@ function Game() {
                 handleDrop={handleDrop}
             />
             <Board
-                tiles={tiles}
                 played={played}
                 numRows={numRows}
                 numColumns={numColumns}
             />
             <div className="off-board">
-                <Score routes={routes}/>
+                <Score routes={routes} />
                 {/* <button className="new-game-button" onClick={handleNewGame}></button> */}
-                <Tutorial showRules={showRules} setShowRules={setShowRules}/>
+                <Tutorial showRules={showRules} setShowRules={setShowRules} />
             </div>
         </div>
     );
