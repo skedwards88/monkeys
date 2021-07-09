@@ -74,7 +74,7 @@ export function getBoardNodesFromFlatIndex(flatIndex, numColumns) {
 export function updateRoutes(boardRoutes, tile, flatIndex, numColumns) {
     console.log('in')
     console.log(boardRoutes)
-    debugger
+
     // Convert the row/col where the tile was placed to numbers describing 
     // the corner positions ("nodes") of the tile on the board
     let boardNodes = getBoardNodesFromFlatIndex(flatIndex, numColumns);
@@ -223,7 +223,7 @@ export function getInitialSetup(numRows, numColumns) {
     initialTiles.forEach((tile, index) => {
         // Convert the row/col where the tile was placed to board node numbers
         let startingPosition = startingPositions[index];
-        let boardNodes = getBoardNodesFromFlatIndex(startingPosition, startingPosition, numColumns);
+        let boardNodes = getBoardNodesFromFlatIndex(startingPosition, numColumns);
 
         // For each route on the tile, convert the tile-relative head/tail to board-relative head/tail
         // and add the route to the starting routes
@@ -234,7 +234,6 @@ export function getInitialSetup(numRows, numColumns) {
             startingRoutes.push(boardRoute);
         }
     });
-
 
     return ([remainingTileIDs, startingBoard, startingRoutes])
 };
