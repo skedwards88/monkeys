@@ -72,8 +72,7 @@ export function getBoardNodesFromFlatIndex(flatIndex, numColumns) {
 }
 
 export function updateRoutes(boardRoutes, tile, flatIndex, numColumns) {
-    console.log('in')
-    console.log(boardRoutes)
+    console.log('routes')
 
     // Convert the row/col where the tile was placed to numbers describing 
     // the corner positions ("nodes") of the tile on the board
@@ -194,8 +193,8 @@ export function updateRoutes(boardRoutes, tile, flatIndex, numColumns) {
             boardRoutes.splice(indexToDelete, 1);
         }
     }
-    console.log('recalc')
-    console.log(boardRoutes)
+    console.log('routes end')
+    // console.log(boardRoutes)
     return boardRoutes
 }
 
@@ -282,9 +281,10 @@ function Game() {
         body.style.setProperty("--deck-size", effectiveDrawEffect.join(","));
     });
 
-    const handleDrop = (event) => {
-        const flatIndex = event.dropData.flatIndex;
-        const tile = event.dragData.tile;
+    const handleDrop = (event, flatIndex) => {
+        const offerIndex = event.dataTransfer.getData("offerIndex");
+        const tile = event.dataTransfer.getData("tile");
+        console.log('dropping')
         const newPlayed = [...played];
 
         // if (!validDropQ(newPlayed, row, column)) {
@@ -301,7 +301,7 @@ function Game() {
         let updatedRoutes = updateRoutes(routes.slice(), tiles[tile], flatIndex, numColumns);
         setRoutes(updatedRoutes);
 
-        const offerIndex = event.dragData.offerIndex;
+        // const offerIndex = event.dragData.offerIndex;
         let newRemainingTileIDs = [...remainingTileIDs]
         if (newRemainingTileIDs.length > 3) {
             // replace the played tile with the tile at the bottom of the pool
@@ -329,6 +329,7 @@ function Game() {
                 played={played}
                 numRows={numRows}
                 numColumns={numColumns}
+                handleDrop={handleDrop}
             />
             <div className="off-board">
                 <Score routes={routes} />
