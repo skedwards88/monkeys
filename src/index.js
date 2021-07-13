@@ -9,13 +9,30 @@ import Board from './Board'
 import Score from './Score'
 import Tutorial from './Tutorial';
 
-function validDropQ(squares, row, column) {
+function partition(input, numColumns) {
+    var output = [];
+
+    for (var i = 0; i < input.length; i += numColumns) {
+        output[output.length] = input.slice(i, i + numColumns);
+    }
+
+    return output;
+}
+
+function validDropQ(played, index, numColumns) {
+    // Partition the flat list of played tiles into a nested list to make the logic clearer
+    const partitionedPlayed = partition([...played], numColumns)
+
+    // And convert the flat index into a row/col
+    const row = Math.floor(index / numColumns)
+    const column = index - (row * numColumns)
+
     // If the square or the overlapping one above/below is already occupied,
     // don't allow a tile to be dropped there
     if (
-        squares[row][column] //todo this is the problem!
-        || (squares[row + 1] && squares[row + 1][column])
-        || (squares[row - 1] && squares[row - 1][column])
+        partitionedPlayed[row][column] //todo this is the problem!
+        || (partitionedPlayed[row + 1] && partitionedPlayed[row + 1][column])
+        || (partitionedPlayed[row - 1] && partitionedPlayed[row - 1][column])
     ) {
         return false;
     }
@@ -23,12 +40,12 @@ function validDropQ(squares, row, column) {
     // If the square does not touch a tile to the left or right, don't allow the drop
     if (
         !(
-            squares[row][column + 1]
-            || squares[row][column - 1]
-            || (squares[row + 1] && squares[row + 1][column + 1])
-            || (squares[row + 1] && squares[row + 1][column - 1])
-            || (squares[row - 1] && squares[row - 1][column + 1])
-            || (squares[row - 1] && squares[row - 1][column - 1])
+            partitionedPlayed[row][column + 1]
+            || partitionedPlayed[row][column - 1]
+            || (partitionedPlayed[row + 1] && partitionedPlayed[row + 1][column + 1])
+            || (partitionedPlayed[row + 1] && partitionedPlayed[row + 1][column - 1])
+            || (partitionedPlayed[row - 1] && partitionedPlayed[row - 1][column + 1])
+            || (partitionedPlayed[row - 1] && partitionedPlayed[row - 1][column - 1])
         )
     ) {
         return false;
@@ -287,9 +304,9 @@ function Game() {
         console.log('dropping')
         const newPlayed = [...played];
 
-        // if (!validDropQ(newPlayed, row, column)) {
-        //     return
-        // } //todo this is causing problems. also need to convert to use flat index
+        if (!validDropQ(newPlayed, flatIndex, numColumns)) {
+            return
+        }
 
         // Put a token in the square where the token was dropped
         newPlayed[flatIndex] = tile;
