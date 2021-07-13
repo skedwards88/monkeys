@@ -9,6 +9,27 @@ import Board from './Board'
 import Score from './Score'
 import Tutorial from './Tutorial';
 
+// TODO 
+// Add game end announcement
+// Highlight where the square will drop
+// fix offset dropping
+// Add undo function
+// TESTS!
+// 
+// if screen is above certain height, move tiles and buttons/score below?
+// images are slow. Make smaller? Cache? SVG tiles???
+// force landscape mode?
+// Space the offer to match board height
+// how to not duplicate modal.js between monkeys and stars?
+// would be cool to change color of route to indicate owner
+// make rules swipe-able on mobile
+// Enable keyboard navigation for rules?
+// Enable keyboard navigation for tiles?
+// Tooltip for buttons? What is tooltip alternative for mobile?
+// check color accessibility
+// art-make the routes more level at the edges so connections are smoother
+// art- make sure things aren't too close to L/R
+
 function partition(input, numColumns) {
     var output = [];
 
