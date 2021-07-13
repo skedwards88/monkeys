@@ -327,8 +327,6 @@ function Game() {
             />
             <Board
                 played={played}
-                numRows={numRows}
-                numColumns={numColumns}
                 handleDrop={handleDrop}
             />
             <div className="off-board">

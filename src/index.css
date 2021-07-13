@@ -40,48 +40,9 @@ button {
     border-radius: 10px;
     background: linear-gradient(rgba(150, 200, 230, .5), rgba(150, 200, 230, .5)), url('./images/waves.svg');
     background-attachment: fixed;
-}
-
-.board-row {
-    display: table;
-    position: relative;
-    width: calc(1px + var(--square-diameter) * 7);
-}
-
-.board-row:nth-child(1) {
-    top: 0;
-}
-
-.board-row:nth-child(2) {
-    top: calc(var(--square-diameter) * (-.5));
-}
-
-.board-row:nth-child(3) {
-    top: calc(var(--square-diameter) * (-1));
-}
-
-.board-row:nth-child(4) {
-    top: calc(var(--square-diameter) * (-1.5));
-}
-
-.board-row:nth-child(5) {
-    top: calc(var(--square-diameter) * -2);
-}
-
-.board-row:nth-child(6) {
-    top: calc(var(--square-diameter) * (-2.5));
-}
-
-.board-row:nth-child(7) {
-    top: calc(var(--square-diameter) * (-3));
-}
-
-.board-row:nth-child(8) {
-    top: calc(var(--square-diameter) * (-3.5));
-}
-
-.board-row:nth-child(9) {
-    top: calc(var(--square-diameter) * (-4));
+    display: grid;
+    grid-template-columns: repeat(7, var(--square-diameter));
+    grid-template-rows: repeat(10, calc(var(--square-diameter) / 2));
 }
 
 .droptarget {
