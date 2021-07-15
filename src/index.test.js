@@ -1,9 +1,11 @@
 import {
     shuffleArray,
-    getBoardNodesFromRowCol,
-    tallyScore
+    getBoardNodesFromFlatIndex,
+    updateRoutes,
+    getInitialSetup
 } from './index';
-import {BoardRoute, TileRoute} from "./tiles";
+import { tallyScore } from './Score';
+import {BoardRoute, TileRoute, tiles} from "./tiles";
 
 test('Shuffle an array', () => {
     let original = [1,2,3,4,5];
@@ -17,11 +19,11 @@ test('Shuffle an array', () => {
 });
 
 
-test("getBoardNodesFromRowCol", () => {
-    expect(getBoardNodesFromRowCol(0, 0, 9)).toEqual([0, 1, 10, 11]);
-    expect(getBoardNodesFromRowCol(3, 3, 4)).toEqual([18, 19, 23, 24]);
-    expect(getBoardNodesFromRowCol(0, 2, 4)).toEqual([2, 3, 7, 8]);
-    expect(getBoardNodesFromRowCol(3, 0, 4)).toEqual([15, 16, 20, 21]);
+test("getBoardNodesFromFlatIndex", () => {
+    expect(getBoardNodesFromFlatIndex(0, 9)).toEqual([0, 1, 10, 11]);
+    expect(getBoardNodesFromFlatIndex(15, 4)).toEqual([18, 19, 23, 24]);
+    expect(getBoardNodesFromFlatIndex(2, 4)).toEqual([2, 3, 7, 8]);
+    expect(getBoardNodesFromFlatIndex(12, 4)).toEqual([15, 16, 20, 21]);
 });
 
 test("tallyScore: If a board route is tied, neither player receives points", () => {
@@ -107,3 +109,12 @@ test("tallyScore: If there are no routes, the score is 0", () => {
 
     expect(tallyScore(routes)).toEqual(expectedScore)
 })
+
+
+test("updateRoutes, starting tiles 0-3, add tile 4 to left of tile 1 (index 9)", () => {
+    const [_, __, startingRoutesTiles_0_1_2_3] = getInitialSetup(9, 7);
+    // console.log(JSON.parse(JSON.stringify(startingRoutesTiles_0_1_2_3)));
+    const tile_1 = tiles["4"]
+    const newRoutes = updateRoutes(startingRoutesTiles_0_1_2_3, tile_1, 9, 7);
+    expect(updateRoutes(startingRoutesTiles_0_1_2_3, tile_1, 9, 7)).toEqual([0, 1, 10, 11]);
+});

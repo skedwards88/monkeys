@@ -40,48 +40,9 @@ button {
     border-radius: 10px;
     background: linear-gradient(rgba(150, 200, 230, .5), rgba(150, 200, 230, .5)), url('./images/waves.svg');
     background-attachment: fixed;
-}
-
-.board-row {
-    display: table;
-    position: relative;
-    width: calc(1px + var(--square-diameter) * 7);
-}
-
-.board-row:nth-child(1) {
-    top: 0;
-}
-
-.board-row:nth-child(2) {
-    top: calc(var(--square-diameter) * (-.5));
-}
-
-.board-row:nth-child(3) {
-    top: calc(var(--square-diameter) * (-1));
-}
-
-.board-row:nth-child(4) {
-    top: calc(var(--square-diameter) * (-1.5));
-}
-
-.board-row:nth-child(5) {
-    top: calc(var(--square-diameter) * -2);
-}
-
-.board-row:nth-child(6) {
-    top: calc(var(--square-diameter) * (-2.5));
-}
-
-.board-row:nth-child(7) {
-    top: calc(var(--square-diameter) * (-3));
-}
-
-.board-row:nth-child(8) {
-    top: calc(var(--square-diameter) * (-3.5));
-}
-
-.board-row:nth-child(9) {
-    top: calc(var(--square-diameter) * (-4));
+    display: grid;
+    grid-template-columns: repeat(7, var(--square-diameter));
+    grid-template-rows: repeat(10, calc(var(--square-diameter) / 2));
 }
 
 .droptarget {
@@ -92,6 +53,7 @@ button {
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: transparent;
 }
 
 .square {
@@ -99,10 +61,6 @@ button {
     width: var(--square-diameter);
 }
 
-.highlighted {
-    background-color: darkblue;
-    z-index: 1;
-}
 
 .square.filled.draw-pile {
     background: url('./images/monkey_3_teal.svg'), url('./images/waves.svg');
@@ -115,102 +73,102 @@ button {
     font-size: calc(var(--square-diameter)* .5);
 }
 
-.square.filled.tile1 {
+.square.filled.tile0 {
     background: url('./images/tiles_200/Monkeys_Tile_1.png'), url('./images/waves.svg');
     background-size: contain, auto;
 }
 
-.square.filled.tile2 {
+.square.filled.tile1 {
     background: url('./images/tiles_200/Monkeys_Tile_2.png'), url('./images/waves.svg');
     background-size: contain, auto;
 }
 
-.square.filled.tile3 {
+.square.filled.tile2 {
     background: url('./images/tiles_200/Monkeys_Tile_3.png'), url('./images/waves.svg');
     background-size: contain, auto;
 }
 
-.square.filled.tile4 {
+.square.filled.tile3 {
     background: url('./images/tiles_200/Monkeys_Tile_4.png'), url('./images/waves.svg');
     background-size: contain, auto;
 }
 
-.square.filled.tile5 {
+.square.filled.tile4 {
     background: url('./images/tiles_200/Monkeys_Tile_5.png'), url('./images/waves.svg');
     background-size: contain, auto;
 }
 
-.square.filled.tile6 {
+.square.filled.tile5 {
     background: url('./images/tiles_200/Monkeys_Tile_6.png'), url('./images/waves.svg');
     background-size: contain, auto;
 }
 
-.square.filled.tile7 {
+.square.filled.tile6 {
     background: url('./images/tiles_200/Monkeys_Tile_7.png'), url('./images/waves.svg');
     background-size: contain, auto;
 }
 
-.square.filled.tile8 {
+.square.filled.tile7 {
     background: url('./images/tiles_200/Monkeys_Tile_8.png'), url('./images/waves.svg');
     background-size: contain, auto;
 }
 
-.square.filled.tile9 {
+.square.filled.tile8 {
     background: url('./images/tiles_200/Monkeys_Tile_9.png'), url('./images/waves.svg');
     background-size: contain, auto;
 }
 
-.square.filled.tile10 {
+.square.filled.tile9 {
     background: url('./images/tiles_200/Monkeys_Tile_10.png'), url('./images/waves.svg');
     background-size: contain, auto;
 }
 
-.square.filled.tile11 {
+.square.filled.tile10 {
     background: url('./images/tiles_200/Monkeys_Tile_11.png'), url('./images/waves.svg');
     background-size: contain, auto;
 }
 
-.square.filled.tile12 {
+.square.filled.tile11 {
     background: url('./images/tiles_200/Monkeys_Tile_12.png'), url('./images/waves.svg');
     background-size: contain, auto;
 }
 
-.square.filled.tile13 {
+.square.filled.tile12 {
     background: url('./images/tiles_200/Monkeys_Tile_13.png'), url('./images/waves.svg');
     background-size: contain, auto;
 }
 
-.square.filled.tile14 {
+.square.filled.tile13 {
     background: url('./images/tiles_200/Monkeys_Tile_14.png'), url('./images/waves.svg');
     background-size: contain, auto;
 }
 
-.square.filled.tile15 {
+.square.filled.tile14 {
     background: url('./images/tiles_200/Monkeys_Tile_15.png'), url('./images/waves.svg');
     background-size: contain, auto;
 }
 
-.square.filled.tile16 {
+.square.filled.tile15 {
     background: url('./images/tiles_200/Monkeys_Tile_16.png'), url('./images/waves.svg');
     background-size: contain, auto;
 }
 
-.square.filled.tile17 {
+.square.filled.tile16 {
     background: url('./images/tiles_200/Monkeys_Tile_17.png'), url('./images/waves.svg');
     background-size: contain, auto;
 }
 
-.square.filled.tile18 {
+.square.filled.tile17 {
     background: url('./images/tiles_200/Monkeys_Tile_18.png'), url('./images/waves.svg');
     background-size: contain, auto;
 }
 
-.square.filled.tile19 {
+.square.filled.tile18 {
     background: url('./images/tiles_200/Monkeys_Tile_19.png'), url('./images/waves.svg');
     background-size: contain, auto;
 }
 
-.square.filled.tile20 {
+.square.filled.tile19 {
     background: url('./images/tiles_200/Monkeys_Tile_20.png'), url('./images/waves.svg');
     background-size: contain, auto;
 }

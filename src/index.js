@@ -1,32 +1,79 @@
 import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import { DragDropContainer, DropTarget } from 'react-drag-drop-container';
 import { tiles, BoardRoute } from './tiles.js'
-import Tutorial from './rules.js';
 import './rules.css';
 
+import Offer from './Offer'
+import Board from './Board'
+import Score from './Score'
+import Tutorial from './Tutorial';
 
-// todo items
-// SVG tiles???
-// maybe add node to end of routes
-// maybe add undo
+// TODO 
+//todo uninstall react-drag-drop-container / remove from package json
+// Add game end announcement
+// fix offset dropping
+// Add undo function
+// More TESTS!
+// linter
+// 
 // if screen is above certain height, move tiles and buttons/score below?
-// images are slow. Make smaller? Cache?
+// images are slow. Make smaller? Cache? SVG tiles???
+// force landscape mode?
+// Space the offer to match board height
+// how to not duplicate modal.js between monkeys and stars?
+// would be cool to change color of route to indicate owner
+// make rules swipe-able on mobile
 // Enable keyboard navigation for rules?
 // Enable keyboard navigation for tiles?
-// force landscape mode?
-// Tooltip for buttons. What is tooltip alternative for mobile?
-// Space the offer to match board height
+// Tooltip for buttons? What is tooltip alternative for mobile?
+// check color accessibility
 // art-make the routes more level at the edges so connections are smoother
 // art- make sure things aren't too close to L/R
-// lock in place? Or center to mouse?
-// resolve errors/warnings in console
-// TESTS!
-// check color accessibility
-// how to not duplicate modal.js between monkeys and stars?
-// would be so cool to change color of route to indicate owner
-// make rules swipable on mobile
+
+function partition(input, numColumns) {
+    var output = [];
+
+    for (var i = 0; i < input.length; i += numColumns) {
+        output[output.length] = input.slice(i, i + numColumns);
+    }
+
+    return output;
+}
+
+function validDropQ(played, index, numColumns) {
+    // Partition the flat list of played tiles into a nested list to make the logic clearer
+    const partitionedPlayed = partition(played, numColumns)
+
+    // And convert the flat index into a row/col
+    const row = Math.floor(index / numColumns)
+    const column = index - (row * numColumns)
+
+    // If the square or the overlapping one above/below is already occupied,
+    // don't allow a tile to be dropped there
+    if (
+        partitionedPlayed[row][column] //todo this is the problem!
+        || (partitionedPlayed[row + 1] && partitionedPlayed[row + 1][column])
+        || (partitionedPlayed[row - 1] && partitionedPlayed[row - 1][column])
+    ) {
+        return false;
+    }
+
+    // If the square does not touch a tile to the left or right, don't allow the drop
+    if (
+        !(
+            partitionedPlayed[row][column + 1]
+            || partitionedPlayed[row][column - 1]
+            || (partitionedPlayed[row + 1] && partitionedPlayed[row + 1][column + 1])
+            || (partitionedPlayed[row + 1] && partitionedPlayed[row + 1][column - 1])
+            || (partitionedPlayed[row - 1] && partitionedPlayed[row - 1][column + 1])
+            || (partitionedPlayed[row - 1] && partitionedPlayed[row - 1][column - 1])
+        )
+    ) {
+        return false;
+    }
+    return true;
+}
 
 export function shuffleArray(array) {
     // Swap each value in an array, starting at the end of the array, with a position equal or earlier in the array.
@@ -51,8 +98,11 @@ export function shuffleArray(array) {
     }
 }
 
-export function getBoardNodesFromRowCol(row, column, numColumns) {
-    // Convert a 0-indexed row/column to 0-indexed corner numbers of that row/column square in a grid
+export function getBoardNodesFromFlatIndex(flatIndex, numColumns) {
+    // Convert a 0-indexed grid position to 0-indexed corner numbers of that square in a grid
+    const row = Math.floor(flatIndex / numColumns)
+    const column = flatIndex - (row * numColumns)
+
     let topLeft = (row * (numColumns + 1) + column);
     let topRight = topLeft + 1;
     let bottomLeft = topLeft + numColumns + 1;
@@ -60,11 +110,11 @@ export function getBoardNodesFromRowCol(row, column, numColumns) {
     return [topLeft, topRight, bottomLeft, bottomRight]
 }
 
-function updateRoutes(boardRoutes, tile, row, column, numColumns) {
+export function updateRoutes(boardRoutes, tile, flatIndex, numColumns) {
 
     // Convert the row/col where the tile was placed to numbers describing 
     // the corner positions ("nodes") of the tile on the board
-    let boardNodes = getBoardNodesFromRowCol(row, column, numColumns);
+    let boardNodes = getBoardNodesFromFlatIndex(flatIndex, numColumns);
 
     // For each route on the placed tile:
     for (let tileRoute of tile.routes) {
@@ -184,45 +234,22 @@ function updateRoutes(boardRoutes, tile, row, column, numColumns) {
     return boardRoutes
 }
 
-export function tallyScore(routes) {
-    // Get the red/blue score for each route and sum them up
-    let scores = routes.map(route => route.score)
-    let redScore = scores
-        .map(score => score.red)
-        .reduce((accumulator, currentValue, currentIndex, array) => {
-            return accumulator + currentValue
-        }, 0);
-    let blueScore = scores
-        .map(score => score.blue)
-        .reduce((accumulator, currentValue, currentIndex, array) => {
-            return accumulator + currentValue
-        }, 0);
-    return { red: redScore, blue: blueScore }
-}
-
-function getInitialSetup(numRows, numColumns) {
+export function getInitialSetup(numRows, numColumns) {
 
     // Shuffle the tiles
-    const pool = JSON.parse(JSON.stringify(tiles));
-    shuffleArray(pool);
-
-    // Draw 3 tiles for the starting offer
-    let startingOffer = pool.splice(0, 3);
+    let remainingTileIDs = Object.keys(tiles)
+    // shuffleArray(remainingTileIDs);
 
     // Draw 4 tiles for the starting board
-    let initialTiles = pool.splice(0, 4);
+    const initialTiles = remainingTileIDs.splice(0, 4);
 
     // Make the starting board
-    let starting_column = Math.round(numColumns / 2) - 1;
-    let startingPositions = [
-        { row: 1, column: starting_column },
-        { row: 3, column: starting_column },
-        { row: 5, column: starting_column },
-        { row: 7, column: starting_column }];
-    let startingBoard = Array.from({ length: numRows }, e => Array(numColumns).fill(null));
+    const startingPositions = [10, 24, 38, 52]; // todo can calc instead
+    const numSquares = numColumns * numRows
+    let startingBoard = Array(numSquares).fill(null);
     initialTiles.forEach((tile, index) => {
         let startingPosition = startingPositions[index];
-        startingBoard[startingPosition.row][startingPosition.column] = tile
+        startingBoard[startingPosition] = tile;
     });
 
     // Calculate the routes present on the starting tiles
@@ -231,11 +258,11 @@ function getInitialSetup(numRows, numColumns) {
     initialTiles.forEach((tile, index) => {
         // Convert the row/col where the tile was placed to board node numbers
         let startingPosition = startingPositions[index];
-        let boardNodes = getBoardNodesFromRowCol(startingPosition.row, startingPosition.column, numColumns);
+        let boardNodes = getBoardNodesFromFlatIndex(startingPosition, numColumns);
 
         // For each route on the tile, convert the tile-relative head/tail to board-relative head/tail
         // and add the route to the starting routes
-        for (let route of tile.routes) {
+        for (let route of tiles[tile].routes) {
             let head = boardNodes[route.tileHead];
             let tail = boardNodes[route.tileTail];
             let boardRoute = new BoardRoute({ boardHead: head, boardTail: tail, tileRoutes: [route] });
@@ -243,19 +270,16 @@ function getInitialSetup(numRows, numColumns) {
         }
     });
 
-    let startingScore = tallyScore(startingRoutes);
-
-    return ([pool, startingOffer, startingBoard, startingRoutes, startingScore])
+    return ([remainingTileIDs, startingBoard, startingRoutes])
 };
 
 function Game() {
 
-    let numRows = 9;
-    let numColumns = 7;
-    let [initialPool, startingOffer, startingBoard, startingRoutes, startingScore] = [[], [], [], [], []];
-
+    const numRows = 9;
+    const numColumns = 7;
+    const [startingTileIDs, startingBoard, startingRoutes] = getInitialSetup(numRows, numColumns)
     // The box shadow around the draw stack
-    let startingDrawEffect = [
+    const drawEffect = [
         "-1px 1px rgba(27, 211, 235, 0.35)",
         "-1px 1px rgba(0,0,0, 0.15)",
         "-2px 2px rgba(27, 211, 235, 0.35)",
@@ -283,230 +307,70 @@ function Game() {
         "-13px 13px rgba(27, 211, 235, 0.35)",
         "-13px 13px rgba(0,0,0, 0.35)",
     ];
-
-    const [newGameRequested, setNewGameRequested] = useState(true);  // todo can I find a better way to do this?
-    const [offer, setOffer] = useState(startingOffer);
-    const [pool, setPool] = useState(initialPool);
+    const [remainingTileIDs, setRemainingTileIDs] = useState(startingTileIDs);
     const [played, setPlayed] = useState(startingBoard);
     const [routes, setRoutes] = useState(startingRoutes);
     const [showRules, setShowRules] = useState(false);
-    const [score, setScore] = useState(startingScore);
-    const [drawEffect, setDrawEffect] = useState(startingDrawEffect);
     useEffect(() => {
+        const effectiveDrawEffect = drawEffect.slice(0, 2 * (remainingTileIDs.length - 3))
         let body = document.getElementsByTagName("body")[0];
-        body.style.setProperty("--deck-size", drawEffect.join(","));
+        body.style.setProperty("--deck-size", effectiveDrawEffect.join(","));
     });
 
-    if (newGameRequested) {
-        setNewGameRequested(false);
-        [initialPool, startingOffer, startingBoard, startingRoutes, startingScore] = getInitialSetup(numRows, numColumns);
-        setPool(initialPool);
-        setOffer(startingOffer);
-        setPlayed(startingBoard);
-        setRoutes(startingRoutes);
-        setScore(startingScore);
-        setDrawEffect(startingDrawEffect);
-    }
+    const handleDrop = (event, flatIndex) => {
+        event.target.style["background-color"] = "transparent"
 
-    const drawTile = () => {
-        // Take a tile from the pool. Update the pool and return the tile.
-        let newPool = JSON.parse(JSON.stringify(pool));
-        let tile = newPool.pop();
-        setPool(newPool);
+        const offerIndex = event.dataTransfer.getData("offerIndex");
+        const tile = event.dataTransfer.getData("tile");
+        const newPlayed = [...played];
 
-        // Update draw stack visual
-        drawEffect.splice(-2, 2);
-        setDrawEffect(drawEffect);
-        console.log(drawEffect.length);
-
-        return tile
-    };
-
-    const handleDrop = (e) => {
-        const row = e.dropData.row;
-        const column = e.dropData.column;
-        let tile = e.dragData.tile;
-        let squares = played.slice();
-
-        // If the square or the overlapping one above/below is already occupied,
-        // don't allow a tile to be dropped there
-        if (
-            squares[row][column]
-            || (squares[row + 1] && squares[row + 1][column])
-            || (squares[row - 1] && squares[row - 1][column])
-        ) {
-            return;
-        }
-
-        // If the square does not touch a tile to the left or right, don't allow the drop
-        if (
-            !(
-                squares[row][column + 1]
-                || squares[row][column - 1]
-                || (squares[row + 1] && squares[row + 1][column + 1])
-                || (squares[row + 1] && squares[row + 1][column - 1])
-                || (squares[row - 1] && squares[row - 1][column + 1])
-                || (squares[row - 1] && squares[row - 1][column - 1])
-            )
-        ) {
-            return;
+        if (!validDropQ(newPlayed, flatIndex, numColumns)) {
+            return
         }
 
         // Put a token in the square where the token was dropped
-        squares[row][column] = tile;
+        newPlayed[flatIndex] = tile;
 
-        // Update squares
-        setPlayed(squares);
+        // Update played
+        setPlayed(newPlayed);
 
         // update routes
-        let oldRoutes = routes.slice();
-        let newRoutes = updateRoutes(oldRoutes, tile, row, column, numColumns);
-        setRoutes(newRoutes);
+        let updatedRoutes = updateRoutes(routes.slice(), tiles[tile], flatIndex, numColumns);
+        setRoutes(updatedRoutes);
 
-        // Update score
-        let newScore = tallyScore(newRoutes);
-        setScore(newScore);
+        // const offerIndex = event.dragData.offerIndex;
+        let newRemainingTileIDs = [...remainingTileIDs]
+        if (newRemainingTileIDs.length > 3) {
+            // replace the played tile with the tile at the bottom of the pool
+            newRemainingTileIDs[offerIndex] = newRemainingTileIDs[newRemainingTileIDs.length - 1]
+            // remove the tile at the bottom of the pool
+            newRemainingTileIDs.splice(-1, 1)
 
-        // Replenish offer
-        let newTile = drawTile();
-        let offerIndex = e.dragData.offerIndex;
-        let newOffer = JSON.parse(JSON.stringify(offer));
-        newOffer[offerIndex] = newTile;
-        setOffer(newOffer);
-    };
-
-    const handleNewGame = () => {
-        setNewGameRequested(true);
-    };
-
-    const handleShow = () => {
-        setShowRules(true);
-    };
-
-    const handleHide = () => {
-        setShowRules(false);
-    };
-
-    function Square(props) {
-        let tile = props.tile;
-        let className = tile ? "square filled tile" + tile.id : "square";
-
-        return (
-            <div className={className}
-                onDragOver={props.onDragOver}
-                onDrop={props.onDrop}
-            />
-        );
-    }
-
-    function Board() {
-
-        function renderTile(row, column) {
-            let squares = JSON.parse(JSON.stringify(played));
-            const tile = squares[row][column];
-            return (
-                <DropTarget
-                    targetKey="offer-tile"
-                    dropData={{ 'row': row, 'column': column }}
-                    key={row + ',' + column}
-                >
-                    <Square
-                        tile={tile}
-                        key={row + ',' + column}
-                        row={row}
-                        column={column}
-                    />
-                </DropTarget>
-            );
+        } else {
+            // If there aren't unrevealed tiles left, replace the played tile with null
+            newRemainingTileIDs[offerIndex] = null
         }
 
-        function createBoard() {
+        setRemainingTileIDs(newRemainingTileIDs)
+    };
 
-            let rows = [];
-            for (let rowIndex = 0; rowIndex < numRows; rowIndex++) {
-                let row = [];
-                for (let columnIndex = 0; columnIndex < numColumns; columnIndex++) {
-                    row.push(renderTile(rowIndex, columnIndex));
-                }
-                rows.push(<div className="board-row" key={rowIndex}>{row}</div>);
-            }
-            return rows;
-        }
 
-        return (
-            <div className="board">
-                {createBoard()}
-            </div>
-        );
-    }
-
-    function Offer() {
-
-        function renderOfferTile(offerIndex) {
-
-            const currentOffer = JSON.parse(JSON.stringify(offer));
-            const tile = currentOffer[offerIndex];
-            let className = tile ? "square filled tile" + tile.id + " offer-tile" : "square offer-tile";
-            return (
-                <DragDropContainer
-                    targetKey="offer-tile"
-                    dragData={{ tile: tile, offerIndex: offerIndex }}
-                    onDrop={(e) => handleDrop(e)}
-                    key={offerIndex}
-                >
-                    <div className={className}
-                    >
-                    </div>
-                </DragDropContainer>
-            );
-        }
-
-        function createOffer() {
-
-            let numOffers = 3;
-            let offer = [];
-            for (let offerIndex = 0; offerIndex < numOffers; offerIndex++) {
-                offer.push(renderOfferTile(offerIndex));
-            }
-            return offer;
-        }
-
-        return (
-            <div className="offer">
-                {createOffer()}
-            </div>
-        );
-    }
-
-    let tutorial = showRules ?
-        <Tutorial handleHide={handleHide} /> :
-        null;
 
     return (
         <div className="game">
-            <div className="offer-area">
-                <Offer />
-                <div className="square filled draw-pile">
-                    {Math.max(0, pool.length)}
-                </div>
-            </div>
-            <Board />
+            <Offer
+                remainingTileIDs={remainingTileIDs}
+                handleDrop={handleDrop}
+            />
+            <Board
+                played={played}
+                handleDrop={handleDrop}
+            />
             <div className="off-board">
-                <div className="score">
-                    <div className="red-score">
-                        <div className="score-icon red" />
-                        {score.red}
-                    </div>
-                    <div className="blue-score">
-                        <div className="score-icon blue" />
-                        {score.blue}
-                    </div>
-                </div>
-                <button className="new-game-button" onClick={handleNewGame}></button>
-                <button className="rules-button" onClick={handleShow}></button>
-                {/*<div className="temp"/>*/}
+                <Score routes={routes} />
+                {/* <button className="new-game-button" onClick={handleNewGame}></button> */}
+                <Tutorial showRules={showRules} setShowRules={setShowRules} />
             </div>
-            {tutorial}
         </div>
     );
 }
