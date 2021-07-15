@@ -10,7 +10,6 @@ function OfferTile({ offerIndex, remainingTileIDs, handleDrop }) {
   const className = tile ? "square filled tile" + tile + " offer-tile" : "square offer-tile";
 
   function drag(ev, offerIndex, tile) {
-    console.log('dragging!')
     ev.dataTransfer.setData("offerIndex", offerIndex);
     ev.dataTransfer.setData("tile", tile);
   }
@@ -22,10 +21,7 @@ function OfferTile({ offerIndex, remainingTileIDs, handleDrop }) {
   )
 }
 
-
-
 export default function Offer({ remainingTileIDs, handleDrop }) {
-  console.log('render offer')
   return (
     <div className="offer-area">
       <div className="offer">
@@ -39,4 +35,3 @@ export default function Offer({ remainingTileIDs, handleDrop }) {
     </div>
   );
 }
-

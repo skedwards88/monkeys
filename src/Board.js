@@ -1,6 +1,5 @@
 import React from 'react'
 import { polyfill } from "mobile-drag-drop";
-//todo uninstall react-drag-drop-container / remove from package json
 
 polyfill({
     dragImageCenterOnTouch: true
@@ -18,6 +17,10 @@ export default function Board({ played, handleDrop }) {
                 className={className + " droptarget"}
                 onDragEnter={(event) => {
                     event.preventDefault();
+                    event.target.style["background-color"] = "darkblue"
+                }}
+                onDragLeave={(event) => {
+                    event.target.style["background-color"] = "transparent"
                 }}
                 onDragOver={(event) => {
                     event.preventDefault();

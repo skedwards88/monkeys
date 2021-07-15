@@ -10,11 +10,12 @@ import Score from './Score'
 import Tutorial from './Tutorial';
 
 // TODO 
+//todo uninstall react-drag-drop-container / remove from package json
 // Add game end announcement
-// Highlight where the square will drop
 // fix offset dropping
 // Add undo function
-// TESTS!
+// More TESTS!
+// linter
 // 
 // if screen is above certain height, move tiles and buttons/score below?
 // images are slow. Make smaller? Cache? SVG tiles???
@@ -42,7 +43,7 @@ function partition(input, numColumns) {
 
 function validDropQ(played, index, numColumns) {
     // Partition the flat list of played tiles into a nested list to make the logic clearer
-    const partitionedPlayed = partition([...played], numColumns)
+    const partitionedPlayed = partition(played, numColumns)
 
     // And convert the flat index into a row/col
     const row = Math.floor(index / numColumns)
@@ -110,7 +111,6 @@ export function getBoardNodesFromFlatIndex(flatIndex, numColumns) {
 }
 
 export function updateRoutes(boardRoutes, tile, flatIndex, numColumns) {
-    console.log('routes')
 
     // Convert the row/col where the tile was placed to numbers describing 
     // the corner positions ("nodes") of the tile on the board
@@ -231,8 +231,6 @@ export function updateRoutes(boardRoutes, tile, flatIndex, numColumns) {
             boardRoutes.splice(indexToDelete, 1);
         }
     }
-    console.log('routes end')
-    // console.log(boardRoutes)
     return boardRoutes
 }
 
@@ -320,9 +318,10 @@ function Game() {
     });
 
     const handleDrop = (event, flatIndex) => {
+        event.target.style["background-color"] = "transparent"
+
         const offerIndex = event.dataTransfer.getData("offerIndex");
         const tile = event.dataTransfer.getData("tile");
-        console.log('dropping')
         const newPlayed = [...played];
 
         if (!validDropQ(newPlayed, flatIndex, numColumns)) {

@@ -53,6 +53,7 @@ button {
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: transparent;
 }
 
 .square {
@@ -60,10 +61,6 @@ button {
     width: var(--square-diameter);
 }
 
-.highlighted {
-    background-color: darkblue;
-    z-index: 1;
-}
 
 .square.filled.draw-pile {
     background: url('./images/monkey_3_teal.svg'), url('./images/waves.svg');
