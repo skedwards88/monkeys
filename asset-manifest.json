@@ -1,27 +1,26 @@
 {
   "files": {
-    "main.css": "/monkeys/static/css/main.c3922862.chunk.css",
-    "main.js": "/monkeys/static/js/main.7377b819.chunk.js",
-    "main.js.map": "/monkeys/static/js/main.7377b819.chunk.js.map",
+    "main.css": "/monkeys/static/css/main.04ac8631.chunk.css",
+    "main.js": "/monkeys/static/js/main.772d2cf9.chunk.js",
+    "main.js.map": "/monkeys/static/js/main.772d2cf9.chunk.js.map",
     "runtime-main.js": "/monkeys/static/js/runtime-main.1ec2a951.js",
     "runtime-main.js.map": "/monkeys/static/js/runtime-main.1ec2a951.js.map",
-    "static/js/2.132a2f25.chunk.js": "/monkeys/static/js/2.132a2f25.chunk.js",
-    "static/js/2.132a2f25.chunk.js.map": "/monkeys/static/js/2.132a2f25.chunk.js.map",
+    "static/js/2.83b04b19.chunk.js": "/monkeys/static/js/2.83b04b19.chunk.js",
+    "static/js/2.83b04b19.chunk.js.map": "/monkeys/static/js/2.83b04b19.chunk.js.map",
     "index.html": "/monkeys/index.html",
-    "precache-manifest.a21cde748b4ba072ab053dab670179ec.js": "/monkeys/precache-manifest.a21cde748b4ba072ab053dab670179ec.js",
+    "precache-manifest.66202577a837704b18b57e89f626fd2e.js": "/monkeys/precache-manifest.66202577a837704b18b57e89f626fd2e.js",
     "service-worker.js": "/monkeys/service-worker.js",
-    "static/css/main.c3922862.chunk.css.map": "/monkeys/static/css/main.c3922862.chunk.css.map",
-    "static/js/2.132a2f25.chunk.js.LICENSE.txt": "/monkeys/static/js/2.132a2f25.chunk.js.LICENSE.txt",
+    "static/css/main.04ac8631.chunk.css.map": "/monkeys/static/css/main.04ac8631.chunk.css.map",
+    "static/js/2.83b04b19.chunk.js.LICENSE.txt": "/monkeys/static/js/2.83b04b19.chunk.js.LICENSE.txt",
     "static/media/index.css": "/monkeys/static/media/sand_texture.0d490134.svg",
     "static/media/rules.css": "/monkeys/static/media/waves.646fc471.svg",
     "static/media/coconuts.png": "/monkeys/static/media/coconuts.1ae6fa30.png",
-    "static/media/monkey_3.svg": "/monkeys/static/media/monkey_3.591b7e81.svg",
     "static/media/two_ships.png": "/monkeys/static/media/two_ships.846e2372.png"
   },
   "entrypoints": [
     "static/js/runtime-main.1ec2a951.js",
-    "static/js/2.132a2f25.chunk.js",
-    "static/css/main.c3922862.chunk.css",
-    "static/js/main.7377b819.chunk.js"
+    "static/js/2.83b04b19.chunk.js",
+    "static/css/main.04ac8631.chunk.css",
+    "static/js/main.772d2cf9.chunk.js"
   ]
 }
