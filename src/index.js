@@ -360,7 +360,6 @@ function Game() {
         <div className="game">
             <Offer
                 remainingTileIDs={remainingTileIDs}
-                handleDrop={handleDrop}
             />
             <Board
                 played={played}
