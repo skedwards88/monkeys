@@ -252,7 +252,7 @@ export function updateRoutes(boardRoutes, tile, flatIndex, numColumns) {
 export function getInitialSetup(numRows, numColumns) {
   // Shuffle the tiles
   let remainingTileIDs = Object.keys(tiles);
-  // shuffleArray(remainingTileIDs);
+  shuffleArray(remainingTileIDs);
 
   // Draw 4 tiles for the starting board
   const initialTiles = remainingTileIDs.splice(0, 4);
