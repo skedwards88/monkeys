@@ -1,267 +1,290 @@
 html {
-    margin: auto;
+  margin: auto;
 }
 
 body {
-    font-size: 18px;  /* fallback fallback  (if clamp and vh are not supported) */
-    font-size: 4.0vh; /* fallback (if clamp is not supported) */
-    font-weight: bold;
-    font-family: Verdana, Geneva, sans-serif;
-    --square-diameter: 50px; /* fallback fallback (if clamp and vmin are not supported) */
-    --square-diameter: 17vmin; /* fallback (if clamp is not supported) */
-    vertical-align: middle;
-    background: linear-gradient(rgba(242, 234, 150, .5), rgba(217, 200, 43, .5)),
-    url('./images/sand_texture.svg');
-    background-attachment: fixed;
+  font-size: 18px; /* fallback fallback  (if clamp and vh are not supported) */
+  font-size: 4vh; /* fallback (if clamp is not supported) */
+  font-weight: bold;
+  font-family: Verdana, Geneva, sans-serif;
+  --square-diameter: 50px; /* fallback fallback (if clamp and vmin are not supported) */
+  --square-diameter: 17vmin; /* fallback (if clamp is not supported) */
+  vertical-align: middle;
+  background: linear-gradient(rgba(242, 234, 150, 0.5), rgba(217, 200, 43, 0.5)),
+    url("./images/sand_texture.svg");
+  background-attachment: fixed;
 }
 
 @supports (width: clamp(40px, 17vmin, 100px)) {
-    body {
-        --square-diameter: clamp(40px, 17vmin, 100px);
-        font-size: clamp(10px, 4.0vh, 32px);
-    }
+  body {
+    --square-diameter: clamp(40px, 17vmin, 100px);
+    font-size: clamp(10px, 4vh, 32px);
+  }
 }
 
 button {
-    margin-right: 10px;
-    border-radius: 5px;
-    font-family: inherit;
-    background-color: lightgrey;
+  margin-right: 10px;
+  border-radius: 5px;
+  font-family: inherit;
+  background-color: lightgrey;
 }
 
 .game {
-    display: flex;
-    margin: 20px;
+  display: flex;
+  margin: 20px;
 }
 
 .board {
-    height: calc(var(--square-diameter) * 5);
-    border: 3px rgb(150, 200, 230) solid;
-    border-radius: 10px;
-    background: linear-gradient(rgba(150, 200, 230, .5), rgba(150, 200, 230, .5)), url('./images/waves.svg');
-    background-attachment: fixed;
-    display: grid;
-    grid-template-columns: repeat(7, var(--square-diameter));
-    grid-template-rows: repeat(10, calc(var(--square-diameter) / 2));
+  height: calc(var(--square-diameter) * 5);
+  border: 3px rgb(150, 200, 230) solid;
+  border-radius: 10px;
+  background: linear-gradient(
+      rgba(150, 200, 230, 0.5),
+      rgba(150, 200, 230, 0.5)
+    ),
+    url("./images/waves.svg");
+  background-attachment: fixed;
+  display: grid;
+  grid-template-columns: repeat(7, var(--square-diameter));
+  grid-template-rows: repeat(10, calc(var(--square-diameter) / 2));
 }
 
 .droptarget {
-    float: left;
-    height: var(--square-diameter);
-    padding: 0;
-    width: var(--square-diameter);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: transparent;
+  float: left;
+  height: var(--square-diameter);
+  padding: 0;
+  width: var(--square-diameter);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
 }
 
 .square {
-    height: var(--square-diameter);
-    width: var(--square-diameter);
+  height: var(--square-diameter);
+  width: var(--square-diameter);
 }
 
-
 .square.filled.draw-pile {
-    background: url('./images/monkey_3_teal.svg'), url('./images/waves.svg');
-    background-size: contain, auto;
-    box-shadow: var(--deck-size);
-    margin: 0 5px 5px 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: calc(var(--square-diameter)* .5);
+  background: url("./images/monkey_3_teal.svg"), url("./images/waves.svg");
+  background-size: contain, auto;
+  box-shadow: var(--deck-size);
+  margin: 0 5px 5px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: calc(var(--square-diameter) * 0.5);
 }
 
 .square.filled.tile0 {
-    background: url('./images/tiles_200/Monkeys_Tile_1.png'), url('./images/waves.svg');
-    background-size: contain, auto;
+  background: url("./images/tiles_200/Monkeys_Tile_1.png"),
+    url("./images/waves.svg");
+  background-size: contain, auto;
 }
 
 .square.filled.tile1 {
-    background: url('./images/tiles_200/Monkeys_Tile_2.png'), url('./images/waves.svg');
-    background-size: contain, auto;
+  background: url("./images/tiles_200/Monkeys_Tile_2.png"),
+    url("./images/waves.svg");
+  background-size: contain, auto;
 }
 
 .square.filled.tile2 {
-    background: url('./images/tiles_200/Monkeys_Tile_3.png'), url('./images/waves.svg');
-    background-size: contain, auto;
+  background: url("./images/tiles_200/Monkeys_Tile_3.png"),
+    url("./images/waves.svg");
+  background-size: contain, auto;
 }
 
 .square.filled.tile3 {
-    background: url('./images/tiles_200/Monkeys_Tile_4.png'), url('./images/waves.svg');
-    background-size: contain, auto;
+  background: url("./images/tiles_200/Monkeys_Tile_4.png"),
+    url("./images/waves.svg");
+  background-size: contain, auto;
 }
 
 .square.filled.tile4 {
-    background: url('./images/tiles_200/Monkeys_Tile_5.png'), url('./images/waves.svg');
-    background-size: contain, auto;
+  background: url("./images/tiles_200/Monkeys_Tile_5.png"),
+    url("./images/waves.svg");
+  background-size: contain, auto;
 }
 
 .square.filled.tile5 {
-    background: url('./images/tiles_200/Monkeys_Tile_6.png'), url('./images/waves.svg');
-    background-size: contain, auto;
+  background: url("./images/tiles_200/Monkeys_Tile_6.png"),
+    url("./images/waves.svg");
+  background-size: contain, auto;
 }
 
 .square.filled.tile6 {
-    background: url('./images/tiles_200/Monkeys_Tile_7.png'), url('./images/waves.svg');
-    background-size: contain, auto;
+  background: url("./images/tiles_200/Monkeys_Tile_7.png"),
+    url("./images/waves.svg");
+  background-size: contain, auto;
 }
 
 .square.filled.tile7 {
-    background: url('./images/tiles_200/Monkeys_Tile_8.png'), url('./images/waves.svg');
-    background-size: contain, auto;
+  background: url("./images/tiles_200/Monkeys_Tile_8.png"),
+    url("./images/waves.svg");
+  background-size: contain, auto;
 }
 
 .square.filled.tile8 {
-    background: url('./images/tiles_200/Monkeys_Tile_9.png'), url('./images/waves.svg');
-    background-size: contain, auto;
+  background: url("./images/tiles_200/Monkeys_Tile_9.png"),
+    url("./images/waves.svg");
+  background-size: contain, auto;
 }
 
 .square.filled.tile9 {
-    background: url('./images/tiles_200/Monkeys_Tile_10.png'), url('./images/waves.svg');
-    background-size: contain, auto;
+  background: url("./images/tiles_200/Monkeys_Tile_10.png"),
+    url("./images/waves.svg");
+  background-size: contain, auto;
 }
 
 .square.filled.tile10 {
-    background: url('./images/tiles_200/Monkeys_Tile_11.png'), url('./images/waves.svg');
-    background-size: contain, auto;
+  background: url("./images/tiles_200/Monkeys_Tile_11.png"),
+    url("./images/waves.svg");
+  background-size: contain, auto;
 }
 
 .square.filled.tile11 {
-    background: url('./images/tiles_200/Monkeys_Tile_12.png'), url('./images/waves.svg');
-    background-size: contain, auto;
+  background: url("./images/tiles_200/Monkeys_Tile_12.png"),
+    url("./images/waves.svg");
+  background-size: contain, auto;
 }
 
 .square.filled.tile12 {
-    background: url('./images/tiles_200/Monkeys_Tile_13.png'), url('./images/waves.svg');
-    background-size: contain, auto;
+  background: url("./images/tiles_200/Monkeys_Tile_13.png"),
+    url("./images/waves.svg");
+  background-size: contain, auto;
 }
 
 .square.filled.tile13 {
-    background: url('./images/tiles_200/Monkeys_Tile_14.png'), url('./images/waves.svg');
-    background-size: contain, auto;
+  background: url("./images/tiles_200/Monkeys_Tile_14.png"),
+    url("./images/waves.svg");
+  background-size: contain, auto;
 }
 
 .square.filled.tile14 {
-    background: url('./images/tiles_200/Monkeys_Tile_15.png'), url('./images/waves.svg');
-    background-size: contain, auto;
+  background: url("./images/tiles_200/Monkeys_Tile_15.png"),
+    url("./images/waves.svg");
+  background-size: contain, auto;
 }
 
 .square.filled.tile15 {
-    background: url('./images/tiles_200/Monkeys_Tile_16.png'), url('./images/waves.svg');
-    background-size: contain, auto;
+  background: url("./images/tiles_200/Monkeys_Tile_16.png"),
+    url("./images/waves.svg");
+  background-size: contain, auto;
 }
 
 .square.filled.tile16 {
-    background: url('./images/tiles_200/Monkeys_Tile_17.png'), url('./images/waves.svg');
-    background-size: contain, auto;
+  background: url("./images/tiles_200/Monkeys_Tile_17.png"),
+    url("./images/waves.svg");
+  background-size: contain, auto;
 }
 
 .square.filled.tile17 {
-    background: url('./images/tiles_200/Monkeys_Tile_18.png'), url('./images/waves.svg');
-    background-size: contain, auto;
+  background: url("./images/tiles_200/Monkeys_Tile_18.png"),
+    url("./images/waves.svg");
+  background-size: contain, auto;
 }
 
 .square.filled.tile18 {
-    background: url('./images/tiles_200/Monkeys_Tile_19.png'), url('./images/waves.svg');
-    background-size: contain, auto;
+  background: url("./images/tiles_200/Monkeys_Tile_19.png"),
+    url("./images/waves.svg");
+  background-size: contain, auto;
 }
 
 .square.filled.tile19 {
-    background: url('./images/tiles_200/Monkeys_Tile_20.png'), url('./images/waves.svg');
-    background-size: contain, auto;
+  background: url("./images/tiles_200/Monkeys_Tile_20.png"),
+    url("./images/waves.svg");
+  background-size: contain, auto;
 }
 
 .offer-area {
-    margin: 3px 0 0 0;
+  margin: 3px 0 0 0;
 }
 
 .offer {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .offer-tile {
-    margin: 0 5px 5px 0;
+  margin: 0 5px 5px 0;
 }
 
 .filled.offer-tile {
-    box-shadow: -4px 4px 3px -2px darkgrey;
+  box-shadow: -4px 4px 3px -2px darkgrey;
 }
 
 .off-board {
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    margin: 3px 0 0 10px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  margin: 3px 0 0 10px;
 }
 
 .off-board > * {
-    margin: 0 0 10px 10px;
+  margin: 0 0 10px 10px;
 }
 
 .score {
-    font-weight: normal;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+  font-weight: normal;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .score-icon {
-    width: calc(var(--square-diameter) / 3);
-    height: calc(var(--square-diameter) / 3);
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: contain;
-    margin-right: 5px;
+  width: calc(var(--square-diameter) / 3);
+  height: calc(var(--square-diameter) / 3);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  margin-right: 5px;
 }
 
 .score-icon.red {
-    background-image: url('./images/red_icon.svg');
+  background-image: url("./images/red_icon.svg");
 }
 
 .score-icon.blue {
-    background-image: url('./images/blue_icon.svg');
+  background-image: url("./images/blue_icon.svg");
 }
 
 .red-score {
-    color: red;
-    font-weight: bold;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+  color: red;
+  font-weight: bold;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 .blue-score {
-    align-items: center;
-    color: blue;
-    font-weight: bold;
-    padding-right: 50px;
-    display: flex;
-    flex-direction: row;
+  align-items: center;
+  color: blue;
+  font-weight: bold;
+  padding-right: 50px;
+  display: flex;
+  flex-direction: row;
 }
 
 .tile {
-    margin: 10px;
+  margin: 10px;
 }
 
 .new-game-button {
-    width: calc(var(--square-diameter) / 2);
-    height: calc(var(--square-diameter) / 2);
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    margin-right: 5px;
-    background-image: url('./images/new_game_icon.svg');
+  width: calc(var(--square-diameter) / 2);
+  height: calc(var(--square-diameter) / 2);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin-right: 5px;
+  background-image: url("./images/new_game_icon.svg");
 }
 
 .rules-button {
-    width: calc(var(--square-diameter) / 2);
-    height: calc(var(--square-diameter) / 2);
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    margin-right: 5px;
-    background-image: url('./images/rules_icon.svg');
+  width: calc(var(--square-diameter) / 2);
+  height: calc(var(--square-diameter) / 2);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin-right: 5px;
+  background-image: url("./images/rules_icon.svg");
 }

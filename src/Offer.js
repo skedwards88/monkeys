@@ -1,35 +1,34 @@
-import React from 'react'
+import React from "react";
 import { polyfill } from "mobile-drag-drop";
 
 polyfill({
-  dragImageCenterOnTouch: true
+  dragImageCenterOnTouch: true,
 });
 
 function OfferTile({ offerIndex, remainingTileIDs }) {
-  const tile = remainingTileIDs[offerIndex]
-  const className = tile ? "square filled tile" + tile + " offer-tile" : "square offer-tile";
+  const tile = remainingTileIDs[offerIndex];
+  const className = tile
+    ? "square filled tile" + tile + " offer-tile"
+    : "square offer-tile";
 
   function drag(ev, offerIndex, tile) {
     ev.dataTransfer.setData("offerIndex", offerIndex);
     ev.dataTransfer.setData("tile", tile);
-    ev.target.style["opacity"] = "0.5"
+    ev.target.style["opacity"] = "0.5";
   }
 
   function drop(ev) {
-    ev.target.style["opacity"] = "1"
+    ev.target.style["opacity"] = "1";
   }
 
-
   return (
-
     <div
       className={className}
       draggable="true"
       onDragStart={(e) => drag(e, offerIndex, tile)}
       onDragEnd={(e) => drop(e)}
     />
-
-  )
+  );
 }
 
 export default function Offer({ remainingTileIDs }) {
