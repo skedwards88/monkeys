@@ -340,6 +340,16 @@ function Game() {
     body.style.setProperty("--deck-size", effectiveDrawEffect.join(","));
   });
 
+  function handleNewGame() {
+    const [startingTileIDs, startingBoard, startingRoutes] = getInitialSetup(
+      numRows,
+      numColumns
+    );
+    setRemainingTileIDs(startingTileIDs);
+    setPlayed(startingBoard);
+    setRoutes(startingRoutes);
+  }
+
   const handleDrop = (event, flatIndex) => {
     event.target.style["background-color"] = "transparent";
 
@@ -388,7 +398,7 @@ function Game() {
       <Board played={played} handleDrop={handleDrop} />
       <div className="off-board">
         <Score routes={routes} />
-        {/* <button className="new-game-button" onClick={handleNewGame}></button> */}
+        <button className="new-game-button" onClick={handleNewGame}></button>
         <Tutorial showRules={showRules} setShowRules={setShowRules} />
       </div>
     </div>
