@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Modal from "./modal";
 
 const rules = [
   <div className="tutorial-step">
@@ -189,7 +188,6 @@ export default function Tutorial({ showRules, setShowRules }) {
     };
 
     return (
-      <Modal>
         <div className="modal">
           <div id="tutorial">
             <PreviousButton
@@ -206,7 +204,6 @@ export default function Tutorial({ showRules, setShowRules }) {
             />
           </div>
         </div>
-      </Modal>
     );
   } else {
     const handleShow = () => {
