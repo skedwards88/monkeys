@@ -260,7 +260,6 @@ button {
   align-items: center;
   color: blue;
   font-weight: bold;
-  padding-right: 50px;
   display: flex;
   flex-direction: row;
 }

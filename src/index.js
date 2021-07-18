@@ -8,11 +8,10 @@ import Offer from "./Offer";
 import Board from "./Board";
 import Score from "./Score";
 import Tutorial from "./Tutorial";
+import GameOver from "./GameOver";
 
 // TODO
 //todo uninstall react-drag-drop-container / remove from package json
-// new game button
-// Add game end announcement
 // fix offset dropping
 // Add undo function
 // More TESTS!
@@ -398,8 +397,9 @@ function Game() {
       <Board played={played} handleDrop={handleDrop} />
       <div className="off-board">
         <Score routes={routes} />
-        <button className="new-game-button" onClick={handleNewGame}></button>
+        <button className="new-game-button" onClick={handleNewGame} />
         <Tutorial showRules={showRules} setShowRules={setShowRules} />
+        <GameOver remainingTileIDs={remainingTileIDs} routes={routes} />
       </div>
     </div>
   );
