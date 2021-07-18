@@ -24,7 +24,7 @@ body {
   text-align: center;
 }
 
-.tutorial {
+#tutorial {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -93,7 +93,7 @@ button:focus {
   right: 0;
 }
 
-.exit-button {
+#exit-button {
   height: 20px;
   width: 30px;
   position: absolute;

@@ -29,12 +29,12 @@ button {
   background-color: lightgrey;
 }
 
-.game {
+#game {
   display: flex;
   margin: 20px;
 }
 
-.board {
+#board {
   height: calc(var(--square-diameter) * 5);
   border: 3px rgb(150, 200, 230) solid;
   border-radius: 10px;
@@ -47,17 +47,6 @@ button {
   display: grid;
   grid-template-columns: repeat(7, var(--square-diameter));
   grid-template-rows: repeat(10, calc(var(--square-diameter) / 2));
-}
-
-.droptarget {
-  float: left;
-  height: var(--square-diameter);
-  padding: 0;
-  width: var(--square-diameter);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: transparent;
 }
 
 .square {
@@ -196,11 +185,11 @@ button {
   background-size: contain, auto;
 }
 
-.offer-area {
+#offer-area {
   margin: 3px 0 0 0;
 }
 
-.offer {
+#offer {
   display: flex;
   flex-direction: column;
 }
@@ -213,14 +202,14 @@ button {
   box-shadow: -4px 4px 3px -2px darkgrey;
 }
 
-.off-board {
+#off-board {
   display: flex;
   flex-direction: column;
   position: relative;
   margin: 3px 0 0 10px;
 }
 
-.off-board > * {
+#off-board > * {
   margin: 0 0 10px 10px;
 }
 
@@ -268,7 +257,7 @@ button {
   margin: 10px;
 }
 
-.new-game-button {
+#new-game-button {
   width: calc(var(--square-diameter) / 2);
   height: calc(var(--square-diameter) / 2);
   background-position: center;
@@ -278,7 +267,7 @@ button {
   background-image: url("./images/new_game_icon.svg");
 }
 
-.rules-button {
+#rules-button {
   width: calc(var(--square-diameter) / 2);
   height: calc(var(--square-diameter) / 2);
   background-position: center;

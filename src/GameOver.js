@@ -3,7 +3,6 @@ import Score from "./Score";
 
 function closeGameOver(e) {
   e.target.style.display = "none";
-  // document.getElementById("game-over").style.display = "none"
 }
 
 export default function GameOver({ remainingTileIDs, routes }) {

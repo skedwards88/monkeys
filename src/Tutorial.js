@@ -191,13 +191,13 @@ export default function Tutorial({ showRules, setShowRules }) {
     return (
       <Modal>
         <div className="modal">
-          <div className="tutorial">
+          <div id="tutorial">
             <PreviousButton
               currentRule={currentRule}
               setCurrentRule={setCurrentRule}
             />
             {rules[currentRule - 1]}
-            <button className="exit-button" onClick={handleHide}>
+            <button id="exit-button" onClick={handleHide}>
               &#10005;
             </button>
             <NextButton
@@ -213,6 +213,6 @@ export default function Tutorial({ showRules, setShowRules }) {
       setShowRules(true);
     };
 
-    return <button className="rules-button" onClick={handleShow}></button>;
+    return <button id="rules-button" onClick={handleShow}></button>;
   }
 }

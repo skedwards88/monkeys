@@ -33,8 +33,8 @@ function OfferTile({ offerIndex, remainingTileIDs }) {
 
 export default function Offer({ remainingTileIDs }) {
   return (
-    <div className="offer-area">
-      <div className="offer">
+    <div id="offer-area">
+      <div id="offer">
         <OfferTile offerIndex="0" remainingTileIDs={remainingTileIDs} />
         <OfferTile offerIndex="1" remainingTileIDs={remainingTileIDs} />
         <OfferTile offerIndex="2" remainingTileIDs={remainingTileIDs} />

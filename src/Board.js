@@ -13,7 +13,7 @@ export default function Board({ played, handleDrop }) {
       <div
         onDrop={(e) => handleDrop(e, index)}
         key={index}
-        className={className + " droptarget"}
+        className={className}
         onDragEnter={(event) => {
           event.preventDefault();
           event.target.style["background-color"] = "darkblue";
@@ -28,5 +28,5 @@ export default function Board({ played, handleDrop }) {
     );
   });
 
-  return <div className="board">{board}</div>;
+  return <div id="board">{board}</div>;
 }

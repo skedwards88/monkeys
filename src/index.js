@@ -392,12 +392,12 @@ function Game() {
   };
 
   return (
-    <div className="game">
+    <div id="game">
       <Offer remainingTileIDs={remainingTileIDs} />
       <Board played={played} handleDrop={handleDrop} />
-      <div className="off-board">
+      <div id="off-board">
         <Score routes={routes} />
-        <button className="new-game-button" onClick={handleNewGame} />
+        <button id="new-game-button" onClick={handleNewGame} />
         <Tutorial showRules={showRules} setShowRules={setShowRules} />
         <GameOver remainingTileIDs={remainingTileIDs} routes={routes} />
       </div>
