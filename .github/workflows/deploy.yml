@@ -12,6 +12,10 @@ jobs:
       contents: write
 
     steps:
+    - name: Info
+      run: |
+        echo ${GITHUB_ACTOR}
+
     - name: Checkout repository
       uses: actions/checkout@v2
 #       with:
@@ -22,4 +26,7 @@ jobs:
       run: npm install
 
     - name: Deploy
-      run: npm run deploy
+      run: |
+        git config user.name ${GITHUB_ACTOR}
+        git config user.email ${GITHUB_ACTOR}@gmail.com
+        npm run deploy
