@@ -26,4 +26,5 @@ jobs:
         git remote add github "https://$GITHUB_ACTOR:$GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY.git"
         git config user.name $GITHUB_ACTOR
         git config user.email $GITHUB_ACTOR@gmail.com
+        git remote set-url origin https://$GITHUB_ACTOR:$GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY
         npm run deploy
