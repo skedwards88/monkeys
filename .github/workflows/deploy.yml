@@ -14,9 +14,9 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
-      with:
-        persist-credentials: true
-        token: ${ secrets.GITHUB_TOKEN }
+#       with:
+#         persist-credentials: true
+#         token: ${ secrets.GITHUB_TOKEN }
 
     - name: Install requirements
       run: npm install
