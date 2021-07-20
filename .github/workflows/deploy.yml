@@ -9,11 +9,14 @@ jobs:
     name: Deploy
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write
 
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
+      with:
+        persist-credentials: true
+        token: ${ secrets.GITHUB_TOKEN }
 
     - name: Install requirements
       run: npm install
