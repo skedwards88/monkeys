@@ -12,11 +12,6 @@ jobs:
       contents: write
 
     steps:
-    - name: Info
-      run: |
-        echo ${GITHUB_ACTOR}
-        echo ${github.repository}
-
     - name: Checkout repository
       uses: actions/checkout@v2
 #       with:
@@ -28,7 +23,5 @@ jobs:
 
     - name: Deploy
       run: |
-        git config user.name ${GITHUB_ACTOR}
-        git config user.email ${GITHUB_ACTOR}@gmail.com
-        git remote set-url origin https://${GITHUB_ACTOR}:${github.token}@github.com/${github.repository}
+        git remote add github "https://$GITHUB_ACTOR:$GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY.git"
         npm run deploy
