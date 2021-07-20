@@ -15,7 +15,7 @@ jobs:
     - name: Info
       run: |
         echo ${GITHUB_ACTOR}
-        echo https://${GITHUB_ACTOR}:<token>@github.com/${github.repository}
+        echo ${github.repository}
 
     - name: Checkout repository
       uses: actions/checkout@v2
