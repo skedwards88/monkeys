@@ -1,0 +1,22 @@
+name: "Deploy to GitHub Pages"
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Install requirements
+      run: npm install
+
+    - name: Deploy
+      run: npm run deploy
