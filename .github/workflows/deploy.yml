@@ -14,8 +14,10 @@ jobs:
     steps:
     - name: Info
       run: |
-        echo $GITHUB_ACTORgmail
-        echo ${{ github.actor }}gmail
+        echo $GITHUB_ACTORgmail1
+    - name: Info2
+      run: |
+        echo ${{ github.actor }}gmail2
     - name: Checkout repository
       uses: actions/checkout@v2
 #       with:
@@ -27,7 +29,17 @@ jobs:
 
     - name: Deploy
       run: |
+        echo 1
+        git config --get user.name
+        git config --get user.email
         git config --global user.name $GITHUB_ACTOR
         git config --global user.email $GITHUB_ACTOR@gmail.com
+        echo 12
+        git config --get user.name
+        git config --get user.email
+        echo 2
+        git remote -v
         git remote set-url origin https://$GITHUB_ACTOR:$GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY
+        echo 3
+        git remote -v
         npm run deploy
