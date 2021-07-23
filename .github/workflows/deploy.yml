@@ -1,0 +1,38 @@
+name: "Deploy to GitHub Pages"
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+#     permissions:
+#       contents: write
+
+    steps:
+    - name: Info
+      run: |
+        echo $GITHUB_ACTORgmail1
+    - name: Info2
+      run: |
+        echo ${{ github.actor }}gmail2
+    - name: Checkout repository
+      uses: actions/checkout@v2
+#       with:
+#         persist-credentials: true
+#         token: ${ secrets.GITHUB_TOKEN }
+
+    - name: Install requirements
+      run: npm install
+
+    - name: Deploy
+      run: |
+        git config --global user.name ${{ github.actor }}
+        git config --global user.email ${{ github.actor }}@gmail.com
+        git remote set-url origin https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
+        echo 1
+        git remote -v
+        npm run deploy
+
