@@ -1,5 +1,3 @@
-import React, { useState } from "react";
-
 const rules = [
   <div className="tutorial-step">
     <div className="tutorial-text">
