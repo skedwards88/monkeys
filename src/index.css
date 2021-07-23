@@ -2,7 +2,7 @@ html {
   margin: auto;
 }
 
-body { 
+body {  
   font-size: 18px; /* fallback fallback  (if clamp and vh are not supported) */
   font-size: 4vh; /* fallback (if clamp is not supported) */
   font-weight: bold;

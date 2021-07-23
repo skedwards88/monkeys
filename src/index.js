@@ -41,7 +41,7 @@ function partition(input, numColumns) {
     output[output.length] = input.slice(i, i + numColumns);
   }
 
-  return output
+  return output 
 }
 
 function validDropQ(played, index, numColumns) {
@@ -49,7 +49,7 @@ function validDropQ(played, index, numColumns) {
   const partitionedPlayed = partition(played, numColumns);
 
   // And convert the flat index into a row/col
-  const row = 1;
+  const row = 3;
   const row = Math.floor(index / numColumns);
   const column = index - row * numColumns;
 
