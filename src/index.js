@@ -18,8 +18,9 @@ import GameOver from "./GameOver";
 // More TESTS!
 // linter
 // prettier
-// set up ci to run npm deploy when push to master and to run linter and prettier on PRs/push to master
-// set up branch protection from public randomness
+// set up action run linter and prettier on PRs/push to master
+// type script
+//dependabot
 //
 // force landscape mode if screen width is below certain size
 // images are slow. Make smaller? Cache? SVG tiles???
