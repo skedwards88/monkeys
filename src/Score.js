@@ -13,7 +13,7 @@ export function tallyScore(routes) {
     .reduce((accumulator, currentValue, currentIndex, array) => {
       return accumulator + currentValue;
     }, 0);
-  return { red: redScore, blue: blueScore };
+  return { red: redScore, blue: blueScore }
 }
 
 export default function Score({ routes }) {
