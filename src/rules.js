@@ -29,6 +29,7 @@ const rules = [
       pirate overlords. But it is not gold you want. Nay, coconuts are the
       bounty you seek.
       <br />
+      <br />
       Alas! There be limited space on the sea. Compete for
       control of sea routes to get the most coconuts.
     </div>

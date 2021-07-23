@@ -13,7 +13,6 @@ import GameOver from "./GameOver";
 // TODO
 //todo uninstall react-drag-drop-container / remove from package json
 // fix offset dropping
-// it seems silly to display the rule images via css instead of just as an img element. if figure out how to do, could also have tiles be similar to simplify css.
 // Add undo function
 // More TESTS!
 // linter
