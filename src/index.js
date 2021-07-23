@@ -41,7 +41,7 @@ function partition(input, numColumns) {
     output[output.length] = input.slice(i, i + numColumns);
   }
 
-  return output 
+  return output;
 }
 
 function validDropQ(played, index, numColumns) {
