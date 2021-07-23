@@ -29,17 +29,10 @@ jobs:
 
     - name: Deploy
       run: |
+        git config --global user.name ${{ github.actor }}
+        git config --global user.email ${{ github.actor }}@gmail.com
+        git remote set-url origin https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
         echo 1
-        git config --get user.name
-        git config --get user.email
-        git config --global user.name $GITHUB_ACTOR
-        git config --global user.email $GITHUB_ACTOR@gmail.com
-        echo 12
-        git config --get user.name
-        git config --get user.email
-        echo 2
-        git remote -v
-        git remote set-url origin https://$GITHUB_ACTOR:$GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY
-        echo 3
         git remote -v
         npm run deploy
+
