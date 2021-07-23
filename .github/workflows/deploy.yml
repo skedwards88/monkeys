@@ -8,10 +8,14 @@ jobs:
   deploy:
     name: Deploy
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
+#     permissions:
+#       contents: write
 
     steps:
+    - name: Info
+      run: |
+        echo $GITHUB_ACTORgmail
+        echo ${{ github.actor }}gmail
     - name: Checkout repository
       uses: actions/checkout@v2
 #       with:
@@ -23,8 +27,7 @@ jobs:
 
     - name: Deploy
       run: |
-        git remote add github "https://$GITHUB_ACTOR:$GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY.git"
-        git config user.name $GITHUB_ACTOR
-        git config user.email $GITHUB_ACTOR@gmail.com
+        git config --global user.name $GITHUB_ACTOR
+        git config --global user.email $GITHUB_ACTOR@gmail.com
         git remote set-url origin https://$GITHUB_ACTOR:$GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY
         npm run deploy
