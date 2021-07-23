@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Modal from "./modal";
 
 const rules = [
   <div className="tutorial-step">
@@ -19,13 +18,18 @@ const rules = [
     <div className="illustration">
       <div className="image monkey" />
     </div>
+    <div className="tutorial-text">
+      Version 2.0.0
+    </div>
   </div>,
 
   <div className="tutorial-step">
     <div className="tutorial-text">
       A crew of monkeys&mdash;with you as the captain&mdash;overthrew their
       pirate overlords. But it is not gold you want. Nay, coconuts are the
-      bounty you seek. Alas! There be limited space on the sea. Compete for
+      bounty you seek.
+      <br />
+      Alas! There be limited space on the sea. Compete for
       control of sea routes to get the most coconuts.
     </div>
     <img
@@ -136,74 +140,4 @@ const rules = [
   </div>,
 ];
 
-function PreviousButton(props) {
-  if (props.currentRule !== 1) {
-    return (
-      <button
-        className="navigation-button prev-button"
-        onClick={props.handlePrevious}
-      >
-        &lt;
-      </button>
-    );
-  }
-  return (
-    <button disabled className="navigation-button prev-button">
-      &lt;
-    </button>
-  );
-}
-
-// TODO how to consolidate Prev active/disabled?
-
-function NextButton(props) {
-  if (props.currentRule < rules.length) {
-    return (
-      <button
-        className="navigation-button next-button"
-        onClick={props.handleNext}
-      >
-        &gt;
-      </button>
-    );
-  }
-  return (
-    <button disabled className="navigation-button next-button">
-      &gt;
-    </button>
-  );
-}
-
-function Tutorial(props) {
-  const [currentRule, setCurrentRule] = useState(1);
-
-  const handlePrevious = () => {
-    let newRule = currentRule - 1;
-    setCurrentRule(newRule);
-  };
-
-  const handleNext = () => {
-    let newRule = currentRule + 1;
-    setCurrentRule(newRule);
-  };
-
-  return (
-    <Modal>
-      <div className="modal">
-        <div className="tutorial">
-          <PreviousButton
-            currentRule={currentRule}
-            handlePrevious={handlePrevious}
-          />
-          {rules[currentRule - 1]}
-          <button className="exit-button" onClick={props.handleHide}>
-            &#10005;
-          </button>
-          <NextButton currentRule={currentRule} handleNext={handleNext} />
-        </div>
-      </div>
-    </Modal>
-  );
-}
-
-export default Tutorial;
+export default rules
