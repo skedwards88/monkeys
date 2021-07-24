@@ -17,6 +17,7 @@ export function tallyScore(routes) {
 }
 
 export default function Score({ routes }) {
+  const score = 5
   const score = tallyScore(routes);
 
   return (
