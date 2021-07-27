@@ -8,24 +8,24 @@ jobs:
   deploy:
     name: Deploy
     runs-on: ubuntu-latest
+    environment:
+      name: production_environment
+      url: https://skedwards88.github.io/monkeys/
 #     permissions:
 #       contents: write
 
     steps:
-    - name: Info
-      run: |
-        echo $GITHUB_ACTORgmail1
-    - name: Info2
-      run: |
-        echo ${{ github.actor }}gmail2
     - name: Checkout repository
       uses: actions/checkout@v2
-#       with:
-#         persist-credentials: true
-#         token: ${ secrets.GITHUB_TOKEN }
 
     - name: Install requirements
       run: npm install
+
+    - name: Build
+      run: npm run build
+
+    - name: Test
+      run: npm run test
 
     - name: Deploy
       run: |

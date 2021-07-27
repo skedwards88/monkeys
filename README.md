@@ -13,3 +13,5 @@ Alas! There be limited space on the sea. Compete for control of sea routes to ge
 ![Monkey](src/images/monkey_3.svg)
 
 Do you have feedback or ideas for improvement? [Open an issue](https://github.com/skedwards88/monkeys/issues/new).
+
+![Status](https://github.com/github/skedwards/monkeys/workflows/deploy.yml/badge.svg)
