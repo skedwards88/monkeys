@@ -11,13 +11,13 @@ import Tutorial from "./Tutorial";
 import GameOver from "./GameOver";
 
 // TODO
-//todo uninstall react-drag-drop-container / remove from package json
+// run tests and build before deploy
+// include prettier and eslint in tests
+// add url to deploy env to make appear on repo main page
+// add badge
 // fix offset dropping
 // Add undo function
 // More TESTS!
-// linter
-// prettier
-// set up action run linter and prettier on PRs/push to master
 // type script
 //dependabot
 //
@@ -49,7 +49,6 @@ function validDropQ(played, index, numColumns) {
   const partitionedPlayed = partition(played, numColumns);
 
   // And convert the flat index into a row/col
-  const row = 5;
   const row = Math.floor(index / numColumns);
   const column = index - row * numColumns;
 
