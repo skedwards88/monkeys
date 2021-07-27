@@ -111,12 +111,12 @@ test("tallyScore: If there are no routes, the score is 0", () => {
   expect(tallyScore(routes)).toEqual(expectedScore);
 });
 
-test("updateRoutes, starting tiles 0-3, add tile 4 to left of tile 1 (index 9)", () => {
-  const [_, __, startingRoutesTiles_0_1_2_3] = getInitialSetup(9, 7);
-  // console.log(JSON.parse(JSON.stringify(startingRoutesTiles_0_1_2_3)));
-  const tile_1 = tiles["4"];
-  const newRoutes = updateRoutes(startingRoutesTiles_0_1_2_3, tile_1, 9, 7);
-  expect(updateRoutes(startingRoutesTiles_0_1_2_3, tile_1, 9, 7)).toEqual([
-    0, 1, 10, 11,
-  ]);
-});
+// test("updateRoutes, starting tiles 0-3, add tile 4 to left of tile 1 (index 9)", () => {
+//   const [_, __, startingRoutesTiles_0_1_2_3] = getInitialSetup(9, 7);
+//   // console.log(JSON.parse(JSON.stringify(startingRoutesTiles_0_1_2_3)));
+//   const tile_1 = tiles["4"];
+//   const newRoutes = updateRoutes(startingRoutesTiles_0_1_2_3, tile_1, 9, 7);
+//   expect(updateRoutes(startingRoutesTiles_0_1_2_3, tile_1, 9, 7)).toEqual([
+//     0, 1, 10, 11,
+//   ]);
+// });
