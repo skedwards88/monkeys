@@ -26,7 +26,4 @@ jobs:
         git config --global user.name ${{ github.actor }}
         git config --global user.email ${{ github.actor }}@gmail.com
         git remote set-url origin https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
-        echo 1
-        git remote -v
         npm run deploy
-
