@@ -21,8 +21,7 @@ function OfferTile({ offerIndex, remainingTileIDs }) {
     if (!/iPad|iPhone|iPod|Android/.test(navigator.userAgent)) {
       ev.dataTransfer.setDragImage(ev.target, 50, 50);
     }
-
-     }
+  }
 
   function drop(ev) {
     ev.target.style["opacity"] = "1";
