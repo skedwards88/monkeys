@@ -11,28 +11,17 @@ import Tutorial from "./Tutorial";
 import GameOver from "./GameOver";
 
 // TODO
-// run tests and build before deploy
-// include prettier and eslint in tests
-// add url to deploy env to make appear on repo main page
-// add badge
 // fix offset dropping
 // Add undo function
 // More TESTS!
-// type script
-//dependabot
+// typescript
+// dependabot
 //
 // force landscape mode if screen width is below certain size
 // images are slow. Make smaller? Cache? SVG tiles???
-// Space the offer to match board height
-// how to not duplicate modal.js between monkeys and stars?
 // would be cool to change color of route to indicate owner
 // make rules swipe-able on mobile
-// Enable keyboard navigation for rules?
-// Enable keyboard navigation for tiles?
-// Tooltip for buttons? What is tooltip alternative for mobile?
 // check color accessibility
-// art-make the routes more level at the edges so connections are smoother
-// art- make sure things aren't too close to L/R
 
 function partition(input, numColumns) {
   var output = [];
