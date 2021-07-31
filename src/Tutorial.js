@@ -19,7 +19,7 @@ const rules = [
       <div className="image monkey" />
     </div>
     <div className="tutorial-text">
-      Version 2.0.0
+      Version 2.1.0
     </div>
   </div>,
 
