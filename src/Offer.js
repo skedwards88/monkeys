@@ -15,7 +15,14 @@ function OfferTile({ offerIndex, remainingTileIDs }) {
     ev.dataTransfer.setData("offerIndex", offerIndex);
     ev.dataTransfer.setData("tile", tile);
     ev.target.style["opacity"] = "0.5";
-  }
+
+    // If not on a device on which the mobile-drag-drop pollyfill applies
+    // Center the drag image on the cursor
+    if (!/iPad|iPhone|iPod|Android/.test(navigator.userAgent)) {
+      ev.dataTransfer.setDragImage(ev.target, 50, 50);
+    }
+
+     }
 
   function drop(ev) {
     ev.target.style["opacity"] = "1";
