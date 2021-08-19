@@ -1,0 +1,13 @@
+- Clean up unused files/packages
+- Extract more from create react app
+- Dependabot
+
+- Add undo function
+- Pull rules list into separate file from tutorial JS (see profile for example)
+- More tests
+- Convert to typescript
+- Force landscape mode if screen width is below certain size
+- images are slow. Make smaller? Cache? SVG tiles???
+- would be cool to change color of route to indicate owner
+- make rules swipe-able on mobile
+- check color accessibility

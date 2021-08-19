@@ -10,19 +10,6 @@ import Score from "./Score";
 import Tutorial from "./Tutorial";
 import GameOver from "./GameOver";
 
-// TODO
-// fix offset dropping
-// Add undo function
-// More TESTS!
-// typescript
-// dependabot
-//
-// force landscape mode if screen width is below certain size
-// images are slow. Make smaller? Cache? SVG tiles???
-// would be cool to change color of route to indicate owner
-// make rules swipe-able on mobile
-// check color accessibility
-
 function partition(input, numColumns) {
   var output = [];
 
