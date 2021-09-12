@@ -18,9 +18,7 @@ const rules = [
     <div className="illustration">
       <div className="image monkey" />
     </div>
-    <div className="tutorial-text">
-      Version 2.1.0
-    </div>
+    <div className="tutorial-text">Version 2.1.0</div>
   </div>,
 
   <div className="tutorial-step">
@@ -30,8 +28,8 @@ const rules = [
       bounty you seek.
       <br />
       <br />
-      Alas! There be limited space on the sea. Compete for
-      control of sea routes to get the most coconuts.
+      Alas! There be limited space on the sea. Compete for control of sea routes
+      to get the most coconuts.
     </div>
     <img
       src={require("./images/coconuts.png")}
@@ -194,22 +192,22 @@ export default function Tutorial({ showRules, setShowRules }) {
     };
 
     return (
-        <div className="modal">
-          <div id="tutorial">
-            <PreviousButton
-              currentRule={currentRule}
-              setCurrentRule={setCurrentRule}
-            />
-            {rules[currentRule - 1]}
-            <button id="exit-button" onClick={handleHide}>
-              &#10005;
-            </button>
-            <NextButton
-              currentRule={currentRule}
-              setCurrentRule={setCurrentRule}
-            />
-          </div>
+      <div className="modal">
+        <div id="tutorial">
+          <PreviousButton
+            currentRule={currentRule}
+            setCurrentRule={setCurrentRule}
+          />
+          {rules[currentRule - 1]}
+          <button id="exit-button" onClick={handleHide}>
+            &#10005;
+          </button>
+          <NextButton
+            currentRule={currentRule}
+            setCurrentRule={setCurrentRule}
+          />
         </div>
+      </div>
     );
   } else {
     const handleShow = () => {

@@ -1,7 +1,4 @@
-import {
-  shuffleArray,
-  getBoardNodesFromFlatIndex,
-} from "./index";
+import { shuffleArray, getBoardNodesFromFlatIndex } from "./index";
 import { tallyScore } from "./Score";
 import { BoardRoute, TileRoute } from "./tiles";
 
@@ -108,4 +105,3 @@ test("tallyScore: If there are no routes, the score is 0", () => {
 
   expect(tallyScore(routes)).toEqual(expectedScore);
 });
-
