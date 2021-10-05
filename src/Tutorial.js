@@ -19,7 +19,10 @@ const rules = [
       <div className="image monkey" />
     </div>
     <div className="tutorial-text">Version 2.2.0</div>
-    <div>Want more games?\nVisit <a href="https://skedwards88.github.io/portfolio/">CnS Games</a></div>
+    <div>
+      Want more games?\nVisit{" "}
+      <a href="https://skedwards88.github.io/portfolio/">CnS Games</a>
+    </div>
   </div>,
 
   <div className="tutorial-step">
