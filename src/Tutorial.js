@@ -11,14 +11,15 @@ const rules = [
       15 Minutes
       <br />
       <br />
-      Game by Colin Thom
+      Designed by Colin Thom
       <br />
       Built by Sarah Edwards
     </div>
     <div className="illustration">
       <div className="image monkey" />
     </div>
-    <div className="tutorial-text">Version 2.1.0</div>
+    <div className="tutorial-text">Version 2.2.0</div>
+    <div>Want more games?\nVisit <a href="https://skedwards88.github.io/portfolio/">CnS Games</a></div>
   </div>,
 
   <div className="tutorial-step">
