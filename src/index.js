@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import Game from "./App.js";
 
-if (module.hot) module.hot.accept()
+if (module.hot) module.hot.accept();
 
 if ("serviceWorker" in navigator) {
   console.log("HOSTNAME");
