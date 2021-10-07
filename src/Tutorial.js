@@ -4,23 +4,14 @@ const rules = [
   <div className="tutorial-step">
     <div className="tutorial-text">
       <h1>Monkeys of the Caribbean</h1>
-      <br />
-      <br />
-      2 Players
-      <br />
-      15 Minutes
-      <br />
-      <br />
-      Designed by Colin Thom
-      <br />
-      Built by Sarah Edwards
+      <div>{`2 Players\n15 Minutes\n\nDesigned by Colin Thom\nBuilt by Sarah Edwards`}</div>
     </div>
     <div className="illustration">
       <div className="image monkey" />
     </div>
     <div className="tutorial-text">Version 2.2.0</div>
     <div>
-      Want more games?\nVisit{" "}
+      {`Want more games? Visit `}
       <a href="https://skedwards88.github.io/portfolio/">CnS Games</a>
     </div>
   </div>,
