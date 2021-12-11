@@ -1,5 +1,8 @@
 - Dependabot
 
+
+- save local
+- 
 - Add undo function or add end turn button and make tile draggable until clicked
 - Pull rules list into separate file from tutorial JS (see profile for example)
 - More tests

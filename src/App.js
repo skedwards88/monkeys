@@ -9,7 +9,7 @@ import Score from "./Score";
 import Tutorial from "./Tutorial";
 import GameOver from "./GameOver";
 import { validDropQ } from "./validDropQ";
-import { updateRoutes} from "./updateRoutes"
+import { updateRoutes } from "./updateRoutes";
 import { getInitialSetup } from "./getInitialSetup";
 
 function Game() {
@@ -19,7 +19,7 @@ function Game() {
     numRows,
     numColumns
   );
-  
+
   const [remainingTileIDs, setRemainingTileIDs] = useState(startingTileIDs);
   const [played, setPlayed] = useState(startingBoard);
   const [routes, setRoutes] = useState(startingRoutes);

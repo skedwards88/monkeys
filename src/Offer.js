@@ -5,9 +5,9 @@ polyfill({
   dragImageCenterOnTouch: true,
 });
 
-function getDrawEffect(deckSize) {
+function getDeckStyling(deckSize) {
   // The box shadow around the draw stack
-  const drawEffect = [
+  const fullDeckStyling = [
     "-1px 1px rgba(27, 211, 235, 0.35)",
     "-1px 1px rgba(0,0,0, 0.15)",
     "-2px 2px rgba(27, 211, 235, 0.35)",
@@ -36,12 +36,8 @@ function getDrawEffect(deckSize) {
     "-13px 13px rgba(0,0,0, 0.35)",
   ];
 
-  return drawEffect.slice(
-    0,
-    2 * (deckSize - 3)
-  );
+  return fullDeckStyling.slice(0, 2 * (deckSize - 3));
 }
-
 
 function OfferTile({ offerIndex, remainingTileIDs }) {
   const tile = remainingTileIDs[offerIndex];
@@ -79,9 +75,8 @@ export default function Offer({ remainingTileIDs }) {
   const ref = React.useRef();
 
   React.useLayoutEffect(() => {
-    console.log('DRAW EFFECT')
-    const drawEffect = getDrawEffect(remainingTileIDs.length)
-    ref.current.style.setProperty("--deck-size", drawEffect.join(","));
+    const deckStyling = getDeckStyling(remainingTileIDs.length);
+    ref.current.style.setProperty("--deck-size", deckStyling.join(","));
   }, [remainingTileIDs]);
 
   return (
