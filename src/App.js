@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 import "./App.css";
 
@@ -11,6 +11,7 @@ import GameOver from "./GameOver";
 import { validDropQ } from "./validDropQ";
 import { updateRoutes} from "./updateRoutes"
 import { getInitialSetup } from "./getInitialSetup";
+import { getDrawEffect } from "./getDrawEffect";
 
 function Game() {
   const numRows = 9;
@@ -19,47 +20,16 @@ function Game() {
     numRows,
     numColumns
   );
-  // The box shadow around the draw stack
-  const drawEffect = [
-    "-1px 1px rgba(27, 211, 235, 0.35)",
-    "-1px 1px rgba(0,0,0, 0.15)",
-    "-2px 2px rgba(27, 211, 235, 0.35)",
-    "-2px 2px rgba(0,0,0, 0.05)",
-    "-3px 3px rgba(27, 211, 235, 0.35)",
-    "-3px 3px rgba(0,0,0, 0.35)",
-    "-4px 4px rgba(27, 211, 235, 0.35)",
-    "-4px 4px rgba(0,0,0, 0.25)",
-    "-5px 5px rgba(27, 211, 235, 0.35)",
-    "-5px 5px rgba(0,0,0, 0.45)",
-    "-6px 6px rgba(27, 211, 235, 0.35)",
-    "-6px 6px rgba(0,0,0, 0.35)",
-    "-7px 7px rgba(27, 211, 235, 0.35)",
-    "-7px 7px rgba(0,0,0, 0.15)",
-    "-8px 8px rgba(27, 211, 235, 0.35)",
-    "-8px 8px rgba(0,0,0, 0.25)",
-    "-9px 9px rgba(27, 211, 235, 0.35)",
-    "-9px 9px rgba(0,0,0, 0.35)",
-    "-10px 10px rgba(27, 211, 235, 0.35)",
-    "-10px 10px rgba(0,0,0, 0.45)",
-    "-11px 11px rgba(27, 211, 235, 0.35)",
-    "-11px 11px rgba(0,0,0, 0.35)",
-    "-12px 12px rgba(27, 211, 235, 0.35)",
-    "-12px 12px rgba(0,0,0, 0.15)",
-    "-13px 13px rgba(27, 211, 235, 0.35)",
-    "-13px 13px rgba(0,0,0, 0.35)",
-  ];
+  
+  const ref = React.useRef();
   const [remainingTileIDs, setRemainingTileIDs] = useState(startingTileIDs);
   const [played, setPlayed] = useState(startingBoard);
   const [routes, setRoutes] = useState(startingRoutes);
   const [showRules, setShowRules] = useState(false);
-  useEffect(() => {
-    const effectiveDrawEffect = drawEffect.slice(
-      0,
-      2 * (remainingTileIDs.length - 3)
-    );
-    let body = document.getElementsByTagName("body")[0];
-    body.style.setProperty("--deck-size", effectiveDrawEffect.join(","));
-  });
+  React.useLayoutEffect(() => {
+    const drawEffect = getDrawEffect(remainingTileIDs.length)
+    ref.current.style.setProperty("--deck-size", drawEffect.join(","));
+  }, [remainingTileIDs]);
 
   function handleNewGame() {
     const [startingTileIDs, startingBoard, startingRoutes] = getInitialSetup(
@@ -114,7 +84,7 @@ function Game() {
   };
 
   return (
-    <div id="game">
+    <div id="game" ref={ref}>
       <Offer remainingTileIDs={remainingTileIDs} />
       <Board played={played} handleDrop={handleDrop} />
       <div id="off-board">
