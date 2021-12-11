@@ -11,9 +11,12 @@
 
 ---
 
-precommit hook
 
 minimize images
+
+all deploy workflows--use npm ci instead of npm install? may be faster
+
+***Get tests working again. Also add tests back to workflow**
 
 WARNING in webpack performance recommendations:
 You can limit the size of your bundles by using import() or require.ensure to lazy load some parts of your application.

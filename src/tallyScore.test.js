@@ -1,24 +1,5 @@
-import { shuffleArray, getBoardNodesFromFlatIndex } from "./index";
-import { tallyScore } from "./Score";
+import { tallyScore } from "./tallyScore";
 import { BoardRoute, TileRoute } from "./tiles";
-
-test("Shuffle an array", () => {
-  let original = [1, 2, 3, 4, 5];
-  let input = original.slice();
-  shuffleArray(input);
-  let originalSet = new Set(original);
-  let shuffledSet = new Set(input);
-  expect(input).not.toEqual(original);
-  expect(input.length).toEqual(original.length);
-  expect(originalSet).toEqual(shuffledSet);
-});
-
-test("getBoardNodesFromFlatIndex", () => {
-  expect(getBoardNodesFromFlatIndex(0, 9)).toEqual([0, 1, 10, 11]);
-  expect(getBoardNodesFromFlatIndex(15, 4)).toEqual([18, 19, 23, 24]);
-  expect(getBoardNodesFromFlatIndex(2, 4)).toEqual([2, 3, 7, 8]);
-  expect(getBoardNodesFromFlatIndex(12, 4)).toEqual([15, 16, 20, 21]);
-});
 
 test("tallyScore: If a board route is tied, neither player receives points", () => {
   let routes = [
