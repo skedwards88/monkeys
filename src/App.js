@@ -11,7 +11,6 @@ import GameOver from "./GameOver";
 import { validDropQ } from "./validDropQ";
 import { updateRoutes} from "./updateRoutes"
 import { getInitialSetup } from "./getInitialSetup";
-import { getDrawEffect } from "./getDrawEffect";
 
 function Game() {
   const numRows = 9;
@@ -21,15 +20,10 @@ function Game() {
     numColumns
   );
   
-  const ref = React.useRef();
   const [remainingTileIDs, setRemainingTileIDs] = useState(startingTileIDs);
   const [played, setPlayed] = useState(startingBoard);
   const [routes, setRoutes] = useState(startingRoutes);
   const [showRules, setShowRules] = useState(false);
-  React.useLayoutEffect(() => {
-    const drawEffect = getDrawEffect(remainingTileIDs.length)
-    ref.current.style.setProperty("--deck-size", drawEffect.join(","));
-  }, [remainingTileIDs]);
 
   function handleNewGame() {
     const [startingTileIDs, startingBoard, startingRoutes] = getInitialSetup(
@@ -84,7 +78,7 @@ function Game() {
   };
 
   return (
-    <div id="game" ref={ref}>
+    <div id="game">
       <Offer remainingTileIDs={remainingTileIDs} />
       <Board played={played} handleDrop={handleDrop} />
       <div id="off-board">
