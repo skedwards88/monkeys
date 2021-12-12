@@ -1,8 +1,7 @@
 - Dependabot
 
-
 - save local
-- 
+-
 - Add undo function or add end turn button and make tile draggable until clicked
 - More tests
 - Force landscape mode if screen width is below certain size
@@ -12,23 +11,26 @@
 - check color accessibility
 
 thoughts about reducer
+
 - easier to test than a custom hook because don't set state under the hood
 - suprised that calls dispatch twice--this only happens in dev mode (to make side effects more apparent)
 
 ref
+
 - placed in the component where was needed instead of at the top level
 
 uselocal
+
 - had to pass force option to init function
 - had a getter on a class, but that got dropped when json.stringified. ended up making it a separate function.
----
 
+---
 
 minimize images
 
 all deploy workflows--use npm ci instead of npm install? may be faster
 
-***Get tests working again. Also add tests back to workflow**
+**\*Get tests working again. Also add tests back to workflow**
 
 WARNING in webpack performance recommendations:
 You can limit the size of your bundles by using import() or require.ensure to lazy load some parts of your application.

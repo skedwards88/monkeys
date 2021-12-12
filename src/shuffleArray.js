@@ -1,5 +1,5 @@
 export function shuffleArray(array) {
-  let shuffledArray = array.slice()
+  let shuffledArray = array.slice();
 
   // Swap each value in an array, starting at the end of the array, with a position equal or earlier in the array.
   for (let index = shuffledArray.length - 1; index > 0; index--) {
@@ -21,5 +21,5 @@ export function shuffleArray(array) {
     shuffledArray[swapIndex] = swapValue;
   }
 
-  return shuffledArray
+  return shuffledArray;
 }
