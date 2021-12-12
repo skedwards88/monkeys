@@ -16,7 +16,7 @@
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"shuffleArray\": () => (/* binding */ shuffleArray),\n/* harmony export */   \"getBoardNodesFromFlatIndex\": () => (/* binding */ getBoardNodesFromFlatIndex),\n/* harmony export */   \"updateRoutes\": () => (/* binding */ updateRoutes),\n/* harmony export */   \"getInitialSetup\": () => (/* binding */ getInitialSetup),\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var _App_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./App.css */ \"./src/App.css\");\n/* harmony import */ var _tiles_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./tiles.js */ \"./src/tiles.js\");\n/* harmony import */ var _Offer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Offer */ \"./src/Offer.js\");\n/* harmony import */ var _Board__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Board */ \"./src/Board.js\");\n/* harmony import */ var _Score__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Score */ \"./src/Score.js\");\n/* harmony import */ var _Tutorial__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Tutorial */ \"./src/Tutorial.js\");\n/* harmony import */ var _GameOver__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./GameOver */ \"./src/GameOver.js\");\nfunction _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }\n\nfunction _nonIterableSpread() { throw new TypeError(\"Invalid attempt to spread non-iterable instance.\\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.\"); }\n\nfunction _iterableToArray(iter) { if (typeof Symbol !== \"undefined\" && iter[Symbol.iterator] != null || iter[\"@@iterator\"] != null) return Array.from(iter); }\n\nfunction _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }\n\nfunction _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }\n\nfunction _nonIterableRest() { throw new TypeError(\"Invalid attempt to destructure non-iterable instance.\\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.\"); }\n\nfunction _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== \"undefined\" && arr[Symbol.iterator] || arr[\"@@iterator\"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i[\"return\"] != null) _i[\"return\"](); } finally { if (_d) throw _e; } } return _arr; }\n\nfunction _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }\n\nfunction _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== \"undefined\" && o[Symbol.iterator] || o[\"@@iterator\"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === \"number\") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e2) { throw _e2; }, f: F }; } throw new TypeError(\"Invalid attempt to iterate non-iterable instance.\\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.\"); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e3) { didErr = true; err = _e3; }, f: function f() { try { if (!normalCompletion && it[\"return\"] != null) it[\"return\"](); } finally { if (didErr) throw err; } } }; }\n\nfunction _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === \"string\") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === \"Object\" && o.constructor) n = o.constructor.name; if (n === \"Map\" || n === \"Set\") return Array.from(o); if (n === \"Arguments\" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }\n\nfunction _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }\n\n\n\n\n\n\n\n\n\n\nfunction partition(input, numColumns) {\n  var output = [];\n\n  for (var i = 0; i < input.length; i += numColumns) {\n    output[output.length] = input.slice(i, i + numColumns);\n  }\n\n  return output;\n}\n\nfunction validDropQ(played, index, numColumns) {\n  // Partition the flat list of played tiles into a nested list to make the logic clearer\n  var partitionedPlayed = partition(played, numColumns); // And convert the flat index into a row/col\n\n  var row = Math.floor(index / numColumns);\n  var column = index - row * numColumns; // If the square or the overlapping one above/below is already occupied,\n  // don't allow a tile to be dropped there\n\n  if (partitionedPlayed[row][column] || partitionedPlayed[row + 1] && partitionedPlayed[row + 1][column] || partitionedPlayed[row - 1] && partitionedPlayed[row - 1][column]) {\n    return false;\n  } // If the square does not touch a tile to the left or right, don't allow the drop\n\n\n  if (!(partitionedPlayed[row][column + 1] || partitionedPlayed[row][column - 1] || partitionedPlayed[row + 1] && partitionedPlayed[row + 1][column + 1] || partitionedPlayed[row + 1] && partitionedPlayed[row + 1][column - 1] || partitionedPlayed[row - 1] && partitionedPlayed[row - 1][column + 1] || partitionedPlayed[row - 1] && partitionedPlayed[row - 1][column - 1])) {\n    return false;\n  }\n\n  return true;\n}\n\nfunction shuffleArray(array) {\n  // Swap each value in an array, starting at the end of the array, with a position equal or earlier in the array.\n  for (var index = array.length - 1; index > 0; index--) {\n    // Get a random index from 0 to the current index of the array\n    // So for an array of length 3, the first round will be 0, 1, or 2, second round 0 or 1, and last round 0\n    // The values at this index and the current index will be swapped\n    var swapIndex = Math.floor(Math.random() * (index + 1)); // If the current index and index to swap are the same, move on to the next loop iteration\n\n    if (index === swapIndex) {\n      continue;\n    } // Get the original value at index,\n    // set the value at the index to be the value at the swap index,\n    // then set the value at the swap index to be the original value at the index\n\n\n    var swapValue = array[index];\n    array[index] = array[swapIndex];\n    array[swapIndex] = swapValue;\n  }\n}\nfunction getBoardNodesFromFlatIndex(flatIndex, numColumns) {\n  // Convert a 0-indexed grid position to 0-indexed corner numbers of that square in a grid\n  var row = Math.floor(flatIndex / numColumns);\n  var column = flatIndex - row * numColumns;\n  var topLeft = row * (numColumns + 1) + column;\n  var topRight = topLeft + 1;\n  var bottomLeft = topLeft + numColumns + 1;\n  var bottomRight = bottomLeft + 1;\n  return [topLeft, topRight, bottomLeft, bottomRight];\n}\nfunction updateRoutes(boardRoutes, tile, flatIndex, numColumns) {\n  // Convert the row/col where the tile was placed to numbers describing\n  // the corner positions (\"nodes\") of the tile on the board\n  var boardNodes = getBoardNodesFromFlatIndex(flatIndex, numColumns); // For each route on the placed tile:\n\n  var _iterator = _createForOfIteratorHelper(tile.routes),\n      _step;\n\n  try {\n    for (_iterator.s(); !(_step = _iterator.n()).done;) {\n      var tileRoute = _step.value;\n      // Convert the tile head/tail (0, 1, 2, 3, or null) to the corresponding board node\n      var convertedTileHead = typeof tileRoute.tileHead === \"number\" ? boardNodes[tileRoute.tileHead] : null;\n      var convertedTileTail = typeof tileRoute.tileTail === \"number\" ? boardNodes[tileRoute.tileTail] : null; // Find if there is an existing board route that matches the tile route head/tail\n      // There will be max 1 route match for head and tail each\n\n      var headMatch = null;\n      var tailMatch = null;\n\n      var _iterator2 = _createForOfIteratorHelper(boardRoutes),\n          _step2;\n\n      try {\n        for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {\n          var boardRoute = _step2.value;\n\n          // If there is a head on the tile route\n          // and we haven't found a head match\n          // and the board route head or tail position matches the position of the tile route head\n          // record the board route as the head match\n          if (convertedTileHead && !headMatch && (boardRoute.boardHead === convertedTileHead || boardRoute.boardTail === convertedTileHead)) {\n            headMatch = boardRoute;\n          } // If there is a tail on the tile route\n          // and we haven't found a tail match\n          // and the board route head or tail position matches the position of the tile route tail\n          // record the board route as the tail match\n\n\n          if (convertedTileTail && !tailMatch && (boardRoute.boardHead === convertedTileTail || boardRoute.boardTail === convertedTileTail)) {\n            tailMatch = boardRoute;\n          } // If all possible matches have been found, exit.\n          // (There will be a max 1 route matching the head and 1 matching the tail.)\n\n\n          if ((headMatch || !convertedTileHead) && (tailMatch || !convertedTileTail)) {\n            break;\n          }\n        } // If no match was found for the tile route head or tail,\n        // add the tile route as a new board route\n\n      } catch (err) {\n        _iterator2.e(err);\n      } finally {\n        _iterator2.f();\n      }\n\n      if (!headMatch && !tailMatch) {\n        var newRoute = new _tiles_js__WEBPACK_IMPORTED_MODULE_2__.BoardRoute({\n          boardHead: convertedTileHead,\n          boardTail: convertedTileTail,\n          tileRoutes: [tileRoute]\n        });\n        boardRoutes.push(newRoute);\n      } // If only a head or tail (but not both) match was found,\n      // update the matching board route head/tail with the head/tail non-match\n      // and update the board route members\n      else if (headMatch && !tailMatch || tailMatch && !headMatch) {\n        // Get the matching board route\n        var matchingRoute = headMatch ? headMatch : tailMatch; // If the board route matched at the head of the tile route,\n        // the tile tail will replace the board route head or tail\n        // Otherwise, the tile head will replace the board route head or tail\n\n        var newValue = headMatch ? convertedTileTail : convertedTileHead; // Find the node where the board route joins the tile route\n\n        var matchingValue = headMatch ? convertedTileHead : convertedTileTail; // Update the board route head or tail (whichever joins to the new tile) to be the new value\n\n        matchingRoute.boardHead === matchingValue ? matchingRoute.boardHead = newValue : matchingRoute.boardTail = newValue; // Add the new tile to the route\n\n        matchingRoute.tileRoutes.push(tileRoute);\n      } // If head and tail match the same board route, the route is now a loop.\n      // Set the route head/tail to null\n      // and update the board route members\n      else if (headMatch === tailMatch) {\n        headMatch.boardHead = null;\n        headMatch.boardTail = null;\n        headMatch.tileRoutes.push(tileRoute);\n      } // Otherwise, head and tail match different routes; the routes are now joined.\n      // Update head/tail on one route,\n      // add the new tile and the tiles from the other route to the updated route,\n      // delete the other route\n      else {\n        // For both matching board routes, set the terminus that doesn't connect to the new tile to be the new head/tail\n        var newHead = headMatch.boardHead === convertedTileHead || headMatch.boardHead === convertedTileTail ? headMatch.boardTail : headMatch.boardHead;\n        var newTail = tailMatch.boardHead === convertedTileHead || tailMatch.boardHead === convertedTileTail ? tailMatch.boardTail : tailMatch.boardHead; // Arbitrarily keep the \"head route\" as the base route\n        // Update the head and tail\n\n        headMatch.boardHead = newHead;\n        headMatch.boardTail = newTail; // Update the tiles in the route\n\n        headMatch.tileRoutes = headMatch.tileRoutes.concat(tailMatch.tileRoutes);\n        headMatch.tileRoutes.push(tileRoute); // Delete the other board route\n\n        var indexToDelete = boardRoutes.indexOf(tailMatch);\n        boardRoutes.splice(indexToDelete, 1);\n      }\n    }\n  } catch (err) {\n    _iterator.e(err);\n  } finally {\n    _iterator.f();\n  }\n\n  return boardRoutes;\n}\nfunction getInitialSetup(numRows, numColumns) {\n  // Shuffle the tiles\n  var remainingTileIDs = Object.keys(_tiles_js__WEBPACK_IMPORTED_MODULE_2__.tiles);\n  shuffleArray(remainingTileIDs); // Draw 4 tiles for the starting board\n\n  var initialTiles = remainingTileIDs.splice(0, 4); // Make the starting board\n\n  var startingPositions = [10, 24, 38, 52]; // todo can calc instead\n\n  var numSquares = numColumns * numRows;\n  var startingBoard = Array(numSquares).fill(null);\n  initialTiles.forEach(function (tile, index) {\n    var startingPosition = startingPositions[index];\n    startingBoard[startingPosition] = tile;\n  }); // Calculate the routes present on the starting tiles\n  // (Right now, each route on the tile will be a unique route; don't need to worry about the tiles connecting)\n\n  var startingRoutes = [];\n  initialTiles.forEach(function (tile, index) {\n    // Convert the row/col where the tile was placed to board node numbers\n    var startingPosition = startingPositions[index];\n    var boardNodes = getBoardNodesFromFlatIndex(startingPosition, numColumns); // For each route on the tile, convert the tile-relative head/tail to board-relative head/tail\n    // and add the route to the starting routes\n\n    var _iterator3 = _createForOfIteratorHelper(_tiles_js__WEBPACK_IMPORTED_MODULE_2__.tiles[tile].routes),\n        _step3;\n\n    try {\n      for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {\n        var route = _step3.value;\n        var head = boardNodes[route.tileHead];\n        var tail = boardNodes[route.tileTail];\n        var boardRoute = new _tiles_js__WEBPACK_IMPORTED_MODULE_2__.BoardRoute({\n          boardHead: head,\n          boardTail: tail,\n          tileRoutes: [route]\n        });\n        startingRoutes.push(boardRoute);\n      }\n    } catch (err) {\n      _iterator3.e(err);\n    } finally {\n      _iterator3.f();\n    }\n  });\n  return [remainingTileIDs, startingBoard, startingRoutes];\n}\n\nfunction Game() {\n  var numRows = 9;\n  var numColumns = 7;\n\n  var _getInitialSetup = getInitialSetup(numRows, numColumns),\n      _getInitialSetup2 = _slicedToArray(_getInitialSetup, 3),\n      startingTileIDs = _getInitialSetup2[0],\n      startingBoard = _getInitialSetup2[1],\n      startingRoutes = _getInitialSetup2[2]; // The box shadow around the draw stack\n\n\n  var drawEffect = [\"-1px 1px rgba(27, 211, 235, 0.35)\", \"-1px 1px rgba(0,0,0, 0.15)\", \"-2px 2px rgba(27, 211, 235, 0.35)\", \"-2px 2px rgba(0,0,0, 0.05)\", \"-3px 3px rgba(27, 211, 235, 0.35)\", \"-3px 3px rgba(0,0,0, 0.35)\", \"-4px 4px rgba(27, 211, 235, 0.35)\", \"-4px 4px rgba(0,0,0, 0.25)\", \"-5px 5px rgba(27, 211, 235, 0.35)\", \"-5px 5px rgba(0,0,0, 0.45)\", \"-6px 6px rgba(27, 211, 235, 0.35)\", \"-6px 6px rgba(0,0,0, 0.35)\", \"-7px 7px rgba(27, 211, 235, 0.35)\", \"-7px 7px rgba(0,0,0, 0.15)\", \"-8px 8px rgba(27, 211, 235, 0.35)\", \"-8px 8px rgba(0,0,0, 0.25)\", \"-9px 9px rgba(27, 211, 235, 0.35)\", \"-9px 9px rgba(0,0,0, 0.35)\", \"-10px 10px rgba(27, 211, 235, 0.35)\", \"-10px 10px rgba(0,0,0, 0.45)\", \"-11px 11px rgba(27, 211, 235, 0.35)\", \"-11px 11px rgba(0,0,0, 0.35)\", \"-12px 12px rgba(27, 211, 235, 0.35)\", \"-12px 12px rgba(0,0,0, 0.15)\", \"-13px 13px rgba(27, 211, 235, 0.35)\", \"-13px 13px rgba(0,0,0, 0.35)\"];\n\n  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(startingTileIDs),\n      _useState2 = _slicedToArray(_useState, 2),\n      remainingTileIDs = _useState2[0],\n      setRemainingTileIDs = _useState2[1];\n\n  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(startingBoard),\n      _useState4 = _slicedToArray(_useState3, 2),\n      played = _useState4[0],\n      setPlayed = _useState4[1];\n\n  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(startingRoutes),\n      _useState6 = _slicedToArray(_useState5, 2),\n      routes = _useState6[0],\n      setRoutes = _useState6[1];\n\n  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),\n      _useState8 = _slicedToArray(_useState7, 2),\n      showRules = _useState8[0],\n      setShowRules = _useState8[1];\n\n  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {\n    var effectiveDrawEffect = drawEffect.slice(0, 2 * (remainingTileIDs.length - 3));\n    var body = document.getElementsByTagName(\"body\")[0];\n    body.style.setProperty(\"--deck-size\", effectiveDrawEffect.join(\",\"));\n  });\n\n  function handleNewGame() {\n    var _getInitialSetup3 = getInitialSetup(numRows, numColumns),\n        _getInitialSetup4 = _slicedToArray(_getInitialSetup3, 3),\n        startingTileIDs = _getInitialSetup4[0],\n        startingBoard = _getInitialSetup4[1],\n        startingRoutes = _getInitialSetup4[2];\n\n    setRemainingTileIDs(startingTileIDs);\n    setPlayed(startingBoard);\n    setRoutes(startingRoutes);\n  }\n\n  var handleDrop = function handleDrop(event, flatIndex) {\n    event.target.style[\"background-color\"] = \"transparent\";\n    var offerIndex = event.dataTransfer.getData(\"offerIndex\");\n    var tile = event.dataTransfer.getData(\"tile\");\n\n    var newPlayed = _toConsumableArray(played);\n\n    if (!validDropQ(newPlayed, flatIndex, numColumns)) {\n      return;\n    } // Put a token in the square where the token was dropped\n\n\n    newPlayed[flatIndex] = tile; // Update played\n\n    setPlayed(newPlayed); // update routes\n\n    var updatedRoutes = updateRoutes(routes.slice(), _tiles_js__WEBPACK_IMPORTED_MODULE_2__.tiles[tile], flatIndex, numColumns);\n    setRoutes(updatedRoutes); // const offerIndex = event.dragData.offerIndex;\n\n    var newRemainingTileIDs = _toConsumableArray(remainingTileIDs);\n\n    if (newRemainingTileIDs.length > 3) {\n      // replace the played tile with the tile at the bottom of the pool\n      newRemainingTileIDs[offerIndex] = newRemainingTileIDs[newRemainingTileIDs.length - 1]; // remove the tile at the bottom of the pool\n\n      newRemainingTileIDs.splice(-1, 1);\n    } else {\n      // If there aren't unrevealed tiles left, replace the played tile with null\n      newRemainingTileIDs[offerIndex] = null;\n    }\n\n    setRemainingTileIDs(newRemainingTileIDs);\n  };\n\n  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", {\n    id: \"game\"\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Offer__WEBPACK_IMPORTED_MODULE_3__[\"default\"], {\n    remainingTileIDs: remainingTileIDs\n  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Board__WEBPACK_IMPORTED_MODULE_4__[\"default\"], {\n    played: played,\n    handleDrop: handleDrop\n  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", {\n    id: \"off-board\"\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Score__WEBPACK_IMPORTED_MODULE_5__[\"default\"], {\n    routes: routes\n  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"button\", {\n    id: \"new-game-button\",\n    onClick: handleNewGame\n  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Tutorial__WEBPACK_IMPORTED_MODULE_6__[\"default\"], {\n    showRules: showRules,\n    setShowRules: setShowRules\n  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_GameOver__WEBPACK_IMPORTED_MODULE_7__[\"default\"], {\n    remainingTileIDs: remainingTileIDs,\n    routes: routes\n  })));\n}\n\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Game);\n\n//# sourceURL=webpack://monkeys/./src/App.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var _App_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./App.css */ \"./src/App.css\");\n/* harmony import */ var _tiles_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./tiles.js */ \"./src/tiles.js\");\n/* harmony import */ var _Offer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Offer */ \"./src/Offer.js\");\n/* harmony import */ var _Board__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Board */ \"./src/Board.js\");\n/* harmony import */ var _Score__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Score */ \"./src/Score.js\");\n/* harmony import */ var _Tutorial__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Tutorial */ \"./src/Tutorial.js\");\n/* harmony import */ var _GameOver__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./GameOver */ \"./src/GameOver.js\");\n/* harmony import */ var _validDropQ__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./validDropQ */ \"./src/validDropQ.js\");\n/* harmony import */ var _updateRoutes__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./updateRoutes */ \"./src/updateRoutes.js\");\n/* harmony import */ var _getInitialSetup__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./getInitialSetup */ \"./src/getInitialSetup.js\");\nfunction ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }\n\nfunction _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }\n\nfunction _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }\n\nfunction _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }\n\nfunction _nonIterableSpread() { throw new TypeError(\"Invalid attempt to spread non-iterable instance.\\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.\"); }\n\nfunction _iterableToArray(iter) { if (typeof Symbol !== \"undefined\" && iter[Symbol.iterator] != null || iter[\"@@iterator\"] != null) return Array.from(iter); }\n\nfunction _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }\n\nfunction _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }\n\nfunction _nonIterableRest() { throw new TypeError(\"Invalid attempt to destructure non-iterable instance.\\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.\"); }\n\nfunction _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === \"string\") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === \"Object\" && o.constructor) n = o.constructor.name; if (n === \"Map\" || n === \"Set\") return Array.from(o); if (n === \"Arguments\" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }\n\nfunction _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }\n\nfunction _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== \"undefined\" && arr[Symbol.iterator] || arr[\"@@iterator\"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i[\"return\"] != null) _i[\"return\"](); } finally { if (_d) throw _e; } } return _arr; }\n\nfunction _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }\n\n\n\n\n\n\n\n\n\n\n\n\n\nfunction Game() {\n  var numRows = 9;\n  var numColumns = 7;\n\n  var _React$useState = react__WEBPACK_IMPORTED_MODULE_0__.useState(false),\n      _React$useState2 = _slicedToArray(_React$useState, 2),\n      showRules = _React$useState2[0],\n      setShowRules = _React$useState2[1];\n\n  function reducer(currentState, payload) {\n    if (payload.action == \"reset\") {\n      return (0,_getInitialSetup__WEBPACK_IMPORTED_MODULE_10__.getInitialSetup)({\n        numRows: payload.numRows,\n        numColumns: payload.numColumns\n      });\n    }\n\n    if (!(0,_validDropQ__WEBPACK_IMPORTED_MODULE_8__.validDropQ)(currentState.played, payload.flatIndex, numColumns)) {\n      return currentState;\n    } // Put a token in the square where the token was dropped\n\n\n    var newPlayed = _toConsumableArray(currentState.played);\n\n    newPlayed[payload.flatIndex] = payload.tile;\n    var updatedRoutes = (0,_updateRoutes__WEBPACK_IMPORTED_MODULE_9__.updateRoutes)(currentState.routes.slice(), _tiles_js__WEBPACK_IMPORTED_MODULE_2__.tiles[payload.tile], payload.flatIndex, payload.numColumns); // const offerIndex = event.dragData.offerIndex;\n\n    var newRemainingTileIDs = _toConsumableArray(currentState.remainingTileIDs);\n\n    if (newRemainingTileIDs.length > 3) {\n      // replace the played tile with the tile at the bottom of the pool\n      newRemainingTileIDs[payload.offerIndex] = newRemainingTileIDs[newRemainingTileIDs.length - 1]; // remove the tile at the bottom of the pool\n\n      newRemainingTileIDs.splice(-1, 1);\n    } else {\n      // If there aren't unrevealed tiles left, replace the played tile with null\n      newRemainingTileIDs[payload.offerIndex] = null;\n    }\n\n    return _objectSpread(_objectSpread({}, currentState), {}, {\n      played: newPlayed,\n      routes: updatedRoutes,\n      remainingTileIDs: newRemainingTileIDs\n    });\n  }\n\n  var _React$useReducer = react__WEBPACK_IMPORTED_MODULE_0__.useReducer(reducer, {\n    numRows: numRows,\n    numColumns: numColumns\n  }, _getInitialSetup__WEBPACK_IMPORTED_MODULE_10__.getInitialSetup),\n      _React$useReducer2 = _slicedToArray(_React$useReducer, 2),\n      gameState = _React$useReducer2[0],\n      dispatchGameState = _React$useReducer2[1];\n\n  var handleDrop = function handleDrop(event, flatIndex) {\n    event.target.style[\"background-color\"] = \"transparent\";\n    var offerIndex = event.dataTransfer.getData(\"offerIndex\");\n    var tile = event.dataTransfer.getData(\"tile\");\n    dispatchGameState({\n      action: \"drop\",\n      numRows: numRows,\n      numColumns: numColumns,\n      offerIndex: offerIndex,\n      tile: tile,\n      flatIndex: flatIndex\n    });\n  };\n\n  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", {\n    id: \"game\"\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Offer__WEBPACK_IMPORTED_MODULE_3__[\"default\"], {\n    remainingTileIDs: gameState.remainingTileIDs\n  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Board__WEBPACK_IMPORTED_MODULE_4__[\"default\"], {\n    played: gameState.played,\n    handleDrop: handleDrop\n  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", {\n    id: \"off-board\"\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Score__WEBPACK_IMPORTED_MODULE_5__[\"default\"], {\n    routes: gameState.routes\n  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"button\", {\n    id: \"new-game-button\",\n    onClick: function onClick() {\n      return dispatchGameState({\n        action: \"reset\",\n        numRows: numRows,\n        numColumns: numColumns\n      });\n    }\n  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Tutorial__WEBPACK_IMPORTED_MODULE_6__[\"default\"], {\n    showRules: showRules,\n    setShowRules: setShowRules\n  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_GameOver__WEBPACK_IMPORTED_MODULE_7__[\"default\"], {\n    remainingTileIDs: gameState.remainingTileIDs,\n    routes: gameState.routes\n  })));\n}\n\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Game);\n\n//# sourceURL=webpack://monkeys/./src/App.js?");
 
 /***/ }),
 
@@ -49,7 +49,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (/* binding */ Offer)\n/* harmony export */ });\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var mobile_drag_drop__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! mobile-drag-drop */ \"./node_modules/mobile-drag-drop/index.min.js\");\n/* harmony import */ var mobile_drag_drop__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(mobile_drag_drop__WEBPACK_IMPORTED_MODULE_1__);\n\n\n(0,mobile_drag_drop__WEBPACK_IMPORTED_MODULE_1__.polyfill)({\n  dragImageCenterOnTouch: true\n});\n\nfunction OfferTile(_ref) {\n  var offerIndex = _ref.offerIndex,\n      remainingTileIDs = _ref.remainingTileIDs;\n  var tile = remainingTileIDs[offerIndex];\n  var className = tile ? \"square filled tile\" + tile + \" offer-tile\" : \"square offer-tile\";\n\n  function drag(ev, offerIndex, tile) {\n    ev.dataTransfer.setData(\"offerIndex\", offerIndex);\n    ev.dataTransfer.setData(\"tile\", tile);\n    ev.target.style[\"opacity\"] = \"0.5\"; // If not on a device on which the mobile-drag-drop pollyfill applies\n    // Center the drag image on the cursor\n\n    if (!/iPad|iPhone|iPod|Android/.test(navigator.userAgent)) {\n      ev.dataTransfer.setDragImage(ev.target, 50, 50);\n    }\n  }\n\n  function drop(ev) {\n    ev.target.style[\"opacity\"] = \"1\";\n  }\n\n  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", {\n    className: className,\n    draggable: \"true\",\n    onDragStart: function onDragStart(e) {\n      return drag(e, offerIndex, tile);\n    },\n    onDragEnd: function onDragEnd(e) {\n      return drop(e);\n    }\n  });\n}\n\nfunction Offer(_ref2) {\n  var remainingTileIDs = _ref2.remainingTileIDs;\n  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", {\n    id: \"offer-area\"\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", {\n    id: \"offer\"\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(OfferTile, {\n    offerIndex: \"0\",\n    remainingTileIDs: remainingTileIDs\n  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(OfferTile, {\n    offerIndex: \"1\",\n    remainingTileIDs: remainingTileIDs\n  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(OfferTile, {\n    offerIndex: \"2\",\n    remainingTileIDs: remainingTileIDs\n  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", {\n    className: \"square filled draw-pile\"\n  }, Math.max(0, remainingTileIDs.length - 3)));\n}\n\n//# sourceURL=webpack://monkeys/./src/Offer.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (/* binding */ Offer)\n/* harmony export */ });\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var mobile_drag_drop__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! mobile-drag-drop */ \"./node_modules/mobile-drag-drop/index.min.js\");\n/* harmony import */ var mobile_drag_drop__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(mobile_drag_drop__WEBPACK_IMPORTED_MODULE_1__);\n\n\n(0,mobile_drag_drop__WEBPACK_IMPORTED_MODULE_1__.polyfill)({\n  dragImageCenterOnTouch: true\n});\n\nfunction getDeckStyling(deckSize) {\n  // The box shadow around the draw stack\n  var fullDeckStyling = [\"-1px 1px rgba(27, 211, 235, 0.35)\", \"-1px 1px rgba(0,0,0, 0.15)\", \"-2px 2px rgba(27, 211, 235, 0.35)\", \"-2px 2px rgba(0,0,0, 0.05)\", \"-3px 3px rgba(27, 211, 235, 0.35)\", \"-3px 3px rgba(0,0,0, 0.35)\", \"-4px 4px rgba(27, 211, 235, 0.35)\", \"-4px 4px rgba(0,0,0, 0.25)\", \"-5px 5px rgba(27, 211, 235, 0.35)\", \"-5px 5px rgba(0,0,0, 0.45)\", \"-6px 6px rgba(27, 211, 235, 0.35)\", \"-6px 6px rgba(0,0,0, 0.35)\", \"-7px 7px rgba(27, 211, 235, 0.35)\", \"-7px 7px rgba(0,0,0, 0.15)\", \"-8px 8px rgba(27, 211, 235, 0.35)\", \"-8px 8px rgba(0,0,0, 0.25)\", \"-9px 9px rgba(27, 211, 235, 0.35)\", \"-9px 9px rgba(0,0,0, 0.35)\", \"-10px 10px rgba(27, 211, 235, 0.35)\", \"-10px 10px rgba(0,0,0, 0.45)\", \"-11px 11px rgba(27, 211, 235, 0.35)\", \"-11px 11px rgba(0,0,0, 0.35)\", \"-12px 12px rgba(27, 211, 235, 0.35)\", \"-12px 12px rgba(0,0,0, 0.15)\", \"-13px 13px rgba(27, 211, 235, 0.35)\", \"-13px 13px rgba(0,0,0, 0.35)\"];\n  return fullDeckStyling.slice(0, 2 * (deckSize - 3));\n}\n\nfunction OfferTile(_ref) {\n  var offerIndex = _ref.offerIndex,\n      remainingTileIDs = _ref.remainingTileIDs;\n  var tile = remainingTileIDs[offerIndex];\n  var className = tile ? \"square filled tile\" + tile + \" offer-tile\" : \"square offer-tile\";\n\n  function drag(ev, offerIndex, tile) {\n    ev.dataTransfer.setData(\"offerIndex\", offerIndex);\n    ev.dataTransfer.setData(\"tile\", tile);\n    ev.target.style[\"opacity\"] = \"0.5\"; // If not on a device on which the mobile-drag-drop pollyfill applies\n    // Center the drag image on the cursor\n\n    if (!/iPad|iPhone|iPod|Android/.test(navigator.userAgent)) {\n      ev.dataTransfer.setDragImage(ev.target, 50, 50);\n    }\n  }\n\n  function drop(ev) {\n    ev.target.style[\"opacity\"] = \"1\";\n  }\n\n  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", {\n    className: className,\n    draggable: \"true\",\n    onDragStart: function onDragStart(e) {\n      return drag(e, offerIndex, tile);\n    },\n    onDragEnd: function onDragEnd(e) {\n      return drop(e);\n    }\n  });\n}\n\nfunction Offer(_ref2) {\n  var remainingTileIDs = _ref2.remainingTileIDs;\n  var ref = react__WEBPACK_IMPORTED_MODULE_0__.useRef();\n  react__WEBPACK_IMPORTED_MODULE_0__.useLayoutEffect(function () {\n    var deckStyling = getDeckStyling(remainingTileIDs.length);\n    ref.current.style.setProperty(\"--deck-size\", deckStyling.join(\",\"));\n  }, [remainingTileIDs]);\n  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", {\n    id: \"offer-area\",\n    ref: ref\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", {\n    id: \"offer\"\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(OfferTile, {\n    offerIndex: \"0\",\n    remainingTileIDs: remainingTileIDs\n  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(OfferTile, {\n    offerIndex: \"1\",\n    remainingTileIDs: remainingTileIDs\n  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(OfferTile, {\n    offerIndex: \"2\",\n    remainingTileIDs: remainingTileIDs\n  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", {\n    className: \"square filled draw-pile\"\n  }, Math.max(0, remainingTileIDs.length - 3)));\n}\n\n//# sourceURL=webpack://monkeys/./src/Offer.js?");
 
 /***/ }),
 
@@ -60,7 +60,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"tallyScore\": () => (/* binding */ tallyScore),\n/* harmony export */   \"default\": () => (/* binding */ Score)\n/* harmony export */ });\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n\nfunction tallyScore(routes) {\n  // Get the red/blue score for each route and sum them up\n  var scores = routes.map(function (route) {\n    return route.score;\n  });\n  var redScore = scores.map(function (score) {\n    return score.red;\n  }).reduce(function (accumulator, currentValue, currentIndex, array) {\n    return accumulator + currentValue;\n  }, 0);\n  var blueScore = scores.map(function (score) {\n    return score.blue;\n  }).reduce(function (accumulator, currentValue, currentIndex, array) {\n    return accumulator + currentValue;\n  }, 0);\n  return {\n    red: redScore,\n    blue: blueScore\n  };\n}\nfunction Score(_ref) {\n  var routes = _ref.routes;\n  var score = tallyScore(routes);\n  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", {\n    className: \"score\"\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", {\n    className: \"red-score\"\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", {\n    className: \"score-icon red\"\n  }), score.red), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", {\n    className: \"blue-score\"\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", {\n    className: \"score-icon blue\"\n  }), score.blue));\n}\n\n//# sourceURL=webpack://monkeys/./src/Score.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (/* binding */ Score)\n/* harmony export */ });\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var _tallyScore__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./tallyScore */ \"./src/tallyScore.js\");\n\n\nfunction Score(_ref) {\n  var routes = _ref.routes;\n  var score = (0,_tallyScore__WEBPACK_IMPORTED_MODULE_1__.tallyScore)(routes);\n  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", {\n    className: \"score\"\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", {\n    className: \"red-score\"\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", {\n    className: \"score-icon red\"\n  }), score.red), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", {\n    className: \"blue-score\"\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", {\n    className: \"score-icon blue\"\n  }), score.blue));\n}\n\n//# sourceURL=webpack://monkeys/./src/Score.js?");
 
 /***/ }),
 
@@ -71,7 +71,29 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (/* binding */ Tutorial)\n/* harmony export */ });\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\nfunction _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }\n\nfunction _nonIterableRest() { throw new TypeError(\"Invalid attempt to destructure non-iterable instance.\\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.\"); }\n\nfunction _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === \"string\") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === \"Object\" && o.constructor) n = o.constructor.name; if (n === \"Map\" || n === \"Set\") return Array.from(o); if (n === \"Arguments\" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }\n\nfunction _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }\n\nfunction _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== \"undefined\" && arr[Symbol.iterator] || arr[\"@@iterator\"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i[\"return\"] != null) _i[\"return\"](); } finally { if (_d) throw _e; } } return _arr; }\n\nfunction _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }\n\n\nvar rules = [/*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", {\n  className: \"tutorial-step\"\n}, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", {\n  className: \"tutorial-text\"\n}, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"h1\", null, \"Monkeys of the Caribbean\"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", null, \"2 Players\\n15 Minutes\\n\\nDesigned by Colin Thom\\nBuilt by Sarah Edwards\")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", {\n  className: \"illustration\"\n}, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", {\n  className: \"image monkey\"\n})), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", {\n  className: \"tutorial-text\"\n}, \"Version 2.2.0\"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", null, \"Want more games? Visit \", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"a\", {\n  href: \"https://skedwards88.github.io/portfolio/\"\n}, \"CnS Games\"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", {\n  className: \"tutorial-step\"\n}, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", {\n  className: \"tutorial-text\"\n}, \"A crew of monkeys\\u2014with you as the captain\\u2014overthrew their pirate overlords. But it is not gold you want. Nay, coconuts are the bounty you seek.\", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"br\", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"br\", null), \"Alas! There be limited space on the sea. Compete for control of sea routes to get the most coconuts.\"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"img\", {\n  src: __webpack_require__(/*! ./images/coconuts.png */ \"./src/images/coconuts.png\"),\n  alt: \"coconuts\",\n  className: \"icon\"\n})), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", {\n  className: \"tutorial-step\"\n}, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", {\n  className: \"tutorial-text\"\n}, \"Two competing monkey pirate fleets vie for the most coconuts.\", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"br\", null), \"Each player will control a fleet.\"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"img\", {\n  src: __webpack_require__(/*! ./images/two_ships.png */ \"./src/images/two_ships.png\"),\n  alt: \"ships\",\n  className: \"icon\"\n})), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", {\n  className: \"tutorial-step\"\n}, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", {\n  className: \"tutorial-text\"\n}, \"The board starts with the sea routes (black lines) that existed immediately after the mutinies. New routes will be built from these initial routes.\"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", {\n  className: \"illustration\"\n}, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", {\n  className: \"image starting\"\n}))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", {\n  className: \"tutorial-step\"\n}, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", {\n  className: \"tutorial-text\"\n}, \"Players take turns dragging a tile from the offer to the board. At least one sea route on the new tile must connect to an existing sea route.\"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", {\n  className: \"illustration\"\n}, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", {\n  className: \"image turns\"\n}))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", {\n  className: \"tutorial-step\"\n}, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", {\n  className: \"tutorial-text\"\n}, \"The number of coconuts on the route determines the value of the route.\", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"br\", null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", {\n  className: \"illustration\"\n}, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", {\n  className: \"image coconuts\"\n}), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", {\n  className: \"caption\"\n}, \"1 single and 2 double coconuts for 3 total coconuts\"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", {\n  className: \"tutorial-step\"\n}, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", {\n  className: \"tutorial-text\"\n}, \"A chest doubles the number of coconuts on the route.\", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"br\", null), \"Multiple chests on the route have the same effect as a single chest.\"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", {\n  className: \"illustration\"\n}, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", {\n  className: \"image chest\"\n}), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", {\n  className: \"caption\"\n}, \"The chest makes these 3 coconuts count as 6 coconuts\"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", {\n  className: \"tutorial-step\"\n}, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", {\n  className: \"tutorial-text\"\n}, \"The player with the most ships on a route owns the coconuts on that route. If players tie, neither player owns the coconuts for the route. As players vie for control, the score will change.\"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", {\n  className: \"illustration\"\n}, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", {\n  className: \"image route\"\n}), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", {\n  className: \"caption\"\n}, \"2 red ships and 3 blue ships means blue controls all of the coconuts on this route\"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", {\n  className: \"tutorial-step\"\n}, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", {\n  className: \"tutorial-text\"\n}, \"An anchor at the end of a route doubles the ships of that color on the route. Two anchors of the same color on the route have the same effect as a single anchor.\"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", {\n  className: \"illustration\"\n}, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", {\n  className: \"image anchor\"\n}), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", {\n  className: \"caption\"\n}, \"The red anchor makes the 2 red ships count as 4 ships, so red owns all of the coconuts on this route.\"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", {\n  className: \"tutorial-step\"\n}, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", {\n  className: \"tutorial-text\"\n}, \"The game ends once all tiles have been placed.\", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"br\", null), \"The player that owns the most coconuts at the end of the game wins!\"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"img\", {\n  src: __webpack_require__(/*! ./images/coconuts.png */ \"./src/images/coconuts.png\"),\n  alt: \"coconuts\",\n  className: \"icon\"\n}))];\n\nfunction PreviousButton(_ref) {\n  var currentRule = _ref.currentRule,\n      setCurrentRule = _ref.setCurrentRule;\n\n  if (currentRule !== 1) {\n    var handlePrevious = function handlePrevious() {\n      var newRule = currentRule - 1;\n      setCurrentRule(newRule);\n    };\n\n    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"button\", {\n      className: \"navigation-button prev-button\",\n      onClick: handlePrevious\n    }, \"<\");\n  }\n\n  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"button\", {\n    disabled: true,\n    className: \"navigation-button prev-button\"\n  }, \"<\");\n}\n\nfunction NextButton(_ref2) {\n  var currentRule = _ref2.currentRule,\n      setCurrentRule = _ref2.setCurrentRule;\n\n  if (currentRule < rules.length) {\n    var handleNext = function handleNext() {\n      var newRule = currentRule + 1;\n      setCurrentRule(newRule);\n    };\n\n    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"button\", {\n      className: \"navigation-button next-button\",\n      onClick: handleNext\n    }, \">\");\n  }\n\n  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"button\", {\n    disabled: true,\n    className: \"navigation-button next-button\"\n  }, \">\");\n}\n\nfunction Tutorial(_ref3) {\n  var showRules = _ref3.showRules,\n      setShowRules = _ref3.setShowRules;\n\n  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(1),\n      _useState2 = _slicedToArray(_useState, 2),\n      currentRule = _useState2[0],\n      setCurrentRule = _useState2[1];\n\n  if (showRules) {\n    var handleHide = function handleHide() {\n      setCurrentRule(1);\n      setShowRules(false);\n    };\n\n    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", {\n      className: \"modal\"\n    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", {\n      id: \"tutorial\"\n    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(PreviousButton, {\n      currentRule: currentRule,\n      setCurrentRule: setCurrentRule\n    }), rules[currentRule - 1], /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"button\", {\n      id: \"exit-button\",\n      onClick: handleHide\n    }, \"\\u2715\"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(NextButton, {\n      currentRule: currentRule,\n      setCurrentRule: setCurrentRule\n    })));\n  } else {\n    var handleShow = function handleShow() {\n      setShowRules(true);\n    };\n\n    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"button\", {\n      id: \"rules-button\",\n      onClick: handleShow\n    });\n  }\n}\n\n//# sourceURL=webpack://monkeys/./src/Tutorial.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (/* binding */ Tutorial)\n/* harmony export */ });\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var _rules__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./rules */ \"./src/rules.js\");\nfunction _typeof(obj) { \"@babel/helpers - typeof\"; if (typeof Symbol === \"function\" && typeof Symbol.iterator === \"symbol\") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === \"function\" && obj.constructor === Symbol && obj !== Symbol.prototype ? \"symbol\" : typeof obj; }; } return _typeof(obj); }\n\nfunction _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }\n\nfunction _nonIterableRest() { throw new TypeError(\"Invalid attempt to destructure non-iterable instance.\\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.\"); }\n\nfunction _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === \"string\") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === \"Object\" && o.constructor) n = o.constructor.name; if (n === \"Map\" || n === \"Set\") return Array.from(o); if (n === \"Arguments\" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }\n\nfunction _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }\n\nfunction _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== \"undefined\" && arr[Symbol.iterator] || arr[\"@@iterator\"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i[\"return\"] != null) _i[\"return\"](); } finally { if (_d) throw _e; } } return _arr; }\n\nfunction _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }\n\n\n\n\nfunction PreviousButton(_ref) {\n  var currentRule = _ref.currentRule,\n      setCurrentRule = _ref.setCurrentRule;\n\n  if (currentRule !== 1) {\n    var handlePrevious = function handlePrevious() {\n      var newRule = currentRule - 1;\n      setCurrentRule(newRule);\n    };\n\n    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"button\", {\n      className: \"navigation-button prev-button\",\n      onClick: handlePrevious\n    }, \"<\");\n  }\n\n  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"button\", {\n    disabled: true,\n    className: \"navigation-button prev-button\"\n  }, \"<\");\n}\n\nfunction NextButton(_ref2) {\n  var currentRule = _ref2.currentRule,\n      setCurrentRule = _ref2.setCurrentRule;\n\n  if (currentRule < _rules__WEBPACK_IMPORTED_MODULE_1__.rules.length) {\n    var handleNext = function handleNext() {\n      var newRule = currentRule + 1;\n      setCurrentRule(newRule);\n    };\n\n    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"button\", {\n      className: \"navigation-button next-button\",\n      onClick: handleNext\n    }, \">\");\n  }\n\n  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"button\", {\n    disabled: true,\n    className: \"navigation-button next-button\"\n  }, \">\");\n}\n\nfunction Info() {\n  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", {\n    className: \"tutorial-step\"\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", {\n    className: \"tutorial-text\"\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"h1\", null, \"Monkeys of the Caribbean\"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", null, \"2 Players\\n15 Minutes\\n\\nDesigned by Colin Thom\\nBuilt by Sarah Edwards\")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"img\", {\n    src: __webpack_require__(/*! ./images/monkey_3.svg */ \"./src/images/monkey_3.svg\"),\n    alt: \"monkey artwork\",\n    className: \"rules-image\"\n  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", {\n    className: \"tutorial-text\"\n  }, \"Version 2.2.1\"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", null, \"Want more games? Visit \", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"a\", {\n    href: \"https://skedwards88.github.io/portfolio/\"\n  }, \"CnS Games\")));\n}\n\nfunction Rule(_ref3) {\n  var info = _ref3.info;\n  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", {\n    className: \"tutorial-step\"\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", {\n    className: \"tutorial-text\"\n  }, info.text), info.animation ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", {\n    className: \"rules-animation\"\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", {\n    className: \"image \".concat(info.animation)\n  })) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null), info.image ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"img\", {\n    src: __webpack_require__(\"./src/images sync recursive ^\\\\.\\\\/.*\\\\.png$\")(\"./\".concat(info.image, \".png\")),\n    alt: info.alt,\n    className: \"rules-image\"\n  }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null), info.caption ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", {\n    className: \"caption\"\n  }, info.caption) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null));\n}\n\nfunction Tutorial(_ref4) {\n  var showRules = _ref4.showRules,\n      setShowRules = _ref4.setShowRules;\n\n  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),\n      _useState2 = _slicedToArray(_useState, 2),\n      currentRule = _useState2[0],\n      setCurrentRule = _useState2[1];\n\n  if (showRules) {\n    var handleHide = function handleHide() {\n      setCurrentRule(0);\n      setShowRules(false);\n    };\n\n    console.log(currentRule);\n    console.log(_typeof(currentRule));\n    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", {\n      className: \"modal\"\n    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", {\n      id: \"tutorial\"\n    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(PreviousButton, {\n      currentRule: currentRule,\n      setCurrentRule: setCurrentRule\n    }), currentRule ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(Rule, {\n      info: _rules__WEBPACK_IMPORTED_MODULE_1__.rules[currentRule - 1]\n    }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(Info, null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"button\", {\n      id: \"exit-button\",\n      onClick: handleHide\n    }, \"\\u2715\"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(NextButton, {\n      currentRule: currentRule,\n      setCurrentRule: setCurrentRule\n    })));\n  } else {\n    var handleShow = function handleShow() {\n      setShowRules(true);\n    };\n\n    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"button\", {\n      id: \"rules-button\",\n      onClick: handleShow\n    });\n  }\n}\n\n//# sourceURL=webpack://monkeys/./src/Tutorial.js?");
+
+/***/ }),
+
+/***/ "./src/getBoardNodesFromFlatIndex.js":
+/*!*******************************************!*\
+  !*** ./src/getBoardNodesFromFlatIndex.js ***!
+  \*******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"getBoardNodesFromFlatIndex\": () => (/* binding */ getBoardNodesFromFlatIndex)\n/* harmony export */ });\nfunction getBoardNodesFromFlatIndex(flatIndex, numColumns) {\n  // Convert a 0-indexed grid position to 0-indexed corner numbers of that square in a grid\n  var row = Math.floor(flatIndex / numColumns);\n  var column = flatIndex - row * numColumns;\n  var topLeft = row * (numColumns + 1) + column;\n  var topRight = topLeft + 1;\n  var bottomLeft = topLeft + numColumns + 1;\n  var bottomRight = bottomLeft + 1;\n  return [topLeft, topRight, bottomLeft, bottomRight];\n}\n\n//# sourceURL=webpack://monkeys/./src/getBoardNodesFromFlatIndex.js?");
+
+/***/ }),
+
+/***/ "./src/getInitialSetup.js":
+/*!********************************!*\
+  !*** ./src/getInitialSetup.js ***!
+  \********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"getInitialSetup\": () => (/* binding */ getInitialSetup)\n/* harmony export */ });\n/* harmony import */ var _getBoardNodesFromFlatIndex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./getBoardNodesFromFlatIndex */ \"./src/getBoardNodesFromFlatIndex.js\");\n/* harmony import */ var _shuffleArray__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./shuffleArray */ \"./src/shuffleArray.js\");\n/* harmony import */ var _tiles_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./tiles.js */ \"./src/tiles.js\");\nfunction _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== \"undefined\" && o[Symbol.iterator] || o[\"@@iterator\"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === \"number\") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError(\"Invalid attempt to iterate non-iterable instance.\\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.\"); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it[\"return\"] != null) it[\"return\"](); } finally { if (didErr) throw err; } } }; }\n\nfunction _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === \"string\") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === \"Object\" && o.constructor) n = o.constructor.name; if (n === \"Map\" || n === \"Set\") return Array.from(o); if (n === \"Arguments\" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }\n\nfunction _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }\n\n\n\n\nfunction getInitialSetup(_ref) {\n  var numRows = _ref.numRows,\n      numColumns = _ref.numColumns;\n  // Shuffle the tiles\n  var remainingTileIDs = (0,_shuffleArray__WEBPACK_IMPORTED_MODULE_1__.shuffleArray)(Object.keys(_tiles_js__WEBPACK_IMPORTED_MODULE_2__.tiles)); // Draw 4 tiles for the starting board\n\n  var initialTiles = remainingTileIDs.splice(0, 4); // Make the starting board\n\n  var startingPositions = [10, 24, 38, 52]; // todo can calc instead\n\n  var numSquares = numColumns * numRows;\n  var startingBoard = Array(numSquares).fill(null);\n  initialTiles.forEach(function (tile, index) {\n    var startingPosition = startingPositions[index];\n    startingBoard[startingPosition] = tile;\n  }); // Calculate the routes present on the starting tiles\n  // (Right now, each route on the tile will be a unique route; don't need to worry about the tiles connecting)\n\n  var startingRoutes = [];\n  initialTiles.forEach(function (tile, index) {\n    // Convert the row/col where the tile was placed to board node numbers\n    var startingPosition = startingPositions[index];\n    var boardNodes = (0,_getBoardNodesFromFlatIndex__WEBPACK_IMPORTED_MODULE_0__.getBoardNodesFromFlatIndex)(startingPosition, numColumns); // For each route on the tile, convert the tile-relative head/tail to board-relative head/tail\n    // and add the route to the starting routes\n\n    var _iterator = _createForOfIteratorHelper(_tiles_js__WEBPACK_IMPORTED_MODULE_2__.tiles[tile].routes),\n        _step;\n\n    try {\n      for (_iterator.s(); !(_step = _iterator.n()).done;) {\n        var route = _step.value;\n        var head = boardNodes[route.tileHead];\n        var tail = boardNodes[route.tileTail];\n        var boardRoute = new _tiles_js__WEBPACK_IMPORTED_MODULE_2__.BoardRoute({\n          boardHead: head,\n          boardTail: tail,\n          tileRoutes: [route]\n        });\n        startingRoutes.push(boardRoute);\n      }\n    } catch (err) {\n      _iterator.e(err);\n    } finally {\n      _iterator.f();\n    }\n  });\n  return {\n    remainingTileIDs: remainingTileIDs,\n    played: startingBoard,\n    routes: startingRoutes\n  };\n}\n\n//# sourceURL=webpack://monkeys/./src/getInitialSetup.js?");
 
 /***/ }),
 
@@ -86,6 +108,39 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var reac
 
 /***/ }),
 
+/***/ "./src/rules.js":
+/*!**********************!*\
+  !*** ./src/rules.js ***!
+  \**********************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"rules\": () => (/* binding */ rules)\n/* harmony export */ });\nvar rules = [{\n  text: \"A crew of monkeys--with you as the captain--overthrew their pirate overlords. But it is not gold you want. Nay, coconuts are the bounty you seek.\\n\\nAlas! There be limited space on the sea. Compete for control of sea routes to get the most coconuts.\",\n  image: \"coconuts\",\n  alt: \"coconut artwork\"\n}, {\n  text: \"Two competing monkey pirate fleets vie for the most coconuts.\\n\\nEach player will control a fleet.\",\n  image: \"two_ships\",\n  alt: \"two ship artwork\"\n}, {\n  text: \"The board starts with the sea routes (black lines) that existed immediately after the mutinies. New routes will be built from these initial routes.\",\n  animation: \"starting\"\n}, {\n  text: \"Players take turns dragging a tile from the offer to the board. At least one sea route on the new tile must connect to an existing sea route.\",\n  animation: \"turns\"\n}, {\n  text: \"The number of coconuts on the route determines the value of the route.\",\n  animation: \"coconut-count\",\n  caption: \"1 single and 2 double coconuts for 3 total coconuts\"\n}, {\n  text: \"A chest doubles the number of coconuts on the route.\\n\\nMultiple chests on the route have the same effect as a single chest.\",\n  image: \"chest\",\n  alt: \"route with 3 coconuts and a chest\",\n  caption: \"The chest makes these 3 coconuts count as 6 coconuts\"\n}, {\n  text: \"The player with the most ships on a route owns the coconuts on that route. If players tie, neither player owns the coconuts for the route. As players vie for control, the score will change.\",\n  image: \"route\",\n  alt: \"route with 2 red ships and 3 blue ships\",\n  caption: \"2 red ships and 3 blue ships means blue controls all of the coconuts on this route\"\n}, {\n  text: \"An anchor at the end of a route doubles the ships of that color on the route. Two anchors of the same color on the route have the same effect as a single anchor.\",\n  image: \"route_and_anchor\",\n  alt: \"route with 2 red ships and an anchor\",\n  caption: \"The red anchor makes the 2 red ships count as 4 ships, so red owns all of the coconuts on this route.\"\n}, {\n  text: \"The game ends once all tiles have been placed.\\n\\nThe player that owns the most coconuts at the end of the game wins!\",\n  image: \"coconuts\",\n  alt: \"coconut artwork\"\n}];\n\n//# sourceURL=webpack://monkeys/./src/rules.js?");
+
+/***/ }),
+
+/***/ "./src/shuffleArray.js":
+/*!*****************************!*\
+  !*** ./src/shuffleArray.js ***!
+  \*****************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"shuffleArray\": () => (/* binding */ shuffleArray)\n/* harmony export */ });\nfunction shuffleArray(array) {\n  var shuffledArray = array.slice(); // Swap each value in an array, starting at the end of the array, with a position equal or earlier in the array.\n\n  for (var index = shuffledArray.length - 1; index > 0; index--) {\n    // Get a random index from 0 to the current index of the array\n    // So for an array of length 3, the first round will be 0, 1, or 2, second round 0 or 1, and last round 0\n    // The values at this index and the current index will be swapped\n    var swapIndex = Math.floor(Math.random() * (index + 1)); // If the current index and index to swap are the same, move on to the next loop iteration\n\n    if (index === swapIndex) {\n      continue;\n    } // Get the original value at index,\n    // set the value at the index to be the value at the swap index,\n    // then set the value at the swap index to be the original value at the index\n\n\n    var swapValue = shuffledArray[index];\n    shuffledArray[index] = shuffledArray[swapIndex];\n    shuffledArray[swapIndex] = swapValue;\n  }\n\n  return shuffledArray;\n}\n\n//# sourceURL=webpack://monkeys/./src/shuffleArray.js?");
+
+/***/ }),
+
+/***/ "./src/tallyScore.js":
+/*!***************************!*\
+  !*** ./src/tallyScore.js ***!
+  \***************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"tallyScore\": () => (/* binding */ tallyScore)\n/* harmony export */ });\nfunction tallyScore(routes) {\n  // Get the red/blue score for each route and sum them up\n  var scores = routes.map(function (route) {\n    return route.score;\n  });\n  var redScore = scores.map(function (score) {\n    return score.red;\n  }).reduce(function (accumulator, currentValue, currentIndex, array) {\n    return accumulator + currentValue;\n  }, 0);\n  var blueScore = scores.map(function (score) {\n    return score.blue;\n  }).reduce(function (accumulator, currentValue, currentIndex, array) {\n    return accumulator + currentValue;\n  }, 0);\n  return {\n    red: redScore,\n    blue: blueScore\n  };\n}\n\n//# sourceURL=webpack://monkeys/./src/tallyScore.js?");
+
+/***/ }),
+
 /***/ "./src/tiles.js":
 /*!**********************!*\
   !*** ./src/tiles.js ***!
@@ -97,6 +152,28 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 
 /***/ }),
 
+/***/ "./src/updateRoutes.js":
+/*!*****************************!*\
+  !*** ./src/updateRoutes.js ***!
+  \*****************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"updateRoutes\": () => (/* binding */ updateRoutes)\n/* harmony export */ });\n/* harmony import */ var _getBoardNodesFromFlatIndex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./getBoardNodesFromFlatIndex */ \"./src/getBoardNodesFromFlatIndex.js\");\n/* harmony import */ var _tiles__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./tiles */ \"./src/tiles.js\");\nfunction _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== \"undefined\" && o[Symbol.iterator] || o[\"@@iterator\"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === \"number\") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError(\"Invalid attempt to iterate non-iterable instance.\\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.\"); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it[\"return\"] != null) it[\"return\"](); } finally { if (didErr) throw err; } } }; }\n\nfunction _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === \"string\") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === \"Object\" && o.constructor) n = o.constructor.name; if (n === \"Map\" || n === \"Set\") return Array.from(o); if (n === \"Arguments\" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }\n\nfunction _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }\n\n\n\nfunction updateRoutes(boardRoutes, tile, flatIndex, numColumns) {\n  // Convert the row/col where the tile was placed to numbers describing\n  // the corner positions (\"nodes\") of the tile on the board\n  var boardNodes = (0,_getBoardNodesFromFlatIndex__WEBPACK_IMPORTED_MODULE_0__.getBoardNodesFromFlatIndex)(flatIndex, numColumns); // For each route on the placed tile:\n\n  var _iterator = _createForOfIteratorHelper(tile.routes),\n      _step;\n\n  try {\n    for (_iterator.s(); !(_step = _iterator.n()).done;) {\n      var tileRoute = _step.value;\n      // Convert the tile head/tail (0, 1, 2, 3, or null) to the corresponding board node\n      var convertedTileHead = typeof tileRoute.tileHead === \"number\" ? boardNodes[tileRoute.tileHead] : null;\n      var convertedTileTail = typeof tileRoute.tileTail === \"number\" ? boardNodes[tileRoute.tileTail] : null; // Find if there is an existing board route that matches the tile route head/tail\n      // There will be max 1 route match for head and tail each\n\n      var headMatch = null;\n      var tailMatch = null;\n\n      var _iterator2 = _createForOfIteratorHelper(boardRoutes),\n          _step2;\n\n      try {\n        for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {\n          var boardRoute = _step2.value;\n\n          // If there is a head on the tile route\n          // and we haven't found a head match\n          // and the board route head or tail position matches the position of the tile route head\n          // record the board route as the head match\n          if (convertedTileHead && !headMatch && (boardRoute.boardHead === convertedTileHead || boardRoute.boardTail === convertedTileHead)) {\n            headMatch = boardRoute;\n          } // If there is a tail on the tile route\n          // and we haven't found a tail match\n          // and the board route head or tail position matches the position of the tile route tail\n          // record the board route as the tail match\n\n\n          if (convertedTileTail && !tailMatch && (boardRoute.boardHead === convertedTileTail || boardRoute.boardTail === convertedTileTail)) {\n            tailMatch = boardRoute;\n          } // If all possible matches have been found, exit.\n          // (There will be a max 1 route matching the head and 1 matching the tail.)\n\n\n          if ((headMatch || !convertedTileHead) && (tailMatch || !convertedTileTail)) {\n            break;\n          }\n        } // If no match was found for the tile route head or tail,\n        // add the tile route as a new board route\n\n      } catch (err) {\n        _iterator2.e(err);\n      } finally {\n        _iterator2.f();\n      }\n\n      if (!headMatch && !tailMatch) {\n        var newRoute = new _tiles__WEBPACK_IMPORTED_MODULE_1__.BoardRoute({\n          boardHead: convertedTileHead,\n          boardTail: convertedTileTail,\n          tileRoutes: [tileRoute]\n        });\n        boardRoutes.push(newRoute);\n      } // If only a head or tail (but not both) match was found,\n      // update the matching board route head/tail with the head/tail non-match\n      // and update the board route members\n      else if (headMatch && !tailMatch || tailMatch && !headMatch) {\n        // Get the matching board route\n        var matchingRoute = headMatch ? headMatch : tailMatch; // If the board route matched at the head of the tile route,\n        // the tile tail will replace the board route head or tail\n        // Otherwise, the tile head will replace the board route head or tail\n\n        var newValue = headMatch ? convertedTileTail : convertedTileHead; // Find the node where the board route joins the tile route\n\n        var matchingValue = headMatch ? convertedTileHead : convertedTileTail; // Update the board route head or tail (whichever joins to the new tile) to be the new value\n\n        matchingRoute.boardHead === matchingValue ? matchingRoute.boardHead = newValue : matchingRoute.boardTail = newValue; // Add the new tile to the route\n\n        matchingRoute.tileRoutes.push(tileRoute);\n      } // If head and tail match the same board route, the route is now a loop.\n      // Set the route head/tail to null\n      // and update the board route members\n      else if (headMatch === tailMatch) {\n        headMatch.boardHead = null;\n        headMatch.boardTail = null;\n        headMatch.tileRoutes.push(tileRoute);\n      } // Otherwise, head and tail match different routes; the routes are now joined.\n      // Update head/tail on one route,\n      // add the new tile and the tiles from the other route to the updated route,\n      // delete the other route\n      else {\n        // For both matching board routes, set the terminus that doesn't connect to the new tile to be the new head/tail\n        var newHead = headMatch.boardHead === convertedTileHead || headMatch.boardHead === convertedTileTail ? headMatch.boardTail : headMatch.boardHead;\n        var newTail = tailMatch.boardHead === convertedTileHead || tailMatch.boardHead === convertedTileTail ? tailMatch.boardTail : tailMatch.boardHead; // Arbitrarily keep the \"head route\" as the base route\n        // Update the head and tail\n\n        headMatch.boardHead = newHead;\n        headMatch.boardTail = newTail; // Update the tiles in the route\n\n        headMatch.tileRoutes = headMatch.tileRoutes.concat(tailMatch.tileRoutes);\n        headMatch.tileRoutes.push(tileRoute); // Delete the other board route\n\n        var indexToDelete = boardRoutes.indexOf(tailMatch);\n        boardRoutes.splice(indexToDelete, 1);\n      }\n    }\n  } catch (err) {\n    _iterator.e(err);\n  } finally {\n    _iterator.f();\n  }\n\n  return boardRoutes;\n}\n\n//# sourceURL=webpack://monkeys/./src/updateRoutes.js?");
+
+/***/ }),
+
+/***/ "./src/validDropQ.js":
+/*!***************************!*\
+  !*** ./src/validDropQ.js ***!
+  \***************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"validDropQ\": () => (/* binding */ validDropQ)\n/* harmony export */ });\nfunction partition(input, numColumns) {\n  var output = [];\n\n  for (var i = 0; i < input.length; i += numColumns) {\n    output[output.length] = input.slice(i, i + numColumns);\n  }\n\n  return output;\n}\n\nfunction validDropQ(played, index, numColumns) {\n  // Partition the flat list of played tiles into a nested list to make the logic clearer\n  var partitionedPlayed = partition(played, numColumns); // And convert the flat index into a row/col\n\n  var row = Math.floor(index / numColumns);\n  var column = index - row * numColumns; // If the square or the overlapping one above/below is already occupied,\n  // don't allow a tile to be dropped there\n\n  if (partitionedPlayed[row][column] || partitionedPlayed[row + 1] && partitionedPlayed[row + 1][column] || partitionedPlayed[row - 1] && partitionedPlayed[row - 1][column]) {\n    return false;\n  } // If the square does not touch a tile to the left or right, don't allow the drop\n\n\n  if (!(partitionedPlayed[row][column + 1] || partitionedPlayed[row][column - 1] || partitionedPlayed[row + 1] && partitionedPlayed[row + 1][column + 1] || partitionedPlayed[row + 1] && partitionedPlayed[row + 1][column - 1] || partitionedPlayed[row - 1] && partitionedPlayed[row - 1][column + 1] || partitionedPlayed[row - 1] && partitionedPlayed[row - 1][column - 1])) {\n    return false;\n  }\n\n  return true;\n}\n\n//# sourceURL=webpack://monkeys/./src/validDropQ.js?");
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/dist/cjs.js!./src/App.css":
 /*!***********************************************************!*\
   !*** ./node_modules/css-loader/dist/cjs.js!./src/App.css ***!
@@ -104,7 +181,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../node_modules/css-loader/dist/runtime/api.js */ \"./node_modules/css-loader/dist/runtime/api.js\");\n/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../node_modules/css-loader/dist/runtime/getUrl.js */ \"./node_modules/css-loader/dist/runtime/getUrl.js\");\n/* harmony import */ var _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1__);\n// Imports\n\n\nvar ___CSS_LOADER_URL_IMPORT_0___ = new URL(/* asset import */ __webpack_require__(/*! ./images/sand_texture.svg */ \"./src/images/sand_texture.svg\"), __webpack_require__.b);\nvar ___CSS_LOADER_URL_IMPORT_1___ = new URL(/* asset import */ __webpack_require__(/*! ./images/waves.svg */ \"./src/images/waves.svg\"), __webpack_require__.b);\nvar ___CSS_LOADER_URL_IMPORT_2___ = new URL(/* asset import */ __webpack_require__(/*! ./images/monkey_3_teal.svg */ \"./src/images/monkey_3_teal.svg\"), __webpack_require__.b);\nvar ___CSS_LOADER_URL_IMPORT_3___ = new URL(/* asset import */ __webpack_require__(/*! ./images/tiles_200/Monkeys_Tile_1.png */ \"./src/images/tiles_200/Monkeys_Tile_1.png\"), __webpack_require__.b);\nvar ___CSS_LOADER_URL_IMPORT_4___ = new URL(/* asset import */ __webpack_require__(/*! ./images/tiles_200/Monkeys_Tile_2.png */ \"./src/images/tiles_200/Monkeys_Tile_2.png\"), __webpack_require__.b);\nvar ___CSS_LOADER_URL_IMPORT_5___ = new URL(/* asset import */ __webpack_require__(/*! ./images/tiles_200/Monkeys_Tile_3.png */ \"./src/images/tiles_200/Monkeys_Tile_3.png\"), __webpack_require__.b);\nvar ___CSS_LOADER_URL_IMPORT_6___ = new URL(/* asset import */ __webpack_require__(/*! ./images/tiles_200/Monkeys_Tile_4.png */ \"./src/images/tiles_200/Monkeys_Tile_4.png\"), __webpack_require__.b);\nvar ___CSS_LOADER_URL_IMPORT_7___ = new URL(/* asset import */ __webpack_require__(/*! ./images/tiles_200/Monkeys_Tile_5.png */ \"./src/images/tiles_200/Monkeys_Tile_5.png\"), __webpack_require__.b);\nvar ___CSS_LOADER_URL_IMPORT_8___ = new URL(/* asset import */ __webpack_require__(/*! ./images/tiles_200/Monkeys_Tile_6.png */ \"./src/images/tiles_200/Monkeys_Tile_6.png\"), __webpack_require__.b);\nvar ___CSS_LOADER_URL_IMPORT_9___ = new URL(/* asset import */ __webpack_require__(/*! ./images/tiles_200/Monkeys_Tile_7.png */ \"./src/images/tiles_200/Monkeys_Tile_7.png\"), __webpack_require__.b);\nvar ___CSS_LOADER_URL_IMPORT_10___ = new URL(/* asset import */ __webpack_require__(/*! ./images/tiles_200/Monkeys_Tile_8.png */ \"./src/images/tiles_200/Monkeys_Tile_8.png\"), __webpack_require__.b);\nvar ___CSS_LOADER_URL_IMPORT_11___ = new URL(/* asset import */ __webpack_require__(/*! ./images/tiles_200/Monkeys_Tile_9.png */ \"./src/images/tiles_200/Monkeys_Tile_9.png\"), __webpack_require__.b);\nvar ___CSS_LOADER_URL_IMPORT_12___ = new URL(/* asset import */ __webpack_require__(/*! ./images/tiles_200/Monkeys_Tile_10.png */ \"./src/images/tiles_200/Monkeys_Tile_10.png\"), __webpack_require__.b);\nvar ___CSS_LOADER_URL_IMPORT_13___ = new URL(/* asset import */ __webpack_require__(/*! ./images/tiles_200/Monkeys_Tile_11.png */ \"./src/images/tiles_200/Monkeys_Tile_11.png\"), __webpack_require__.b);\nvar ___CSS_LOADER_URL_IMPORT_14___ = new URL(/* asset import */ __webpack_require__(/*! ./images/tiles_200/Monkeys_Tile_12.png */ \"./src/images/tiles_200/Monkeys_Tile_12.png\"), __webpack_require__.b);\nvar ___CSS_LOADER_URL_IMPORT_15___ = new URL(/* asset import */ __webpack_require__(/*! ./images/tiles_200/Monkeys_Tile_13.png */ \"./src/images/tiles_200/Monkeys_Tile_13.png\"), __webpack_require__.b);\nvar ___CSS_LOADER_URL_IMPORT_16___ = new URL(/* asset import */ __webpack_require__(/*! ./images/tiles_200/Monkeys_Tile_14.png */ \"./src/images/tiles_200/Monkeys_Tile_14.png\"), __webpack_require__.b);\nvar ___CSS_LOADER_URL_IMPORT_17___ = new URL(/* asset import */ __webpack_require__(/*! ./images/tiles_200/Monkeys_Tile_15.png */ \"./src/images/tiles_200/Monkeys_Tile_15.png\"), __webpack_require__.b);\nvar ___CSS_LOADER_URL_IMPORT_18___ = new URL(/* asset import */ __webpack_require__(/*! ./images/tiles_200/Monkeys_Tile_16.png */ \"./src/images/tiles_200/Monkeys_Tile_16.png\"), __webpack_require__.b);\nvar ___CSS_LOADER_URL_IMPORT_19___ = new URL(/* asset import */ __webpack_require__(/*! ./images/tiles_200/Monkeys_Tile_17.png */ \"./src/images/tiles_200/Monkeys_Tile_17.png\"), __webpack_require__.b);\nvar ___CSS_LOADER_URL_IMPORT_20___ = new URL(/* asset import */ __webpack_require__(/*! ./images/tiles_200/Monkeys_Tile_18.png */ \"./src/images/tiles_200/Monkeys_Tile_18.png\"), __webpack_require__.b);\nvar ___CSS_LOADER_URL_IMPORT_21___ = new URL(/* asset import */ __webpack_require__(/*! ./images/tiles_200/Monkeys_Tile_19.png */ \"./src/images/tiles_200/Monkeys_Tile_19.png\"), __webpack_require__.b);\nvar ___CSS_LOADER_URL_IMPORT_22___ = new URL(/* asset import */ __webpack_require__(/*! ./images/tiles_200/Monkeys_Tile_20.png */ \"./src/images/tiles_200/Monkeys_Tile_20.png\"), __webpack_require__.b);\nvar ___CSS_LOADER_URL_IMPORT_23___ = new URL(/* asset import */ __webpack_require__(/*! ./images/red_icon.svg */ \"./src/images/red_icon.svg\"), __webpack_require__.b);\nvar ___CSS_LOADER_URL_IMPORT_24___ = new URL(/* asset import */ __webpack_require__(/*! ./images/blue_icon.svg */ \"./src/images/blue_icon.svg\"), __webpack_require__.b);\nvar ___CSS_LOADER_URL_IMPORT_25___ = new URL(/* asset import */ __webpack_require__(/*! ./images/new_game_icon.svg */ \"./src/images/new_game_icon.svg\"), __webpack_require__.b);\nvar ___CSS_LOADER_URL_IMPORT_26___ = new URL(/* asset import */ __webpack_require__(/*! ./images/rules_icon.svg */ \"./src/images/rules_icon.svg\"), __webpack_require__.b);\nvar ___CSS_LOADER_URL_IMPORT_27___ = new URL(/* asset import */ __webpack_require__(/*! ./images/monkey_3.svg */ \"./src/images/monkey_3.svg\"), __webpack_require__.b);\nvar ___CSS_LOADER_URL_IMPORT_28___ = new URL(/* asset import */ __webpack_require__(/*! ./images/board_0.png */ \"./src/images/board_0.png\"), __webpack_require__.b);\nvar ___CSS_LOADER_URL_IMPORT_29___ = new URL(/* asset import */ __webpack_require__(/*! ./images/board_1.png */ \"./src/images/board_1.png\"), __webpack_require__.b);\nvar ___CSS_LOADER_URL_IMPORT_30___ = new URL(/* asset import */ __webpack_require__(/*! ./images/board_2.png */ \"./src/images/board_2.png\"), __webpack_require__.b);\nvar ___CSS_LOADER_URL_IMPORT_31___ = new URL(/* asset import */ __webpack_require__(/*! ./images/board_3.png */ \"./src/images/board_3.png\"), __webpack_require__.b);\nvar ___CSS_LOADER_URL_IMPORT_32___ = new URL(/* asset import */ __webpack_require__(/*! ./images/coconut_count_0_200.png */ \"./src/images/coconut_count_0_200.png\"), __webpack_require__.b);\nvar ___CSS_LOADER_URL_IMPORT_33___ = new URL(/* asset import */ __webpack_require__(/*! ./images/coconut_count_1.svg */ \"./src/images/coconut_count_1.svg\"), __webpack_require__.b);\nvar ___CSS_LOADER_URL_IMPORT_34___ = new URL(/* asset import */ __webpack_require__(/*! ./images/coconut_count_2.svg */ \"./src/images/coconut_count_2.svg\"), __webpack_require__.b);\nvar ___CSS_LOADER_URL_IMPORT_35___ = new URL(/* asset import */ __webpack_require__(/*! ./images/coconut_count_3.svg */ \"./src/images/coconut_count_3.svg\"), __webpack_require__.b);\nvar ___CSS_LOADER_URL_IMPORT_36___ = new URL(/* asset import */ __webpack_require__(/*! ./images/chest.png */ \"./src/images/chest.png\"), __webpack_require__.b);\nvar ___CSS_LOADER_URL_IMPORT_37___ = new URL(/* asset import */ __webpack_require__(/*! ./images/route.png */ \"./src/images/route.png\"), __webpack_require__.b);\nvar ___CSS_LOADER_URL_IMPORT_38___ = new URL(/* asset import */ __webpack_require__(/*! ./images/route_and_anchor.png */ \"./src/images/route_and_anchor.png\"), __webpack_require__.b);\nvar ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});\nvar ___CSS_LOADER_URL_REPLACEMENT_0___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(___CSS_LOADER_URL_IMPORT_0___);\nvar ___CSS_LOADER_URL_REPLACEMENT_1___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(___CSS_LOADER_URL_IMPORT_1___);\nvar ___CSS_LOADER_URL_REPLACEMENT_2___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(___CSS_LOADER_URL_IMPORT_2___);\nvar ___CSS_LOADER_URL_REPLACEMENT_3___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(___CSS_LOADER_URL_IMPORT_3___);\nvar ___CSS_LOADER_URL_REPLACEMENT_4___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(___CSS_LOADER_URL_IMPORT_4___);\nvar ___CSS_LOADER_URL_REPLACEMENT_5___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(___CSS_LOADER_URL_IMPORT_5___);\nvar ___CSS_LOADER_URL_REPLACEMENT_6___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(___CSS_LOADER_URL_IMPORT_6___);\nvar ___CSS_LOADER_URL_REPLACEMENT_7___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(___CSS_LOADER_URL_IMPORT_7___);\nvar ___CSS_LOADER_URL_REPLACEMENT_8___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(___CSS_LOADER_URL_IMPORT_8___);\nvar ___CSS_LOADER_URL_REPLACEMENT_9___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(___CSS_LOADER_URL_IMPORT_9___);\nvar ___CSS_LOADER_URL_REPLACEMENT_10___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(___CSS_LOADER_URL_IMPORT_10___);\nvar ___CSS_LOADER_URL_REPLACEMENT_11___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(___CSS_LOADER_URL_IMPORT_11___);\nvar ___CSS_LOADER_URL_REPLACEMENT_12___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(___CSS_LOADER_URL_IMPORT_12___);\nvar ___CSS_LOADER_URL_REPLACEMENT_13___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(___CSS_LOADER_URL_IMPORT_13___);\nvar ___CSS_LOADER_URL_REPLACEMENT_14___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(___CSS_LOADER_URL_IMPORT_14___);\nvar ___CSS_LOADER_URL_REPLACEMENT_15___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(___CSS_LOADER_URL_IMPORT_15___);\nvar ___CSS_LOADER_URL_REPLACEMENT_16___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(___CSS_LOADER_URL_IMPORT_16___);\nvar ___CSS_LOADER_URL_REPLACEMENT_17___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(___CSS_LOADER_URL_IMPORT_17___);\nvar ___CSS_LOADER_URL_REPLACEMENT_18___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(___CSS_LOADER_URL_IMPORT_18___);\nvar ___CSS_LOADER_URL_REPLACEMENT_19___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(___CSS_LOADER_URL_IMPORT_19___);\nvar ___CSS_LOADER_URL_REPLACEMENT_20___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(___CSS_LOADER_URL_IMPORT_20___);\nvar ___CSS_LOADER_URL_REPLACEMENT_21___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(___CSS_LOADER_URL_IMPORT_21___);\nvar ___CSS_LOADER_URL_REPLACEMENT_22___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(___CSS_LOADER_URL_IMPORT_22___);\nvar ___CSS_LOADER_URL_REPLACEMENT_23___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(___CSS_LOADER_URL_IMPORT_23___);\nvar ___CSS_LOADER_URL_REPLACEMENT_24___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(___CSS_LOADER_URL_IMPORT_24___);\nvar ___CSS_LOADER_URL_REPLACEMENT_25___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(___CSS_LOADER_URL_IMPORT_25___);\nvar ___CSS_LOADER_URL_REPLACEMENT_26___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(___CSS_LOADER_URL_IMPORT_26___);\nvar ___CSS_LOADER_URL_REPLACEMENT_27___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(___CSS_LOADER_URL_IMPORT_27___);\nvar ___CSS_LOADER_URL_REPLACEMENT_28___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(___CSS_LOADER_URL_IMPORT_28___);\nvar ___CSS_LOADER_URL_REPLACEMENT_29___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(___CSS_LOADER_URL_IMPORT_29___);\nvar ___CSS_LOADER_URL_REPLACEMENT_30___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(___CSS_LOADER_URL_IMPORT_30___);\nvar ___CSS_LOADER_URL_REPLACEMENT_31___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(___CSS_LOADER_URL_IMPORT_31___);\nvar ___CSS_LOADER_URL_REPLACEMENT_32___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(___CSS_LOADER_URL_IMPORT_32___);\nvar ___CSS_LOADER_URL_REPLACEMENT_33___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(___CSS_LOADER_URL_IMPORT_33___);\nvar ___CSS_LOADER_URL_REPLACEMENT_34___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(___CSS_LOADER_URL_IMPORT_34___);\nvar ___CSS_LOADER_URL_REPLACEMENT_35___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(___CSS_LOADER_URL_IMPORT_35___);\nvar ___CSS_LOADER_URL_REPLACEMENT_36___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(___CSS_LOADER_URL_IMPORT_36___);\nvar ___CSS_LOADER_URL_REPLACEMENT_37___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(___CSS_LOADER_URL_IMPORT_37___);\nvar ___CSS_LOADER_URL_REPLACEMENT_38___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(___CSS_LOADER_URL_IMPORT_38___);\n// Module\n___CSS_LOADER_EXPORT___.push([module.id, \"html {\\n  margin: auto;\\n}\\n\\nbody {\\n  font-size: 18px; /* fallback fallback  (if clamp and vh are not supported) */\\n  font-size: 4vh; /* fallback (if clamp is not supported) */\\n  font-weight: bold;\\n  font-family: Verdana, Geneva, sans-serif;\\n  --square-diameter: 50px; /* fallback fallback (if clamp and vmin are not supported) */\\n  --square-diameter: 17vmin; /* fallback (if clamp is not supported) */\\n  vertical-align: middle;\\n  background: linear-gradient(rgba(242, 234, 150, 0.5), rgba(217, 200, 43, 0.5)),\\n    url(\" + ___CSS_LOADER_URL_REPLACEMENT_0___ + \");\\n  background-attachment: fixed;\\n}\\n\\n@supports (width: clamp(40px, 17vmin, 100px)) {\\n  body {\\n    --square-diameter: clamp(40px, 17vmin, 100px);\\n    font-size: clamp(10px, 4vh, 32px);\\n  }\\n}\\n\\nbutton {\\n  font-size: 18px;\\n  background-color: transparent;\\n  margin-right: 0;\\n  border-radius: 0;\\n  border: 0;\\n  color: gray;\\n}\\n\\nbutton:disabled {\\n  color: darkgray;\\n}\\n\\nbutton:active {\\n  color: black;\\n  font-weight: bold;\\n}\\n\\nbutton:focus {\\n  outline: none;\\n  box-shadow: none;\\n}\\n\\n#game {\\n  display: flex;\\n  margin: 20px;\\n}\\n\\n#board {\\n  height: calc(var(--square-diameter) * 5);\\n  border: 3px rgb(150, 200, 230) solid;\\n  border-radius: 10px;\\n  background: linear-gradient(\\n      rgba(150, 200, 230, 0.5),\\n      rgba(150, 200, 230, 0.5)\\n    ),\\n    url(\" + ___CSS_LOADER_URL_REPLACEMENT_1___ + \");\\n  background-attachment: fixed;\\n  display: grid;\\n  grid-template-columns: repeat(7, var(--square-diameter));\\n  grid-template-rows: repeat(10, calc(var(--square-diameter) / 2));\\n  margin: 0 10px;\\n}\\n\\n.square {\\n  height: var(--square-diameter);\\n  width: var(--square-diameter);\\n}\\n\\n.square.filled.draw-pile {\\n  background: url(\" + ___CSS_LOADER_URL_REPLACEMENT_2___ + \"), url(\" + ___CSS_LOADER_URL_REPLACEMENT_1___ + \");\\n  background-size: contain, auto;\\n  box-shadow: var(--deck-size);\\n  margin: 0 5px 5px 0;\\n  display: flex;\\n  justify-content: center;\\n  align-items: center;\\n  font-size: calc(var(--square-diameter) * 0.5);\\n}\\n\\n.square.filled.tile0 {\\n  background: url(\" + ___CSS_LOADER_URL_REPLACEMENT_3___ + \"),\\n    url(\" + ___CSS_LOADER_URL_REPLACEMENT_1___ + \");\\n  background-size: contain, auto;\\n}\\n\\n.square.filled.tile1 {\\n  background: url(\" + ___CSS_LOADER_URL_REPLACEMENT_4___ + \"),\\n    url(\" + ___CSS_LOADER_URL_REPLACEMENT_1___ + \");\\n  background-size: contain, auto;\\n}\\n\\n.square.filled.tile2 {\\n  background: url(\" + ___CSS_LOADER_URL_REPLACEMENT_5___ + \"),\\n    url(\" + ___CSS_LOADER_URL_REPLACEMENT_1___ + \");\\n  background-size: contain, auto;\\n}\\n\\n.square.filled.tile3 {\\n  background: url(\" + ___CSS_LOADER_URL_REPLACEMENT_6___ + \"),\\n    url(\" + ___CSS_LOADER_URL_REPLACEMENT_1___ + \");\\n  background-size: contain, auto;\\n}\\n\\n.square.filled.tile4 {\\n  background: url(\" + ___CSS_LOADER_URL_REPLACEMENT_7___ + \"),\\n    url(\" + ___CSS_LOADER_URL_REPLACEMENT_1___ + \");\\n  background-size: contain, auto;\\n}\\n\\n.square.filled.tile5 {\\n  background: url(\" + ___CSS_LOADER_URL_REPLACEMENT_8___ + \"),\\n    url(\" + ___CSS_LOADER_URL_REPLACEMENT_1___ + \");\\n  background-size: contain, auto;\\n}\\n\\n.square.filled.tile6 {\\n  background: url(\" + ___CSS_LOADER_URL_REPLACEMENT_9___ + \"),\\n    url(\" + ___CSS_LOADER_URL_REPLACEMENT_1___ + \");\\n  background-size: contain, auto;\\n}\\n\\n.square.filled.tile7 {\\n  background: url(\" + ___CSS_LOADER_URL_REPLACEMENT_10___ + \"),\\n    url(\" + ___CSS_LOADER_URL_REPLACEMENT_1___ + \");\\n  background-size: contain, auto;\\n}\\n\\n.square.filled.tile8 {\\n  background: url(\" + ___CSS_LOADER_URL_REPLACEMENT_11___ + \"),\\n    url(\" + ___CSS_LOADER_URL_REPLACEMENT_1___ + \");\\n  background-size: contain, auto;\\n}\\n\\n.square.filled.tile9 {\\n  background: url(\" + ___CSS_LOADER_URL_REPLACEMENT_12___ + \"),\\n    url(\" + ___CSS_LOADER_URL_REPLACEMENT_1___ + \");\\n  background-size: contain, auto;\\n}\\n\\n.square.filled.tile10 {\\n  background: url(\" + ___CSS_LOADER_URL_REPLACEMENT_13___ + \"),\\n    url(\" + ___CSS_LOADER_URL_REPLACEMENT_1___ + \");\\n  background-size: contain, auto;\\n}\\n\\n.square.filled.tile11 {\\n  background: url(\" + ___CSS_LOADER_URL_REPLACEMENT_14___ + \"),\\n    url(\" + ___CSS_LOADER_URL_REPLACEMENT_1___ + \");\\n  background-size: contain, auto;\\n}\\n\\n.square.filled.tile12 {\\n  background: url(\" + ___CSS_LOADER_URL_REPLACEMENT_15___ + \"),\\n    url(\" + ___CSS_LOADER_URL_REPLACEMENT_1___ + \");\\n  background-size: contain, auto;\\n}\\n\\n.square.filled.tile13 {\\n  background: url(\" + ___CSS_LOADER_URL_REPLACEMENT_16___ + \"),\\n    url(\" + ___CSS_LOADER_URL_REPLACEMENT_1___ + \");\\n  background-size: contain, auto;\\n}\\n\\n.square.filled.tile14 {\\n  background: url(\" + ___CSS_LOADER_URL_REPLACEMENT_17___ + \"),\\n    url(\" + ___CSS_LOADER_URL_REPLACEMENT_1___ + \");\\n  background-size: contain, auto;\\n}\\n\\n.square.filled.tile15 {\\n  background: url(\" + ___CSS_LOADER_URL_REPLACEMENT_18___ + \"),\\n    url(\" + ___CSS_LOADER_URL_REPLACEMENT_1___ + \");\\n  background-size: contain, auto;\\n}\\n\\n.square.filled.tile16 {\\n  background: url(\" + ___CSS_LOADER_URL_REPLACEMENT_19___ + \"),\\n    url(\" + ___CSS_LOADER_URL_REPLACEMENT_1___ + \");\\n  background-size: contain, auto;\\n}\\n\\n.square.filled.tile17 {\\n  background: url(\" + ___CSS_LOADER_URL_REPLACEMENT_20___ + \"),\\n    url(\" + ___CSS_LOADER_URL_REPLACEMENT_1___ + \");\\n  background-size: contain, auto;\\n}\\n\\n.square.filled.tile18 {\\n  background: url(\" + ___CSS_LOADER_URL_REPLACEMENT_21___ + \"),\\n    url(\" + ___CSS_LOADER_URL_REPLACEMENT_1___ + \");\\n  background-size: contain, auto;\\n}\\n\\n.square.filled.tile19 {\\n  background: url(\" + ___CSS_LOADER_URL_REPLACEMENT_22___ + \"),\\n    url(\" + ___CSS_LOADER_URL_REPLACEMENT_1___ + \");\\n  background-size: contain, auto;\\n}\\n\\n#offer-area {\\n  margin: 3px 0 0 0;\\n}\\n\\n#offer {\\n  display: flex;\\n  flex-direction: column;\\n}\\n\\n.offer-tile {\\n  margin: 0 5px 5px 0;\\n}\\n\\n.filled.offer-tile {\\n  box-shadow: -4px 4px 3px -2px darkgrey;\\n}\\n\\n#off-board {\\n  display: flex;\\n  flex-direction: column;\\n  position: relative;\\n  /* margin: 3px 0 0 10px; */\\n}\\n\\n#off-board > * {\\n  /* margin: 0 0 10px 10px; */\\n}\\n\\n.score {\\n  font-weight: normal;\\n  display: flex;\\n  flex-direction: column;\\n  justify-content: space-between;\\n}\\n\\n.score-icon {\\n  width: calc(var(--square-diameter) / 3);\\n  height: calc(var(--square-diameter) / 3);\\n  background-position: center;\\n  background-repeat: no-repeat;\\n  background-size: contain;\\n  margin-right: 5px;\\n}\\n\\n.score-icon.red {\\n  background-image: url(\" + ___CSS_LOADER_URL_REPLACEMENT_23___ + \");\\n}\\n\\n.score-icon.blue {\\n  background-image: url(\" + ___CSS_LOADER_URL_REPLACEMENT_24___ + \");\\n}\\n\\n.red-score {\\n  color: red;\\n  font-weight: bold;\\n  display: flex;\\n  flex-direction: row;\\n  align-items: center;\\n}\\n\\n.blue-score {\\n  align-items: center;\\n  color: blue;\\n  font-weight: bold;\\n  display: flex;\\n  flex-direction: row;\\n}\\n\\n.tile {\\n  margin: 10px;\\n}\\n\\n#new-game-button {\\n  width: calc(var(--square-diameter) / 2);\\n  height: calc(var(--square-diameter) / 2);\\n  background-position: center;\\n  background-repeat: no-repeat;\\n  background-size: cover;\\n  margin-right: 5px;\\n  background-image: url(\" + ___CSS_LOADER_URL_REPLACEMENT_25___ + \");\\n}\\n\\n#rules-button {\\n  width: calc(var(--square-diameter) / 2);\\n  height: calc(var(--square-diameter) / 2);\\n  background-position: center;\\n  background-repeat: no-repeat;\\n  background-size: cover;\\n  margin-right: 5px;\\n  background-image: url(\" + ___CSS_LOADER_URL_REPLACEMENT_26___ + \");\\n}\\n\\n.modal {\\n  font-weight: normal;\\n  background-image: url(\" + ___CSS_LOADER_URL_REPLACEMENT_1___ + \");\\n  background-attachment: fixed;\\n  position: fixed;\\n  height: 100%;\\n  width: 100%;\\n  top: 0;\\n  left: 0;\\n  display: flex;\\n  flex-direction: column;\\n  align-items: center;\\n  justify-content: center;\\n  text-align: center;\\n}\\n\\n#tutorial {\\n  display: flex;\\n  flex-direction: row;\\n  justify-content: space-between;\\n  max-height: 700px;\\n  min-height: 20px;\\n  max-width: 600px;\\n  min-width: 250px;\\n  height: 100%;\\n  width: 100%;\\n  overflow: scroll;\\n  white-space: pre-line;\\n}\\n\\n.tutorial-step {\\n  margin: 10px 35px;\\n  width: 550px;\\n  display: flex;\\n  flex-direction: column;\\n  justify-content: flex-start;\\n  overflow: scroll;\\n  font-size: 14px; /* fall -back */\\n}\\n\\n@supports (width: clamp(10px, 4vh, 16px)) {\\n  .tutorial-step {\\n    font-size: clamp(10px, 4vh, 16px);\\n  }\\n}\\n\\n.navigation-button {\\n  background-color: white;\\n  opacity: 0.5;\\n  position: absolute;\\n  height: 100%;\\n  width: 30px;\\n}\\n\\n.prev-button {\\n  left: 0;\\n}\\n\\n.next-button {\\n  right: 0;\\n}\\n\\n#exit-button {\\n  height: 20px;\\n  width: 30px;\\n  position: absolute;\\n  right: 0;\\n  z-index: 1;\\n}\\n\\nimg {\\n  min-height: 50px;\\n  max-height: 300px;\\n  object-fit: contain;\\n  margin: 20px;\\n}\\n\\n.illustration {\\n  display: flex;\\n  flex-direction: column;\\n  flex: 1;\\n  justify-content: flex-start;\\n}\\n\\n.image {\\n  background-position: center;\\n  background-repeat: no-repeat;\\n  background-size: contain;\\n  min-height: 100px;\\n  max-height: 80%;\\n  margin: 20px 20px 0 20px;\\n}\\n\\n.caption {\\n  font-style: italic;\\n}\\n\\n.monkey {\\n  background-image: url(\" + ___CSS_LOADER_URL_REPLACEMENT_27___ + \");\\n  flex: 1;\\n}\\n\\n.starting {\\n  background-color: rgba(0, 0, 0, 0.1);\\n  flex: 1;\\n  background-image: url(\" + ___CSS_LOADER_URL_REPLACEMENT_28___ + \");\\n}\\n\\n.turns {\\n  animation: turns-animation 6s;\\n  animation-timing-function: step-end;\\n  background-color: rgba(0, 0, 0, 0.1);\\n  flex: 1;\\n  animation-fill-mode: forwards;\\n}\\n\\n@keyframes turns-animation {\\n  0% {\\n    background-image: url(\" + ___CSS_LOADER_URL_REPLACEMENT_28___ + \");\\n  }\\n  25% {\\n    background-image: url(\" + ___CSS_LOADER_URL_REPLACEMENT_29___ + \"), url(\" + ___CSS_LOADER_URL_REPLACEMENT_28___ + \");\\n  }\\n  50% {\\n    background-image: url(\" + ___CSS_LOADER_URL_REPLACEMENT_30___ + \"), url(\" + ___CSS_LOADER_URL_REPLACEMENT_29___ + \"),\\n      url(\" + ___CSS_LOADER_URL_REPLACEMENT_28___ + \");\\n  }\\n  75%,\\n  100% {\\n    background-image: url(\" + ___CSS_LOADER_URL_REPLACEMENT_31___ + \"), url(\" + ___CSS_LOADER_URL_REPLACEMENT_30___ + \"),\\n      url(\" + ___CSS_LOADER_URL_REPLACEMENT_29___ + \"), url(\" + ___CSS_LOADER_URL_REPLACEMENT_28___ + \");\\n  }\\n}\\n\\n.coconuts {\\n  animation: coconuts-animation 6s;\\n  animation-timing-function: step-end;\\n  animation-fill-mode: forwards;\\n}\\n\\n@keyframes coconuts-animation {\\n  0% {\\n    background-image: url(\" + ___CSS_LOADER_URL_REPLACEMENT_32___ + \");\\n  }\\n  25% {\\n    background-image: url(\" + ___CSS_LOADER_URL_REPLACEMENT_33___ + \"),\\n      url(\" + ___CSS_LOADER_URL_REPLACEMENT_32___ + \");\\n  }\\n  50% {\\n    background-image: url(\" + ___CSS_LOADER_URL_REPLACEMENT_34___ + \"),\\n      url(\" + ___CSS_LOADER_URL_REPLACEMENT_33___ + \"),\\n      url(\" + ___CSS_LOADER_URL_REPLACEMENT_32___ + \");\\n  }\\n  75%,\\n  100% {\\n    background-image: url(\" + ___CSS_LOADER_URL_REPLACEMENT_35___ + \"),\\n      url(\" + ___CSS_LOADER_URL_REPLACEMENT_34___ + \"), url(\" + ___CSS_LOADER_URL_REPLACEMENT_33___ + \"),\\n      url(\" + ___CSS_LOADER_URL_REPLACEMENT_32___ + \");\\n  }\\n}\\n\\n.chest {\\n  background-image: url(\" + ___CSS_LOADER_URL_REPLACEMENT_36___ + \");\\n}\\n\\n.route {\\n  background-image: url(\" + ___CSS_LOADER_URL_REPLACEMENT_37___ + \");\\n}\\n\\n.anchor {\\n  background-image: url(\" + ___CSS_LOADER_URL_REPLACEMENT_38___ + \");\\n}\\n\", \"\"]);\n// Exports\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);\n\n\n//# sourceURL=webpack://monkeys/./src/App.css?./node_modules/css-loader/dist/cjs.js");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../node_modules/css-loader/dist/runtime/api.js */ \"./node_modules/css-loader/dist/runtime/api.js\");\n/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../node_modules/css-loader/dist/runtime/getUrl.js */ \"./node_modules/css-loader/dist/runtime/getUrl.js\");\n/* harmony import */ var _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1__);\n// Imports\n\n\nvar ___CSS_LOADER_URL_IMPORT_0___ = new URL(/* asset import */ __webpack_require__(/*! ./images/sand_texture.svg */ \"./src/images/sand_texture.svg\"), __webpack_require__.b);\nvar ___CSS_LOADER_URL_IMPORT_1___ = new URL(/* asset import */ __webpack_require__(/*! ./images/waves.svg */ \"./src/images/waves.svg\"), __webpack_require__.b);\nvar ___CSS_LOADER_URL_IMPORT_2___ = new URL(/* asset import */ __webpack_require__(/*! ./images/monkey_3_teal.svg */ \"./src/images/monkey_3_teal.svg\"), __webpack_require__.b);\nvar ___CSS_LOADER_URL_IMPORT_3___ = new URL(/* asset import */ __webpack_require__(/*! ./images/tiles_200/Monkeys_Tile_1.png */ \"./src/images/tiles_200/Monkeys_Tile_1.png\"), __webpack_require__.b);\nvar ___CSS_LOADER_URL_IMPORT_4___ = new URL(/* asset import */ __webpack_require__(/*! ./images/tiles_200/Monkeys_Tile_2.png */ \"./src/images/tiles_200/Monkeys_Tile_2.png\"), __webpack_require__.b);\nvar ___CSS_LOADER_URL_IMPORT_5___ = new URL(/* asset import */ __webpack_require__(/*! ./images/tiles_200/Monkeys_Tile_3.png */ \"./src/images/tiles_200/Monkeys_Tile_3.png\"), __webpack_require__.b);\nvar ___CSS_LOADER_URL_IMPORT_6___ = new URL(/* asset import */ __webpack_require__(/*! ./images/tiles_200/Monkeys_Tile_4.png */ \"./src/images/tiles_200/Monkeys_Tile_4.png\"), __webpack_require__.b);\nvar ___CSS_LOADER_URL_IMPORT_7___ = new URL(/* asset import */ __webpack_require__(/*! ./images/tiles_200/Monkeys_Tile_5.png */ \"./src/images/tiles_200/Monkeys_Tile_5.png\"), __webpack_require__.b);\nvar ___CSS_LOADER_URL_IMPORT_8___ = new URL(/* asset import */ __webpack_require__(/*! ./images/tiles_200/Monkeys_Tile_6.png */ \"./src/images/tiles_200/Monkeys_Tile_6.png\"), __webpack_require__.b);\nvar ___CSS_LOADER_URL_IMPORT_9___ = new URL(/* asset import */ __webpack_require__(/*! ./images/tiles_200/Monkeys_Tile_7.png */ \"./src/images/tiles_200/Monkeys_Tile_7.png\"), __webpack_require__.b);\nvar ___CSS_LOADER_URL_IMPORT_10___ = new URL(/* asset import */ __webpack_require__(/*! ./images/tiles_200/Monkeys_Tile_8.png */ \"./src/images/tiles_200/Monkeys_Tile_8.png\"), __webpack_require__.b);\nvar ___CSS_LOADER_URL_IMPORT_11___ = new URL(/* asset import */ __webpack_require__(/*! ./images/tiles_200/Monkeys_Tile_9.png */ \"./src/images/tiles_200/Monkeys_Tile_9.png\"), __webpack_require__.b);\nvar ___CSS_LOADER_URL_IMPORT_12___ = new URL(/* asset import */ __webpack_require__(/*! ./images/tiles_200/Monkeys_Tile_10.png */ \"./src/images/tiles_200/Monkeys_Tile_10.png\"), __webpack_require__.b);\nvar ___CSS_LOADER_URL_IMPORT_13___ = new URL(/* asset import */ __webpack_require__(/*! ./images/tiles_200/Monkeys_Tile_11.png */ \"./src/images/tiles_200/Monkeys_Tile_11.png\"), __webpack_require__.b);\nvar ___CSS_LOADER_URL_IMPORT_14___ = new URL(/* asset import */ __webpack_require__(/*! ./images/tiles_200/Monkeys_Tile_12.png */ \"./src/images/tiles_200/Monkeys_Tile_12.png\"), __webpack_require__.b);\nvar ___CSS_LOADER_URL_IMPORT_15___ = new URL(/* asset import */ __webpack_require__(/*! ./images/tiles_200/Monkeys_Tile_13.png */ \"./src/images/tiles_200/Monkeys_Tile_13.png\"), __webpack_require__.b);\nvar ___CSS_LOADER_URL_IMPORT_16___ = new URL(/* asset import */ __webpack_require__(/*! ./images/tiles_200/Monkeys_Tile_14.png */ \"./src/images/tiles_200/Monkeys_Tile_14.png\"), __webpack_require__.b);\nvar ___CSS_LOADER_URL_IMPORT_17___ = new URL(/* asset import */ __webpack_require__(/*! ./images/tiles_200/Monkeys_Tile_15.png */ \"./src/images/tiles_200/Monkeys_Tile_15.png\"), __webpack_require__.b);\nvar ___CSS_LOADER_URL_IMPORT_18___ = new URL(/* asset import */ __webpack_require__(/*! ./images/tiles_200/Monkeys_Tile_16.png */ \"./src/images/tiles_200/Monkeys_Tile_16.png\"), __webpack_require__.b);\nvar ___CSS_LOADER_URL_IMPORT_19___ = new URL(/* asset import */ __webpack_require__(/*! ./images/tiles_200/Monkeys_Tile_17.png */ \"./src/images/tiles_200/Monkeys_Tile_17.png\"), __webpack_require__.b);\nvar ___CSS_LOADER_URL_IMPORT_20___ = new URL(/* asset import */ __webpack_require__(/*! ./images/tiles_200/Monkeys_Tile_18.png */ \"./src/images/tiles_200/Monkeys_Tile_18.png\"), __webpack_require__.b);\nvar ___CSS_LOADER_URL_IMPORT_21___ = new URL(/* asset import */ __webpack_require__(/*! ./images/tiles_200/Monkeys_Tile_19.png */ \"./src/images/tiles_200/Monkeys_Tile_19.png\"), __webpack_require__.b);\nvar ___CSS_LOADER_URL_IMPORT_22___ = new URL(/* asset import */ __webpack_require__(/*! ./images/tiles_200/Monkeys_Tile_20.png */ \"./src/images/tiles_200/Monkeys_Tile_20.png\"), __webpack_require__.b);\nvar ___CSS_LOADER_URL_IMPORT_23___ = new URL(/* asset import */ __webpack_require__(/*! ./images/red_icon.svg */ \"./src/images/red_icon.svg\"), __webpack_require__.b);\nvar ___CSS_LOADER_URL_IMPORT_24___ = new URL(/* asset import */ __webpack_require__(/*! ./images/blue_icon.svg */ \"./src/images/blue_icon.svg\"), __webpack_require__.b);\nvar ___CSS_LOADER_URL_IMPORT_25___ = new URL(/* asset import */ __webpack_require__(/*! ./images/new_game_icon.svg */ \"./src/images/new_game_icon.svg\"), __webpack_require__.b);\nvar ___CSS_LOADER_URL_IMPORT_26___ = new URL(/* asset import */ __webpack_require__(/*! ./images/rules_icon.svg */ \"./src/images/rules_icon.svg\"), __webpack_require__.b);\nvar ___CSS_LOADER_URL_IMPORT_27___ = new URL(/* asset import */ __webpack_require__(/*! ./images/monkey_3.svg */ \"./src/images/monkey_3.svg\"), __webpack_require__.b);\nvar ___CSS_LOADER_URL_IMPORT_28___ = new URL(/* asset import */ __webpack_require__(/*! ./images/board_0.png */ \"./src/images/board_0.png\"), __webpack_require__.b);\nvar ___CSS_LOADER_URL_IMPORT_29___ = new URL(/* asset import */ __webpack_require__(/*! ./images/board_1.png */ \"./src/images/board_1.png\"), __webpack_require__.b);\nvar ___CSS_LOADER_URL_IMPORT_30___ = new URL(/* asset import */ __webpack_require__(/*! ./images/board_2.png */ \"./src/images/board_2.png\"), __webpack_require__.b);\nvar ___CSS_LOADER_URL_IMPORT_31___ = new URL(/* asset import */ __webpack_require__(/*! ./images/board_3.png */ \"./src/images/board_3.png\"), __webpack_require__.b);\nvar ___CSS_LOADER_URL_IMPORT_32___ = new URL(/* asset import */ __webpack_require__(/*! ./images/coconut_count_0_200.png */ \"./src/images/coconut_count_0_200.png\"), __webpack_require__.b);\nvar ___CSS_LOADER_URL_IMPORT_33___ = new URL(/* asset import */ __webpack_require__(/*! ./images/coconut_count_1.svg */ \"./src/images/coconut_count_1.svg\"), __webpack_require__.b);\nvar ___CSS_LOADER_URL_IMPORT_34___ = new URL(/* asset import */ __webpack_require__(/*! ./images/coconut_count_2.svg */ \"./src/images/coconut_count_2.svg\"), __webpack_require__.b);\nvar ___CSS_LOADER_URL_IMPORT_35___ = new URL(/* asset import */ __webpack_require__(/*! ./images/coconut_count_3.svg */ \"./src/images/coconut_count_3.svg\"), __webpack_require__.b);\nvar ___CSS_LOADER_URL_IMPORT_36___ = new URL(/* asset import */ __webpack_require__(/*! ./images/chest.png */ \"./src/images/chest.png\"), __webpack_require__.b);\nvar ___CSS_LOADER_URL_IMPORT_37___ = new URL(/* asset import */ __webpack_require__(/*! ./images/route.png */ \"./src/images/route.png\"), __webpack_require__.b);\nvar ___CSS_LOADER_URL_IMPORT_38___ = new URL(/* asset import */ __webpack_require__(/*! ./images/route_and_anchor.png */ \"./src/images/route_and_anchor.png\"), __webpack_require__.b);\nvar ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});\nvar ___CSS_LOADER_URL_REPLACEMENT_0___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(___CSS_LOADER_URL_IMPORT_0___);\nvar ___CSS_LOADER_URL_REPLACEMENT_1___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(___CSS_LOADER_URL_IMPORT_1___);\nvar ___CSS_LOADER_URL_REPLACEMENT_2___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(___CSS_LOADER_URL_IMPORT_2___);\nvar ___CSS_LOADER_URL_REPLACEMENT_3___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(___CSS_LOADER_URL_IMPORT_3___);\nvar ___CSS_LOADER_URL_REPLACEMENT_4___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(___CSS_LOADER_URL_IMPORT_4___);\nvar ___CSS_LOADER_URL_REPLACEMENT_5___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(___CSS_LOADER_URL_IMPORT_5___);\nvar ___CSS_LOADER_URL_REPLACEMENT_6___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(___CSS_LOADER_URL_IMPORT_6___);\nvar ___CSS_LOADER_URL_REPLACEMENT_7___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(___CSS_LOADER_URL_IMPORT_7___);\nvar ___CSS_LOADER_URL_REPLACEMENT_8___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(___CSS_LOADER_URL_IMPORT_8___);\nvar ___CSS_LOADER_URL_REPLACEMENT_9___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(___CSS_LOADER_URL_IMPORT_9___);\nvar ___CSS_LOADER_URL_REPLACEMENT_10___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(___CSS_LOADER_URL_IMPORT_10___);\nvar ___CSS_LOADER_URL_REPLACEMENT_11___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(___CSS_LOADER_URL_IMPORT_11___);\nvar ___CSS_LOADER_URL_REPLACEMENT_12___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(___CSS_LOADER_URL_IMPORT_12___);\nvar ___CSS_LOADER_URL_REPLACEMENT_13___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(___CSS_LOADER_URL_IMPORT_13___);\nvar ___CSS_LOADER_URL_REPLACEMENT_14___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(___CSS_LOADER_URL_IMPORT_14___);\nvar ___CSS_LOADER_URL_REPLACEMENT_15___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(___CSS_LOADER_URL_IMPORT_15___);\nvar ___CSS_LOADER_URL_REPLACEMENT_16___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(___CSS_LOADER_URL_IMPORT_16___);\nvar ___CSS_LOADER_URL_REPLACEMENT_17___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(___CSS_LOADER_URL_IMPORT_17___);\nvar ___CSS_LOADER_URL_REPLACEMENT_18___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(___CSS_LOADER_URL_IMPORT_18___);\nvar ___CSS_LOADER_URL_REPLACEMENT_19___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(___CSS_LOADER_URL_IMPORT_19___);\nvar ___CSS_LOADER_URL_REPLACEMENT_20___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(___CSS_LOADER_URL_IMPORT_20___);\nvar ___CSS_LOADER_URL_REPLACEMENT_21___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(___CSS_LOADER_URL_IMPORT_21___);\nvar ___CSS_LOADER_URL_REPLACEMENT_22___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(___CSS_LOADER_URL_IMPORT_22___);\nvar ___CSS_LOADER_URL_REPLACEMENT_23___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(___CSS_LOADER_URL_IMPORT_23___);\nvar ___CSS_LOADER_URL_REPLACEMENT_24___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(___CSS_LOADER_URL_IMPORT_24___);\nvar ___CSS_LOADER_URL_REPLACEMENT_25___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(___CSS_LOADER_URL_IMPORT_25___);\nvar ___CSS_LOADER_URL_REPLACEMENT_26___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(___CSS_LOADER_URL_IMPORT_26___);\nvar ___CSS_LOADER_URL_REPLACEMENT_27___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(___CSS_LOADER_URL_IMPORT_27___);\nvar ___CSS_LOADER_URL_REPLACEMENT_28___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(___CSS_LOADER_URL_IMPORT_28___);\nvar ___CSS_LOADER_URL_REPLACEMENT_29___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(___CSS_LOADER_URL_IMPORT_29___);\nvar ___CSS_LOADER_URL_REPLACEMENT_30___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(___CSS_LOADER_URL_IMPORT_30___);\nvar ___CSS_LOADER_URL_REPLACEMENT_31___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(___CSS_LOADER_URL_IMPORT_31___);\nvar ___CSS_LOADER_URL_REPLACEMENT_32___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(___CSS_LOADER_URL_IMPORT_32___);\nvar ___CSS_LOADER_URL_REPLACEMENT_33___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(___CSS_LOADER_URL_IMPORT_33___);\nvar ___CSS_LOADER_URL_REPLACEMENT_34___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(___CSS_LOADER_URL_IMPORT_34___);\nvar ___CSS_LOADER_URL_REPLACEMENT_35___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(___CSS_LOADER_URL_IMPORT_35___);\nvar ___CSS_LOADER_URL_REPLACEMENT_36___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(___CSS_LOADER_URL_IMPORT_36___);\nvar ___CSS_LOADER_URL_REPLACEMENT_37___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(___CSS_LOADER_URL_IMPORT_37___);\nvar ___CSS_LOADER_URL_REPLACEMENT_38___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(___CSS_LOADER_URL_IMPORT_38___);\n// Module\n___CSS_LOADER_EXPORT___.push([module.id, \"html {\\n  margin: auto;\\n}\\n\\nbody {\\n  font-size: 18px; /* fallback fallback  (if clamp and vh are not supported) */\\n  font-size: 4vh; /* fallback (if clamp is not supported) */\\n  font-weight: bold;\\n  font-family: Verdana, Geneva, sans-serif;\\n  --square-diameter: 50px; /* fallback fallback (if clamp and vmin are not supported) */\\n  --square-diameter: 17vmin; /* fallback (if clamp is not supported) */\\n  vertical-align: middle;\\n  background: linear-gradient(rgba(242, 234, 150, 0.5), rgba(217, 200, 43, 0.5)),\\n    url(\" + ___CSS_LOADER_URL_REPLACEMENT_0___ + \");\\n  background-attachment: fixed;\\n}\\n\\n@supports (width: clamp(40px, 17vmin, 100px)) {\\n  body {\\n    --square-diameter: clamp(40px, 17vmin, 100px);\\n    font-size: clamp(10px, 4vh, 32px);\\n  }\\n}\\n\\nbutton {\\n  font-size: 18px;\\n  background-color: transparent;\\n  margin-right: 0;\\n  border-radius: 0;\\n  border: 0;\\n  color: gray;\\n}\\n\\nbutton:disabled {\\n  color: darkgray;\\n}\\n\\nbutton:active {\\n  color: black;\\n  font-weight: bold;\\n}\\n\\nbutton:focus {\\n  outline: none;\\n  box-shadow: none;\\n}\\n\\n#game {\\n  display: flex;\\n  margin: 20px;\\n}\\n\\n#board {\\n  height: calc(var(--square-diameter) * 5);\\n  border: 3px rgb(150, 200, 230) solid;\\n  border-radius: 10px;\\n  background: linear-gradient(\\n      rgba(150, 200, 230, 0.5),\\n      rgba(150, 200, 230, 0.5)\\n    ),\\n    url(\" + ___CSS_LOADER_URL_REPLACEMENT_1___ + \");\\n  background-attachment: fixed;\\n  display: grid;\\n  grid-template-columns: repeat(7, var(--square-diameter));\\n  grid-template-rows: repeat(10, calc(var(--square-diameter) / 2));\\n  margin: 0 10px;\\n}\\n\\n.square {\\n  height: var(--square-diameter);\\n  width: var(--square-diameter);\\n}\\n\\n.square.filled.draw-pile {\\n  background: url(\" + ___CSS_LOADER_URL_REPLACEMENT_2___ + \"), url(\" + ___CSS_LOADER_URL_REPLACEMENT_1___ + \");\\n  background-size: contain, auto;\\n  box-shadow: var(--deck-size);\\n  margin: 0 5px 5px 0;\\n  display: flex;\\n  justify-content: center;\\n  align-items: center;\\n  font-size: calc(var(--square-diameter) * 0.5);\\n}\\n\\n.square.filled.tile0 {\\n  background: url(\" + ___CSS_LOADER_URL_REPLACEMENT_3___ + \"),\\n    url(\" + ___CSS_LOADER_URL_REPLACEMENT_1___ + \");\\n  background-size: contain, auto;\\n}\\n\\n.square.filled.tile1 {\\n  background: url(\" + ___CSS_LOADER_URL_REPLACEMENT_4___ + \"),\\n    url(\" + ___CSS_LOADER_URL_REPLACEMENT_1___ + \");\\n  background-size: contain, auto;\\n}\\n\\n.square.filled.tile2 {\\n  background: url(\" + ___CSS_LOADER_URL_REPLACEMENT_5___ + \"),\\n    url(\" + ___CSS_LOADER_URL_REPLACEMENT_1___ + \");\\n  background-size: contain, auto;\\n}\\n\\n.square.filled.tile3 {\\n  background: url(\" + ___CSS_LOADER_URL_REPLACEMENT_6___ + \"),\\n    url(\" + ___CSS_LOADER_URL_REPLACEMENT_1___ + \");\\n  background-size: contain, auto;\\n}\\n\\n.square.filled.tile4 {\\n  background: url(\" + ___CSS_LOADER_URL_REPLACEMENT_7___ + \"),\\n    url(\" + ___CSS_LOADER_URL_REPLACEMENT_1___ + \");\\n  background-size: contain, auto;\\n}\\n\\n.square.filled.tile5 {\\n  background: url(\" + ___CSS_LOADER_URL_REPLACEMENT_8___ + \"),\\n    url(\" + ___CSS_LOADER_URL_REPLACEMENT_1___ + \");\\n  background-size: contain, auto;\\n}\\n\\n.square.filled.tile6 {\\n  background: url(\" + ___CSS_LOADER_URL_REPLACEMENT_9___ + \"),\\n    url(\" + ___CSS_LOADER_URL_REPLACEMENT_1___ + \");\\n  background-size: contain, auto;\\n}\\n\\n.square.filled.tile7 {\\n  background: url(\" + ___CSS_LOADER_URL_REPLACEMENT_10___ + \"),\\n    url(\" + ___CSS_LOADER_URL_REPLACEMENT_1___ + \");\\n  background-size: contain, auto;\\n}\\n\\n.square.filled.tile8 {\\n  background: url(\" + ___CSS_LOADER_URL_REPLACEMENT_11___ + \"),\\n    url(\" + ___CSS_LOADER_URL_REPLACEMENT_1___ + \");\\n  background-size: contain, auto;\\n}\\n\\n.square.filled.tile9 {\\n  background: url(\" + ___CSS_LOADER_URL_REPLACEMENT_12___ + \"),\\n    url(\" + ___CSS_LOADER_URL_REPLACEMENT_1___ + \");\\n  background-size: contain, auto;\\n}\\n\\n.square.filled.tile10 {\\n  background: url(\" + ___CSS_LOADER_URL_REPLACEMENT_13___ + \"),\\n    url(\" + ___CSS_LOADER_URL_REPLACEMENT_1___ + \");\\n  background-size: contain, auto;\\n}\\n\\n.square.filled.tile11 {\\n  background: url(\" + ___CSS_LOADER_URL_REPLACEMENT_14___ + \"),\\n    url(\" + ___CSS_LOADER_URL_REPLACEMENT_1___ + \");\\n  background-size: contain, auto;\\n}\\n\\n.square.filled.tile12 {\\n  background: url(\" + ___CSS_LOADER_URL_REPLACEMENT_15___ + \"),\\n    url(\" + ___CSS_LOADER_URL_REPLACEMENT_1___ + \");\\n  background-size: contain, auto;\\n}\\n\\n.square.filled.tile13 {\\n  background: url(\" + ___CSS_LOADER_URL_REPLACEMENT_16___ + \"),\\n    url(\" + ___CSS_LOADER_URL_REPLACEMENT_1___ + \");\\n  background-size: contain, auto;\\n}\\n\\n.square.filled.tile14 {\\n  background: url(\" + ___CSS_LOADER_URL_REPLACEMENT_17___ + \"),\\n    url(\" + ___CSS_LOADER_URL_REPLACEMENT_1___ + \");\\n  background-size: contain, auto;\\n}\\n\\n.square.filled.tile15 {\\n  background: url(\" + ___CSS_LOADER_URL_REPLACEMENT_18___ + \"),\\n    url(\" + ___CSS_LOADER_URL_REPLACEMENT_1___ + \");\\n  background-size: contain, auto;\\n}\\n\\n.square.filled.tile16 {\\n  background: url(\" + ___CSS_LOADER_URL_REPLACEMENT_19___ + \"),\\n    url(\" + ___CSS_LOADER_URL_REPLACEMENT_1___ + \");\\n  background-size: contain, auto;\\n}\\n\\n.square.filled.tile17 {\\n  background: url(\" + ___CSS_LOADER_URL_REPLACEMENT_20___ + \"),\\n    url(\" + ___CSS_LOADER_URL_REPLACEMENT_1___ + \");\\n  background-size: contain, auto;\\n}\\n\\n.square.filled.tile18 {\\n  background: url(\" + ___CSS_LOADER_URL_REPLACEMENT_21___ + \"),\\n    url(\" + ___CSS_LOADER_URL_REPLACEMENT_1___ + \");\\n  background-size: contain, auto;\\n}\\n\\n.square.filled.tile19 {\\n  background: url(\" + ___CSS_LOADER_URL_REPLACEMENT_22___ + \"),\\n    url(\" + ___CSS_LOADER_URL_REPLACEMENT_1___ + \");\\n  background-size: contain, auto;\\n}\\n\\n#offer-area {\\n  margin: 3px 0 0 0;\\n}\\n\\n#offer {\\n  display: flex;\\n  flex-direction: column;\\n}\\n\\n.offer-tile {\\n  margin: 0 5px 5px 0;\\n}\\n\\n.filled.offer-tile {\\n  box-shadow: -4px 4px 3px -2px darkgrey;\\n}\\n\\n#off-board {\\n  display: flex;\\n  flex-direction: column;\\n  position: relative;\\n  /* margin: 3px 0 0 10px; */\\n}\\n\\n#off-board > * {\\n  /* margin: 0 0 10px 10px; */\\n}\\n\\n.score {\\n  font-weight: normal;\\n  display: flex;\\n  flex-direction: column;\\n  justify-content: space-between;\\n}\\n\\n.score-icon {\\n  width: calc(var(--square-diameter) / 3);\\n  height: calc(var(--square-diameter) / 3);\\n  background-position: center;\\n  background-repeat: no-repeat;\\n  background-size: contain;\\n  margin-right: 5px;\\n}\\n\\n.score-icon.red {\\n  background-image: url(\" + ___CSS_LOADER_URL_REPLACEMENT_23___ + \");\\n}\\n\\n.score-icon.blue {\\n  background-image: url(\" + ___CSS_LOADER_URL_REPLACEMENT_24___ + \");\\n}\\n\\n.red-score {\\n  color: red;\\n  font-weight: bold;\\n  display: flex;\\n  flex-direction: row;\\n  align-items: center;\\n}\\n\\n.blue-score {\\n  align-items: center;\\n  color: blue;\\n  font-weight: bold;\\n  display: flex;\\n  flex-direction: row;\\n}\\n\\n.tile {\\n  margin: 10px;\\n}\\n\\n#new-game-button {\\n  width: calc(var(--square-diameter) / 2);\\n  height: calc(var(--square-diameter) / 2);\\n  background-position: center;\\n  background-repeat: no-repeat;\\n  background-size: cover;\\n  margin-right: 5px;\\n  background-image: url(\" + ___CSS_LOADER_URL_REPLACEMENT_25___ + \");\\n}\\n\\n#rules-button {\\n  width: calc(var(--square-diameter) / 2);\\n  height: calc(var(--square-diameter) / 2);\\n  background-position: center;\\n  background-repeat: no-repeat;\\n  background-size: cover;\\n  margin-right: 5px;\\n  background-image: url(\" + ___CSS_LOADER_URL_REPLACEMENT_26___ + \");\\n}\\n\\n.modal {\\n  font-weight: normal;\\n  background-image: url(\" + ___CSS_LOADER_URL_REPLACEMENT_1___ + \");\\n  background-attachment: fixed;\\n  position: fixed;\\n  height: 100%;\\n  width: 100%;\\n  top: 0;\\n  left: 0;\\n  display: flex;\\n  flex-direction: column;\\n  align-items: center;\\n  justify-content: center;\\n  text-align: center;\\n}\\n\\n#tutorial {\\n  display: flex;\\n  flex-direction: row;\\n  justify-content: space-between;\\n  max-height: 700px;\\n  min-height: 20px;\\n  max-width: 600px;\\n  min-width: 250px;\\n  height: 100%;\\n  width: 100%;\\n  overflow: scroll;\\n  white-space: pre-line;\\n}\\n\\n.tutorial-step {\\n  margin: 10px 35px;\\n  width: 550px;\\n  display: flex;\\n  flex-direction: column;\\n  justify-content: flex-start;\\n  overflow: scroll;\\n  font-size: 14px; /* fall -back */\\n}\\n\\n@supports (width: clamp(10px, 4vh, 16px)) {\\n  .tutorial-step {\\n    font-size: clamp(10px, 4vh, 16px);\\n  }\\n}\\n\\n.navigation-button {\\n  background-color: white;\\n  opacity: 0.5;\\n  position: absolute;\\n  height: 100%;\\n  width: 30px;\\n}\\n\\n.prev-button {\\n  left: 0;\\n}\\n\\n.next-button {\\n  right: 0;\\n}\\n\\n#exit-button {\\n  height: 20px;\\n  width: 30px;\\n  position: absolute;\\n  right: 0;\\n  z-index: 1;\\n}\\n\\nimg {\\n  min-height: 50px;\\n  max-height: 300px;\\n  object-fit: contain;\\n  margin: 20px;\\n}\\n\\n.rules-animation {\\n  display: flex;\\n  flex-direction: column;\\n  flex: 1;\\n  justify-content: flex-start;\\n}\\n\\n.image {\\n  background-position: center;\\n  background-repeat: no-repeat;\\n  background-size: contain;\\n  min-height: 100px;\\n  max-height: 80%;\\n  margin: 20px 20px 0 20px;\\n}\\n\\n.caption {\\n  font-style: italic;\\n}\\n\\n.monkey {\\n  background-image: url(\" + ___CSS_LOADER_URL_REPLACEMENT_27___ + \");\\n  flex: 1;\\n}\\n\\n.starting {\\n  background-color: rgba(0, 0, 0, 0.1);\\n  flex: 1;\\n  background-image: url(\" + ___CSS_LOADER_URL_REPLACEMENT_28___ + \");\\n}\\n\\n.turns {\\n  animation: turns-animation 6s;\\n  animation-timing-function: step-end;\\n  background-color: rgba(0, 0, 0, 0.1);\\n  flex: 1;\\n  animation-fill-mode: forwards;\\n}\\n\\n@keyframes turns-animation {\\n  0% {\\n    background-image: url(\" + ___CSS_LOADER_URL_REPLACEMENT_28___ + \");\\n  }\\n  25% {\\n    background-image: url(\" + ___CSS_LOADER_URL_REPLACEMENT_29___ + \"), url(\" + ___CSS_LOADER_URL_REPLACEMENT_28___ + \");\\n  }\\n  50% {\\n    background-image: url(\" + ___CSS_LOADER_URL_REPLACEMENT_30___ + \"), url(\" + ___CSS_LOADER_URL_REPLACEMENT_29___ + \"),\\n      url(\" + ___CSS_LOADER_URL_REPLACEMENT_28___ + \");\\n  }\\n  75%,\\n  100% {\\n    background-image: url(\" + ___CSS_LOADER_URL_REPLACEMENT_31___ + \"), url(\" + ___CSS_LOADER_URL_REPLACEMENT_30___ + \"),\\n      url(\" + ___CSS_LOADER_URL_REPLACEMENT_29___ + \"), url(\" + ___CSS_LOADER_URL_REPLACEMENT_28___ + \");\\n  }\\n}\\n\\n.coconut-count {\\n  animation: coconuts-animation 6s;\\n  animation-timing-function: step-end;\\n  animation-fill-mode: forwards;\\n}\\n\\n@keyframes coconuts-animation {\\n  0% {\\n    background-image: url(\" + ___CSS_LOADER_URL_REPLACEMENT_32___ + \");\\n  }\\n  25% {\\n    background-image: url(\" + ___CSS_LOADER_URL_REPLACEMENT_33___ + \"),\\n      url(\" + ___CSS_LOADER_URL_REPLACEMENT_32___ + \");\\n  }\\n  50% {\\n    background-image: url(\" + ___CSS_LOADER_URL_REPLACEMENT_34___ + \"),\\n      url(\" + ___CSS_LOADER_URL_REPLACEMENT_33___ + \"),\\n      url(\" + ___CSS_LOADER_URL_REPLACEMENT_32___ + \");\\n  }\\n  75%,\\n  100% {\\n    background-image: url(\" + ___CSS_LOADER_URL_REPLACEMENT_35___ + \"),\\n      url(\" + ___CSS_LOADER_URL_REPLACEMENT_34___ + \"), url(\" + ___CSS_LOADER_URL_REPLACEMENT_33___ + \"),\\n      url(\" + ___CSS_LOADER_URL_REPLACEMENT_32___ + \");\\n  }\\n}\\n\\n.chest {\\n  background-image: url(\" + ___CSS_LOADER_URL_REPLACEMENT_36___ + \");\\n}\\n\\n.route {\\n  background-image: url(\" + ___CSS_LOADER_URL_REPLACEMENT_37___ + \");\\n}\\n\\n.anchor {\\n  background-image: url(\" + ___CSS_LOADER_URL_REPLACEMENT_38___ + \");\\n}\\n\", \"\"]);\n// Exports\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);\n\n\n//# sourceURL=webpack://monkeys/./src/App.css?./node_modules/css-loader/dist/cjs.js");
 
 /***/ }),
 
@@ -316,6 +393,16 @@ eval("\n\n/* istanbul ignore next  */\nfunction styleTagTransform(css, style) {\
 
 /***/ }),
 
+/***/ "./src/images sync recursive ^\\.\\/.*\\.png$":
+/*!****************************************!*\
+  !*** ./src/images/ sync ^\.\/.*\.png$ ***!
+  \****************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+eval("var map = {\n\t\"./board_0.png\": \"./src/images/board_0.png\",\n\t\"./board_1.png\": \"./src/images/board_1.png\",\n\t\"./board_2.png\": \"./src/images/board_2.png\",\n\t\"./board_3.png\": \"./src/images/board_3.png\",\n\t\"./chest.png\": \"./src/images/chest.png\",\n\t\"./coconut_count_0.png\": \"./src/images/coconut_count_0.png\",\n\t\"./coconut_count_0_200.png\": \"./src/images/coconut_count_0_200.png\",\n\t\"./coconuts.png\": \"./src/images/coconuts.png\",\n\t\"./favicon.png\": \"./src/images/favicon.png\",\n\t\"./route.png\": \"./src/images/route.png\",\n\t\"./route_and_anchor.png\": \"./src/images/route_and_anchor.png\",\n\t\"./sea_background.png\": \"./src/images/sea_background.png\",\n\t\"./tiles/Monkeys_Tile_1.png\": \"./src/images/tiles/Monkeys_Tile_1.png\",\n\t\"./tiles/Monkeys_Tile_10.png\": \"./src/images/tiles/Monkeys_Tile_10.png\",\n\t\"./tiles/Monkeys_Tile_11.png\": \"./src/images/tiles/Monkeys_Tile_11.png\",\n\t\"./tiles/Monkeys_Tile_12.png\": \"./src/images/tiles/Monkeys_Tile_12.png\",\n\t\"./tiles/Monkeys_Tile_13.png\": \"./src/images/tiles/Monkeys_Tile_13.png\",\n\t\"./tiles/Monkeys_Tile_14.png\": \"./src/images/tiles/Monkeys_Tile_14.png\",\n\t\"./tiles/Monkeys_Tile_15.png\": \"./src/images/tiles/Monkeys_Tile_15.png\",\n\t\"./tiles/Monkeys_Tile_16.png\": \"./src/images/tiles/Monkeys_Tile_16.png\",\n\t\"./tiles/Monkeys_Tile_17.png\": \"./src/images/tiles/Monkeys_Tile_17.png\",\n\t\"./tiles/Monkeys_Tile_18.png\": \"./src/images/tiles/Monkeys_Tile_18.png\",\n\t\"./tiles/Monkeys_Tile_19.png\": \"./src/images/tiles/Monkeys_Tile_19.png\",\n\t\"./tiles/Monkeys_Tile_2.png\": \"./src/images/tiles/Monkeys_Tile_2.png\",\n\t\"./tiles/Monkeys_Tile_20.png\": \"./src/images/tiles/Monkeys_Tile_20.png\",\n\t\"./tiles/Monkeys_Tile_3.png\": \"./src/images/tiles/Monkeys_Tile_3.png\",\n\t\"./tiles/Monkeys_Tile_4.png\": \"./src/images/tiles/Monkeys_Tile_4.png\",\n\t\"./tiles/Monkeys_Tile_5.png\": \"./src/images/tiles/Monkeys_Tile_5.png\",\n\t\"./tiles/Monkeys_Tile_6.png\": \"./src/images/tiles/Monkeys_Tile_6.png\",\n\t\"./tiles/Monkeys_Tile_7.png\": \"./src/images/tiles/Monkeys_Tile_7.png\",\n\t\"./tiles/Monkeys_Tile_8.png\": \"./src/images/tiles/Monkeys_Tile_8.png\",\n\t\"./tiles/Monkeys_Tile_9.png\": \"./src/images/tiles/Monkeys_Tile_9.png\",\n\t\"./tiles_200/Monkeys_Tile_1.png\": \"./src/images/tiles_200/Monkeys_Tile_1.png\",\n\t\"./tiles_200/Monkeys_Tile_10.png\": \"./src/images/tiles_200/Monkeys_Tile_10.png\",\n\t\"./tiles_200/Monkeys_Tile_11.png\": \"./src/images/tiles_200/Monkeys_Tile_11.png\",\n\t\"./tiles_200/Monkeys_Tile_12.png\": \"./src/images/tiles_200/Monkeys_Tile_12.png\",\n\t\"./tiles_200/Monkeys_Tile_13.png\": \"./src/images/tiles_200/Monkeys_Tile_13.png\",\n\t\"./tiles_200/Monkeys_Tile_14.png\": \"./src/images/tiles_200/Monkeys_Tile_14.png\",\n\t\"./tiles_200/Monkeys_Tile_15.png\": \"./src/images/tiles_200/Monkeys_Tile_15.png\",\n\t\"./tiles_200/Monkeys_Tile_16.png\": \"./src/images/tiles_200/Monkeys_Tile_16.png\",\n\t\"./tiles_200/Monkeys_Tile_17.png\": \"./src/images/tiles_200/Monkeys_Tile_17.png\",\n\t\"./tiles_200/Monkeys_Tile_18.png\": \"./src/images/tiles_200/Monkeys_Tile_18.png\",\n\t\"./tiles_200/Monkeys_Tile_19.png\": \"./src/images/tiles_200/Monkeys_Tile_19.png\",\n\t\"./tiles_200/Monkeys_Tile_2.png\": \"./src/images/tiles_200/Monkeys_Tile_2.png\",\n\t\"./tiles_200/Monkeys_Tile_20.png\": \"./src/images/tiles_200/Monkeys_Tile_20.png\",\n\t\"./tiles_200/Monkeys_Tile_3.png\": \"./src/images/tiles_200/Monkeys_Tile_3.png\",\n\t\"./tiles_200/Monkeys_Tile_4.png\": \"./src/images/tiles_200/Monkeys_Tile_4.png\",\n\t\"./tiles_200/Monkeys_Tile_5.png\": \"./src/images/tiles_200/Monkeys_Tile_5.png\",\n\t\"./tiles_200/Monkeys_Tile_6.png\": \"./src/images/tiles_200/Monkeys_Tile_6.png\",\n\t\"./tiles_200/Monkeys_Tile_7.png\": \"./src/images/tiles_200/Monkeys_Tile_7.png\",\n\t\"./tiles_200/Monkeys_Tile_8.png\": \"./src/images/tiles_200/Monkeys_Tile_8.png\",\n\t\"./tiles_200/Monkeys_Tile_9.png\": \"./src/images/tiles_200/Monkeys_Tile_9.png\",\n\t\"./two_ships.png\": \"./src/images/two_ships.png\",\n\t\"./unused images/Blue_Icon.png\": \"./src/images/unused images/Blue_Icon.png\",\n\t\"./unused images/Blue_Icon_100.png\": \"./src/images/unused images/Blue_Icon_100.png\",\n\t\"./unused images/Monkeys_Tile_1.png\": \"./src/images/unused images/Monkeys_Tile_1.png\",\n\t\"./unused images/Monkeys_Tile_10.png\": \"./src/images/unused images/Monkeys_Tile_10.png\",\n\t\"./unused images/Monkeys_Tile_10_200.png\": \"./src/images/unused images/Monkeys_Tile_10_200.png\",\n\t\"./unused images/Monkeys_Tile_11.png\": \"./src/images/unused images/Monkeys_Tile_11.png\",\n\t\"./unused images/Monkeys_Tile_11_200.png\": \"./src/images/unused images/Monkeys_Tile_11_200.png\",\n\t\"./unused images/Monkeys_Tile_12.png\": \"./src/images/unused images/Monkeys_Tile_12.png\",\n\t\"./unused images/Monkeys_Tile_12_200.png\": \"./src/images/unused images/Monkeys_Tile_12_200.png\",\n\t\"./unused images/Monkeys_Tile_13.png\": \"./src/images/unused images/Monkeys_Tile_13.png\",\n\t\"./unused images/Monkeys_Tile_13_200.png\": \"./src/images/unused images/Monkeys_Tile_13_200.png\",\n\t\"./unused images/Monkeys_Tile_14.png\": \"./src/images/unused images/Monkeys_Tile_14.png\",\n\t\"./unused images/Monkeys_Tile_14_200.png\": \"./src/images/unused images/Monkeys_Tile_14_200.png\",\n\t\"./unused images/Monkeys_Tile_15.png\": \"./src/images/unused images/Monkeys_Tile_15.png\",\n\t\"./unused images/Monkeys_Tile_15_200.png\": \"./src/images/unused images/Monkeys_Tile_15_200.png\",\n\t\"./unused images/Monkeys_Tile_16.png\": \"./src/images/unused images/Monkeys_Tile_16.png\",\n\t\"./unused images/Monkeys_Tile_16_200.png\": \"./src/images/unused images/Monkeys_Tile_16_200.png\",\n\t\"./unused images/Monkeys_Tile_17.png\": \"./src/images/unused images/Monkeys_Tile_17.png\",\n\t\"./unused images/Monkeys_Tile_17_200.png\": \"./src/images/unused images/Monkeys_Tile_17_200.png\",\n\t\"./unused images/Monkeys_Tile_18.png\": \"./src/images/unused images/Monkeys_Tile_18.png\",\n\t\"./unused images/Monkeys_Tile_18_200.png\": \"./src/images/unused images/Monkeys_Tile_18_200.png\",\n\t\"./unused images/Monkeys_Tile_19.png\": \"./src/images/unused images/Monkeys_Tile_19.png\",\n\t\"./unused images/Monkeys_Tile_19_200.png\": \"./src/images/unused images/Monkeys_Tile_19_200.png\",\n\t\"./unused images/Monkeys_Tile_1_200.png\": \"./src/images/unused images/Monkeys_Tile_1_200.png\",\n\t\"./unused images/Monkeys_Tile_2.png\": \"./src/images/unused images/Monkeys_Tile_2.png\",\n\t\"./unused images/Monkeys_Tile_20.png\": \"./src/images/unused images/Monkeys_Tile_20.png\",\n\t\"./unused images/Monkeys_Tile_20_200.png\": \"./src/images/unused images/Monkeys_Tile_20_200.png\",\n\t\"./unused images/Monkeys_Tile_2_200.png\": \"./src/images/unused images/Monkeys_Tile_2_200.png\",\n\t\"./unused images/Monkeys_Tile_3.png\": \"./src/images/unused images/Monkeys_Tile_3.png\",\n\t\"./unused images/Monkeys_Tile_3_200.png\": \"./src/images/unused images/Monkeys_Tile_3_200.png\",\n\t\"./unused images/Monkeys_Tile_4.png\": \"./src/images/unused images/Monkeys_Tile_4.png\",\n\t\"./unused images/Monkeys_Tile_4_200.png\": \"./src/images/unused images/Monkeys_Tile_4_200.png\",\n\t\"./unused images/Monkeys_Tile_5.png\": \"./src/images/unused images/Monkeys_Tile_5.png\",\n\t\"./unused images/Monkeys_Tile_5_200.png\": \"./src/images/unused images/Monkeys_Tile_5_200.png\",\n\t\"./unused images/Monkeys_Tile_6.png\": \"./src/images/unused images/Monkeys_Tile_6.png\",\n\t\"./unused images/Monkeys_Tile_6_200.png\": \"./src/images/unused images/Monkeys_Tile_6_200.png\",\n\t\"./unused images/Monkeys_Tile_7.png\": \"./src/images/unused images/Monkeys_Tile_7.png\",\n\t\"./unused images/Monkeys_Tile_7_200.png\": \"./src/images/unused images/Monkeys_Tile_7_200.png\",\n\t\"./unused images/Monkeys_Tile_8.png\": \"./src/images/unused images/Monkeys_Tile_8.png\",\n\t\"./unused images/Monkeys_Tile_8_200.png\": \"./src/images/unused images/Monkeys_Tile_8_200.png\",\n\t\"./unused images/Monkeys_Tile_9.png\": \"./src/images/unused images/Monkeys_Tile_9.png\",\n\t\"./unused images/Monkeys_Tile_9_200.png\": \"./src/images/unused images/Monkeys_Tile_9_200.png\",\n\t\"./unused images/board_0.png\": \"./src/images/unused images/board_0.png\",\n\t\"./unused images/board_1.png\": \"./src/images/unused images/board_1.png\",\n\t\"./unused images/board_2.png\": \"./src/images/unused images/board_2.png\",\n\t\"./unused images/board_3.png\": \"./src/images/unused images/board_3.png\",\n\t\"./unused images/monkey_1.png\": \"./src/images/unused images/monkey_1.png\",\n\t\"./unused images/monkey_3.png\": \"./src/images/unused images/monkey_3.png\",\n\t\"./unused images/new_game_icon.png\": \"./src/images/unused images/new_game_icon.png\",\n\t\"./unused images/red_icon.png\": \"./src/images/unused images/red_icon.png\",\n\t\"./unused images/red_icon_100.png\": \"./src/images/unused images/red_icon_100.png\",\n\t\"./unused images/rules_icon.png\": \"./src/images/unused images/rules_icon.png\",\n\t\"./unused images/sea_background_200.png\": \"./src/images/unused images/sea_background_200.png\"\n};\n\n\nfunction webpackContext(req) {\n\tvar id = webpackContextResolve(req);\n\treturn __webpack_require__(id);\n}\nfunction webpackContextResolve(req) {\n\tif(!__webpack_require__.o(map, req)) {\n\t\tvar e = new Error(\"Cannot find module '\" + req + \"'\");\n\t\te.code = 'MODULE_NOT_FOUND';\n\t\tthrow e;\n\t}\n\treturn map[req];\n}\nwebpackContext.keys = function webpackContextKeys() {\n\treturn Object.keys(map);\n};\nwebpackContext.resolve = webpackContextResolve;\nmodule.exports = webpackContext;\nwebpackContext.id = \"./src/images sync recursive ^\\\\.\\\\/.*\\\\.png$\";\n\n//# sourceURL=webpack://monkeys/./src/images/_sync_^\\.\\/.*\\.png$?");
+
+/***/ }),
+
 /***/ "./src/images/blue_icon.svg":
 /*!**********************************!*\
   !*** ./src/images/blue_icon.svg ***!
@@ -382,6 +469,17 @@ eval("module.exports = __webpack_require__.p + \"5bc4c7fa6742937ac2e2.png\";\n\n
 
 /***/ }),
 
+/***/ "./src/images/coconut_count_0.png":
+/*!****************************************!*\
+  !*** ./src/images/coconut_count_0.png ***!
+  \****************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+eval("module.exports = __webpack_require__.p + \"c431ac6cbcd5a2b6f45e.png\";\n\n//# sourceURL=webpack://monkeys/./src/images/coconut_count_0.png?");
+
+/***/ }),
+
 /***/ "./src/images/coconut_count_0_200.png":
 /*!********************************************!*\
   !*** ./src/images/coconut_count_0_200.png ***!
@@ -434,6 +532,17 @@ eval("module.exports = __webpack_require__.p + \"17b9b5dccf963af1ce08.svg\";\n\n
 
 "use strict";
 eval("module.exports = __webpack_require__.p + \"9e2971661bc0d74b367c.png\";\n\n//# sourceURL=webpack://monkeys/./src/images/coconuts.png?");
+
+/***/ }),
+
+/***/ "./src/images/favicon.png":
+/*!********************************!*\
+  !*** ./src/images/favicon.png ***!
+  \********************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+eval("module.exports = __webpack_require__.p + \"48f8595c71614683f1ab.png\";\n\n//# sourceURL=webpack://monkeys/./src/images/favicon.png?");
 
 /***/ }),
 
@@ -522,6 +631,237 @@ eval("module.exports = __webpack_require__.p + \"69ca61273ffa52d3389b.svg\";\n\n
 
 "use strict";
 eval("module.exports = __webpack_require__.p + \"5d63d42e270ff9357514.svg\";\n\n//# sourceURL=webpack://monkeys/./src/images/sand_texture.svg?");
+
+/***/ }),
+
+/***/ "./src/images/sea_background.png":
+/*!***************************************!*\
+  !*** ./src/images/sea_background.png ***!
+  \***************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+eval("module.exports = __webpack_require__.p + \"8d1061ac7a9cb52d6e82.png\";\n\n//# sourceURL=webpack://monkeys/./src/images/sea_background.png?");
+
+/***/ }),
+
+/***/ "./src/images/tiles/Monkeys_Tile_1.png":
+/*!*********************************************!*\
+  !*** ./src/images/tiles/Monkeys_Tile_1.png ***!
+  \*********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+eval("module.exports = __webpack_require__.p + \"72949d3e124d8ae8d1cb.png\";\n\n//# sourceURL=webpack://monkeys/./src/images/tiles/Monkeys_Tile_1.png?");
+
+/***/ }),
+
+/***/ "./src/images/tiles/Monkeys_Tile_10.png":
+/*!**********************************************!*\
+  !*** ./src/images/tiles/Monkeys_Tile_10.png ***!
+  \**********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+eval("module.exports = __webpack_require__.p + \"cd52f6ab5e7f5c608420.png\";\n\n//# sourceURL=webpack://monkeys/./src/images/tiles/Monkeys_Tile_10.png?");
+
+/***/ }),
+
+/***/ "./src/images/tiles/Monkeys_Tile_11.png":
+/*!**********************************************!*\
+  !*** ./src/images/tiles/Monkeys_Tile_11.png ***!
+  \**********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+eval("module.exports = __webpack_require__.p + \"383cfbf7129e10341107.png\";\n\n//# sourceURL=webpack://monkeys/./src/images/tiles/Monkeys_Tile_11.png?");
+
+/***/ }),
+
+/***/ "./src/images/tiles/Monkeys_Tile_12.png":
+/*!**********************************************!*\
+  !*** ./src/images/tiles/Monkeys_Tile_12.png ***!
+  \**********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+eval("module.exports = __webpack_require__.p + \"50ef42309e91a522c158.png\";\n\n//# sourceURL=webpack://monkeys/./src/images/tiles/Monkeys_Tile_12.png?");
+
+/***/ }),
+
+/***/ "./src/images/tiles/Monkeys_Tile_13.png":
+/*!**********************************************!*\
+  !*** ./src/images/tiles/Monkeys_Tile_13.png ***!
+  \**********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+eval("module.exports = __webpack_require__.p + \"a9dc9cf42b4bc05711ce.png\";\n\n//# sourceURL=webpack://monkeys/./src/images/tiles/Monkeys_Tile_13.png?");
+
+/***/ }),
+
+/***/ "./src/images/tiles/Monkeys_Tile_14.png":
+/*!**********************************************!*\
+  !*** ./src/images/tiles/Monkeys_Tile_14.png ***!
+  \**********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+eval("module.exports = __webpack_require__.p + \"81c7522c8577952d5a26.png\";\n\n//# sourceURL=webpack://monkeys/./src/images/tiles/Monkeys_Tile_14.png?");
+
+/***/ }),
+
+/***/ "./src/images/tiles/Monkeys_Tile_15.png":
+/*!**********************************************!*\
+  !*** ./src/images/tiles/Monkeys_Tile_15.png ***!
+  \**********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+eval("module.exports = __webpack_require__.p + \"5bb9e4679032795ab4ee.png\";\n\n//# sourceURL=webpack://monkeys/./src/images/tiles/Monkeys_Tile_15.png?");
+
+/***/ }),
+
+/***/ "./src/images/tiles/Monkeys_Tile_16.png":
+/*!**********************************************!*\
+  !*** ./src/images/tiles/Monkeys_Tile_16.png ***!
+  \**********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+eval("module.exports = __webpack_require__.p + \"8336bc22fe362607c20b.png\";\n\n//# sourceURL=webpack://monkeys/./src/images/tiles/Monkeys_Tile_16.png?");
+
+/***/ }),
+
+/***/ "./src/images/tiles/Monkeys_Tile_17.png":
+/*!**********************************************!*\
+  !*** ./src/images/tiles/Monkeys_Tile_17.png ***!
+  \**********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+eval("module.exports = __webpack_require__.p + \"031efdf4229499ba3487.png\";\n\n//# sourceURL=webpack://monkeys/./src/images/tiles/Monkeys_Tile_17.png?");
+
+/***/ }),
+
+/***/ "./src/images/tiles/Monkeys_Tile_18.png":
+/*!**********************************************!*\
+  !*** ./src/images/tiles/Monkeys_Tile_18.png ***!
+  \**********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+eval("module.exports = __webpack_require__.p + \"576f86eee99a8fc59621.png\";\n\n//# sourceURL=webpack://monkeys/./src/images/tiles/Monkeys_Tile_18.png?");
+
+/***/ }),
+
+/***/ "./src/images/tiles/Monkeys_Tile_19.png":
+/*!**********************************************!*\
+  !*** ./src/images/tiles/Monkeys_Tile_19.png ***!
+  \**********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+eval("module.exports = __webpack_require__.p + \"3dd45ffb07ae72caf094.png\";\n\n//# sourceURL=webpack://monkeys/./src/images/tiles/Monkeys_Tile_19.png?");
+
+/***/ }),
+
+/***/ "./src/images/tiles/Monkeys_Tile_2.png":
+/*!*********************************************!*\
+  !*** ./src/images/tiles/Monkeys_Tile_2.png ***!
+  \*********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+eval("module.exports = __webpack_require__.p + \"781d540dbb759166736f.png\";\n\n//# sourceURL=webpack://monkeys/./src/images/tiles/Monkeys_Tile_2.png?");
+
+/***/ }),
+
+/***/ "./src/images/tiles/Monkeys_Tile_20.png":
+/*!**********************************************!*\
+  !*** ./src/images/tiles/Monkeys_Tile_20.png ***!
+  \**********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+eval("module.exports = __webpack_require__.p + \"3dc62100702dc6f3ab8f.png\";\n\n//# sourceURL=webpack://monkeys/./src/images/tiles/Monkeys_Tile_20.png?");
+
+/***/ }),
+
+/***/ "./src/images/tiles/Monkeys_Tile_3.png":
+/*!*********************************************!*\
+  !*** ./src/images/tiles/Monkeys_Tile_3.png ***!
+  \*********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+eval("module.exports = __webpack_require__.p + \"a0c8e5ba0cea893c4853.png\";\n\n//# sourceURL=webpack://monkeys/./src/images/tiles/Monkeys_Tile_3.png?");
+
+/***/ }),
+
+/***/ "./src/images/tiles/Monkeys_Tile_4.png":
+/*!*********************************************!*\
+  !*** ./src/images/tiles/Monkeys_Tile_4.png ***!
+  \*********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+eval("module.exports = __webpack_require__.p + \"4aacc5bd29f03896e746.png\";\n\n//# sourceURL=webpack://monkeys/./src/images/tiles/Monkeys_Tile_4.png?");
+
+/***/ }),
+
+/***/ "./src/images/tiles/Monkeys_Tile_5.png":
+/*!*********************************************!*\
+  !*** ./src/images/tiles/Monkeys_Tile_5.png ***!
+  \*********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+eval("module.exports = __webpack_require__.p + \"d103e94da2b4939721a5.png\";\n\n//# sourceURL=webpack://monkeys/./src/images/tiles/Monkeys_Tile_5.png?");
+
+/***/ }),
+
+/***/ "./src/images/tiles/Monkeys_Tile_6.png":
+/*!*********************************************!*\
+  !*** ./src/images/tiles/Monkeys_Tile_6.png ***!
+  \*********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+eval("module.exports = __webpack_require__.p + \"74249fdc9e6d9f2431d7.png\";\n\n//# sourceURL=webpack://monkeys/./src/images/tiles/Monkeys_Tile_6.png?");
+
+/***/ }),
+
+/***/ "./src/images/tiles/Monkeys_Tile_7.png":
+/*!*********************************************!*\
+  !*** ./src/images/tiles/Monkeys_Tile_7.png ***!
+  \*********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+eval("module.exports = __webpack_require__.p + \"a908968f82040ce9188b.png\";\n\n//# sourceURL=webpack://monkeys/./src/images/tiles/Monkeys_Tile_7.png?");
+
+/***/ }),
+
+/***/ "./src/images/tiles/Monkeys_Tile_8.png":
+/*!*********************************************!*\
+  !*** ./src/images/tiles/Monkeys_Tile_8.png ***!
+  \*********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+eval("module.exports = __webpack_require__.p + \"ce2278c7a1ee0099f434.png\";\n\n//# sourceURL=webpack://monkeys/./src/images/tiles/Monkeys_Tile_8.png?");
+
+/***/ }),
+
+/***/ "./src/images/tiles/Monkeys_Tile_9.png":
+/*!*********************************************!*\
+  !*** ./src/images/tiles/Monkeys_Tile_9.png ***!
+  \*********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+eval("module.exports = __webpack_require__.p + \"ba5c7e3626a05acb89de.png\";\n\n//# sourceURL=webpack://monkeys/./src/images/tiles/Monkeys_Tile_9.png?");
 
 /***/ }),
 
@@ -753,6 +1093,589 @@ eval("module.exports = __webpack_require__.p + \"79d0b045e6746c14cc48.png\";\n\n
 
 "use strict";
 eval("module.exports = __webpack_require__.p + \"7ad6039d7f17f2211830.png\";\n\n//# sourceURL=webpack://monkeys/./src/images/two_ships.png?");
+
+/***/ }),
+
+/***/ "./src/images/unused images/Blue_Icon.png":
+/*!************************************************!*\
+  !*** ./src/images/unused images/Blue_Icon.png ***!
+  \************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+eval("module.exports = __webpack_require__.p + \"c50b6f54da973bc71a62.png\";\n\n//# sourceURL=webpack://monkeys/./src/images/unused_images/Blue_Icon.png?");
+
+/***/ }),
+
+/***/ "./src/images/unused images/Blue_Icon_100.png":
+/*!****************************************************!*\
+  !*** ./src/images/unused images/Blue_Icon_100.png ***!
+  \****************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+eval("module.exports = __webpack_require__.p + \"f75fa59cf6edd73f3ccc.png\";\n\n//# sourceURL=webpack://monkeys/./src/images/unused_images/Blue_Icon_100.png?");
+
+/***/ }),
+
+/***/ "./src/images/unused images/Monkeys_Tile_1.png":
+/*!*****************************************************!*\
+  !*** ./src/images/unused images/Monkeys_Tile_1.png ***!
+  \*****************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+eval("module.exports = __webpack_require__.p + \"9e1a78259afe7e683da9.png\";\n\n//# sourceURL=webpack://monkeys/./src/images/unused_images/Monkeys_Tile_1.png?");
+
+/***/ }),
+
+/***/ "./src/images/unused images/Monkeys_Tile_10.png":
+/*!******************************************************!*\
+  !*** ./src/images/unused images/Monkeys_Tile_10.png ***!
+  \******************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+eval("module.exports = __webpack_require__.p + \"a98693888cbd51c43c93.png\";\n\n//# sourceURL=webpack://monkeys/./src/images/unused_images/Monkeys_Tile_10.png?");
+
+/***/ }),
+
+/***/ "./src/images/unused images/Monkeys_Tile_10_200.png":
+/*!**********************************************************!*\
+  !*** ./src/images/unused images/Monkeys_Tile_10_200.png ***!
+  \**********************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+eval("module.exports = __webpack_require__.p + \"cc242c7307310d4dfe75.png\";\n\n//# sourceURL=webpack://monkeys/./src/images/unused_images/Monkeys_Tile_10_200.png?");
+
+/***/ }),
+
+/***/ "./src/images/unused images/Monkeys_Tile_11.png":
+/*!******************************************************!*\
+  !*** ./src/images/unused images/Monkeys_Tile_11.png ***!
+  \******************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+eval("module.exports = __webpack_require__.p + \"a6216af9a93846187319.png\";\n\n//# sourceURL=webpack://monkeys/./src/images/unused_images/Monkeys_Tile_11.png?");
+
+/***/ }),
+
+/***/ "./src/images/unused images/Monkeys_Tile_11_200.png":
+/*!**********************************************************!*\
+  !*** ./src/images/unused images/Monkeys_Tile_11_200.png ***!
+  \**********************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+eval("module.exports = __webpack_require__.p + \"5ad7630c15367fcd66e3.png\";\n\n//# sourceURL=webpack://monkeys/./src/images/unused_images/Monkeys_Tile_11_200.png?");
+
+/***/ }),
+
+/***/ "./src/images/unused images/Monkeys_Tile_12.png":
+/*!******************************************************!*\
+  !*** ./src/images/unused images/Monkeys_Tile_12.png ***!
+  \******************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+eval("module.exports = __webpack_require__.p + \"7708b5941e82e04f5481.png\";\n\n//# sourceURL=webpack://monkeys/./src/images/unused_images/Monkeys_Tile_12.png?");
+
+/***/ }),
+
+/***/ "./src/images/unused images/Monkeys_Tile_12_200.png":
+/*!**********************************************************!*\
+  !*** ./src/images/unused images/Monkeys_Tile_12_200.png ***!
+  \**********************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+eval("module.exports = __webpack_require__.p + \"3e2f7b41382ee898d8b0.png\";\n\n//# sourceURL=webpack://monkeys/./src/images/unused_images/Monkeys_Tile_12_200.png?");
+
+/***/ }),
+
+/***/ "./src/images/unused images/Monkeys_Tile_13.png":
+/*!******************************************************!*\
+  !*** ./src/images/unused images/Monkeys_Tile_13.png ***!
+  \******************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+eval("module.exports = __webpack_require__.p + \"77d5a2612c52f26f1426.png\";\n\n//# sourceURL=webpack://monkeys/./src/images/unused_images/Monkeys_Tile_13.png?");
+
+/***/ }),
+
+/***/ "./src/images/unused images/Monkeys_Tile_13_200.png":
+/*!**********************************************************!*\
+  !*** ./src/images/unused images/Monkeys_Tile_13_200.png ***!
+  \**********************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+eval("module.exports = __webpack_require__.p + \"9d54729ab60ade207545.png\";\n\n//# sourceURL=webpack://monkeys/./src/images/unused_images/Monkeys_Tile_13_200.png?");
+
+/***/ }),
+
+/***/ "./src/images/unused images/Monkeys_Tile_14.png":
+/*!******************************************************!*\
+  !*** ./src/images/unused images/Monkeys_Tile_14.png ***!
+  \******************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+eval("module.exports = __webpack_require__.p + \"06fe3333648ae3570114.png\";\n\n//# sourceURL=webpack://monkeys/./src/images/unused_images/Monkeys_Tile_14.png?");
+
+/***/ }),
+
+/***/ "./src/images/unused images/Monkeys_Tile_14_200.png":
+/*!**********************************************************!*\
+  !*** ./src/images/unused images/Monkeys_Tile_14_200.png ***!
+  \**********************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+eval("module.exports = __webpack_require__.p + \"4b784c323101cac97497.png\";\n\n//# sourceURL=webpack://monkeys/./src/images/unused_images/Monkeys_Tile_14_200.png?");
+
+/***/ }),
+
+/***/ "./src/images/unused images/Monkeys_Tile_15.png":
+/*!******************************************************!*\
+  !*** ./src/images/unused images/Monkeys_Tile_15.png ***!
+  \******************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+eval("module.exports = __webpack_require__.p + \"e215cea87dc3635bc032.png\";\n\n//# sourceURL=webpack://monkeys/./src/images/unused_images/Monkeys_Tile_15.png?");
+
+/***/ }),
+
+/***/ "./src/images/unused images/Monkeys_Tile_15_200.png":
+/*!**********************************************************!*\
+  !*** ./src/images/unused images/Monkeys_Tile_15_200.png ***!
+  \**********************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+eval("module.exports = __webpack_require__.p + \"cbf9913770104880147f.png\";\n\n//# sourceURL=webpack://monkeys/./src/images/unused_images/Monkeys_Tile_15_200.png?");
+
+/***/ }),
+
+/***/ "./src/images/unused images/Monkeys_Tile_16.png":
+/*!******************************************************!*\
+  !*** ./src/images/unused images/Monkeys_Tile_16.png ***!
+  \******************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+eval("module.exports = __webpack_require__.p + \"502d298d68b7c6af2b89.png\";\n\n//# sourceURL=webpack://monkeys/./src/images/unused_images/Monkeys_Tile_16.png?");
+
+/***/ }),
+
+/***/ "./src/images/unused images/Monkeys_Tile_16_200.png":
+/*!**********************************************************!*\
+  !*** ./src/images/unused images/Monkeys_Tile_16_200.png ***!
+  \**********************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+eval("module.exports = __webpack_require__.p + \"a5c3c48f8cc1b6f016f9.png\";\n\n//# sourceURL=webpack://monkeys/./src/images/unused_images/Monkeys_Tile_16_200.png?");
+
+/***/ }),
+
+/***/ "./src/images/unused images/Monkeys_Tile_17.png":
+/*!******************************************************!*\
+  !*** ./src/images/unused images/Monkeys_Tile_17.png ***!
+  \******************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+eval("module.exports = __webpack_require__.p + \"d7cf098ed2ca0bbefabe.png\";\n\n//# sourceURL=webpack://monkeys/./src/images/unused_images/Monkeys_Tile_17.png?");
+
+/***/ }),
+
+/***/ "./src/images/unused images/Monkeys_Tile_17_200.png":
+/*!**********************************************************!*\
+  !*** ./src/images/unused images/Monkeys_Tile_17_200.png ***!
+  \**********************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+eval("module.exports = __webpack_require__.p + \"40333c6de421f480c85d.png\";\n\n//# sourceURL=webpack://monkeys/./src/images/unused_images/Monkeys_Tile_17_200.png?");
+
+/***/ }),
+
+/***/ "./src/images/unused images/Monkeys_Tile_18.png":
+/*!******************************************************!*\
+  !*** ./src/images/unused images/Monkeys_Tile_18.png ***!
+  \******************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+eval("module.exports = __webpack_require__.p + \"889e1cd0b0540d309903.png\";\n\n//# sourceURL=webpack://monkeys/./src/images/unused_images/Monkeys_Tile_18.png?");
+
+/***/ }),
+
+/***/ "./src/images/unused images/Monkeys_Tile_18_200.png":
+/*!**********************************************************!*\
+  !*** ./src/images/unused images/Monkeys_Tile_18_200.png ***!
+  \**********************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+eval("module.exports = __webpack_require__.p + \"98a3b89109cf7b7add36.png\";\n\n//# sourceURL=webpack://monkeys/./src/images/unused_images/Monkeys_Tile_18_200.png?");
+
+/***/ }),
+
+/***/ "./src/images/unused images/Monkeys_Tile_19.png":
+/*!******************************************************!*\
+  !*** ./src/images/unused images/Monkeys_Tile_19.png ***!
+  \******************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+eval("module.exports = __webpack_require__.p + \"a2de952f9edb9d4b12db.png\";\n\n//# sourceURL=webpack://monkeys/./src/images/unused_images/Monkeys_Tile_19.png?");
+
+/***/ }),
+
+/***/ "./src/images/unused images/Monkeys_Tile_19_200.png":
+/*!**********************************************************!*\
+  !*** ./src/images/unused images/Monkeys_Tile_19_200.png ***!
+  \**********************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+eval("module.exports = __webpack_require__.p + \"92809b74679f0dba572a.png\";\n\n//# sourceURL=webpack://monkeys/./src/images/unused_images/Monkeys_Tile_19_200.png?");
+
+/***/ }),
+
+/***/ "./src/images/unused images/Monkeys_Tile_1_200.png":
+/*!*********************************************************!*\
+  !*** ./src/images/unused images/Monkeys_Tile_1_200.png ***!
+  \*********************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+eval("module.exports = __webpack_require__.p + \"a0e1a27f2679a8a11744.png\";\n\n//# sourceURL=webpack://monkeys/./src/images/unused_images/Monkeys_Tile_1_200.png?");
+
+/***/ }),
+
+/***/ "./src/images/unused images/Monkeys_Tile_2.png":
+/*!*****************************************************!*\
+  !*** ./src/images/unused images/Monkeys_Tile_2.png ***!
+  \*****************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+eval("module.exports = __webpack_require__.p + \"242a2435a1cadeb57bc5.png\";\n\n//# sourceURL=webpack://monkeys/./src/images/unused_images/Monkeys_Tile_2.png?");
+
+/***/ }),
+
+/***/ "./src/images/unused images/Monkeys_Tile_20.png":
+/*!******************************************************!*\
+  !*** ./src/images/unused images/Monkeys_Tile_20.png ***!
+  \******************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+eval("module.exports = __webpack_require__.p + \"36c575010ef4250d6725.png\";\n\n//# sourceURL=webpack://monkeys/./src/images/unused_images/Monkeys_Tile_20.png?");
+
+/***/ }),
+
+/***/ "./src/images/unused images/Monkeys_Tile_20_200.png":
+/*!**********************************************************!*\
+  !*** ./src/images/unused images/Monkeys_Tile_20_200.png ***!
+  \**********************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+eval("module.exports = __webpack_require__.p + \"ebc421637e45ffcf160f.png\";\n\n//# sourceURL=webpack://monkeys/./src/images/unused_images/Monkeys_Tile_20_200.png?");
+
+/***/ }),
+
+/***/ "./src/images/unused images/Monkeys_Tile_2_200.png":
+/*!*********************************************************!*\
+  !*** ./src/images/unused images/Monkeys_Tile_2_200.png ***!
+  \*********************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+eval("module.exports = __webpack_require__.p + \"91c16833774caa3fb205.png\";\n\n//# sourceURL=webpack://monkeys/./src/images/unused_images/Monkeys_Tile_2_200.png?");
+
+/***/ }),
+
+/***/ "./src/images/unused images/Monkeys_Tile_3.png":
+/*!*****************************************************!*\
+  !*** ./src/images/unused images/Monkeys_Tile_3.png ***!
+  \*****************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+eval("module.exports = __webpack_require__.p + \"2b46f21b592fc995b060.png\";\n\n//# sourceURL=webpack://monkeys/./src/images/unused_images/Monkeys_Tile_3.png?");
+
+/***/ }),
+
+/***/ "./src/images/unused images/Monkeys_Tile_3_200.png":
+/*!*********************************************************!*\
+  !*** ./src/images/unused images/Monkeys_Tile_3_200.png ***!
+  \*********************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+eval("module.exports = __webpack_require__.p + \"a02843945d5d3a26e76e.png\";\n\n//# sourceURL=webpack://monkeys/./src/images/unused_images/Monkeys_Tile_3_200.png?");
+
+/***/ }),
+
+/***/ "./src/images/unused images/Monkeys_Tile_4.png":
+/*!*****************************************************!*\
+  !*** ./src/images/unused images/Monkeys_Tile_4.png ***!
+  \*****************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+eval("module.exports = __webpack_require__.p + \"187c69d8e4c09d886811.png\";\n\n//# sourceURL=webpack://monkeys/./src/images/unused_images/Monkeys_Tile_4.png?");
+
+/***/ }),
+
+/***/ "./src/images/unused images/Monkeys_Tile_4_200.png":
+/*!*********************************************************!*\
+  !*** ./src/images/unused images/Monkeys_Tile_4_200.png ***!
+  \*********************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+eval("module.exports = __webpack_require__.p + \"09d29243bd38242f6b89.png\";\n\n//# sourceURL=webpack://monkeys/./src/images/unused_images/Monkeys_Tile_4_200.png?");
+
+/***/ }),
+
+/***/ "./src/images/unused images/Monkeys_Tile_5.png":
+/*!*****************************************************!*\
+  !*** ./src/images/unused images/Monkeys_Tile_5.png ***!
+  \*****************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+eval("module.exports = __webpack_require__.p + \"5562a60fe403e61feffb.png\";\n\n//# sourceURL=webpack://monkeys/./src/images/unused_images/Monkeys_Tile_5.png?");
+
+/***/ }),
+
+/***/ "./src/images/unused images/Monkeys_Tile_5_200.png":
+/*!*********************************************************!*\
+  !*** ./src/images/unused images/Monkeys_Tile_5_200.png ***!
+  \*********************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+eval("module.exports = __webpack_require__.p + \"ab976546452fb3991e82.png\";\n\n//# sourceURL=webpack://monkeys/./src/images/unused_images/Monkeys_Tile_5_200.png?");
+
+/***/ }),
+
+/***/ "./src/images/unused images/Monkeys_Tile_6.png":
+/*!*****************************************************!*\
+  !*** ./src/images/unused images/Monkeys_Tile_6.png ***!
+  \*****************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+eval("module.exports = __webpack_require__.p + \"c86179cf544fa6e63673.png\";\n\n//# sourceURL=webpack://monkeys/./src/images/unused_images/Monkeys_Tile_6.png?");
+
+/***/ }),
+
+/***/ "./src/images/unused images/Monkeys_Tile_6_200.png":
+/*!*********************************************************!*\
+  !*** ./src/images/unused images/Monkeys_Tile_6_200.png ***!
+  \*********************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+eval("module.exports = __webpack_require__.p + \"df2934f228b851eed89c.png\";\n\n//# sourceURL=webpack://monkeys/./src/images/unused_images/Monkeys_Tile_6_200.png?");
+
+/***/ }),
+
+/***/ "./src/images/unused images/Monkeys_Tile_7.png":
+/*!*****************************************************!*\
+  !*** ./src/images/unused images/Monkeys_Tile_7.png ***!
+  \*****************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+eval("module.exports = __webpack_require__.p + \"b84bed64bc4aa2f6e323.png\";\n\n//# sourceURL=webpack://monkeys/./src/images/unused_images/Monkeys_Tile_7.png?");
+
+/***/ }),
+
+/***/ "./src/images/unused images/Monkeys_Tile_7_200.png":
+/*!*********************************************************!*\
+  !*** ./src/images/unused images/Monkeys_Tile_7_200.png ***!
+  \*********************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+eval("module.exports = __webpack_require__.p + \"51c33cac0e077b355aad.png\";\n\n//# sourceURL=webpack://monkeys/./src/images/unused_images/Monkeys_Tile_7_200.png?");
+
+/***/ }),
+
+/***/ "./src/images/unused images/Monkeys_Tile_8.png":
+/*!*****************************************************!*\
+  !*** ./src/images/unused images/Monkeys_Tile_8.png ***!
+  \*****************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+eval("module.exports = __webpack_require__.p + \"0c994cb9289b91f2cb85.png\";\n\n//# sourceURL=webpack://monkeys/./src/images/unused_images/Monkeys_Tile_8.png?");
+
+/***/ }),
+
+/***/ "./src/images/unused images/Monkeys_Tile_8_200.png":
+/*!*********************************************************!*\
+  !*** ./src/images/unused images/Monkeys_Tile_8_200.png ***!
+  \*********************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+eval("module.exports = __webpack_require__.p + \"78c4c90ce40b46ecf56e.png\";\n\n//# sourceURL=webpack://monkeys/./src/images/unused_images/Monkeys_Tile_8_200.png?");
+
+/***/ }),
+
+/***/ "./src/images/unused images/Monkeys_Tile_9.png":
+/*!*****************************************************!*\
+  !*** ./src/images/unused images/Monkeys_Tile_9.png ***!
+  \*****************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+eval("module.exports = __webpack_require__.p + \"03215ebbb451f1c24856.png\";\n\n//# sourceURL=webpack://monkeys/./src/images/unused_images/Monkeys_Tile_9.png?");
+
+/***/ }),
+
+/***/ "./src/images/unused images/Monkeys_Tile_9_200.png":
+/*!*********************************************************!*\
+  !*** ./src/images/unused images/Monkeys_Tile_9_200.png ***!
+  \*********************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+eval("module.exports = __webpack_require__.p + \"b4421f2bd33548a2ba01.png\";\n\n//# sourceURL=webpack://monkeys/./src/images/unused_images/Monkeys_Tile_9_200.png?");
+
+/***/ }),
+
+/***/ "./src/images/unused images/board_0.png":
+/*!**********************************************!*\
+  !*** ./src/images/unused images/board_0.png ***!
+  \**********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+eval("module.exports = __webpack_require__.p + \"e3e53b180f9cbf7943cb.png\";\n\n//# sourceURL=webpack://monkeys/./src/images/unused_images/board_0.png?");
+
+/***/ }),
+
+/***/ "./src/images/unused images/board_1.png":
+/*!**********************************************!*\
+  !*** ./src/images/unused images/board_1.png ***!
+  \**********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+eval("module.exports = __webpack_require__.p + \"586f25b570d81911e256.png\";\n\n//# sourceURL=webpack://monkeys/./src/images/unused_images/board_1.png?");
+
+/***/ }),
+
+/***/ "./src/images/unused images/board_2.png":
+/*!**********************************************!*\
+  !*** ./src/images/unused images/board_2.png ***!
+  \**********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+eval("module.exports = __webpack_require__.p + \"342d16572df38e19d186.png\";\n\n//# sourceURL=webpack://monkeys/./src/images/unused_images/board_2.png?");
+
+/***/ }),
+
+/***/ "./src/images/unused images/board_3.png":
+/*!**********************************************!*\
+  !*** ./src/images/unused images/board_3.png ***!
+  \**********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+eval("module.exports = __webpack_require__.p + \"71745ccd64609f354e28.png\";\n\n//# sourceURL=webpack://monkeys/./src/images/unused_images/board_3.png?");
+
+/***/ }),
+
+/***/ "./src/images/unused images/monkey_1.png":
+/*!***********************************************!*\
+  !*** ./src/images/unused images/monkey_1.png ***!
+  \***********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+eval("module.exports = __webpack_require__.p + \"2d219d8f56f2cb0e083b.png\";\n\n//# sourceURL=webpack://monkeys/./src/images/unused_images/monkey_1.png?");
+
+/***/ }),
+
+/***/ "./src/images/unused images/monkey_3.png":
+/*!***********************************************!*\
+  !*** ./src/images/unused images/monkey_3.png ***!
+  \***********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+eval("module.exports = __webpack_require__.p + \"e25c6496f59aa7a1f65b.png\";\n\n//# sourceURL=webpack://monkeys/./src/images/unused_images/monkey_3.png?");
+
+/***/ }),
+
+/***/ "./src/images/unused images/new_game_icon.png":
+/*!****************************************************!*\
+  !*** ./src/images/unused images/new_game_icon.png ***!
+  \****************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+eval("module.exports = __webpack_require__.p + \"a16d883701bb23ac91a3.png\";\n\n//# sourceURL=webpack://monkeys/./src/images/unused_images/new_game_icon.png?");
+
+/***/ }),
+
+/***/ "./src/images/unused images/red_icon.png":
+/*!***********************************************!*\
+  !*** ./src/images/unused images/red_icon.png ***!
+  \***********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+eval("module.exports = __webpack_require__.p + \"f8a72a2530a5569f6076.png\";\n\n//# sourceURL=webpack://monkeys/./src/images/unused_images/red_icon.png?");
+
+/***/ }),
+
+/***/ "./src/images/unused images/red_icon_100.png":
+/*!***************************************************!*\
+  !*** ./src/images/unused images/red_icon_100.png ***!
+  \***************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+eval("module.exports = __webpack_require__.p + \"f5d1917bb59f93fb745b.png\";\n\n//# sourceURL=webpack://monkeys/./src/images/unused_images/red_icon_100.png?");
+
+/***/ }),
+
+/***/ "./src/images/unused images/rules_icon.png":
+/*!*************************************************!*\
+  !*** ./src/images/unused images/rules_icon.png ***!
+  \*************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+eval("module.exports = __webpack_require__.p + \"e8744b2440ee592279ef.png\";\n\n//# sourceURL=webpack://monkeys/./src/images/unused_images/rules_icon.png?");
+
+/***/ }),
+
+/***/ "./src/images/unused images/sea_background_200.png":
+/*!*********************************************************!*\
+  !*** ./src/images/unused images/sea_background_200.png ***!
+  \*********************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+eval("module.exports = __webpack_require__.p + \"93d1087e9827a8f50874.png\";\n\n//# sourceURL=webpack://monkeys/./src/images/unused_images/sea_background_200.png?");
 
 /***/ }),
 
