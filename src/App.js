@@ -70,9 +70,8 @@ function Game() {
   );
 
   React.useEffect(() => {
-    window.localStorage.setItem('gameState', JSON.stringify(gameState))
-  }, [gameState]
-)
+    window.localStorage.setItem("gameState", JSON.stringify(gameState));
+  }, [gameState]);
 
   const handleDrop = (event, flatIndex) => {
     event.target.style["background-color"] = "transparent";
