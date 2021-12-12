@@ -371,7 +371,7 @@ img {
   margin: 20px;
 }
 
-.illustration {
+.rules-animation {
   display: flex;
   flex-direction: column;
   flex: 1;
@@ -428,7 +428,7 @@ img {
   }
 }
 
-.coconuts {
+.coconut-count {
   animation: coconuts-animation 6s;
   animation-timing-function: step-end;
   animation-fill-mode: forwards;
