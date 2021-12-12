@@ -7,10 +7,14 @@ body {
   font-size: 4vh; /* fallback (if clamp is not supported) */
   font-weight: bold;
   font-family: Verdana, Geneva, sans-serif;
+
   --square-diameter: 50px; /* fallback fallback (if clamp and vmin are not supported) */
+  /* stylelint-disable-next-line declaration-block-no-duplicate-custom-properties */
   --square-diameter: 17vmin; /* fallback (if clamp is not supported) */
+
   vertical-align: middle;
-  background: linear-gradient(rgba(242, 234, 150, 0.5), rgba(217, 200, 43, 0.5)),
+  background:
+    linear-gradient(rgba(242, 234, 150, 0.5), rgba(217, 200, 43, 0.5)),
     url("./images/sand_texture.svg");
   background-attachment: fixed;
 }
@@ -18,6 +22,7 @@ body {
 @supports (width: clamp(40px, 17vmin, 100px)) {
   body {
     --square-diameter: clamp(40px, 17vmin, 100px);
+
     font-size: clamp(10px, 4vh, 32px);
   }
 }
@@ -54,7 +59,8 @@ button:focus {
   height: calc(var(--square-diameter) * 5);
   border: 3px rgb(150, 200, 230) solid;
   border-radius: 10px;
-  background: linear-gradient(
+  background:
+    linear-gradient(
       rgba(150, 200, 230, 0.5),
       rgba(150, 200, 230, 0.5)
     ),
@@ -83,121 +89,141 @@ button:focus {
 }
 
 .square.filled.tile0 {
-  background: url("./images/tiles_200/Monkeys_Tile_1.png"),
+  background:
+    url("./images/tiles_200/Monkeys_Tile_1.png"),
     url("./images/waves.svg");
   background-size: contain, auto;
 }
 
 .square.filled.tile1 {
-  background: url("./images/tiles_200/Monkeys_Tile_2.png"),
+  background:
+    url("./images/tiles_200/Monkeys_Tile_2.png"),
     url("./images/waves.svg");
   background-size: contain, auto;
 }
 
 .square.filled.tile2 {
-  background: url("./images/tiles_200/Monkeys_Tile_3.png"),
+  background:
+    url("./images/tiles_200/Monkeys_Tile_3.png"),
     url("./images/waves.svg");
   background-size: contain, auto;
 }
 
 .square.filled.tile3 {
-  background: url("./images/tiles_200/Monkeys_Tile_4.png"),
+  background:
+    url("./images/tiles_200/Monkeys_Tile_4.png"),
     url("./images/waves.svg");
   background-size: contain, auto;
 }
 
 .square.filled.tile4 {
-  background: url("./images/tiles_200/Monkeys_Tile_5.png"),
+  background:
+    url("./images/tiles_200/Monkeys_Tile_5.png"),
     url("./images/waves.svg");
   background-size: contain, auto;
 }
 
 .square.filled.tile5 {
-  background: url("./images/tiles_200/Monkeys_Tile_6.png"),
+  background:
+    url("./images/tiles_200/Monkeys_Tile_6.png"),
     url("./images/waves.svg");
   background-size: contain, auto;
 }
 
 .square.filled.tile6 {
-  background: url("./images/tiles_200/Monkeys_Tile_7.png"),
+  background:
+    url("./images/tiles_200/Monkeys_Tile_7.png"),
     url("./images/waves.svg");
   background-size: contain, auto;
 }
 
 .square.filled.tile7 {
-  background: url("./images/tiles_200/Monkeys_Tile_8.png"),
+  background:
+    url("./images/tiles_200/Monkeys_Tile_8.png"),
     url("./images/waves.svg");
   background-size: contain, auto;
 }
 
 .square.filled.tile8 {
-  background: url("./images/tiles_200/Monkeys_Tile_9.png"),
+  background:
+    url("./images/tiles_200/Monkeys_Tile_9.png"),
     url("./images/waves.svg");
   background-size: contain, auto;
 }
 
 .square.filled.tile9 {
-  background: url("./images/tiles_200/Monkeys_Tile_10.png"),
+  background:
+    url("./images/tiles_200/Monkeys_Tile_10.png"),
     url("./images/waves.svg");
   background-size: contain, auto;
 }
 
 .square.filled.tile10 {
-  background: url("./images/tiles_200/Monkeys_Tile_11.png"),
+  background:
+    url("./images/tiles_200/Monkeys_Tile_11.png"),
     url("./images/waves.svg");
   background-size: contain, auto;
 }
 
 .square.filled.tile11 {
-  background: url("./images/tiles_200/Monkeys_Tile_12.png"),
+  background:
+    url("./images/tiles_200/Monkeys_Tile_12.png"),
     url("./images/waves.svg");
   background-size: contain, auto;
 }
 
 .square.filled.tile12 {
-  background: url("./images/tiles_200/Monkeys_Tile_13.png"),
+  background:
+    url("./images/tiles_200/Monkeys_Tile_13.png"),
     url("./images/waves.svg");
   background-size: contain, auto;
 }
 
 .square.filled.tile13 {
-  background: url("./images/tiles_200/Monkeys_Tile_14.png"),
+  background:
+    url("./images/tiles_200/Monkeys_Tile_14.png"),
     url("./images/waves.svg");
   background-size: contain, auto;
 }
 
 .square.filled.tile14 {
-  background: url("./images/tiles_200/Monkeys_Tile_15.png"),
+  background:
+    url("./images/tiles_200/Monkeys_Tile_15.png"),
     url("./images/waves.svg");
   background-size: contain, auto;
 }
 
 .square.filled.tile15 {
-  background: url("./images/tiles_200/Monkeys_Tile_16.png"),
+  background:
+    url("./images/tiles_200/Monkeys_Tile_16.png"),
     url("./images/waves.svg");
   background-size: contain, auto;
 }
 
 .square.filled.tile16 {
-  background: url("./images/tiles_200/Monkeys_Tile_17.png"),
+  background:
+    url("./images/tiles_200/Monkeys_Tile_17.png"),
     url("./images/waves.svg");
   background-size: contain, auto;
 }
 
 .square.filled.tile17 {
-  background: url("./images/tiles_200/Monkeys_Tile_18.png"),
+  background:
+    url("./images/tiles_200/Monkeys_Tile_18.png"),
     url("./images/waves.svg");
   background-size: contain, auto;
 }
 
 .square.filled.tile18 {
-  background: url("./images/tiles_200/Monkeys_Tile_19.png"),
+  background:
+    url("./images/tiles_200/Monkeys_Tile_19.png"),
     url("./images/waves.svg");
   background-size: contain, auto;
 }
 
 .square.filled.tile19 {
-  background: url("./images/tiles_200/Monkeys_Tile_20.png"),
+  background:
+    url("./images/tiles_200/Monkeys_Tile_20.png"),
     url("./images/waves.svg");
   background-size: contain, auto;
 }
@@ -223,11 +249,6 @@ button:focus {
   display: flex;
   flex-direction: column;
   position: relative;
-  /* margin: 3px 0 0 10px; */
-}
-
-#off-board > * {
-  /* margin: 0 0 10px 10px; */
 }
 
 .score {
@@ -414,17 +435,25 @@ img {
   0% {
     background-image: url("./images/board_0.png");
   }
+
   25% {
     background-image: url("./images/board_1.png"), url("./images/board_0.png");
   }
+
   50% {
-    background-image: url("./images/board_2.png"), url("./images/board_1.png"),
+    background-image:
+      url("./images/board_2.png"),
+      url("./images/board_1.png"),
       url("./images/board_0.png");
   }
+
   75%,
   100% {
-    background-image: url("./images/board_3.png"), url("./images/board_2.png"),
-      url("./images/board_1.png"), url("./images/board_0.png");
+    background-image:
+      url("./images/board_3.png"),
+      url("./images/board_2.png"),
+      url("./images/board_1.png"),
+      url("./images/board_0.png");
   }
 }
 
@@ -438,19 +467,26 @@ img {
   0% {
     background-image: url("./images/coconut_count_0_200.png");
   }
+
   25% {
-    background-image: url("./images/coconut_count_1.svg"),
-      url("./images/coconut_count_0_200.png");
-  }
-  50% {
-    background-image: url("./images/coconut_count_2.svg"),
+    background-image:
       url("./images/coconut_count_1.svg"),
       url("./images/coconut_count_0_200.png");
   }
+
+  50% {
+    background-image:
+      url("./images/coconut_count_2.svg"),
+      url("./images/coconut_count_1.svg"),
+      url("./images/coconut_count_0_200.png");
+  }
+
   75%,
   100% {
-    background-image: url("./images/coconut_count_3.svg"),
-      url("./images/coconut_count_2.svg"), url("./images/coconut_count_1.svg"),
+    background-image:
+      url("./images/coconut_count_3.svg"),
+      url("./images/coconut_count_2.svg"),
+      url("./images/coconut_count_1.svg"),
       url("./images/coconut_count_0_200.png");
   }
 }
