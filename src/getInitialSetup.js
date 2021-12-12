@@ -3,10 +3,10 @@ import { shuffleArray } from "./shuffleArray";
 import { tiles, BoardRoute } from "./tiles.js";
 
 
-export function getInitialSetup(numRows, numColumns) {
+export function getInitialSetup({numRows, numColumns}) {
+
   // Shuffle the tiles
-  let remainingTileIDs = Object.keys(tiles);
-  shuffleArray(remainingTileIDs);
+  const remainingTileIDs = shuffleArray(Object.keys(tiles));
 
   // Draw 4 tiles for the starting board
   const initialTiles = remainingTileIDs.splice(0, 4);
@@ -42,5 +42,9 @@ export function getInitialSetup(numRows, numColumns) {
     }
   });
 
-  return [remainingTileIDs, startingBoard, startingRoutes];
+return  {
+    remainingTileIDs: remainingTileIDs,
+    played: startingBoard,
+    routes: startingRoutes
+  }
 }

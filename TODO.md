@@ -12,6 +12,13 @@
 - make rules swipe-able on mobile
 - check color accessibility
 
+thoughts about reducer
+- easier to test than a custom hook because don't set state under the hood
+- suprised that calls dispatch twice--this only happens in dev mode (to make side effects more apparent)
+
+ref
+- placed in the component where was needed instead of at the top level
+
 ---
 
 

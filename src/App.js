@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 import "./App.css";
 
@@ -15,77 +15,96 @@ import { getInitialSetup } from "./getInitialSetup";
 function Game() {
   const numRows = 9;
   const numColumns = 7;
-  const [startingTileIDs, startingBoard, startingRoutes] = getInitialSetup(
-    numRows,
-    numColumns
-  );
 
-  const [remainingTileIDs, setRemainingTileIDs] = useState(startingTileIDs);
-  const [played, setPlayed] = useState(startingBoard);
-  const [routes, setRoutes] = useState(startingRoutes);
-  const [showRules, setShowRules] = useState(false);
+  const [showRules, setShowRules] = React.useState(false);
 
-  function handleNewGame() {
-    const [startingTileIDs, startingBoard, startingRoutes] = getInitialSetup(
-      numRows,
-      numColumns
+  function reducer(currentState, payload) {
+    if (payload.action == "reset") {
+      return getInitialSetup({
+        numRows: payload.numRows,
+        numColumns: payload.numColumns,
+      });
+    }
+
+    if (!validDropQ(currentState.played, payload.flatIndex, numColumns)) {
+      return currentState;
+    }
+
+    // Put a token in the square where the token was dropped
+    const newPlayed = [...currentState.played];
+    newPlayed[payload.flatIndex] = payload.tile;
+
+    const updatedRoutes = updateRoutes(
+      currentState.routes.slice(),
+      tiles[payload.tile],
+      payload.flatIndex,
+      payload.numColumns
     );
-    setRemainingTileIDs(startingTileIDs);
-    setPlayed(startingBoard);
-    setRoutes(startingRoutes);
+
+    // const offerIndex = event.dragData.offerIndex;
+    let newRemainingTileIDs = [...currentState.remainingTileIDs];
+    if (newRemainingTileIDs.length > 3) {
+      // replace the played tile with the tile at the bottom of the pool
+      newRemainingTileIDs[payload.offerIndex] =
+        newRemainingTileIDs[newRemainingTileIDs.length - 1];
+      // remove the tile at the bottom of the pool
+      newRemainingTileIDs.splice(-1, 1);
+    } else {
+      // If there aren't unrevealed tiles left, replace the played tile with null
+      newRemainingTileIDs[payload.offerIndex] = null;
+    }
+
+    return {
+      ...currentState,
+      played: newPlayed,
+      routes: updatedRoutes,
+      remainingTileIDs: newRemainingTileIDs,
+    };
   }
+
+  const [gameState, dispatchGameState] = React.useReducer(
+    reducer,
+    { numRows: numRows, numColumns: numColumns },
+    getInitialSetup
+  );
 
   const handleDrop = (event, flatIndex) => {
     event.target.style["background-color"] = "transparent";
 
     const offerIndex = event.dataTransfer.getData("offerIndex");
     const tile = event.dataTransfer.getData("tile");
-    const newPlayed = [...played];
 
-    if (!validDropQ(newPlayed, flatIndex, numColumns)) {
-      return;
-    }
-
-    // Put a token in the square where the token was dropped
-    newPlayed[flatIndex] = tile;
-
-    // Update played
-    setPlayed(newPlayed);
-
-    // update routes
-    let updatedRoutes = updateRoutes(
-      routes.slice(),
-      tiles[tile],
-      flatIndex,
-      numColumns
-    );
-    setRoutes(updatedRoutes);
-
-    // const offerIndex = event.dragData.offerIndex;
-    let newRemainingTileIDs = [...remainingTileIDs];
-    if (newRemainingTileIDs.length > 3) {
-      // replace the played tile with the tile at the bottom of the pool
-      newRemainingTileIDs[offerIndex] =
-        newRemainingTileIDs[newRemainingTileIDs.length - 1];
-      // remove the tile at the bottom of the pool
-      newRemainingTileIDs.splice(-1, 1);
-    } else {
-      // If there aren't unrevealed tiles left, replace the played tile with null
-      newRemainingTileIDs[offerIndex] = null;
-    }
-
-    setRemainingTileIDs(newRemainingTileIDs);
+    dispatchGameState({
+      action: "drop",
+      numRows: numRows,
+      numColumns: numColumns,
+      offerIndex: offerIndex,
+      tile: tile,
+      flatIndex: flatIndex,
+    });
   };
 
   return (
     <div id="game">
-      <Offer remainingTileIDs={remainingTileIDs} />
-      <Board played={played} handleDrop={handleDrop} />
+      <Offer remainingTileIDs={gameState.remainingTileIDs} />
+      <Board played={gameState.played} handleDrop={handleDrop} />
       <div id="off-board">
-        <Score routes={routes} />
-        <button id="new-game-button" onClick={handleNewGame} />
+        <Score routes={gameState.routes} />
+        <button
+          id="new-game-button"
+          onClick={() =>
+            dispatchGameState({
+              action: "reset",
+              numRows: numRows,
+              numColumns: numColumns,
+            })
+          }
+        />
         <Tutorial showRules={showRules} setShowRules={setShowRules} />
-        <GameOver remainingTileIDs={remainingTileIDs} routes={routes} />
+        <GameOver
+          remainingTileIDs={gameState.remainingTileIDs}
+          routes={gameState.routes}
+        />
       </div>
     </div>
   );
