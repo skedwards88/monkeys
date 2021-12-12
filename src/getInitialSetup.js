@@ -2,8 +2,14 @@ import { getBoardNodesFromFlatIndex } from "./getBoardNodesFromFlatIndex";
 import { shuffleArray } from "./shuffleArray";
 import { tiles, BoardRoute } from "./tiles.js";
 
-
-export function getInitialSetup({numRows, numColumns}) {
+export function getInitialSetup({ numRows, numColumns, force = false }) {
+  if (!force) {
+    const previousGame = window.localStorage.getItem("gameState");
+    if (previousGame) {
+      console.log("using prev");
+      return JSON.parse(previousGame);
+    }
+  }
 
   // Shuffle the tiles
   const remainingTileIDs = shuffleArray(Object.keys(tiles));
@@ -42,9 +48,9 @@ export function getInitialSetup({numRows, numColumns}) {
     }
   });
 
-return  {
+  return {
     remainingTileIDs: remainingTileIDs,
     played: startingBoard,
-    routes: startingRoutes
-  }
+    routes: startingRoutes,
+  };
 }

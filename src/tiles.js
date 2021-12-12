@@ -39,42 +39,7 @@ export class BoardRoute {
     // Head and/or tail may be null if the route terminates.
     this.boardHead = boardHead;
     this.boardTail = boardTail;
-
     this.tileRoutes = tileRoutes;
-  }
-
-  // Getter
-  get score() {
-    return this.calcScore();
-  }
-  // Method
-  calcScore() {
-    // Count the features across all tile routes in this route
-    let coconuts = 0;
-    let chests = 0;
-    let redShips = 0;
-    let blueShips = 0;
-    let redAnchors = 0;
-    let blueAnchors = 0;
-    for (let tileRoute of this.tileRoutes) {
-      coconuts += tileRoute.coconuts;
-      chests += tileRoute.chests;
-      redShips += tileRoute.redShips;
-      blueShips += tileRoute.blueShips;
-      redAnchors += tileRoute.redAnchors;
-      blueAnchors += tileRoute.blueAnchors;
-    }
-
-    let value = chests ? coconuts * 2 : coconuts;
-    let numRed = redAnchors ? redShips * 2 : redShips;
-    let numBlue = blueAnchors ? blueShips * 2 : blueShips;
-    if (numBlue > numRed) {
-      return { red: 0, blue: value };
-    } else if (numRed > numBlue) {
-      return { red: value, blue: 0 };
-    } else {
-      return { red: 0, blue: 0 };
-    }
   }
 }
 

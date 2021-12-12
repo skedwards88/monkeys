@@ -4,7 +4,6 @@
 - save local
 - 
 - Add undo function or add end turn button and make tile draggable until clicked
-- Pull rules list into separate file from tutorial JS (see profile for example)
 - More tests
 - Force landscape mode if screen width is below certain size
 - images are slow. Make smaller? Cache? SVG tiles???
@@ -19,6 +18,9 @@ thoughts about reducer
 ref
 - placed in the component where was needed instead of at the top level
 
+uselocal
+- had to pass force option to init function
+- had a getter on a class, but that got dropped when json.stringified. ended up making it a separate function.
 ---
 
 

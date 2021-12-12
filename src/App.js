@@ -23,6 +23,7 @@ function Game() {
       return getInitialSetup({
         numRows: payload.numRows,
         numColumns: payload.numColumns,
+        force: true,
       });
     }
 
@@ -67,6 +68,11 @@ function Game() {
     { numRows: numRows, numColumns: numColumns },
     getInitialSetup
   );
+
+  React.useEffect(() => {
+    window.localStorage.setItem('gameState', JSON.stringify(gameState))
+  }, [gameState]
+)
 
   const handleDrop = (event, flatIndex) => {
     event.target.style["background-color"] = "transparent";
