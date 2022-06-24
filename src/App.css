@@ -3,8 +3,6 @@ html {
 }
 
 body {
-  font-size: 18px; /* fallback fallback  (if clamp and vh are not supported) */
-  font-size: 4vh; /* fallback (if clamp is not supported) */
   font-weight: bold;
   font-family: Verdana, Geneva, sans-serif;
 
@@ -17,23 +15,34 @@ body {
     linear-gradient(rgba(242, 234, 150, 0.5), rgba(217, 200, 43, 0.5)),
     url("./images/sand_texture.svg");
   background-attachment: fixed;
+  --default-font-size: min(0.9cm, 5vmin);
+  font-size: var(--default-font-size);
+
 }
 
 @supports (width: clamp(40px, 17vmin, 100px)) {
   body {
     --square-diameter: clamp(40px, 17vmin, 100px);
-
-    font-size: clamp(10px, 4vh, 32px);
   }
 }
 
+h1 {
+  font-size: calc(var(--default-font-size) * 1.2);
+}
+
 button {
-  font-size: 18px;
-  background-color: transparent;
-  margin-right: 0;
-  border-radius: 0;
+  all: unset;
+  text-decoration: none;
+  text-align: center;
+  appearance: none;
+  font-size: calc(var(--default-font-size) * 2);
+  font-weight: bold;
+  font-family: sans-serif;
+  color: black;
   border: 0;
-  color: gray;
+  padding: 1px 6px;
+  background-color: transparent;
+  margin: 2vmin 0;
 }
 
 button:disabled {
@@ -252,15 +261,16 @@ button:focus {
 }
 
 .score {
-  font-weight: normal;
+  font-weight: bold;
+  font-size: calc(var(--default-font-size) * 2);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
 
 .score-icon {
-  width: calc(var(--square-diameter) / 3);
-  height: calc(var(--square-diameter) / 3);
+  width: calc(var(--square-diameter) * 0.8);
+  height: calc(var(--square-diameter) * 0.8);
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
@@ -277,7 +287,6 @@ button:focus {
 
 .red-score {
   color: red;
-  font-weight: bold;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -286,7 +295,6 @@ button:focus {
 .blue-score {
   align-items: center;
   color: blue;
-  font-weight: bold;
   display: flex;
   flex-direction: row;
 }
@@ -296,8 +304,8 @@ button:focus {
 }
 
 #new-game-button {
-  width: calc(var(--square-diameter) / 2);
-  height: calc(var(--square-diameter) / 2);
+  width: calc(var(--square-diameter) * 0.8);
+  height: calc(var(--square-diameter) * 0.8);
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -306,8 +314,8 @@ button:focus {
 }
 
 #rules-button {
-  width: calc(var(--square-diameter) / 2);
-  height: calc(var(--square-diameter) / 2);
+  width: calc(var(--square-diameter) * 0.8);
+  height: calc(var(--square-diameter) * 0.8);
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -352,13 +360,6 @@ button:focus {
   flex-direction: column;
   justify-content: flex-start;
   overflow: scroll;
-  font-size: 14px; /* fall -back */
-}
-
-@supports (width: clamp(10px, 4vh, 16px)) {
-  .tutorial-step {
-    font-size: clamp(10px, 4vh, 16px);
-  }
 }
 
 .navigation-button {
@@ -371,10 +372,12 @@ button:focus {
 
 .prev-button {
   left: 0;
+  font-weight: bold;
 }
 
 .next-button {
   right: 0;
+  font-weight: bold;
 }
 
 #exit-button {
@@ -383,6 +386,7 @@ button:focus {
   position: absolute;
   right: 0;
   z-index: 1;
+  font-weight: bold;
 }
 
 img {
