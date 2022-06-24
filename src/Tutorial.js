@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { rules } from "./rules";
 
 function PreviousButton({ currentRule, setCurrentRule }) {
-  if (currentRule !== 1) {
+  if (currentRule !== 0) {
     const handlePrevious = () => {
       let newRule = currentRule - 1;
       setCurrentRule(newRule);

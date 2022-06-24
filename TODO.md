@@ -22,6 +22,8 @@ uselocal
 - had to pass force option to init function
 - had a getter on a class, but that got dropped when json.stringified. ended up making it a separate function.
 
+clean up the styling and code with new learnings
+
 ---
 
 minimize images
