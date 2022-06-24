@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "start": "webpack-dev-server --mode development",
+    "dev": "webpack-dev-server --mode development",
+    "start": "webpack-dev-server",
     "build": "webpack",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist"

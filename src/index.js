@@ -2,11 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import Game from "./App.js";
 
-if (module.hot) module.hot.accept();
-
-if ("serviceWorker" in navigator) {
-  console.log("HOSTNAME");
-  console.log(location.hostname);
+if (process.env.NODE_ENV !== "development" && "serviceWorker" in navigator) {
   const path =
     location.hostname === "localhost"
       ? "/service-worker.js"

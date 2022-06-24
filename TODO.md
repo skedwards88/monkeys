@@ -1,7 +1,5 @@
 - Dependabot
 
-- save local
--
 - Add undo function or add end turn button and make tile draggable until clicked
 - More tests
 - Force landscape mode if screen width is below certain size
