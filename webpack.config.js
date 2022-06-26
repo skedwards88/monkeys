@@ -37,8 +37,8 @@ module.exports = (env, argv) => {
       orientation: "landscape",
       developerName: "skedwards88",
       developerURL: null, // prevent retrieving from the nearest package.json
-      background: "#ccbe3d",
-      theme_color: "#00FFFF",
+      background: "#ece6a9",
+      theme_color: "#ece6a9",
       icons: {
         coast: false,
         yandex: false,
