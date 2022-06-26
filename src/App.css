@@ -258,11 +258,12 @@ button:focus {
   display: flex;
   flex-direction: column;
   position: relative;
+  justify-content: space-around;
 }
 
 .score {
   font-weight: bold;
-  font-size: calc(var(--default-font-size) * 2);
+  font-size: calc(var(--default-font-size) * 1.5);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
