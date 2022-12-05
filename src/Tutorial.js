@@ -56,7 +56,7 @@ function Info() {
         alt="monkey artwork"
         className="rules-image"
       />
-      <div className="tutorial-text">Version 2.2.2</div>
+      <div className="tutorial-text">Version 2.2.3</div>
       <div>
         {`Want more games? Check `}
         <a href="https://skedwards88.github.io/portfolio/">these</a>
