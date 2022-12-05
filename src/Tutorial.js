@@ -60,7 +60,7 @@ function Info() {
       <div>
         {`Want more games? Check `}
         <a href="https://skedwards88.github.io/portfolio/">these</a>
-        {`out.`}
+        {` out.`}
       </div>
     </div>
   );
