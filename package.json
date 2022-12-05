@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "dev": "export NODE_OPTIONS=--openssl-legacy-provider; webpack-dev-server --mode development",
-    "start": "export NODE_OPTIONS=--openssl-legacy-provider; webpack-dev-server",
-    "build": "export NODE_OPTIONS=--openssl-legacy-provider; webpack",
+    "dev": "webpack-dev-server --mode development",
+    "start": "webpack-dev-server",
+    "build": "webpack",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist"
   },
