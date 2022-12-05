@@ -367,27 +367,38 @@ button:focus {
   background-color: white;
   opacity: 0.5;
   position: absolute;
-  height: 100%;
-  width: 30px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  margin: 0;
 }
 
 .prev-button {
   left: 0;
-  font-weight: bold;
+  width: 7vh;
+  height: 100vh;
+  background-image: url("./images/previous.svg");
 }
+
 
 .next-button {
   right: 0;
-  font-weight: bold;
+  width: 7vh;
+  height: 100vh;
+  background-image: url("./images/next.svg");
 }
 
 #exit-button {
-  height: 20px;
-  width: 30px;
+  opacity: 0.5;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 7vh;
+  height: 7vh;
   position: absolute;
   right: 0;
   z-index: 1;
-  font-weight: bold;
+  background-image: url("./images/exit.svg");
 }
 
 img {

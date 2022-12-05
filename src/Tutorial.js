@@ -13,13 +13,11 @@ function PreviousButton({ currentRule, setCurrentRule }) {
         className="navigation-button prev-button"
         onClick={handlePrevious}
       >
-        &lt;
       </button>
     );
   }
   return (
-    <button disabled className="navigation-button prev-button">
-      &lt;
+    <button disabled className="navigation-button">
     </button>
   );
 }
@@ -33,13 +31,11 @@ function NextButton({ currentRule, setCurrentRule }) {
 
     return (
       <button className="navigation-button next-button" onClick={handleNext}>
-        &gt;
       </button>
     );
   }
   return (
-    <button disabled className="navigation-button next-button">
-      &gt;
+    <button disabled className="navigation-button">
     </button>
   );
 }
@@ -110,7 +106,6 @@ export default function Tutorial({ showRules, setShowRules }) {
           />
           {currentRule ? <Rule info={rules[currentRule - 1]} /> : <Info />}
           <button id="exit-button" onClick={handleHide}>
-            &#10005;
           </button>
           <NextButton
             currentRule={currentRule}
