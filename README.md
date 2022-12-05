@@ -16,4 +16,4 @@ Alas! There be limited space on the sea. Compete for control of sea routes to ge
 
 Do you have feedback or ideas for improvement? [Open an issue](https://github.com/skedwards88/monkeys/issues/new).
 
-Want more games? Visit [CnS Games](https://skedwards88.github.io/portfolio/).
+Want more games? Visit [SECT Games](https://skedwards88.github.io/portfolio/).

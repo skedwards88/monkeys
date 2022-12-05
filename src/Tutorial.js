@@ -58,8 +58,9 @@ function Info() {
       />
       <div className="tutorial-text">Version 2.2.2</div>
       <div>
-        {`Want more games? Visit `}
-        <a href="https://skedwards88.github.io/portfolio/">CnS Games</a>
+        {`Want more games? Check `}
+        <a href="https://skedwards88.github.io/portfolio/">these</a>
+        {`out.`}
       </div>
     </div>
   );
