@@ -1,4 +1,7 @@
 function calculateRouteScore(boardRoute) {
+  console.log('calculating')
+  console.log(boardRoute.tileRoutes.length)
+  console.log(JSON.stringify(boardRoute))
   // Count the features across all tile routes in this board route
   let coconuts = 0;
   let chests = 0;
@@ -31,6 +34,7 @@ function calculateRouteScore(boardRoute) {
 export function tallyScore(routes) {
   // Get the red/blue score for each route and sum them up
   const scores = routes.map((route) => calculateRouteScore(route));
+  console.log(scores)
   const redScore = scores
     .map((score) => score.red)
     .reduce((accumulator, currentValue) => {
