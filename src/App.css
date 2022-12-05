@@ -15,9 +15,10 @@ body {
     linear-gradient(rgba(242, 234, 150, 0.5), rgba(217, 200, 43, 0.5)),
     url("./images/sand_texture.svg");
   background-attachment: fixed;
-  --default-font-size: min(0.9cm, 5vmin);
-  font-size: var(--default-font-size);
 
+  --default-font-size: min(0.9cm, 5vmin);
+
+  font-size: var(--default-font-size);
 }
 
 @supports (width: clamp(40px, 17vmin, 100px)) {
@@ -379,7 +380,6 @@ button:focus {
   height: 100vh;
   background-image: url("./images/previous.svg");
 }
-
 
 .next-button {
   right: 0;
