@@ -55,7 +55,7 @@ function Info() {
       <div className="tutorial-text">Version 2.2.3</div>
       <div>
         {`Want more games? Check `}
-        <a href="https://skedwards88.github.io/portfolio/">these</a>
+        <a href="https://skedwards88.github.io/">these</a>
         {` out.`}
       </div>
     </div>
