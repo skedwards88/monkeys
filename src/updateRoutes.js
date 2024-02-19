@@ -1,5 +1,5 @@
-import { getBoardNodesFromFlatIndex } from "./getBoardNodesFromFlatIndex";
-import { BoardRoute } from "./tiles";
+import {getBoardNodesFromFlatIndex} from "./getBoardNodesFromFlatIndex";
+import {BoardRoute} from "./tiles";
 
 export function updateRoutes(boardRoutes, tile, flatIndex, numColumns) {
   // Convert the row/col where the tile was placed to numbers describing

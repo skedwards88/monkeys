@@ -1,11 +1,11 @@
 import React from "react";
-import { polyfill } from "mobile-drag-drop";
+import {polyfill} from "mobile-drag-drop";
 
 polyfill({
   dragImageCenterOnTouch: true,
 });
 
-export default function Board({ played, handleDrop }) {
+export default function Board({played, handleDrop}) {
   const board = played.map((tile, index) => {
     const className = tile ? "square filled tile" + tile : "square";
 

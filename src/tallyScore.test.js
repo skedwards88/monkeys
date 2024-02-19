@@ -1,5 +1,5 @@
-import { tallyScore } from "./tallyScore";
-import { BoardRoute, TileRoute } from "./tiles";
+import {tallyScore} from "./tallyScore";
+import {BoardRoute, TileRoute} from "./tiles";
 
 test("tallyScore: If a board route is tied, neither player receives points", () => {
   let routes = [
@@ -25,7 +25,7 @@ test("tallyScore: If a board route is tied, neither player receives points", () 
     }),
   ];
 
-  let expectedScore = { red: 0, blue: 0 };
+  let expectedScore = {red: 0, blue: 0};
 
   expect(tallyScore(routes)).toEqual(expectedScore);
 });
@@ -74,7 +74,7 @@ test("tallyScore: If the score is tied overall but players earned points for sep
     }),
   ];
 
-  let expectedScore = { red: 4, blue: 4 };
+  let expectedScore = {red: 4, blue: 4};
 
   expect(tallyScore(routes)).toEqual(expectedScore);
 });
@@ -82,7 +82,7 @@ test("tallyScore: If the score is tied overall but players earned points for sep
 test("tallyScore: If there are no routes, the score is 0", () => {
   let routes = [];
 
-  let expectedScore = { red: 0, blue: 0 };
+  let expectedScore = {red: 0, blue: 0};
 
   expect(tallyScore(routes)).toEqual(expectedScore);
 });

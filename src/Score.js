@@ -1,7 +1,7 @@
 import React from "react";
-import { tallyScore } from "./tallyScore";
+import {tallyScore} from "./tallyScore";
 
-export default function Score({ routes }) {
+export default function Score({routes}) {
   const score = tallyScore(routes);
 
   return (

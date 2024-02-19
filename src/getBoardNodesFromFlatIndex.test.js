@@ -1,4 +1,4 @@
-import { getBoardNodesFromFlatIndex } from "./getBoardNodesFromFlatIndex";
+import {getBoardNodesFromFlatIndex} from "./getBoardNodesFromFlatIndex";
 
 test("getBoardNodesFromFlatIndex", () => {
   expect(getBoardNodesFromFlatIndex(0, 9)).toEqual([0, 1, 10, 11]);

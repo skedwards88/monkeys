@@ -1,4 +1,4 @@
-import { shuffleArray } from "./shuffleArray";
+import {shuffleArray} from "./shuffleArray";
 
 test("the shuffled array contains the same items", () => {
   const original = [1, 2, 3, 4, 5];

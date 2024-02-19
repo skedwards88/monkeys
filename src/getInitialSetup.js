@@ -1,8 +1,8 @@
-import { getBoardNodesFromFlatIndex } from "./getBoardNodesFromFlatIndex";
-import { shuffleArray } from "./shuffleArray";
-import { tiles, BoardRoute } from "./tiles.js";
+import {getBoardNodesFromFlatIndex} from "./getBoardNodesFromFlatIndex";
+import {shuffleArray} from "./shuffleArray";
+import {tiles, BoardRoute} from "./tiles.js";
 
-export function getInitialSetup({ numRows, numColumns, force = false }) {
+export function getInitialSetup({numRows, numColumns, force = false}) {
   if (!force) {
     const previousGame = window.localStorage.getItem("gameState");
     if (previousGame) {

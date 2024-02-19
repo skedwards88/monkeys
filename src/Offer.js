@@ -1,5 +1,5 @@
 import React from "react";
-import { polyfill } from "mobile-drag-drop";
+import {polyfill} from "mobile-drag-drop";
 
 polyfill({
   dragImageCenterOnTouch: true,
@@ -39,7 +39,7 @@ function getDeckStyling(deckSize) {
   return fullDeckStyling.slice(0, 2 * (deckSize - 3));
 }
 
-function OfferTile({ offerIndex, remainingTileIDs }) {
+function OfferTile({offerIndex, remainingTileIDs}) {
   const tile = remainingTileIDs[offerIndex];
   const className = tile
     ? "square filled tile" + tile + " offer-tile"
@@ -71,7 +71,7 @@ function OfferTile({ offerIndex, remainingTileIDs }) {
   );
 }
 
-export default function Offer({ remainingTileIDs }) {
+export default function Offer({remainingTileIDs}) {
   const ref = React.useRef();
 
   React.useLayoutEffect(() => {

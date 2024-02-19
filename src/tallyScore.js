@@ -20,11 +20,11 @@ function calculateRouteScore(boardRoute) {
   let numRed = redAnchors ? redShips * 2 : redShips;
   let numBlue = blueAnchors ? blueShips * 2 : blueShips;
   if (numBlue > numRed) {
-    return { red: 0, blue: value };
+    return {red: 0, blue: value};
   } else if (numRed > numBlue) {
-    return { red: value, blue: 0 };
+    return {red: value, blue: 0};
   } else {
-    return { red: 0, blue: 0 };
+    return {red: 0, blue: 0};
   }
 }
 
@@ -41,5 +41,5 @@ export function tallyScore(routes) {
     .reduce((accumulator, currentValue) => {
       return accumulator + currentValue;
     }, 0);
-  return { red: redScore, blue: blueScore };
+  return {red: redScore, blue: blueScore};
 }

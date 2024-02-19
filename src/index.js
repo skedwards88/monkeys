@@ -10,7 +10,7 @@ if (process.env.NODE_ENV !== "development" && "serviceWorker" in navigator) {
   const scope = location.hostname === "localhost" ? "" : "/monkeys/";
   window.addEventListener("load", () => {
     navigator.serviceWorker
-      .register(path, { scope: scope })
+      .register(path, {scope: scope})
       .then((registration) => {
         console.log("SW registered: ", registration);
       })

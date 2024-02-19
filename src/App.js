@@ -2,15 +2,15 @@ import React from "react";
 
 import "./App.css";
 
-import { tiles } from "./tiles.js";
+import {tiles} from "./tiles.js";
 import Offer from "./Offer";
 import Board from "./Board";
 import Score from "./Score";
 import Tutorial from "./Tutorial";
 import GameOver from "./GameOver";
-import { validDropQ } from "./validDropQ";
-import { updateRoutes } from "./updateRoutes";
-import { getInitialSetup } from "./getInitialSetup";
+import {validDropQ} from "./validDropQ";
+import {updateRoutes} from "./updateRoutes";
+import {getInitialSetup} from "./getInitialSetup";
 
 function Game() {
   const numRows = 9;
@@ -39,7 +39,7 @@ function Game() {
       currentState.routes.slice(),
       tiles[payload.tile],
       payload.flatIndex,
-      payload.numColumns
+      payload.numColumns,
     );
 
     // const offerIndex = event.dragData.offerIndex;
@@ -65,8 +65,8 @@ function Game() {
 
   const [gameState, dispatchGameState] = React.useReducer(
     reducer,
-    { numRows: numRows, numColumns: numColumns },
-    getInitialSetup
+    {numRows: numRows, numColumns: numColumns},
+    getInitialSetup,
   );
 
   React.useEffect(() => {
