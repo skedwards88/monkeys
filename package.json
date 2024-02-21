@@ -5,9 +5,13 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
+    "build": "webpack",
     "dev": "webpack-dev-server --mode development",
     "start": "webpack-dev-server",
-    "build": "webpack"
+    "eslint": "npx eslint --ignore-path .gitignore . --fix",
+    "prettier": "npx prettier --write .",
+    "style": "npx stylelint '**/*.css' --fix",
+    "lint": "npm run eslint && npm run prettier && npm run style"
   },
   "repository": {
     "type": "git",
@@ -15,7 +19,7 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "",
   "bugs": {
     "url": "https://github.com/skedwards88/monkeys/issues"
   },
