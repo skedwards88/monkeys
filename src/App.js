@@ -1,7 +1,5 @@
 import React from "react";
 
-import "./App.css";
-
 import {tiles} from "./tiles.js";
 import Offer from "./Offer";
 import Board from "./Board";
