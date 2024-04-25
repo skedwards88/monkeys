@@ -10,3 +10,5 @@
 - would be cool to change color of route to indicate owner
 - make rules swipe-able on mobile?
 - check color accessibility
+
+- don't use the favicon plugin anymore

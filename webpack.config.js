@@ -29,8 +29,9 @@ module.exports = (env, argv) => {
     favicons: {
       appName: "Monkeys of the Caribbean",
       short_name: "Monkeys",
-      start_url: "../.",
-      // scope: ".",
+      start_url: "https://skedwards88.github.io/monkeys/",
+      id: "?monkeys=20240425",
+      scope: "/monkeys/",
       appDescription: "A spatial strategy game",
       display: "standalone",
       orientation: "landscape",
