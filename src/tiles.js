@@ -28,13 +28,13 @@ export class TileRoute {
 }
 
 export class Tile {
-  constructor({ routes }) {
+  constructor({routes}) {
     this.routes = routes;
   }
 }
 
 export class BoardRoute {
-  constructor({ boardHead = null, boardTail = null, tileRoutes = [] }) {
+  constructor({boardHead = null, boardTail = null, tileRoutes = []}) {
     // head and tail are ints corresponding to location on the board.
     // Head and/or tail may be null if the route terminates.
     this.boardHead = boardHead;

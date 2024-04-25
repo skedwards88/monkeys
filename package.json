@@ -5,9 +5,13 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
+    "build": "webpack",
     "dev": "webpack-dev-server --mode development",
     "start": "webpack-dev-server",
-    "build": "webpack"
+    "eslint": "npx eslint --ignore-path .gitignore . --fix",
+    "prettier": "npx prettier --write .",
+    "style": "npx stylelint '**/*.css' --fix",
+    "lint": "npm run eslint && npm run prettier && npm run style"
   },
   "repository": {
     "type": "git",
@@ -15,7 +19,7 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "",
   "bugs": {
     "url": "https://github.com/skedwards88/monkeys/issues"
   },
@@ -42,8 +46,8 @@
     "style-loader": "^3.2.1",
     "stylelint": "^13.13.1",
     "stylelint-config-standard": "^22.0.0",
-    "webpack": "^5.52.1",
-    "webpack-cli": "^4.8.0",
+    "webpack": "^5.91.0",
+    "webpack-cli": "^4.10.0",
     "webpack-dev-server": "^4.2.0",
     "workbox-webpack-plugin": "^6.3.0"
   }

@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import { rules } from "./rules";
+import React, {useState} from "react";
+import {rules} from "./rules";
 
-function PreviousButton({ currentRule, setCurrentRule }) {
+function PreviousButton({currentRule, setCurrentRule}) {
   if (currentRule !== 0) {
     const handlePrevious = () => {
       let newRule = currentRule - 1;
@@ -18,7 +18,7 @@ function PreviousButton({ currentRule, setCurrentRule }) {
   return <button disabled className="navigation-button"></button>;
 }
 
-function NextButton({ currentRule, setCurrentRule }) {
+function NextButton({currentRule, setCurrentRule}) {
   if (currentRule < rules.length) {
     const handleNext = () => {
       let newRule = currentRule + 1;
@@ -57,7 +57,7 @@ function Info() {
   );
 }
 
-function Rule({ info }) {
+function Rule({info}) {
   return (
     <div className="tutorial-step">
       <div className="tutorial-text">{info.text}</div>
@@ -82,7 +82,7 @@ function Rule({ info }) {
   );
 }
 
-export default function Tutorial({ showRules, setShowRules }) {
+export default function Tutorial({showRules, setShowRules}) {
   const [currentRule, setCurrentRule] = useState(0);
 
   if (showRules) {

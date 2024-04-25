@@ -5,7 +5,7 @@ function closeGameOver(e) {
   e.target.style.display = "none";
 }
 
-export default function GameOver({ remainingTileIDs, routes }) {
+export default function GameOver({remainingTileIDs, routes}) {
   if (remainingTileIDs.every((item) => item === null)) {
     return (
       <div id="game-over" className="modal" onClick={(e) => closeGameOver(e)}>
