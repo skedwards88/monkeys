@@ -12,3 +12,4 @@
 - check color accessibility
 
 - don't use the favicon plugin anymore
+- don't use modal anymore
