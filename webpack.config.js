@@ -30,7 +30,7 @@ module.exports = (env, argv) => {
       appName: "Monkeys of the Caribbean",
       short_name: "Monkeys",
       start_url: "https://skedwards88.github.io/monkeys/",
-      id: "?monkeys=20240425",
+      id: "?monkeys=20240502",
       scope: "/monkeys/",
       appDescription: "A spatial strategy game",
       display: "standalone",
