@@ -14,3 +14,4 @@
 - don't use the favicon plugin anymore
 - don't use modal anymore
 - add sharing button
+- make highlight red if illegal move?
