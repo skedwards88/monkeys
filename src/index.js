@@ -1,5 +1,5 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import {createRoot} from "react-dom/client";
 import Game from "./components/App.js";
 import "./App.css";
 
@@ -21,4 +21,6 @@ if (process.env.NODE_ENV !== "development" && "serviceWorker" in navigator) {
   });
 }
 
-ReactDOM.render(<Game />, document.getElementById("root"));
+const container = document.getElementById("root");
+const root = createRoot(container);
+root.render(<Game />);
