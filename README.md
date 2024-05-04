@@ -10,10 +10,10 @@ Alas! There be limited space on the sea. Compete for control of sea routes to ge
 
 [Play Now!](https://skedwards88.github.io/monkeys/)
 
-![Game icon](src/images/monkey_3.svg)
+![Game icon](src/images/button_icons/monkey_3.svg)
 
 ---
 
 Do you have feedback or ideas for improvement? [Open an issue](https://github.com/skedwards88/monkeys/issues/new).
 
-Want more games? Visit [SECT Games](https://skedwards88.github.io/).
+Want more games? [Check these out](https://skedwards88.github.io/).

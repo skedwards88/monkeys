@@ -19,10 +19,13 @@ module.exports = (env, argv) => {
   const copyPlugin = new CopyPlugin({
     patterns: [
       {from: "./src/manifest.json", to: "./assets/manifest.json"},
-      {from: "./src/images/favicon.ico", to: "./assets/favicon.ico"},
-      {from: "./src/images/favicon.svg", to: "./assets/favicon.svg"},
-      {from: "./src/images/favicon.png", to: "./assets/favicon.png"},
-      {from: "./src/images/maskable_512.png", to: "./assets/maskable.png"},
+      {from: "./src/images/favicons/favicon.ico", to: "./assets/favicon.ico"},
+      {from: "./src/images/favicons/favicon.svg", to: "./assets/favicon.svg"},
+      {from: "./src/images/favicons/favicon.png", to: "./assets/favicon.png"},
+      {
+        from: "./src/images/favicons/maskable_512.png",
+        to: "./assets/maskable.png",
+      },
     ],
     options: {
       concurrency: 100,
@@ -30,9 +33,9 @@ module.exports = (env, argv) => {
   });
 
   const serviceWorkerPlugin = new WorkboxPlugin.GenerateSW({
-    // these options encourage the ServiceWorkers to get in there fast
-    // and not allow any straggling "old" SWs to hang around
+    // This helps ensure that all pages will be controlled by a service worker immediately after that service worker activates
     clientsClaim: true,
+    // This skips the service worker waiting phase, meaning the service worker activates as soon as it's finished installing
     skipWaiting: true,
     cacheId: `monkeys-${packageJson.version}`,
   });

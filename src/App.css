@@ -13,7 +13,7 @@ body {
   vertical-align: middle;
   background:
     linear-gradient(rgba(242, 234, 150, 0.5), rgba(217, 200, 43, 0.5)),
-    url("./images/sand_texture.svg");
+    url("./images/backgrounds/sand_texture.svg");
   background-attachment: fixed;
 
   --default-font-size: min(0.9cm, 5vmin);
@@ -75,7 +75,7 @@ button:focus {
       rgba(150, 200, 230, 0.5),
       rgba(150, 200, 230, 0.5)
     ),
-    url("./images/waves.svg");
+    url("./images/backgrounds/waves.svg");
   background-attachment: fixed;
   display: grid;
   grid-template-columns: repeat(7, var(--square-diameter));
@@ -89,7 +89,7 @@ button:focus {
 }
 
 .square.filled.draw-pile {
-  background: url("./images/monkey_3_teal.svg"), url("./images/waves.svg");
+  background: url("./images/button_icons/monkey_3_teal.svg"), url("./images/backgrounds/waves.svg");
   background-size: contain, auto;
   box-shadow: var(--deck-size);
   margin: 0 5px 5px 0;
@@ -102,140 +102,140 @@ button:focus {
 .square.filled.tile0 {
   background:
     url("./images/tiles_200/Monkeys_Tile_1.png"),
-    url("./images/waves.svg");
+    url("./images/backgrounds/waves.svg");
   background-size: contain, auto;
 }
 
 .square.filled.tile1 {
   background:
     url("./images/tiles_200/Monkeys_Tile_2.png"),
-    url("./images/waves.svg");
+    url("./images/backgrounds/waves.svg");
   background-size: contain, auto;
 }
 
 .square.filled.tile2 {
   background:
     url("./images/tiles_200/Monkeys_Tile_3.png"),
-    url("./images/waves.svg");
+    url("./images/backgrounds/waves.svg");
   background-size: contain, auto;
 }
 
 .square.filled.tile3 {
   background:
     url("./images/tiles_200/Monkeys_Tile_4.png"),
-    url("./images/waves.svg");
+    url("./images/backgrounds/waves.svg");
   background-size: contain, auto;
 }
 
 .square.filled.tile4 {
   background:
     url("./images/tiles_200/Monkeys_Tile_5.png"),
-    url("./images/waves.svg");
+    url("./images/backgrounds/waves.svg");
   background-size: contain, auto;
 }
 
 .square.filled.tile5 {
   background:
     url("./images/tiles_200/Monkeys_Tile_6.png"),
-    url("./images/waves.svg");
+    url("./images/backgrounds/waves.svg");
   background-size: contain, auto;
 }
 
 .square.filled.tile6 {
   background:
     url("./images/tiles_200/Monkeys_Tile_7.png"),
-    url("./images/waves.svg");
+    url("./images/backgrounds/waves.svg");
   background-size: contain, auto;
 }
 
 .square.filled.tile7 {
   background:
     url("./images/tiles_200/Monkeys_Tile_8.png"),
-    url("./images/waves.svg");
+    url("./images/backgrounds/waves.svg");
   background-size: contain, auto;
 }
 
 .square.filled.tile8 {
   background:
     url("./images/tiles_200/Monkeys_Tile_9.png"),
-    url("./images/waves.svg");
+    url("./images/backgrounds/waves.svg");
   background-size: contain, auto;
 }
 
 .square.filled.tile9 {
   background:
     url("./images/tiles_200/Monkeys_Tile_10.png"),
-    url("./images/waves.svg");
+    url("./images/backgrounds/waves.svg");
   background-size: contain, auto;
 }
 
 .square.filled.tile10 {
   background:
     url("./images/tiles_200/Monkeys_Tile_11.png"),
-    url("./images/waves.svg");
+    url("./images/backgrounds/waves.svg");
   background-size: contain, auto;
 }
 
 .square.filled.tile11 {
   background:
     url("./images/tiles_200/Monkeys_Tile_12.png"),
-    url("./images/waves.svg");
+    url("./images/backgrounds/waves.svg");
   background-size: contain, auto;
 }
 
 .square.filled.tile12 {
   background:
     url("./images/tiles_200/Monkeys_Tile_13.png"),
-    url("./images/waves.svg");
+    url("./images/backgrounds/waves.svg");
   background-size: contain, auto;
 }
 
 .square.filled.tile13 {
   background:
     url("./images/tiles_200/Monkeys_Tile_14.png"),
-    url("./images/waves.svg");
+    url("./images/backgrounds/waves.svg");
   background-size: contain, auto;
 }
 
 .square.filled.tile14 {
   background:
     url("./images/tiles_200/Monkeys_Tile_15.png"),
-    url("./images/waves.svg");
+    url("./images/backgrounds/waves.svg");
   background-size: contain, auto;
 }
 
 .square.filled.tile15 {
   background:
     url("./images/tiles_200/Monkeys_Tile_16.png"),
-    url("./images/waves.svg");
+    url("./images/backgrounds/waves.svg");
   background-size: contain, auto;
 }
 
 .square.filled.tile16 {
   background:
     url("./images/tiles_200/Monkeys_Tile_17.png"),
-    url("./images/waves.svg");
+    url("./images/backgrounds/waves.svg");
   background-size: contain, auto;
 }
 
 .square.filled.tile17 {
   background:
     url("./images/tiles_200/Monkeys_Tile_18.png"),
-    url("./images/waves.svg");
+    url("./images/backgrounds/waves.svg");
   background-size: contain, auto;
 }
 
 .square.filled.tile18 {
   background:
     url("./images/tiles_200/Monkeys_Tile_19.png"),
-    url("./images/waves.svg");
+    url("./images/backgrounds/waves.svg");
   background-size: contain, auto;
 }
 
 .square.filled.tile19 {
   background:
     url("./images/tiles_200/Monkeys_Tile_20.png"),
-    url("./images/waves.svg");
+    url("./images/backgrounds/waves.svg");
   background-size: contain, auto;
 }
 
@@ -281,11 +281,11 @@ button:focus {
 }
 
 .score-icon.red {
-  background-image: url("./images/red_icon.svg");
+  background-image: url("./images/button_icons/red_icon.svg");
 }
 
 .score-icon.blue {
-  background-image: url("./images/blue_icon.svg");
+  background-image: url("./images/button_icons/blue_icon.svg");
 }
 
 .red-score {
@@ -313,7 +313,7 @@ button:focus {
   background-repeat: no-repeat;
   background-size: cover;
   margin-right: 5px;
-  background-image: url("./images/new_game_icon.svg");
+  background-image: url("./images/button_icons/new_game_icon.svg");
 }
 
 #rules-button {
@@ -323,12 +323,12 @@ button:focus {
   background-repeat: no-repeat;
   background-size: cover;
   margin-right: 5px;
-  background-image: url("./images/rules_icon.svg");
+  background-image: url("./images/button_icons/rules_icon.svg");
 }
 
 .modal {
   font-weight: normal;
-  background-image: url("./images/waves.svg");
+  background-image: url("./images/backgrounds/waves.svg");
   background-attachment: fixed;
   position: fixed;
   height: 100%;
@@ -379,14 +379,14 @@ button:focus {
   left: 0;
   width: 7vh;
   height: 100vh;
-  background-image: url("./images/previous.svg");
+  background-image: url("./images/button_icons/previous.svg");
 }
 
 .next-button {
   right: 0;
   width: 7vh;
   height: 100vh;
-  background-image: url("./images/next.svg");
+  background-image: url("./images/button_icons/next.svg");
 }
 
 #exit-button {
@@ -399,7 +399,7 @@ button:focus {
   position: absolute;
   right: 0;
   z-index: 1;
-  background-image: url("./images/exit.svg");
+  background-image: url("./images/button_icons/exit.svg");
 }
 
 img {
@@ -430,14 +430,14 @@ img {
 }
 
 .monkey {
-  background-image: url("./images/monkey_3.svg");
+  background-image: url("./images/button_icons/monkey_3.svg");
   flex: 1;
 }
 
 .starting {
   background-color: rgba(0, 0, 0, 0.1);
   flex: 1;
-  background-image: url("./images/board_0.png");
+  background-image: url("./images/rule_illustrations/board_0.png");
 }
 
 .turns {
@@ -450,27 +450,27 @@ img {
 
 @keyframes turns-animation {
   0% {
-    background-image: url("./images/board_0.png");
+    background-image: url("./images/rule_illustrations/board_0.png");
   }
 
   25% {
-    background-image: url("./images/board_1.png"), url("./images/board_0.png");
+    background-image: url("./images/rule_illustrations/board_1.png"), url("./images/rule_illustrations/board_0.png");
   }
 
   50% {
     background-image:
-      url("./images/board_2.png"),
-      url("./images/board_1.png"),
-      url("./images/board_0.png");
+      url("./images/rule_illustrations/board_2.png"),
+      url("./images/rule_illustrations/board_1.png"),
+      url("./images/rule_illustrations/board_0.png");
   }
 
   75%,
   100% {
     background-image:
-      url("./images/board_3.png"),
-      url("./images/board_2.png"),
-      url("./images/board_1.png"),
-      url("./images/board_0.png");
+      url("./images/rule_illustrations/board_3.png"),
+      url("./images/rule_illustrations/board_2.png"),
+      url("./images/rule_illustrations/board_1.png"),
+      url("./images/rule_illustrations/board_0.png");
   }
 }
 
@@ -482,40 +482,40 @@ img {
 
 @keyframes coconuts-animation {
   0% {
-    background-image: url("./images/coconut_count_0_200.png");
+    background-image: url("./images/rule_illustrations/coconut_count_0_200.png");
   }
 
   25% {
     background-image:
-      url("./images/coconut_count_1.svg"),
-      url("./images/coconut_count_0_200.png");
+      url("./images/rule_illustrations/coconut_count_1.svg"),
+      url("./images/rule_illustrations/coconut_count_0_200.png");
   }
 
   50% {
     background-image:
-      url("./images/coconut_count_2.svg"),
-      url("./images/coconut_count_1.svg"),
-      url("./images/coconut_count_0_200.png");
+      url("./images/rule_illustrations/coconut_count_2.svg"),
+      url("./images/rule_illustrations/coconut_count_1.svg"),
+      url("./images/rule_illustrations/coconut_count_0_200.png");
   }
 
   75%,
   100% {
     background-image:
-      url("./images/coconut_count_3.svg"),
-      url("./images/coconut_count_2.svg"),
-      url("./images/coconut_count_1.svg"),
-      url("./images/coconut_count_0_200.png");
+      url("./images/rule_illustrations/coconut_count_3.svg"),
+      url("./images/rule_illustrations/coconut_count_2.svg"),
+      url("./images/rule_illustrations/coconut_count_1.svg"),
+      url("./images/rule_illustrations/coconut_count_0_200.png");
   }
 }
 
 .chest {
-  background-image: url("./images/chest.png");
+  background-image: url("./images/rule_illustrations/chest.png");
 }
 
 .route {
-  background-image: url("./images/route.png");
+  background-image: url("./images/rule_illustrations/route.png");
 }
 
 .anchor {
-  background-image: url("./images/route_and_anchor.png");
+  background-image: url("./images/rule_illustrations/route_and_anchor.png");
 }
