@@ -22,7 +22,10 @@ module.exports = (env, argv) => {
       {from: "./src/images/favicons/favicon.ico", to: "./assets/favicon.ico"},
       {from: "./src/images/favicons/favicon.svg", to: "./assets/favicon.svg"},
       {from: "./src/images/favicons/favicon.png", to: "./assets/favicon.png"},
-      {from: "./src/images/favicons/maskable_512.png", to: "./assets/maskable.png"},
+      {
+        from: "./src/images/favicons/maskable_512.png",
+        to: "./assets/maskable.png",
+      },
     ],
     options: {
       concurrency: 100,
