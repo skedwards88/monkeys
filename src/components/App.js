@@ -1,12 +1,12 @@
 import React from "react";
 
-import Offer from "./Offer";
+import Offer from "./Offer.js";
 import Board from "./Board";
-import Score from "./Score";
-import Tutorial from "./Tutorial";
+import Score from "./Score.js";
+import Tutorial from "./Tutorial.js";
 import GameOver from "./GameOver";
-import {reducer} from "./logic/reducer.js";
-import {getInitialSetup} from "./logic/getInitialSetup.js";
+import {reducer} from "../logic/reducer.js";
+import {getInitialSetup} from "../logic/getInitialSetup.js";
 
 function Game() {
   const numRows = 9;
