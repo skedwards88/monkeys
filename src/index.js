@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import Game from "./App.js";
+import Game from "./components/App.js";
 import "./App.css";
 
 if (process.env.NODE_ENV !== "development" && "serviceWorker" in navigator) {
