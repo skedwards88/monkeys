@@ -1,6 +1,5 @@
 - remove modal and render different components instead
 - use css grid for rules?
-- switch to copy instead of favicon generator
 - change background color on maskable icon to be sandy
 
 - Add undo function or add end turn button and make tile draggable until clicked
@@ -11,7 +10,6 @@
 - make rules swipe-able on mobile?
 - check color accessibility
 
-- don't use the favicon plugin anymore
 - don't use modal anymore
 - add sharing button
 - make highlight red if illegal move?

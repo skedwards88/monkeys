@@ -43,7 +43,7 @@ function Info() {
         <div>{`2 Players\n15 Minutes\n\nDesigned by Colin Thom\nBuilt by Sarah Edwards`}</div>
       </div>
       <img
-        src={require(`./images/monkey_3.svg`)}
+        src={require(`./images/button_icons/monkey_3.svg`)}
         alt="monkey artwork"
         className="rules-image"
       />
@@ -70,7 +70,7 @@ function Rule({info}) {
       )}
       {info.image ? (
         <img
-          src={require(`./images/${info.image}.png`)}
+          src={require(`./images/rule_illustrations/${info.image}.png`)}
           alt={info.alt}
           className="rules-image"
         />
