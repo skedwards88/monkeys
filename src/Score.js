@@ -1,5 +1,5 @@
 import React from "react";
-import {tallyScore} from "./tallyScore";
+import {tallyScore} from "./logic/tallyScore";
 
 export default function Score({routes}) {
   const score = tallyScore(routes);

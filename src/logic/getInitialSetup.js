@@ -1,5 +1,5 @@
-import {getBoardNodesFromFlatIndex} from "./getBoardNodesFromFlatIndex";
-import {shuffleArray} from "./shuffleArray";
+import {getBoardNodesFromFlatIndex} from "./getBoardNodesFromFlatIndex.js";
+import {shuffleArray} from "./shuffleArray.js";
 import {tiles, BoardRoute} from "./tiles.js";
 
 export function getInitialSetup({numRows, numColumns, force = false}) {

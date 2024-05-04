@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {rules} from "./rules";
+import {rules} from "./logic/rules";
 
 function PreviousButton({currentRule, setCurrentRule}) {
   if (currentRule !== 0) {
