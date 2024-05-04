@@ -1,0 +1,43 @@
+{
+  "name": "Monkeys of the Carribean",
+  "short_name": "Monkeys",
+  "description": "A 2 player spatial strategy game",
+  "id": "?monkeys=20240502",
+  "dir": "auto",
+  "lang": "en-US",
+  "display": "standalone",
+  "orientation": "landscape",
+  "start_url": "https://skedwards88.github.io/monkeys/",
+  "scope": "/monkeys/",
+  "background_color": "#ece6a9",
+  "theme_color": "#ece6a9",
+  "shortcuts": [],
+  "categories": ["games", "strategy", "entertainment"],
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "type": "image/svg+xml",
+      "sizes": "any",
+      "purpose": "any"
+    },
+    {
+      "src": "favicon.png",
+      "type": "image/png",
+      "sizes": "512x512 192x192",
+      "purpose": "any"
+    },
+    {
+      "src": "favicon.ico",
+      "type": "image/ico",
+      "sizes": "512x512 192x192",
+      "purpose": "any"
+    },
+    {
+      "src": "maskable.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "maskable"
+    }
+  ],
+  "screenshots": []
+}
