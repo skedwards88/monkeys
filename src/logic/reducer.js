@@ -10,6 +10,11 @@ export function reducer(currentState, payload) {
       numColumns: payload.numColumns,
       force: true,
     });
+  } else if (payload.action == "clearGameOver") {
+    return {
+      ...currentState,
+      gameOverCleared: true,
+    };
   }
 
   if (!validDropQ(currentState.played, payload.flatIndex, payload.numColumns)) {

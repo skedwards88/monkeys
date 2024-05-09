@@ -2,7 +2,10 @@ import {getBoardNodesFromFlatIndex} from "./getBoardNodesFromFlatIndex.js";
 import {shuffleArray} from "./shuffleArray.js";
 import {tiles, BoardRoute} from "./tiles.js";
 
-export function getInitialSetup({numRows, numColumns, force = false}) {
+export function getInitialSetup({force = false}) {
+  const numRows = 9;
+  const numColumns = 7;
+
   if (!force) {
     const previousGame = window.localStorage.getItem("gameState");
     if (previousGame) {
@@ -52,5 +55,8 @@ export function getInitialSetup({numRows, numColumns, force = false}) {
     remainingTileIDs: remainingTileIDs,
     played: startingBoard,
     routes: startingRoutes,
+    numColumns,
+    numRows,
+    gameOverCleared: false,
   };
 }

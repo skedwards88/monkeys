@@ -82,37 +82,27 @@ function Rule({info}) {
   );
 }
 
-export default function Tutorial({showRules, setShowRules}) {
+export default function Tutorial({setDisplay}) {
   const [currentRule, setCurrentRule] = useState(0);
 
-  if (showRules) {
-    const handleHide = () => {
-      setCurrentRule(0);
-      setShowRules(false);
-    };
-    console.log(currentRule);
-    console.log(typeof currentRule);
-    return (
-      <div className="modal">
-        <div id="tutorial">
-          <PreviousButton
-            currentRule={currentRule}
-            setCurrentRule={setCurrentRule}
-          />
-          {currentRule ? <Rule info={rules[currentRule - 1]} /> : <Info />}
-          <button id="exit-button" onClick={handleHide}></button>
-          <NextButton
-            currentRule={currentRule}
-            setCurrentRule={setCurrentRule}
-          />
-        </div>
-      </div>
-    );
-  } else {
-    const handleShow = () => {
-      setShowRules(true);
-    };
+  const handleHide = () => {
+    setCurrentRule(0);
+    setDisplay("game");
+  };
 
-    return <button id="rules-button" onClick={handleShow}></button>;
-  }
+  return (
+    <div id="tutorial">
+      <PreviousButton
+        currentRule={currentRule}
+        setCurrentRule={setCurrentRule}
+      />
+      {currentRule ? <Rule info={rules[currentRule - 1]} /> : <Info />}
+      <button
+        className="navigation-button"
+        id="exit-button"
+        onClick={handleHide}
+      ></button>
+      <NextButton currentRule={currentRule} setCurrentRule={setCurrentRule} />
+    </div>
+  );
 }
