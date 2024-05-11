@@ -70,7 +70,7 @@ function Rule({info}) {
       )}
       {info.image ? (
         <img
-          src={require(`../images/rule_illustrations/${info.image}.png`)}
+          src={require(`../images/rule_illustrations/${info.image}.webp`)}
           alt={info.alt}
           className="rules-image"
         />
