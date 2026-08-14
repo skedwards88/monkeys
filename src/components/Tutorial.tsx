@@ -1,10 +1,17 @@
-import React, {useState} from "react";
-import {rules} from "../logic/rules";
+import {useState} from "react";
+import {type RuleInfo, rules} from "../logic/rules";
+import {type DisplayState} from "./App";
 
-function PreviousButton({currentRule, setCurrentRule}) {
+function PreviousButton({
+  currentRule,
+  setCurrentRule,
+}: {
+  currentRule: number;
+  setCurrentRule: React.Dispatch<React.SetStateAction<number>>;
+}): React.JSX.Element {
   if (currentRule !== 0) {
-    const handlePrevious = () => {
-      let newRule = currentRule - 1;
+    const handlePrevious = (): void => {
+      const newRule = currentRule - 1;
       setCurrentRule(newRule);
     };
 
@@ -18,10 +25,16 @@ function PreviousButton({currentRule, setCurrentRule}) {
   return <button disabled className="navigation-button"></button>;
 }
 
-function NextButton({currentRule, setCurrentRule}) {
+function NextButton({
+  currentRule,
+  setCurrentRule,
+}: {
+  currentRule: number;
+  setCurrentRule: React.Dispatch<React.SetStateAction<number>>;
+}): React.JSX.Element {
   if (currentRule < rules.length) {
-    const handleNext = () => {
-      let newRule = currentRule + 1;
+    const handleNext = (): void => {
+      const newRule = currentRule + 1;
       setCurrentRule(newRule);
     };
 
@@ -35,7 +48,7 @@ function NextButton({currentRule, setCurrentRule}) {
   return <button disabled className="navigation-button"></button>;
 }
 
-function Info() {
+function Info(): React.JSX.Element {
   return (
     <div className="tutorial-step">
       <div className="tutorial-text">
@@ -57,7 +70,7 @@ function Info() {
   );
 }
 
-function Rule({info}) {
+function Rule({info}: {info: RuleInfo}): React.JSX.Element {
   return (
     <div className="tutorial-step">
       <div className="tutorial-text">{info.text}</div>
@@ -82,10 +95,14 @@ function Rule({info}) {
   );
 }
 
-export default function Tutorial({setDisplay}) {
-  const [currentRule, setCurrentRule] = useState(0);
+export default function Tutorial({
+  setDisplay,
+}: {
+  setDisplay: React.Dispatch<React.SetStateAction<DisplayState>>;
+}): React.JSX.Element {
+  const [currentRule, setCurrentRule] = useState<number>(0);
 
-  const handleHide = () => {
+  const handleHide = (): void => {
     setCurrentRule(0);
     setDisplay("game");
   };

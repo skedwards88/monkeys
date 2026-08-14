@@ -1,7 +1,11 @@
-import React from "react";
 import {tallyScore} from "../logic/tallyScore";
+import type {BoardRoute} from "../logic/tiles";
 
-export default function Score({routes}) {
+export default function Score({
+  routes,
+}: {
+  routes: BoardRoute[];
+}): React.JSX.Element {
   const score = tallyScore(routes);
 
   return (

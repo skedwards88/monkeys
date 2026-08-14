@@ -1,11 +1,21 @@
-import React from "react";
-import Offer from "./Offer.js";
+import Offer from "./Offer";
 import Board from "./Board";
-import Score from "./Score.js";
+import Score from "./Score";
 import GameOver from "./GameOver";
+import type {GameState} from "../logic/gameInit";
+import type {DisplayState} from "./App";
+import type {GameReducerPayload} from "../logic/reducer";
 
-export function Game({dispatchGameState, gameState, setDisplay}) {
-  const handleDrop = (event, flatIndex) => {
+export function Game({
+  dispatchGameState,
+  gameState,
+  setDisplay,
+}: {
+  dispatchGameState: React.Dispatch<GameReducerPayload>;
+  gameState: GameState;
+  setDisplay: React.Dispatch<React.SetStateAction<DisplayState>>;
+}): React.JSX.Element {
+  const handleDrop = (event, flatIndex: number): void => {
     event.target.style["background-color"] = "transparent";
 
     const offerIndex = event.dataTransfer.getData("offerIndex");
@@ -13,7 +23,6 @@ export function Game({dispatchGameState, gameState, setDisplay}) {
 
     dispatchGameState({
       action: "drop",
-      numRows: gameState.numRows,
       numColumns: gameState.numColumns,
       offerIndex: offerIndex,
       tile: tile,
@@ -45,8 +54,6 @@ export function Game({dispatchGameState, gameState, setDisplay}) {
           onClick={() =>
             dispatchGameState({
               action: "reset",
-              numRows: gameState.numRows,
-              numColumns: gameState.numColumns,
             })
           }
         />

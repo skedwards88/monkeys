@@ -1,4 +1,9 @@
-function calculateRouteScore(boardRoute) {
+import type {BoardRoute} from "./tiles";
+
+export type PlayerColor = "red" | "blue";
+export type Scores = Record<PlayerColor, number>;
+
+function calculateRouteScore(boardRoute: BoardRoute): Scores {
   // Count the features across all tile routes in this board route
   let coconuts = 0;
   let chests = 0;
@@ -7,7 +12,7 @@ function calculateRouteScore(boardRoute) {
   let redAnchors = 0;
   let blueAnchors = 0;
 
-  for (let tileRoute of boardRoute.tileRoutes) {
+  for (const tileRoute of boardRoute.tileRoutes) {
     coconuts += tileRoute.coconuts;
     chests += tileRoute.chests;
     redShips += tileRoute.redShips;
@@ -16,9 +21,9 @@ function calculateRouteScore(boardRoute) {
     blueAnchors += tileRoute.blueAnchors;
   }
 
-  let value = chests ? coconuts * 2 : coconuts;
-  let numRed = redAnchors ? redShips * 2 : redShips;
-  let numBlue = blueAnchors ? blueShips * 2 : blueShips;
+  const value = chests ? coconuts * 2 : coconuts;
+  const numRed = redAnchors ? redShips * 2 : redShips;
+  const numBlue = blueAnchors ? blueShips * 2 : blueShips;
   if (numBlue > numRed) {
     return {red: 0, blue: value};
   } else if (numRed > numBlue) {
@@ -28,7 +33,7 @@ function calculateRouteScore(boardRoute) {
   }
 }
 
-export function tallyScore(routes) {
+export function tallyScore(routes: BoardRoute[]): Scores {
   // Get the red/blue score for each route and sum them up
   const scores = routes.map((route) => calculateRouteScore(route));
   const redScore = scores

@@ -1,8 +1,23 @@
 const path = require("path");
+const webpack = require("webpack");
 const WorkboxPlugin = require("workbox-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
 const packageJson = require("./package.json");
+
+const appName = packageJson.displayName;
+const issues = packageJson.bugs.url;
+
+if (!appName || !issues) {
+  throw new Error(
+    "displayName and bugs.url must be populated in package.json for use in the privacy policy.",
+  );
+}
+
+// Define app name as an env var for use by the sendAnalyticsCF function
+const definePlugin = new webpack.DefinePlugin({
+  "process.env.APP_NAME": JSON.stringify(packageJson.name),
+});
 
 module.exports = (env, argv) => {
   if (argv.mode === "development") {
@@ -14,6 +29,18 @@ module.exports = (env, argv) => {
   const htmlPlugin = new HtmlWebpackPlugin({
     // Need to use template because need 'root' div for react injection. templateContent doesn't play nice with title, so just use a template file instead.
     template: "./src/index.html",
+  });
+
+  const privacyHtmlPlugin = new HtmlWebpackPlugin({
+    filename: "privacy.html",
+    template: require.resolve(
+      "@skedwards88/shared-components/src/components/privacy.template.html",
+    ),
+    inject: false,
+    templateParameters: {
+      appName,
+      issues,
+    },
   });
 
   const copyPlugin = new CopyPlugin({
@@ -42,8 +69,14 @@ module.exports = (env, argv) => {
 
   const plugins =
     argv.mode === "development"
-      ? [htmlPlugin, copyPlugin]
-      : [htmlPlugin, copyPlugin, serviceWorkerPlugin];
+      ? [definePlugin, htmlPlugin, privacyHtmlPlugin, copyPlugin]
+      : [
+          definePlugin,
+          htmlPlugin,
+          privacyHtmlPlugin,
+          copyPlugin,
+          serviceWorkerPlugin,
+        ];
 
   return {
     entry: "./src/index.js",
@@ -51,10 +84,21 @@ module.exports = (env, argv) => {
     module: {
       rules: [
         {
-          test: /\.(js|jsx)$/,
-          exclude: /(node_modules|bower_components)/,
+          test: /\.(js|jsx|ts|tsx)$/,
+          include: [
+            path.resolve(__dirname, "src"),
+            path.dirname(
+              require.resolve("@skedwards88/shared-components/package.json"),
+            ),
+          ],
           loader: "babel-loader",
-          options: {presets: ["@babel/env"]},
+          options: {
+            presets: [
+              "@babel/env",
+              ["@babel/preset-react", {runtime: "automatic"}],
+              "@babel/preset-typescript",
+            ],
+          },
         },
         {
           test: /\.css$/i,
@@ -66,7 +110,7 @@ module.exports = (env, argv) => {
         },
       ],
     },
-    resolve: {extensions: ["*", ".js", ".jsx"]},
+    resolve: {extensions: ["*", ".js", ".jsx", ".ts", ".tsx"]},
     output: {
       publicPath: "",
       filename: "bundle.[fullhash].js",

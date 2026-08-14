@@ -22,5 +22,8 @@ jobs:
       - name: ES lint
         run: npx eslint --ignore-path .gitignore .
 
+      - name: TS lint
+        run: npm run tslint
+
       - name: Stylelint
         run: npx stylelint '**/*.css'

@@ -1,19 +1,25 @@
 import {getBoardNodesFromFlatIndex} from "./getBoardNodesFromFlatIndex";
+import type {Tile} from "./tiles";
 import {BoardRoute} from "./tiles";
 
-export function updateRoutes(boardRoutes, tile, flatIndex, numColumns) {
+export function updateRoutes(
+  boardRoutes: BoardRoute[],
+  tile: Tile,
+  flatIndex: number,
+  numColumns: number,
+): BoardRoute[] {
   // Convert the row/col where the tile was placed to numbers describing
   // the corner positions ("nodes") of the tile on the board
-  let boardNodes = getBoardNodesFromFlatIndex(flatIndex, numColumns);
+  const boardNodes = getBoardNodesFromFlatIndex(flatIndex, numColumns);
 
   // For each route on the placed tile:
-  for (let tileRoute of tile.routes) {
+  for (const tileRoute of tile.routes) {
     // Convert the tile head/tail (0, 1, 2, 3, or null) to the corresponding board node
-    let convertedTileHead =
+    const convertedTileHead =
       typeof tileRoute.tileHead === "number"
         ? boardNodes[tileRoute.tileHead]
         : null;
-    let convertedTileTail =
+    const convertedTileTail =
       typeof tileRoute.tileTail === "number"
         ? boardNodes[tileRoute.tileTail]
         : null;
@@ -23,7 +29,7 @@ export function updateRoutes(boardRoutes, tile, flatIndex, numColumns) {
     let headMatch = null;
     let tailMatch = null;
 
-    for (let boardRoute of boardRoutes) {
+    for (const boardRoute of boardRoutes) {
       // If there is a head on the tile route
       // and we haven't found a head match
       // and the board route head or tail position matches the position of the tile route head
@@ -63,7 +69,7 @@ export function updateRoutes(boardRoutes, tile, flatIndex, numColumns) {
     // If no match was found for the tile route head or tail,
     // add the tile route as a new board route
     if (!headMatch && !tailMatch) {
-      let newRoute = new BoardRoute({
+      const newRoute = new BoardRoute({
         boardHead: convertedTileHead,
         boardTail: convertedTileTail,
         tileRoutes: [tileRoute],
@@ -76,20 +82,22 @@ export function updateRoutes(boardRoutes, tile, flatIndex, numColumns) {
     // and update the board route members
     else if ((headMatch && !tailMatch) || (tailMatch && !headMatch)) {
       // Get the matching board route
-      let matchingRoute = headMatch ? headMatch : tailMatch;
+      const matchingRoute = headMatch ? headMatch : tailMatch!; // need to ! assert for TS because it doesn't infer correctly
 
       // If the board route matched at the head of the tile route,
       // the tile tail will replace the board route head or tail
       // Otherwise, the tile head will replace the board route head or tail
-      let newValue = headMatch ? convertedTileTail : convertedTileHead;
+      const newValue = headMatch ? convertedTileTail : convertedTileHead;
 
       // Find the node where the board route joins the tile route
-      let matchingValue = headMatch ? convertedTileHead : convertedTileTail;
+      const matchingValue = headMatch ? convertedTileHead : convertedTileTail;
 
       // Update the board route head or tail (whichever joins to the new tile) to be the new value
-      matchingRoute.boardHead === matchingValue
-        ? (matchingRoute.boardHead = newValue)
-        : (matchingRoute.boardTail = newValue);
+      if (matchingRoute.boardHead === matchingValue) {
+        matchingRoute.boardHead = newValue;
+      } else {
+        matchingRoute.boardTail = newValue;
+      }
 
       // Add the new tile to the route
       matchingRoute.tileRoutes.push(tileRoute);
@@ -98,7 +106,8 @@ export function updateRoutes(boardRoutes, tile, flatIndex, numColumns) {
     // If head and tail match the same board route, the route is now a loop.
     // Set the route head/tail to null
     // and update the board route members
-    else if (headMatch === tailMatch) {
+    else if (headMatch! === tailMatch!) {
+      // need to ! assert for TS because it doesn't infer
       headMatch.boardHead = null;
       headMatch.boardTail = null;
       headMatch.tileRoutes.push(tileRoute);
@@ -108,14 +117,14 @@ export function updateRoutes(boardRoutes, tile, flatIndex, numColumns) {
     // Update head/tail on one route,
     // add the new tile and the tiles from the other route to the updated route,
     // delete the other route
-    else {
+    else if (headMatch && tailMatch) {
       // For both matching board routes, set the terminus that doesn't connect to the new tile to be the new head/tail
-      let newHead =
+      const newHead =
         headMatch.boardHead === convertedTileHead ||
         headMatch.boardHead === convertedTileTail
           ? headMatch.boardTail
           : headMatch.boardHead;
-      let newTail =
+      const newTail =
         tailMatch.boardHead === convertedTileHead ||
         tailMatch.boardHead === convertedTileTail
           ? tailMatch.boardTail
@@ -131,7 +140,7 @@ export function updateRoutes(boardRoutes, tile, flatIndex, numColumns) {
       headMatch.tileRoutes.push(tileRoute);
 
       // Delete the other board route
-      let indexToDelete = boardRoutes.indexOf(tailMatch);
+      const indexToDelete = boardRoutes.indexOf(tailMatch);
       boardRoutes.splice(indexToDelete, 1);
     }
   }

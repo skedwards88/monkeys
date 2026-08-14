@@ -1,4 +1,19 @@
-export const rules = [
+export type RuleInfo =
+  | {
+      text: string;
+      image: string;
+      alt: string;
+      animation?: never;
+      caption?: string;
+    }
+  | {
+      text: string;
+      image?: never;
+      alt?: never;
+      animation?: string;
+      caption?: string;
+    };
+export const rules: RuleInfo[] = [
   {
     text: `A crew of monkeys--with you as the captain--overthrew their pirate overlords. But it is not gold you want. Nay, coconuts are the bounty you seek.\n\nAlas! There be limited space on the sea. Compete for control of sea routes to get the most coconuts.`,
     image: "coconuts",

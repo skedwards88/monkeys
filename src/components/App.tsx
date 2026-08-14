@@ -1,16 +1,18 @@
 import React from "react";
-import Tutorial from "./Tutorial.js";
-import {Game} from "./Game.js";
-import {reducer} from "../logic/reducer.js";
-import {getInitialSetup} from "../logic/getInitialSetup.js";
+import Tutorial from "./Tutorial";
+import {Game} from "./Game";
+import {reducer} from "../logic/reducer";
+import {gameInit} from "../logic/gameInit";
 
-function App() {
-  const [display, setDisplay] = React.useState("game");
+export type DisplayState = "game" | "rules";
+
+function App(): React.JSX.Element {
+  const [display, setDisplay] = React.useState<DisplayState>("game");
 
   const [gameState, dispatchGameState] = React.useReducer(
     reducer,
     {},
-    getInitialSetup,
+    gameInit,
   );
 
   React.useEffect(() => {
