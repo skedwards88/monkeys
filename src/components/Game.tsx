@@ -5,6 +5,7 @@ import GameOver from "./GameOver";
 import type {GameState} from "../logic/gameInit";
 import type {DisplayState} from "./App";
 import type {GameReducerPayload} from "../logic/reducer";
+import DraggedTile from "./DraggedTile";
 
 export function Game({
   dispatchGameState,
@@ -15,21 +16,6 @@ export function Game({
   gameState: GameState;
   setDisplay: React.Dispatch<React.SetStateAction<DisplayState>>;
 }): React.JSX.Element {
-  const handleDrop = (event, flatIndex: number): void => {
-    event.target.style["background-color"] = "transparent";
-
-    const offerIndex = event.dataTransfer.getData("offerIndex");
-    const tile = event.dataTransfer.getData("tile");
-
-    dispatchGameState({
-      action: "drop",
-      numColumns: gameState.numColumns,
-      offerIndex: offerIndex,
-      tile: tile,
-      flatIndex: flatIndex,
-    });
-  };
-
   if (
     !gameState.gameOverCleared &&
     gameState.remainingTileIDs.every((item) => item === null)
@@ -44,9 +30,37 @@ export function Game({
   }
 
   return (
-    <div id="game">
-      <Offer remainingTileIDs={gameState.remainingTileIDs} />
-      <Board played={gameState.played} handleDrop={handleDrop} />
+    <div
+      id="game"
+      onPointerMove={(event) => {
+        event.preventDefault();
+        dispatchGameState({
+          action: "dragMove",
+          pointerPosition: {x: event.clientX, y: event.clientY},
+        });
+      }}
+      onPointerUp={() => {
+        dispatchGameState({
+          action: "dragEnd",
+          boardIndex: null,
+        });
+      }}
+    >
+      {gameState.dragData ? (
+        <DraggedTile dragData={gameState.dragData}></DraggedTile>
+      ) : (
+        <></>
+      )}
+      <Offer
+        remainingTileIDs={gameState.remainingTileIDs}
+        dragData={gameState.dragData}
+        dispatchGameState={dispatchGameState}
+      />
+      <Board
+        played={gameState.played}
+        dragData={gameState.dragData}
+        dispatchGameState={dispatchGameState}
+      />
       <div id="off-board">
         <Score routes={gameState.routes} />
         <button

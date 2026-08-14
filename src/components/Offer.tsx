@@ -1,9 +1,6 @@
 import React from "react";
-import {polyfill} from "mobile-drag-drop";
-
-polyfill({
-  dragImageCenterOnTouch: true,
-});
+import type {GameReducerPayload} from "../logic/reducer";
+import type {DragData} from "../logic/gameInit";
 
 function getDeckStyling(deckSize: number): string[] {
   // The box shadow around the draw stack
@@ -39,49 +36,72 @@ function getDeckStyling(deckSize: number): string[] {
   return fullDeckStyling.slice(0, 2 * (deckSize - 3));
 }
 
+function handlePointerDown(
+  event: React.PointerEvent<HTMLDivElement>,
+  offerIndex: number,
+  tileID: number,
+  dispatchGameState: React.Dispatch<GameReducerPayload>,
+): void {
+  // Release pointer capture so that pointer events can fire on other elements
+  event.currentTarget.releasePointerCapture(event.pointerId);
+
+  event.preventDefault();
+
+  dispatchGameState({
+    action: "dragStart",
+    draggedTileID: tileID,
+    draggedOfferIndex: offerIndex,
+    pointerStartPosition: {x: event.clientX, y: event.clientY},
+    tileDimension: {
+      x: event.currentTarget.getBoundingClientRect().width,
+      y: event.currentTarget.getBoundingClientRect().height,
+    },
+  });
+}
+
 function OfferTile({
   offerIndex,
   remainingTileIDs,
+  dispatchGameState,
+  isDragging,
 }: {
   offerIndex: number;
-  remainingTileIDs: number[];
+  remainingTileIDs: (number | null)[];
+  dispatchGameState: React.Dispatch<GameReducerPayload>;
+  isDragging: boolean;
 }): React.JSX.Element {
   const tileID = remainingTileIDs[offerIndex];
-  const className =
-    tileID != null
-      ? "square filled tile" + tileID + " offer-tile"
-      : "square offer-tile";
+  let className = "square offer-tile";
 
-  function drag(event, offerIndex: number, tile: number): void {
-    event.dataTransfer.setData("offerIndex", offerIndex);
-    event.dataTransfer.setData("tile", tile);
-    event.target.style["opacity"] = "0.5";
-
-    // If not on a device on which the mobile-drag-drop pollyfill applies
-    // Center the drag image on the cursor
-    if (!/iPad|iPhone|iPod|Android/.test(navigator.userAgent)) {
-      event.dataTransfer.setDragImage(event.target, 50, 50);
-    }
+  if (tileID != null) {
+    className += ` filled tile${tileID}`;
   }
 
-  function drop(event): void {
-    event.target.style["opacity"] = "1";
+  if (isDragging) {
+    className += " dragged";
   }
 
   return (
     <div
       className={className}
-      draggable="true"
-      onDragStart={(e) => drag(e, offerIndex, tileID)}
-      onDragEnd={(e) => drop(e)}
+      {...(tileID != null
+        ? {
+            onPointerDown: (event) =>
+              handlePointerDown(event, offerIndex, tileID, dispatchGameState),
+          }
+        : {})}
     />
   );
 }
 
 export default function Offer({
   remainingTileIDs,
+  dragData,
+  dispatchGameState,
 }: {
   remainingTileIDs: (number | null)[];
+  dragData: null | DragData;
+  dispatchGameState: React.Dispatch<GameReducerPayload>;
 }): React.JSX.Element {
   const offerRef = React.useRef<HTMLDivElement | null>(null);
 
@@ -99,9 +119,24 @@ export default function Offer({
   return (
     <div id="offer-area" ref={offerRef}>
       <div id="offer">
-        <OfferTile offerIndex={0} remainingTileIDs={remainingTileIDs} />
-        <OfferTile offerIndex={1} remainingTileIDs={remainingTileIDs} />
-        <OfferTile offerIndex={2} remainingTileIDs={remainingTileIDs} />
+        <OfferTile
+          offerIndex={0}
+          remainingTileIDs={remainingTileIDs}
+          dispatchGameState={dispatchGameState}
+          isDragging={dragData?.draggedOfferIndex === 0}
+        />
+        <OfferTile
+          offerIndex={1}
+          remainingTileIDs={remainingTileIDs}
+          dispatchGameState={dispatchGameState}
+          isDragging={dragData?.draggedOfferIndex === 1}
+        />
+        <OfferTile
+          offerIndex={2}
+          remainingTileIDs={remainingTileIDs}
+          dispatchGameState={dispatchGameState}
+          isDragging={dragData?.draggedOfferIndex === 2}
+        />
       </div>
       <div className="square filled draw-pile">
         {Math.max(0, remainingTileIDs.length - 3)}

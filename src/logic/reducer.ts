@@ -1,5 +1,5 @@
 import {validDropQ} from "./validDropQ";
-import type {GameState} from "./gameInit";
+import type {GameState, Position} from "./gameInit";
 import {gameInit} from "./gameInit";
 import {updateRoutes} from "./updateRoutes";
 import {tiles} from "./tiles";
@@ -12,11 +12,19 @@ export type GameReducerPayload =
       action: "clearGameOver";
     }
   | {
-      action: "drop";
-      flatIndex: number;
-      numColumns: number;
-      tile: number;
-      offerIndex: number;
+      action: "dragStart";
+      draggedTileID: number;
+      draggedOfferIndex: number;
+      pointerStartPosition: Position;
+      tileDimension: Position;
+    }
+  | {
+      action: "dragMove";
+      pointerPosition: Position;
+    }
+  | {
+      action: "dragEnd";
+      boardIndex: number | null;
     };
 
 export function reducer(
@@ -32,35 +40,69 @@ export function reducer(
       ...currentState,
       gameOverCleared: true,
     };
-  } else if (payload.action == "drop") {
-    if (
-      !validDropQ(currentState.played, payload.flatIndex, payload.numColumns)
-    ) {
+  } else if (payload.action === "dragStart") {
+    return {
+      ...currentState,
+      dragData: {
+        draggedTileID: payload.draggedTileID,
+        draggedOfferIndex: payload.draggedOfferIndex,
+        pointerOffset: {
+          x: payload.tileDimension.x,
+          y: payload.tileDimension.y,
+        },
+        pointerPosition: payload.pointerStartPosition,
+      },
+    };
+  } else if (payload.action === "dragMove") {
+    if (!currentState.dragData) {
       return currentState;
+    }
+
+    return {
+      ...currentState,
+      dragData: {
+        ...currentState.dragData,
+        pointerPosition: payload.pointerPosition,
+      },
+    };
+  } else if (payload.action == "dragEnd") {
+    if (!currentState.dragData) {
+      return currentState;
+    }
+
+    if (
+      payload.boardIndex === null ||
+      !validDropQ(
+        currentState.played,
+        payload.boardIndex,
+        currentState.numColumns,
+      )
+    ) {
+      return {...currentState, dragData: null};
     }
 
     // Put a token in the square where the token was dropped
     const newPlayed = [...currentState.played];
-    newPlayed[payload.flatIndex] = payload.tile;
+    newPlayed[payload.boardIndex] = currentState.dragData.draggedTileID;
 
     const updatedRoutes = updateRoutes(
       currentState.routes.slice(),
-      tiles[payload.tile],
-      payload.flatIndex,
-      payload.numColumns,
+      tiles[currentState.dragData.draggedTileID],
+      payload.boardIndex,
+      currentState.numColumns,
     );
 
     // const offerIndex = event.dragData.offerIndex;
     const newRemainingTileIDs = [...currentState.remainingTileIDs];
     if (newRemainingTileIDs.length > 3) {
       // replace the played tile with the tile at the bottom of the pool
-      newRemainingTileIDs[payload.offerIndex] =
+      newRemainingTileIDs[currentState.dragData.draggedOfferIndex] =
         newRemainingTileIDs[newRemainingTileIDs.length - 1];
       // remove the tile at the bottom of the pool
       newRemainingTileIDs.splice(-1, 1);
     } else {
       // If there aren't unrevealed tiles left, replace the played tile with null
-      newRemainingTileIDs[payload.offerIndex] = null;
+      newRemainingTileIDs[currentState.dragData.draggedOfferIndex] = null;
     }
 
     return {
@@ -68,6 +110,7 @@ export function reducer(
       played: newPlayed,
       routes: updatedRoutes,
       remainingTileIDs: newRemainingTileIDs,
+      dragData: null,
     };
   } else {
     console.log(

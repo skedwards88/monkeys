@@ -3,6 +3,18 @@ import {shuffleArray} from "@skedwards88/word_logic";
 import {tiles, BoardRoute} from "./tiles";
 import {getFromStorage} from "@skedwards88/shared-components/src/logic/safeStorage";
 
+export type Position = {
+  x: number;
+  y: number;
+};
+
+export type DragData = {
+  draggedTileID: number;
+  draggedOfferIndex: number;
+  pointerPosition: Position;
+  pointerOffset: Position;
+};
+
 export type GameState = {
   remainingTileIDs: (number | null)[];
   played: (null | number)[];
@@ -10,6 +22,7 @@ export type GameState = {
   numColumns: number;
   numRows: number;
   gameOverCleared: boolean;
+  dragData: null | DragData;
 };
 
 export function gameInit({useSaved = true}: {useSaved?: boolean}): GameState {
@@ -69,5 +82,6 @@ export function gameInit({useSaved = true}: {useSaved?: boolean}): GameState {
     numColumns,
     numRows,
     gameOverCleared: false,
+    dragData: null,
   };
 }

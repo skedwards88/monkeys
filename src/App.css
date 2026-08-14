@@ -247,6 +247,7 @@ button:focus {
 #offer {
   display: flex;
   flex-direction: column;
+  touch-action: none;
 }
 
 .offer-tile {
@@ -255,6 +256,16 @@ button:focus {
 
 .filled.offer-tile {
   box-shadow: -4px 4px 3px -2px darkgrey;
+}
+
+.dragged.offer-tile {
+  opacity: 50%;
+}
+
+.drag-tile {
+  /* position, top, left are set in the jsx */
+  /* need to set pointer events to none so that pointer events on the board under this can fire */
+  pointer-events: none
 }
 
 #off-board {
