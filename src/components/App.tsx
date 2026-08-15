@@ -20,11 +20,10 @@ function App(): React.JSX.Element {
     window.localStorage.setItem("gameState", JSON.stringify(gameState));
   }, [gameState]);
 
-
   // todo just temporary
   if (gameState.played.filter((i) => i != null).length % 2) {
     const {playedOfferIndex, playedBoardIndex} = playBot({
-      currentGameState: gameState,
+      gameState,
       botColor: "red",
     });
 

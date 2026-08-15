@@ -122,11 +122,11 @@ export function reducer(
       currentState.routes.slice(),
       tiles[playedTileID!],
       payload.boardIndex,
-      currentState.numColumns,
+      NUM_COLUMNS,
     );
 
     const newRemainingTileIDs = [...currentState.remainingTileIDs];
-    if (newRemainingTileIDs.length > 3) {
+    if (newRemainingTileIDs.length > OFFER_SIZE) {
       // replace the played tile with the tile at the bottom of the pool
       newRemainingTileIDs[payload.offerIndex] =
         newRemainingTileIDs[newRemainingTileIDs.length - 1];
