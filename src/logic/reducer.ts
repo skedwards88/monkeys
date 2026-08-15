@@ -25,6 +25,11 @@ export type GameReducerPayload =
   | {
       action: "dragEnd";
       boardIndex: number | null;
+    }
+  | {
+      action: "playBot";
+      boardIndex: number;
+      offerIndex: number;
     };
 
 export function reducer(
@@ -102,6 +107,38 @@ export function reducer(
     } else {
       // If there aren't unrevealed tiles left, replace the played tile with null
       newRemainingTileIDs[currentState.dragData.draggedOfferIndex] = null;
+    }
+
+    return {
+      ...currentState,
+      played: newPlayed,
+      routes: updatedRoutes,
+      remainingTileIDs: newRemainingTileIDs,
+      dragData: null,
+    };
+  } else if (payload.action == "playBot") {
+    const playedTileID = currentState.remainingTileIDs[payload.offerIndex];
+    // Put a token in the square where the token was dropped
+    const newPlayed = [...currentState.played];
+    newPlayed[payload.boardIndex] = playedTileID;
+
+    const updatedRoutes = updateRoutes(
+      currentState.routes.slice(),
+      tiles[playedTileID!],
+      payload.boardIndex,
+      currentState.numColumns,
+    );
+
+    const newRemainingTileIDs = [...currentState.remainingTileIDs];
+    if (newRemainingTileIDs.length > 3) {
+      // replace the played tile with the tile at the bottom of the pool
+      newRemainingTileIDs[payload.offerIndex] =
+        newRemainingTileIDs[newRemainingTileIDs.length - 1];
+      // remove the tile at the bottom of the pool
+      newRemainingTileIDs.splice(-1, 1);
+    } else {
+      // If there aren't unrevealed tiles left, replace the played tile with null
+      newRemainingTileIDs[payload.offerIndex] = null;
     }
 
     return {

@@ -3,6 +3,7 @@ import Tutorial from "./Tutorial";
 import {Game} from "./Game";
 import {reducer} from "../logic/reducer";
 import {gameInit} from "../logic/gameInit";
+import {playBot} from "../logic/bot";
 
 export type DisplayState = "game" | "rules";
 
@@ -18,6 +19,21 @@ function App(): React.JSX.Element {
   React.useEffect(() => {
     window.localStorage.setItem("gameState", JSON.stringify(gameState));
   }, [gameState]);
+
+
+  // todo just temporary
+  if (gameState.played.filter((i) => i != null).length % 2) {
+    const {playedOfferIndex, playedBoardIndex} = playBot({
+      currentGameState: gameState,
+      botColor: "red",
+    });
+
+    dispatchGameState({
+      action: "playBot",
+      offerIndex: playedOfferIndex,
+      boardIndex: playedBoardIndex,
+    });
+  }
 
   switch (display) {
     case "rules":
