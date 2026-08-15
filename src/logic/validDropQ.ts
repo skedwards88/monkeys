@@ -15,9 +15,9 @@ export function validDropQ(
   // If the square or the overlapping one above/below is already occupied,
   // don't allow a tile to be dropped there
   if (
-    partitionedPlayed[row][column] ||
-    partitionedPlayed[row + 1]?.[column] ||
-    partitionedPlayed[row - 1]?.[column]
+    partitionedPlayed[row][column] != null ||
+    partitionedPlayed[row + 1]?.[column] != null ||
+    partitionedPlayed[row - 1]?.[column] != null
   ) {
     return false;
   }
@@ -25,12 +25,12 @@ export function validDropQ(
   // If the square does not touch a tile to the left or right, don't allow the drop
   if (
     !(
-      partitionedPlayed[row][column + 1] ||
-      partitionedPlayed[row][column - 1] ||
-      partitionedPlayed[row + 1]?.[column + 1] ||
-      partitionedPlayed[row + 1]?.[column - 1] ||
-      partitionedPlayed[row - 1]?.[column + 1] ||
-      partitionedPlayed[row - 1]?.[column - 1]
+      partitionedPlayed[row][column + 1] != null ||
+      partitionedPlayed[row][column - 1] != null ||
+      partitionedPlayed[row + 1]?.[column + 1] != null ||
+      partitionedPlayed[row + 1]?.[column - 1] != null ||
+      partitionedPlayed[row - 1]?.[column + 1] != null ||
+      partitionedPlayed[row - 1]?.[column - 1] != null
     )
   ) {
     return false;
