@@ -8,6 +8,8 @@ export function updateRoutes(
   flatIndex: number,
   numColumns: number,
 ): BoardRoute[] {
+  const updatedBoardRoutes = structuredClone(boardRoutes);
+
   // Convert the row/col where the tile was placed to numbers describing
   // the corner positions ("nodes") of the tile on the board
   const boardNodes = getBoardNodesFromFlatIndex(flatIndex, numColumns);
@@ -29,7 +31,7 @@ export function updateRoutes(
     let headMatch = null;
     let tailMatch = null;
 
-    for (const boardRoute of boardRoutes) {
+    for (const boardRoute of updatedBoardRoutes) {
       // If there is a head on the tile route
       // and we haven't found a head match
       // and the board route head or tail position matches the position of the tile route head
@@ -74,7 +76,7 @@ export function updateRoutes(
         boardTail: convertedTileTail,
         tileRoutes: [tileRoute],
       });
-      boardRoutes.push(newRoute);
+      updatedBoardRoutes.push(newRoute);
     }
 
     // If only a head or tail (but not both) match was found,
@@ -140,9 +142,9 @@ export function updateRoutes(
       headMatch.tileRoutes.push(tileRoute);
 
       // Delete the other board route
-      const indexToDelete = boardRoutes.indexOf(tailMatch);
-      boardRoutes.splice(indexToDelete, 1);
+      const indexToDelete = updatedBoardRoutes.indexOf(tailMatch);
+      updatedBoardRoutes.splice(indexToDelete, 1);
     }
   }
-  return boardRoutes;
+  return updatedBoardRoutes;
 }
