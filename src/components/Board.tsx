@@ -1,4 +1,4 @@
-import type {DragData} from "../logic/gameInit";
+import {NUM_COLUMNS, type DragData} from "../logic/gameInit";
 import type {GameReducerPayload} from "../logic/reducer";
 import {validDropQ} from "../logic/validDropQ";
 
@@ -39,8 +39,7 @@ export default function Board({
         className={className}
         onPointerEnter={(event) => {
           event.preventDefault();
-          if (dragData && validDropQ(played, boardIndex, 7)) {
-            // todo don't hardcode num columns
+          if (dragData && validDropQ(played, boardIndex, NUM_COLUMNS)) {
             event.currentTarget.style["background-color"] = "darkblue";
           }
         }}

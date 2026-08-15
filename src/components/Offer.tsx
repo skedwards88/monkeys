@@ -1,6 +1,6 @@
 import React from "react";
 import type {GameReducerPayload} from "../logic/reducer";
-import type {DragData} from "../logic/gameInit";
+import {OFFER_SIZE, type DragData} from "../logic/gameInit";
 
 function getDeckStyling(deckSize: number): string[] {
   // The box shadow around the draw stack
@@ -33,7 +33,7 @@ function getDeckStyling(deckSize: number): string[] {
     "-13px 13px rgba(0,0,0, 0.35)",
   ];
 
-  return fullDeckStyling.slice(0, 2 * (deckSize - 3));
+  return fullDeckStyling.slice(0, 2 * (deckSize - OFFER_SIZE));
 }
 
 function handlePointerDown(
@@ -139,7 +139,7 @@ export default function Offer({
         />
       </div>
       <div className="square filled draw-pile">
-        {Math.max(0, remainingTileIDs.length - 3)}
+        {Math.max(0, remainingTileIDs.length - OFFER_SIZE)}
       </div>
     </div>
   );

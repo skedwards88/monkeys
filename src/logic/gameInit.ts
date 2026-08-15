@@ -3,6 +3,10 @@ import {shuffleArray} from "@skedwards88/word_logic";
 import {tiles, BoardRoute} from "./tiles";
 import {getFromStorage} from "@skedwards88/shared-components/src/logic/safeStorage";
 
+export const OFFER_SIZE = 3;
+export const NUM_COLUMNS = 7;
+export const NUM_ROWS = 9;
+
 export type Position = {
   x: number;
   y: number;
@@ -19,16 +23,11 @@ export type GameState = {
   remainingTileIDs: (number | null)[];
   played: (null | number)[];
   routes: BoardRoute[];
-  numColumns: number;
-  numRows: number;
   gameOverCleared: boolean;
   dragData: null | DragData;
 };
 
 export function gameInit({useSaved = true}: {useSaved?: boolean}): GameState {
-  const numRows = 9;
-  const numColumns = 7;
-
   if (useSaved) {
     const savedState = getFromStorage<GameState>("gameState");
     if (savedState) {
@@ -46,7 +45,7 @@ export function gameInit({useSaved = true}: {useSaved?: boolean}): GameState {
 
   // Make the starting board
   const startingPositions = [10, 24, 38, 52]; // todo can calc instead
-  const numSquares = numColumns * numRows;
+  const numSquares = NUM_COLUMNS * NUM_ROWS;
   const startingBoard = Array(numSquares).fill(null);
   initialTileIDs.forEach((tileID, index) => {
     const startingPosition = startingPositions[index];
@@ -59,7 +58,7 @@ export function gameInit({useSaved = true}: {useSaved?: boolean}): GameState {
   initialTileIDs.forEach((tileID, index) => {
     // Convert the row/col where the tile was placed to board node numbers
     const startingPosition = startingPositions[index];
-    const boardNodes = getBoardNodesFromFlatIndex(startingPosition, numColumns);
+    const boardNodes = getBoardNodesFromFlatIndex(startingPosition, NUM_ROWS);
 
     // For each route on the tile, convert the tile-relative head/tail to board-relative head/tail
     // and add the route to the starting routes
@@ -79,8 +78,6 @@ export function gameInit({useSaved = true}: {useSaved?: boolean}): GameState {
     remainingTileIDs: remainingTileIDs,
     played: startingBoard,
     routes: startingRoutes,
-    numColumns,
-    numRows,
     gameOverCleared: false,
     dragData: null,
   };

@@ -1,6 +1,6 @@
 import {validDropQ} from "./validDropQ";
 import type {GameState, Position} from "./gameInit";
-import {gameInit} from "./gameInit";
+import {gameInit, NUM_COLUMNS, OFFER_SIZE} from "./gameInit";
 import {updateRoutes} from "./updateRoutes";
 import {tiles} from "./tiles";
 
@@ -77,11 +77,7 @@ export function reducer(
 
     if (
       payload.boardIndex === null ||
-      !validDropQ(
-        currentState.played,
-        payload.boardIndex,
-        currentState.numColumns,
-      )
+      !validDropQ(currentState.played, payload.boardIndex, NUM_COLUMNS)
     ) {
       return {...currentState, dragData: null};
     }
@@ -94,11 +90,11 @@ export function reducer(
       currentState.routes.slice(),
       tiles[currentState.dragData.draggedTileID],
       payload.boardIndex,
-      currentState.numColumns,
+      NUM_COLUMNS,
     );
 
     const newRemainingTileIDs = [...currentState.remainingTileIDs];
-    if (newRemainingTileIDs.length > 3) {
+    if (newRemainingTileIDs.length > OFFER_SIZE) {
       // replace the played tile with the tile at the bottom of the pool
       newRemainingTileIDs[currentState.dragData.draggedOfferIndex] =
         newRemainingTileIDs[newRemainingTileIDs.length - 1];
