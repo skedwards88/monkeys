@@ -92,7 +92,6 @@ export function reducer(
       currentState.numColumns,
     );
 
-    // const offerIndex = event.dragData.offerIndex;
     const newRemainingTileIDs = [...currentState.remainingTileIDs];
     if (newRemainingTileIDs.length > 3) {
       // replace the played tile with the tile at the bottom of the pool
