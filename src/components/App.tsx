@@ -4,10 +4,30 @@ import {Game} from "./Game";
 import {reducer} from "../logic/reducer";
 import {gameInit} from "../logic/gameInit";
 import {playBot} from "../logic/bot";
+import {useMetadataContext} from "@skedwards88/shared-components/src/components/MetadataContextProvider";
+import {useInstallPrompt} from "@skedwards88/shared-components/src/logic/handleInstall";
+import {saveToStorage} from "@skedwards88/shared-components/src/logic/safeStorage";
+import {sendAnalyticsCF} from "@skedwards88/shared-components/src/logic/sendAnalyticsCF";
+import InstallOverview from "@skedwards88/shared-components/src/components/InstallOverview";
+import PWAInstall from "@skedwards88/shared-components/src/components/PWAInstall";
+import packageJson from "../../package.json";
+import MoreGames from "@skedwards88/shared-components/src/components/MoreGames";
+import {inferEventsToLog} from "../logic/inferEventsToLog";
 
-export type DisplayState = "game" | "rules";
+export type DisplayState =
+  | "game"
+  | "rules"
+  | "heart"
+  | "installOverview"
+  | "pwaInstall";
 
 function App(): React.JSX.Element {
+  const {userId, sessionId} = useMetadataContext();
+
+  // This must live at the top level component, not in InstallOverview where it is used, since the InstallOverview is not rendered initially and therefore misses its chance to attach the listeners
+  const {installPromptEvent, showInstallButton, handleInstall} =
+    useInstallPrompt({userId, sessionId});
+
   const [display, setDisplay] = React.useState<DisplayState>("game");
 
   const [gameState, dispatchGameState] = React.useReducer(
@@ -16,8 +36,24 @@ function App(): React.JSX.Element {
     gameInit,
   );
 
+  // Store the previous state so that we can infer which analytics events to send
+  const previousStateRef = React.useRef(gameState);
+
+  // Send analytics following reducer updates, if needed
   React.useEffect(() => {
-    window.localStorage.setItem("gameState", JSON.stringify(gameState));
+    const previousState = previousStateRef.current;
+
+    const analyticsToLog = inferEventsToLog(previousState, gameState);
+
+    if (analyticsToLog.length) {
+      sendAnalyticsCF({userId, sessionId, analyticsToLog});
+    }
+
+    previousStateRef.current = gameState;
+  }, [gameState, sessionId, userId]);
+
+  React.useEffect(() => {
+    saveToStorage("gameState", gameState);
   }, [gameState]);
 
   // todo just temporary
@@ -37,6 +73,39 @@ function App(): React.JSX.Element {
   switch (display) {
     case "rules":
       return <Tutorial setDisplay={setDisplay}></Tutorial>;
+
+    case "heart":
+      return (
+        <MoreGames
+          setDisplay={setDisplay}
+          games={["sector", "deepSpaceSlime","crossjig"]}
+          repoName="https://github.com/skedwards88/sector"
+          includeExtraInfo={true}
+          version={packageJson.version}
+        ></MoreGames>
+      );
+
+    case "installOverview":
+      return (
+        <InstallOverview
+          setDisplay={setDisplay}
+          userId={userId}
+          sessionId={sessionId}
+          installPromptEvent={installPromptEvent}
+          showInstallButton={showInstallButton}
+          handleInstall={handleInstall}
+        ></InstallOverview>
+      );
+
+    case "pwaInstall":
+      return (
+        <PWAInstall
+          setDisplay={setDisplay}
+          pwaLink={"https://sector.twistedtrailgames.com"}
+          userId={userId}
+          sessionId={sessionId}
+        ></PWAInstall>
+      );
 
     default:
       return (

@@ -1,6 +1,20 @@
 import {useState} from "react";
 import {type RuleInfo, rules} from "../logic/rules";
 import {type DisplayState} from "./App";
+import monkey3 from "../images/button_icons/monkey_3.svg";
+import coconuts from "../images/rule_illustrations/coconuts.webp";
+import two_ships from "../images/rule_illustrations/two_ships.webp";
+import chest from "../images/rule_illustrations/chest.webp";
+import route from "../images/rule_illustrations/route.webp";
+import route_and_anchor from "../images/rule_illustrations/route_and_anchor.webp";
+
+const ruleImages: Record<string, string> = {
+  coconuts: coconuts,
+  two_ships: two_ships,
+  chest: chest,
+  route: route,
+  route_and_anchor: route_and_anchor,
+};
 
 function PreviousButton({
   currentRule,
@@ -55,11 +69,7 @@ function Info(): React.JSX.Element {
         <h1>Monkeys of the Caribbean</h1>
         <div>{`2 Players\n15 Minutes\n\nDesigned by Colin Thom\nBuilt by Sarah Edwards`}</div>
       </div>
-      <img
-        src={require(`../images/button_icons/monkey_3.svg`)}
-        alt="monkey artwork"
-        className="rules-image"
-      />
+      <img src={monkey3} alt="monkey artwork" className="rules-image" />
       <div className="tutorial-text">Version 2.2.3</div>
       <div>
         {`Want more games? Check `}
@@ -83,7 +93,7 @@ function Rule({info}: {info: RuleInfo}): React.JSX.Element {
       )}
       {info.image ? (
         <img
-          src={require(`../images/rule_illustrations/${info.image}.webp`)}
+          src={ruleImages[info.image]}
           alt={info.alt}
           className="rules-image"
         />

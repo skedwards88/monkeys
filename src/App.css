@@ -264,8 +264,9 @@ button:focus {
 
 .drag-tile {
   /* position, top, left are set in the jsx */
+
   /* need to set pointer events to none so that pointer events on the board under this can fire */
-  pointer-events: none
+  pointer-events: none;
 }
 
 #off-board {

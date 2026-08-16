@@ -20,6 +20,7 @@ export type DragData = {
 };
 
 export type GameState = {
+  id: string;
   remainingTileIDs: (number | null)[];
   played: (null | number)[];
   routes: BoardRoute[];
@@ -58,7 +59,10 @@ export function gameInit({useSaved = true}: {useSaved?: boolean}): GameState {
   initialTileIDs.forEach((tileID, index) => {
     // Convert the row/col where the tile was placed to board node numbers
     const startingPosition = startingPositions[index];
-    const boardNodes = getBoardNodesFromFlatIndex(startingPosition, NUM_COLUMNS);
+    const boardNodes = getBoardNodesFromFlatIndex(
+      startingPosition,
+      NUM_COLUMNS,
+    );
 
     // For each route on the tile, convert the tile-relative head/tail to board-relative head/tail
     // and add the route to the starting routes
@@ -75,6 +79,7 @@ export function gameInit({useSaved = true}: {useSaved?: boolean}): GameState {
   });
 
   return {
+    id: crypto.randomUUID(), // just a random ID to track when the user generates a new puzzle
     remainingTileIDs: remainingTileIDs,
     played: startingBoard,
     routes: startingRoutes,
