@@ -20,6 +20,7 @@ export type DragData = {
 };
 
 export type GameState = {
+  id: string;
   remainingTileIDs: (number | null)[];
   played: (null | number)[];
   routes: BoardRoute[];
@@ -78,6 +79,7 @@ export function gameInit({useSaved = true}: {useSaved?: boolean}): GameState {
   });
 
   return {
+    id: crypto.randomUUID(), // just a random ID to track when the user generates a new puzzle
     remainingTileIDs: remainingTileIDs,
     played: startingBoard,
     routes: startingRoutes,
