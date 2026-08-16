@@ -61,16 +61,15 @@ function handlePointerDown(
 
 function OfferTile({
   offerIndex,
-  remainingTileIDs,
+  tileID,
   dispatchGameState,
   isDragging,
 }: {
   offerIndex: number;
-  remainingTileIDs: (number | null)[];
+  tileID: number | null;
   dispatchGameState: React.Dispatch<GameReducerPayload>;
   isDragging: boolean;
 }): React.JSX.Element {
-  const tileID = remainingTileIDs[offerIndex];
   let className = "square offer-tile";
 
   if (tileID != null) {
@@ -116,28 +115,19 @@ export default function Offer({
     offerDiv.style.setProperty("--deck-size", deckStyling.join(","));
   }, [remainingTileIDs]);
 
+  const offerTiles = Array.from({length: OFFER_SIZE}, (_, index) => (
+    <OfferTile
+      key={`${index}-${remainingTileIDs[index]}`}
+      offerIndex={index}
+      tileID={remainingTileIDs[index]}
+      dispatchGameState={dispatchGameState}
+      isDragging={dragData?.draggedOfferIndex === index}
+    />
+  ));
+
   return (
     <div id="offer-area" ref={offerRef}>
-      <div id="offer">
-        <OfferTile
-          offerIndex={0}
-          remainingTileIDs={remainingTileIDs}
-          dispatchGameState={dispatchGameState}
-          isDragging={dragData?.draggedOfferIndex === 0}
-        />
-        <OfferTile
-          offerIndex={1}
-          remainingTileIDs={remainingTileIDs}
-          dispatchGameState={dispatchGameState}
-          isDragging={dragData?.draggedOfferIndex === 1}
-        />
-        <OfferTile
-          offerIndex={2}
-          remainingTileIDs={remainingTileIDs}
-          dispatchGameState={dispatchGameState}
-          isDragging={dragData?.draggedOfferIndex === 2}
-        />
-      </div>
+      <div id="offer">{offerTiles}</div>
       <div className="square filled draw-pile">
         {Math.max(0, remainingTileIDs.length - OFFER_SIZE)}
       </div>
