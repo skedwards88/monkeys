@@ -6,6 +6,7 @@ import type {GameState} from "../logic/gameInit";
 import type {DisplayState} from "./App";
 import type {GameReducerPayload} from "../logic/reducer";
 import DraggedTile from "./DraggedTile";
+import ControlBar from "./ControlBar";
 
 export function Game({
   dispatchGameState,
@@ -51,6 +52,10 @@ export function Game({
       ) : (
         <></>
       )}
+      <ControlBar
+        setDisplay={setDisplay}
+        dispatchGameState={dispatchGameState}
+      ></ControlBar>
       <Offer
         remainingTileIDs={gameState.remainingTileIDs}
         dragData={gameState.dragData}
@@ -63,15 +68,6 @@ export function Game({
       />
       <div id="off-board">
         <Score routes={gameState.routes} />
-        <button
-          id="new-game-button"
-          onClick={() =>
-            dispatchGameState({
-              action: "reset",
-            })
-          }
-        />
-        <button id="rules-button" onClick={() => setDisplay("rules")}></button>
       </div>
     </div>
   );

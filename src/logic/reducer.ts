@@ -6,7 +6,7 @@ import {tiles} from "./tiles";
 
 export type GameReducerPayload =
   | {
-      action: "reset";
+      action: "newGame";
     }
   | {
       action: "clearGameOver";
@@ -31,7 +31,7 @@ export function reducer(
   currentState: GameState,
   payload: GameReducerPayload,
 ): GameState {
-  if (payload.action == "reset") {
+  if (payload.action == "newGame") {
     return gameInit({
       useSaved: false,
     });
