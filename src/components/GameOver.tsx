@@ -22,7 +22,7 @@ export default function GameOver({
     >
       <div>GAME OVER!</div>
       <Score routes={routes} />
-      <div>Click anywhere to return.</div>
+      <div>tap anywhere to return</div>
     </div>
   );
 }
