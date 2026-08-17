@@ -3,14 +3,24 @@ name: Deploy static content to Pages
 on:
   push:
     branches: ["main"]
+    paths-ignore:
+      - "README.md"
+      - "TODO.md"
+      - ".github/ISSUE_TEMPLATE/*"
+      - ".eslintrc.json"
+      - ".gitignore"
+      - ".prettierignore"
+      - ".prettierrc.json"
+      - ".stylelintrc.json"
   workflow_dispatch:
 
 permissions:
-  contents: read
-  pages: write
-  id-token: write
-  actions: read
+  contents: write # Required for bumping version (read-only required for deployment)
+  pages: write # Required for deployment
+  id-token: write # Required for deployment
+  actions: read # Required for deployment
 
+# Allow one concurrent deployment
 concurrency:
   group: "pages"
   cancel-in-progress: true
@@ -29,10 +39,22 @@ jobs:
         run: sudo apt-get install -y webp
 
       - name: Install requirements
-        run: npm install
+        run: npm ci
 
-      - name: Test
-        run: npm run test
+      - name: Run tests
+        run: npm test
+
+      - name: Setup git config
+        run: |
+          git config --global user.name "skedwards88"
+          git config --global user.email "skedwards88@gmail.com"
+
+      - name: Bump version
+        run: npm version patch
+
+      - name: Push the version bump
+        run: |
+          git push
 
       - name: Build
         run: npm run build

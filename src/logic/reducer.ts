@@ -6,7 +6,7 @@ import {tiles} from "./tiles";
 
 export type GameReducerPayload =
   | {
-      action: "reset";
+      action: "newGame";
     }
   | {
       action: "clearGameOver";
@@ -36,7 +36,7 @@ export function reducer(
   currentState: GameState,
   payload: GameReducerPayload,
 ): GameState {
-  if (payload.action == "reset") {
+  if (payload.action == "newGame") {
     return gameInit({
       useSaved: false,
     });
@@ -111,6 +111,7 @@ export function reducer(
       routes: updatedRoutes,
       remainingTileIDs: newRemainingTileIDs,
       dragData: null,
+      isBlueTurn: !currentState.isBlueTurn,
     };
   } else if (payload.action == "playBot") {
     const playedTileID = currentState.remainingTileIDs[payload.offerIndex];

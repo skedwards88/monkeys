@@ -3,12 +3,13 @@ html {
 }
 
 body {
+  height: 90vh; /* fallback if svh isn't handled */
+  height: 98svh;
+  width: 100vw;
   font-weight: bold;
   font-family: Verdana, Geneva, sans-serif;
 
-  --square-diameter: 50px; /* fallback fallback (if clamp and vmin are not supported) */
-  /* stylelint-disable-next-line declaration-block-no-duplicate-custom-properties */
-  --square-diameter: 17vmin; /* fallback (if clamp is not supported) */
+  --square-diameter: 19vmin; /* fallback (if clamp is not supported) */
 
   vertical-align: middle;
   margin: 0;
@@ -20,12 +21,9 @@ body {
   --default-font-size: min(0.9cm, 5vmin);
 
   font-size: var(--default-font-size);
-}
 
-@supports (width: clamp(40px, 17vmin, 100px)) {
-  body {
-    --square-diameter: clamp(40px, 17vmin, 100px);
-  }
+  --water-color: rgb(0, 234, 255);
+  --dark-water-color: rgb(125, 213, 245);
 }
 
 h1 {
@@ -44,7 +42,6 @@ button {
   border: 0;
   padding: 1px 6px;
   background-color: transparent;
-  margin: 2vmin 0;
 }
 
 button:disabled {
@@ -62,26 +59,23 @@ button:focus {
 }
 
 #game {
-  display: flex;
-  margin: 20px;
+  display: grid;
+  grid-template-areas: "controlBar offer game scores";
   justify-content: center;
+  gap: calc(var(--square-diameter) * 0.2);
+  margin: 0 calc(var(--square-diameter) * 0.2);
 }
 
 #board {
   height: calc(var(--square-diameter) * 5);
   border: 3px rgb(150, 200, 230) solid;
   border-radius: 10px;
-  background:
-    linear-gradient(
-      rgba(150, 200, 230, 0.5),
-      rgba(150, 200, 230, 0.5)
-    ),
-    url("./images/backgrounds/waves.svg");
+  background-color: var(--dark-water-color);
   background-attachment: fixed;
   display: grid;
   grid-template-columns: repeat(7, var(--square-diameter));
   grid-template-rows: repeat(10, calc(var(--square-diameter) / 2));
-  margin: 0 10px;
+  align-self: center;
 }
 
 .square {
@@ -90,10 +84,10 @@ button:focus {
 }
 
 .square.filled.draw-pile {
-  background: url("./images/button_icons/monkey_3_teal.svg"), url("./images/backgrounds/waves.svg");
+  background: url("./images/button_icons/monkey_3_teal.svg");
+  background-color: var(--water-color);
   background-size: contain, auto;
   box-shadow: var(--deck-size);
-  margin: 0 5px 5px 0;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -101,157 +95,130 @@ button:focus {
 }
 
 .square.filled.tile0 {
-  background:
-    url("./images/tiles_200/Monkeys_Tile_1.webp"),
-    url("./images/backgrounds/waves.svg");
+  background: url("./images/tiles_200/Monkeys_Tile_1.webp");
+  background-color: var(--water-color);
   background-size: contain, auto;
 }
 
 .square.filled.tile1 {
-  background:
-    url("./images/tiles_200/Monkeys_Tile_2.webp"),
-    url("./images/backgrounds/waves.svg");
+  background: url("./images/tiles_200/Monkeys_Tile_2.webp");
+  background-color: var(--water-color);
   background-size: contain, auto;
 }
 
 .square.filled.tile2 {
-  background:
-    url("./images/tiles_200/Monkeys_Tile_3.webp"),
-    url("./images/backgrounds/waves.svg");
+  background: url("./images/tiles_200/Monkeys_Tile_3.webp");
+  background-color: var(--water-color);
   background-size: contain, auto;
 }
 
 .square.filled.tile3 {
-  background:
-    url("./images/tiles_200/Monkeys_Tile_4.webp"),
-    url("./images/backgrounds/waves.svg");
+  background: url("./images/tiles_200/Monkeys_Tile_4.webp");
+  background-color: var(--water-color);
   background-size: contain, auto;
 }
 
 .square.filled.tile4 {
-  background:
-    url("./images/tiles_200/Monkeys_Tile_5.webp"),
-    url("./images/backgrounds/waves.svg");
+  background: url("./images/tiles_200/Monkeys_Tile_5.webp");
+  background-color: var(--water-color);
   background-size: contain, auto;
 }
 
 .square.filled.tile5 {
-  background:
-    url("./images/tiles_200/Monkeys_Tile_6.webp"),
-    url("./images/backgrounds/waves.svg");
+  background: url("./images/tiles_200/Monkeys_Tile_6.webp");
+  background-color: var(--water-color);
   background-size: contain, auto;
 }
 
 .square.filled.tile6 {
-  background:
-    url("./images/tiles_200/Monkeys_Tile_7.webp"),
-    url("./images/backgrounds/waves.svg");
+  background: url("./images/tiles_200/Monkeys_Tile_7.webp");
+  background-color: var(--water-color);
   background-size: contain, auto;
 }
 
 .square.filled.tile7 {
-  background:
-    url("./images/tiles_200/Monkeys_Tile_8.webp"),
-    url("./images/backgrounds/waves.svg");
+  background: url("./images/tiles_200/Monkeys_Tile_8.webp");
+  background-color: var(--water-color);
   background-size: contain, auto;
 }
 
 .square.filled.tile8 {
-  background:
-    url("./images/tiles_200/Monkeys_Tile_9.webp"),
-    url("./images/backgrounds/waves.svg");
+  background: url("./images/tiles_200/Monkeys_Tile_9.webp");
+  background-color: var(--water-color);
   background-size: contain, auto;
 }
 
 .square.filled.tile9 {
-  background:
-    url("./images/tiles_200/Monkeys_Tile_10.webp"),
-    url("./images/backgrounds/waves.svg");
+  background: url("./images/tiles_200/Monkeys_Tile_10.webp");
+  background-color: var(--water-color);
   background-size: contain, auto;
 }
 
 .square.filled.tile10 {
-  background:
-    url("./images/tiles_200/Monkeys_Tile_11.webp"),
-    url("./images/backgrounds/waves.svg");
+  background: url("./images/tiles_200/Monkeys_Tile_11.webp");
+  background-color: var(--water-color);
   background-size: contain, auto;
 }
 
 .square.filled.tile11 {
-  background:
-    url("./images/tiles_200/Monkeys_Tile_12.webp"),
-    url("./images/backgrounds/waves.svg");
+  background: url("./images/tiles_200/Monkeys_Tile_12.webp");
+  background-color: var(--water-color);
   background-size: contain, auto;
 }
 
 .square.filled.tile12 {
-  background:
-    url("./images/tiles_200/Monkeys_Tile_13.webp"),
-    url("./images/backgrounds/waves.svg");
+  background: url("./images/tiles_200/Monkeys_Tile_13.webp");
+  background-color: var(--water-color);
   background-size: contain, auto;
 }
 
 .square.filled.tile13 {
-  background:
-    url("./images/tiles_200/Monkeys_Tile_14.webp"),
-    url("./images/backgrounds/waves.svg");
+  background: url("./images/tiles_200/Monkeys_Tile_14.webp");
+  background-color: var(--water-color);
   background-size: contain, auto;
 }
 
 .square.filled.tile14 {
-  background:
-    url("./images/tiles_200/Monkeys_Tile_15.webp"),
-    url("./images/backgrounds/waves.svg");
+  background: url("./images/tiles_200/Monkeys_Tile_15.webp");
+  background-color: var(--water-color);
   background-size: contain, auto;
 }
 
 .square.filled.tile15 {
-  background:
-    url("./images/tiles_200/Monkeys_Tile_16.webp"),
-    url("./images/backgrounds/waves.svg");
+  background: url("./images/tiles_200/Monkeys_Tile_16.webp");
+  background-color: var(--water-color);
   background-size: contain, auto;
 }
 
 .square.filled.tile16 {
-  background:
-    url("./images/tiles_200/Monkeys_Tile_17.webp"),
-    url("./images/backgrounds/waves.svg");
+  background: url("./images/tiles_200/Monkeys_Tile_17.webp");
+  background-color: var(--water-color);
   background-size: contain, auto;
 }
 
 .square.filled.tile17 {
-  background:
-    url("./images/tiles_200/Monkeys_Tile_18.webp"),
-    url("./images/backgrounds/waves.svg");
+  background: url("./images/tiles_200/Monkeys_Tile_18.webp");
+  background-color: var(--water-color);
   background-size: contain, auto;
 }
 
 .square.filled.tile18 {
-  background:
-    url("./images/tiles_200/Monkeys_Tile_19.webp"),
-    url("./images/backgrounds/waves.svg");
+  background: url("./images/tiles_200/Monkeys_Tile_19.webp");
+  background-color: var(--water-color);
   background-size: contain, auto;
 }
 
 .square.filled.tile19 {
-  background:
-    url("./images/tiles_200/Monkeys_Tile_20.webp"),
-    url("./images/backgrounds/waves.svg");
+  background: url("./images/tiles_200/Monkeys_Tile_20.webp");
+  background-color: var(--water-color);
   background-size: contain, auto;
 }
 
 #offer-area {
-  margin: 3px 0 0 0;
-}
-
-#offer {
   display: flex;
   flex-direction: column;
   touch-action: none;
-}
-
-.offer-tile {
-  margin: 0 5px 5px 0;
+  justify-content: space-evenly;
 }
 
 .filled.offer-tile {
@@ -290,7 +257,6 @@ button:focus {
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
-  margin-right: 5px;
 }
 
 .score-icon.red {
@@ -304,7 +270,7 @@ button:focus {
 .red-score {
   color: red;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
 }
 
@@ -312,36 +278,26 @@ button:focus {
   align-items: center;
   color: blue;
   display: flex;
-  flex-direction: row;
+  flex-direction: column-reverse;
 }
 
-.tile {
-  margin: 10px;
+.red-score.currentColor {
+  border-radius: 5px;
+
+  /* use box-shadow instead of border to prevent jumping */
+  box-shadow: inset 0 0 0 3px red;
 }
 
-#new-game-button {
-  width: calc(var(--square-diameter) * 0.8);
-  height: calc(var(--square-diameter) * 0.8);
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  margin-right: 5px;
-  background-image: url("./images/button_icons/new_game_icon.svg");
-}
+.blue-score.currentColor {
+  border-radius: 5px;
 
-#rules-button {
-  width: calc(var(--square-diameter) * 0.8);
-  height: calc(var(--square-diameter) * 0.8);
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  margin-right: 5px;
-  background-image: url("./images/button_icons/rules_icon.svg");
+  /* use box-shadow instead of border to prevent jumping */
+  box-shadow: inset 0 0 0 3px blue;
 }
 
 #game-over {
   font-weight: normal;
-  background-image: url("./images/backgrounds/waves.svg");
+  background-color: var(--water-color);
   background-attachment: fixed;
   position: fixed;
   height: 100%;
@@ -357,7 +313,7 @@ button:focus {
 
 #tutorial {
   font-weight: normal;
-  background-image: url("./images/backgrounds/waves.svg");
+  background-color: var(--water-color);
   background-attachment: fixed;
   height: 100vh;
   width: 100vw;
@@ -532,6 +488,44 @@ button:focus {
 
 .anchor {
   background-image: url("./images/rule_illustrations/route_and_anchor.webp");
+}
+
+.info {
+  white-space: pre-line;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+  font-size: calc(var(--default-font-size) * 0.9);
+  font-weight: normal;
+}
+
+.infoText {
+  margin: 2vmax;
+}
+
+.info a {
+  color: rgb(0 162 255);
+}
+
+.heart,
+.info {
+  .close {
+    font-size: calc(var(--default-font-size) * 1);
+    font-weight: normal;
+    background-color: var(--dark-water-color);
+    border: 1px solid var(--dark-water-color);
+    border-radius: 5px;
+    margin: 10px;
+    padding: 6px 14px;
+  }
+}
+
+/* Override the shared styling from MoreGames.css */
+.game-image {
+  width: 28vmax !important;
+  height: unset !important;
+  aspect-ratio: 4/7 !important;
 }
 
 /* Landscape, large screen */

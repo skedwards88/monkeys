@@ -70,7 +70,6 @@ function Info(): React.JSX.Element {
         <div>{`2 Players\n15 Minutes\n\nDesigned by Colin Thom\nBuilt by Sarah Edwards`}</div>
       </div>
       <img src={monkey3} alt="monkey artwork" className="rules-image" />
-      <div className="tutorial-text">Version 2.2.3</div>
       <div>
         {`Want more games? Check `}
         <a href="https://skedwards88.github.io/">these</a>

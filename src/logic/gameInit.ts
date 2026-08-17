@@ -26,6 +26,7 @@ export type GameState = {
   routes: BoardRoute[];
   gameOverCleared: boolean;
   dragData: null | DragData;
+  isBlueTurn: boolean;
 };
 
 export function gameInit({useSaved = true}: {useSaved?: boolean}): GameState {
@@ -85,5 +86,6 @@ export function gameInit({useSaved = true}: {useSaved?: boolean}): GameState {
     routes: startingRoutes,
     gameOverCleared: false,
     dragData: null,
+    isBlueTurn: true,
   };
 }

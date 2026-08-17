@@ -1,0 +1,41 @@
+
+#controls {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  grid-area: controlBar;
+  height: 100vh;
+  width: calc(var(--square-diameter) * 0.5);
+  margin-right: calc(var(--square-diameter) * 0.2);
+}
+
+#controls > button {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  border: 0;
+  width: calc(var(--square-diameter) * 0.45);
+  aspect-ratio: 1;
+  background-color: transparent;
+}
+
+#newGameButton {
+  background-image: url("@skedwards88/shared-components/src/images/icons/new_game.svg");
+}
+
+#heartButton {
+  background-image: url("@skedwards88/shared-components/src/images/icons/heart.svg");
+}
+
+#rulesButton {
+  background-image: url("@skedwards88/shared-components/src/images/icons/question_mark.svg");
+}
+
+#installButton {
+  background-image: url("@skedwards88/shared-components/src/images/icons/install.svg");
+}
+
+#shareButton {
+  background-image: url("@skedwards88/shared-components/src/images/icons/share.svg");
+}
