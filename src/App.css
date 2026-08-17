@@ -513,7 +513,6 @@ button:focus {
   .close {
     font-size: calc(var(--default-font-size) * 1);
     font-weight: normal;
-    border: 0;
     background-color: var(--dark-water-color);
     border: 1px solid var(--dark-water-color);
     border-radius: 5px;
