@@ -508,16 +508,17 @@ button:focus {
   color: rgb(0 162 255);
 }
 
-.heart,.info {
+.heart,
+.info {
   .close {
-  font-size: calc(var(--default-font-size) * 1);
-  font-weight: normal;
-  border: 0;
-  background-color: var(--dark-water-color);
-  border: 1px solid var(--dark-water-color);
-  border-radius: 5px;
-  margin: 10px;
-  padding: 6px 14px;
+    font-size: calc(var(--default-font-size) * 1);
+    font-weight: normal;
+    border: 0;
+    background-color: var(--dark-water-color);
+    border: 1px solid var(--dark-water-color);
+    border-radius: 5px;
+    margin: 10px;
+    padding: 6px 14px;
   }
 }
 
