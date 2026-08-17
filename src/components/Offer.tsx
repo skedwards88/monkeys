@@ -127,7 +127,7 @@ export default function Offer({
 
   return (
     <div id="offer-area" ref={offerRef}>
-      <div id="offer">{offerTiles}</div>
+       {offerTiles}
       <div className="square filled draw-pile">
         {Math.max(0, remainingTileIDs.length - OFFER_SIZE)}
       </div>
