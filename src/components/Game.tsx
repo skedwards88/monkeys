@@ -67,7 +67,10 @@ export function Game({
         dispatchGameState={dispatchGameState}
       />
       <div id="off-board">
-        <Score routes={gameState.routes} />
+        <Score
+          routes={gameState.routes}
+          currentColor={gameState.isBlueTurn ? "blue" : "red"}
+        />
       </div>
     </div>
   );

@@ -281,6 +281,20 @@ button:focus {
   flex-direction: column-reverse;
 }
 
+.red-score.currentColor {
+  border-radius: 5px;
+
+  /* use box-shadow instead of border to prevent jumping */
+  box-shadow: inset 0 0 0 3px red;
+}
+
+.blue-score.currentColor {
+  border-radius: 5px;
+
+  /* use box-shadow instead of border to prevent jumping */
+  box-shadow: inset 0 0 0 3px blue;
+}
+
 #game-over {
   font-weight: normal;
   background-color: var(--water-color);
