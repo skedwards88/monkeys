@@ -5,7 +5,7 @@ import "./App.css";
 import "./ControlBar.css";
 import "@skedwards88/shared-components/src/styles/MoreGames.css";
 import "@skedwards88/shared-components/src/styles/Install.css";
-import { MetadataContextProvider } from "@skedwards88/shared-components/src/components/MetadataContextProvider";
+import {MetadataContextProvider} from "@skedwards88/shared-components/src/components/MetadataContextProvider";
 
 if (process.env.NODE_ENV !== "development" && "serviceWorker" in navigator) {
   const path =

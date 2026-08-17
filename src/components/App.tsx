@@ -63,7 +63,7 @@ function App(): React.JSX.Element {
       return (
         <MoreGames
           setDisplay={setDisplay}
-          games={["sector", "deepSpaceSlime","crossjig"]}
+          games={["sector", "deepSpaceSlime", "crossjig"]}
           repoName="https://github.com/skedwards88/sector"
           includeExtraInfo={true}
           version={packageJson.version}

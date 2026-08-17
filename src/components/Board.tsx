@@ -10,7 +10,7 @@ const handlePointerUp = (
   // stop propagation so that the game-level event doesn't trigger
   event.stopPropagation();
 
-  event.currentTarget.style.backgroundColor = "transparent";
+  event.currentTarget.style.removeProperty("background-color");
 
   dispatchGameState({
     action: "dragEnd",
@@ -44,7 +44,7 @@ export default function Board({
           }
         }}
         onPointerLeave={(event) => {
-          event.currentTarget.style.backgroundColor = "transparent";
+          event.currentTarget.style.removeProperty("background-color");
         }}
       />
     );
