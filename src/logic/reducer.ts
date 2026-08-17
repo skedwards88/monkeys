@@ -106,6 +106,7 @@ export function reducer(
       routes: updatedRoutes,
       remainingTileIDs: newRemainingTileIDs,
       dragData: null,
+      isBlueTurn: !currentState.isBlueTurn,
     };
   } else {
     console.log(
