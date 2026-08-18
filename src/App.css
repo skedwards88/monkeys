@@ -508,17 +508,33 @@ button:focus {
   color: rgb(0 162 255);
 }
 
-.heart,
-.info {
-  .close {
-    font-size: calc(var(--default-font-size) * 1);
-    font-weight: normal;
-    background-color: var(--dark-water-color);
-    border: 1px solid var(--dark-water-color);
-    border-radius: 5px;
-    margin: 10px;
-    padding: 6px 14px;
-  }
+.heart .close,
+.info .close,
+#home button {
+  font-size: calc(var(--default-font-size) * 1.2);
+  font-weight: normal;
+  background-color: var(--dark-water-color);
+  border: 1px solid var(--dark-water-color);
+  border-radius: 5px;
+  margin: 10px;
+  padding: 6px 14px;
+  box-shadow:
+    0 0 0.5rem var(--water-color),
+    inset 0 0 0.9rem var(--water-color);
+}
+
+#home {
+  display: flex;
+  flex-direction: column;
+  width: 50vw;
+  height: 100vh;
+  justify-self: center;
+  justify-content: center;
+}
+
+#logo {
+  align-self: center;
+  width: 30vmin;
 }
 
 /* Override the shared styling from MoreGames.css */

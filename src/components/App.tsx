@@ -13,9 +13,11 @@ import PWAInstall from "@skedwards88/shared-components/src/components/PWAInstall
 import packageJson from "../../package.json";
 import MoreGames from "@skedwards88/shared-components/src/components/MoreGames";
 import {inferEventsToLog} from "../logic/inferEventsToLog";
+import Home from "./Home";
 
 export type DisplayState =
   | "game"
+  | "home"
   | "rules"
   | "heart"
   | "installOverview"
@@ -28,7 +30,7 @@ function App(): React.JSX.Element {
   const {installPromptEvent, showInstallButton, handleInstall} =
     useInstallPrompt({userId, sessionId});
 
-  const [display, setDisplay] = React.useState<DisplayState>("game");
+  const [display, setDisplay] = React.useState<DisplayState>("home");
 
   const [gameState, dispatchGameState] = React.useReducer(
     reducer,
@@ -57,7 +59,10 @@ function App(): React.JSX.Element {
   }, [gameState]);
 
   // todo just temporary
-  if (gameState.played.filter((i) => i != null).length % 2) {
+  if (
+    gameState.isVsBot &&
+    gameState.played.filter((i) => i != null).length % 2
+  ) {
     const {playedOfferIndex, playedBoardIndex} = playBot({
       gameState,
       botColor: "red",
@@ -71,6 +76,14 @@ function App(): React.JSX.Element {
   }
 
   switch (display) {
+    case "home":
+      return (
+        <Home
+          dispatchGameState={dispatchGameState}
+          setDisplay={setDisplay}
+        ></Home>
+      );
+
     case "rules":
       return <Tutorial setDisplay={setDisplay}></Tutorial>;
 

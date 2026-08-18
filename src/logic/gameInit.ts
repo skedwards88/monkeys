@@ -27,9 +27,16 @@ export type GameState = {
   gameOverCleared: boolean;
   dragData: null | DragData;
   isBlueTurn: boolean;
+  isVsBot: boolean;
 };
 
-export function gameInit({useSaved = true}: {useSaved?: boolean}): GameState {
+export function gameInit({
+  useSaved = true,
+  isVsBot = false,
+}: {
+  useSaved?: boolean;
+  isVsBot?: boolean;
+}): GameState {
   if (useSaved) {
     const savedState = getFromStorage<GameState>("gameState");
     if (savedState) {
@@ -87,5 +94,6 @@ export function gameInit({useSaved = true}: {useSaved?: boolean}): GameState {
     gameOverCleared: false,
     dragData: null,
     isBlueTurn: true,
+    isVsBot,
   };
 }

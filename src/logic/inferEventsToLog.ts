@@ -15,7 +15,7 @@ export function inferEventsToLog(
     analyticsToLog.push({
       eventName: "new_game",
       eventInfo: {
-        isVsBot: false,
+        isVsBot: newState.isVsBot,
       },
     });
   }
@@ -39,7 +39,7 @@ export function inferEventsToLog(
     analyticsToLog.push({
       eventName: "gameOver",
       eventInfo: {
-        isVsBot: false,
+        isVsBot: newState.isVsBot,
         colorWon: winner,
       },
     });

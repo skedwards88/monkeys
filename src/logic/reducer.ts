@@ -7,6 +7,7 @@ import {tiles} from "./tiles";
 export type GameReducerPayload =
   | {
       action: "newGame";
+      isVsBot: boolean;
     }
   | {
       action: "clearGameOver";
@@ -39,6 +40,7 @@ export function reducer(
   if (payload.action == "newGame") {
     return gameInit({
       useSaved: false,
+      isVsBot: payload.isVsBot,
     });
   } else if (payload.action == "clearGameOver") {
     return {

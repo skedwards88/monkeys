@@ -3,27 +3,17 @@ import Share from "@skedwards88/shared-components/src/components/Share";
 import {isRunningStandalone} from "@skedwards88/shared-components/src/logic/isRunningStandalone";
 import {sendAnalyticsCF} from "@skedwards88/shared-components/src/logic/sendAnalyticsCF";
 import type {DisplayState} from "./App";
-import type {GameReducerPayload} from "../logic/reducer";
 
 export default function ControlBar({
   setDisplay,
-  dispatchGameState,
 }: {
   setDisplay: React.Dispatch<React.SetStateAction<DisplayState>>;
-  dispatchGameState: React.Dispatch<GameReducerPayload>;
 }): React.JSX.Element {
   const {userId, sessionId} = useMetadataContext();
 
   return (
     <div id="controls">
-      <button
-        id="newGameButton"
-        onClick={() =>
-          dispatchGameState({
-            action: "newGame",
-          })
-        }
-      />
+      <button id="newGameButton" onClick={() => setDisplay("home")} />
 
       <button id="heartButton" onClick={() => setDisplay("heart")}></button>
 

@@ -52,10 +52,7 @@ export function Game({
       ) : (
         <></>
       )}
-      <ControlBar
-        setDisplay={setDisplay}
-        dispatchGameState={dispatchGameState}
-      ></ControlBar>
+      <ControlBar setDisplay={setDisplay}></ControlBar>
       <Offer
         remainingTileIDs={gameState.remainingTileIDs}
         dragData={gameState.dragData}
