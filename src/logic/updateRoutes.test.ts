@@ -5,7 +5,7 @@ import {updateRoutes} from "./updateRoutes";
 describe("updateRoutes", () => {
   test("does not mutate the input routes", () => {
     const startingRoutes: BoardRoute[] = [];
-    [11, 16, 12, 14].forEach((tileID, index) => {
+    [11, 7, 12, 0].forEach((tileID, index) => {
       // Convert the row/col where the tile was placed to board node numbers
       const startingPosition = [10, 24, 38, 52][index];
       const boardNodes = getBoardNodesFromFlatIndex(startingPosition, 7);
@@ -26,7 +26,7 @@ describe("updateRoutes", () => {
 
     const initialRoutes = structuredClone(startingRoutes);
 
-    updateRoutes(startingRoutes, tiles[17], 16, 7);
+    updateRoutes(startingRoutes, tiles[3], 16, 7);
 
     const postUpdateInitialRoutes = structuredClone(startingRoutes);
 
