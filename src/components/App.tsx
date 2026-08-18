@@ -87,7 +87,7 @@ function App(): React.JSX.Element {
       });
 
       dispatchGameState({
-        action: "playBot", // todo this should use the endDrag action instead I think
+        action: "playBot",
         offerIndex: playedOfferIndex,
         boardIndex: playedBoardIndex,
       });

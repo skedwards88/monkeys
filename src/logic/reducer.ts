@@ -33,6 +33,49 @@ export type GameReducerPayload =
       offerIndex: number;
     };
 
+function updateStateWithPlayedTile({
+  currentState,
+  playedBoardIndex,
+  playedTileID,
+  playedOfferIndex,
+}: {
+  currentState: GameState;
+  playedBoardIndex: number;
+  playedTileID: number;
+  playedOfferIndex: number;
+}): GameState {
+  const updatedPlayed = [...currentState.played];
+  updatedPlayed[playedBoardIndex] = playedTileID;
+
+  const updatedRoutes = updateRoutes(
+    currentState.routes.slice(),
+    tiles[playedTileID],
+    playedBoardIndex,
+    NUM_COLUMNS,
+  );
+
+  const newRemainingTileIDs = [...currentState.remainingTileIDs];
+  if (newRemainingTileIDs.length > OFFER_SIZE) {
+    // replace the played tile with the tile at the bottom of the pool
+    newRemainingTileIDs[playedOfferIndex] =
+      newRemainingTileIDs[newRemainingTileIDs.length - 1];
+    // remove the tile at the bottom of the pool
+    newRemainingTileIDs.splice(-1, 1);
+  } else {
+    // If there aren't unrevealed tiles left, replace the played tile with null
+    newRemainingTileIDs[playedOfferIndex] = null;
+  }
+
+  return {
+    ...currentState,
+    played: updatedPlayed,
+    routes: updatedRoutes,
+    remainingTileIDs: newRemainingTileIDs,
+    dragData: null,
+    isBlueTurn: !currentState.isBlueTurn,
+  };
+}
+
 export function reducer(
   currentState: GameState,
   payload: GameReducerPayload,
@@ -84,70 +127,29 @@ export function reducer(
       return {...currentState, dragData: null};
     }
 
-    // Put a token in the square where the token was dropped
-    const newPlayed = [...currentState.played];
-    newPlayed[payload.boardIndex] = currentState.dragData.draggedTileID;
+    const updatedState = updateStateWithPlayedTile({
+      currentState,
+      playedBoardIndex: payload.boardIndex,
+      playedTileID: currentState.dragData.draggedTileID,
+      playedOfferIndex: currentState.dragData.draggedOfferIndex,
+    });
 
-    const updatedRoutes = updateRoutes(
-      currentState.routes.slice(),
-      tiles[currentState.dragData.draggedTileID],
-      payload.boardIndex,
-      NUM_COLUMNS,
-    );
-
-    const newRemainingTileIDs = [...currentState.remainingTileIDs];
-    if (newRemainingTileIDs.length > OFFER_SIZE) {
-      // replace the played tile with the tile at the bottom of the pool
-      newRemainingTileIDs[currentState.dragData.draggedOfferIndex] =
-        newRemainingTileIDs[newRemainingTileIDs.length - 1];
-      // remove the tile at the bottom of the pool
-      newRemainingTileIDs.splice(-1, 1);
-    } else {
-      // If there aren't unrevealed tiles left, replace the played tile with null
-      newRemainingTileIDs[currentState.dragData.draggedOfferIndex] = null;
-    }
-
-    return {
-      ...currentState,
-      played: newPlayed,
-      routes: updatedRoutes,
-      remainingTileIDs: newRemainingTileIDs,
-      dragData: null,
-      isBlueTurn: !currentState.isBlueTurn,
-    };
+    return updatedState;
   } else if (payload.action == "playBot") {
     const playedTileID = currentState.remainingTileIDs[payload.offerIndex];
-    // Put a token in the square where the token was dropped
-    const newPlayed = [...currentState.played];
-    newPlayed[payload.boardIndex] = playedTileID;
 
-    const updatedRoutes = updateRoutes(
-      currentState.routes.slice(),
-      tiles[playedTileID!],
-      payload.boardIndex,
-      NUM_COLUMNS,
-    );
-
-    const newRemainingTileIDs = [...currentState.remainingTileIDs];
-    if (newRemainingTileIDs.length > OFFER_SIZE) {
-      // replace the played tile with the tile at the bottom of the pool
-      newRemainingTileIDs[payload.offerIndex] =
-        newRemainingTileIDs[newRemainingTileIDs.length - 1];
-      // remove the tile at the bottom of the pool
-      newRemainingTileIDs.splice(-1, 1);
-    } else {
-      // If there aren't unrevealed tiles left, replace the played tile with null
-      newRemainingTileIDs[payload.offerIndex] = null;
+    if (playedTileID === null) {
+      throw new Error("bot did not play a tile");
     }
 
-    return {
-      ...currentState,
-      played: newPlayed,
-      routes: updatedRoutes,
-      remainingTileIDs: newRemainingTileIDs,
-      dragData: null,
-      isBlueTurn: !currentState.isBlueTurn,
-    };
+    const updatedState = updateStateWithPlayedTile({
+      currentState,
+      playedBoardIndex: payload.boardIndex,
+      playedTileID,
+      playedOfferIndex: payload.offerIndex,
+    });
+
+    return updatedState;
   } else {
     console.log(
       `unknown action: ${(payload as unknown as {action: string}).action}`,
