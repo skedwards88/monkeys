@@ -16,12 +16,7 @@ import {inferEventsToLog} from "../logic/inferEventsToLog";
 import Home from "./Home";
 
 export type DisplayState =
-  | "game"
-  | "home"
-  | "rules"
-  | "heart"
-  | "installOverview"
-  | "pwaInstall";
+  "game" | "home" | "rules" | "heart" | "installOverview" | "pwaInstall";
 
 function App(): React.JSX.Element {
   const {userId, sessionId} = useMetadataContext();

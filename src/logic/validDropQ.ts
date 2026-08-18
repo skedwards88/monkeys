@@ -23,16 +23,14 @@ export function validDropQ(
   }
 
   // If the square does not touch a tile to the left or right, don't allow the drop
-  if (
-    !(
-      partitionedPlayed[row][column + 1] != null ||
-      partitionedPlayed[row][column - 1] != null ||
-      partitionedPlayed[row + 1]?.[column + 1] != null ||
-      partitionedPlayed[row + 1]?.[column - 1] != null ||
-      partitionedPlayed[row - 1]?.[column + 1] != null ||
-      partitionedPlayed[row - 1]?.[column - 1] != null
-    )
-  ) {
+  if (!(
+    partitionedPlayed[row][column + 1] != null ||
+    partitionedPlayed[row][column - 1] != null ||
+    partitionedPlayed[row + 1]?.[column + 1] != null ||
+    partitionedPlayed[row + 1]?.[column - 1] != null ||
+    partitionedPlayed[row - 1]?.[column + 1] != null ||
+    partitionedPlayed[row - 1]?.[column - 1] != null
+  )) {
     return false;
   }
   return true;
