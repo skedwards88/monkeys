@@ -249,6 +249,7 @@ button:focus {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  height: 55%
 }
 
 .score-icon {
@@ -272,6 +273,7 @@ button:focus {
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 5px;
 }
 
 .blue-score {
@@ -279,6 +281,7 @@ button:focus {
   color: blue;
   display: flex;
   flex-direction: column-reverse;
+  padding: 5px;
 }
 
 .red-score.currentColor {
