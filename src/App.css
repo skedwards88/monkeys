@@ -249,7 +249,7 @@ button:focus {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 55%
+  height: 55%;
 }
 
 .score-icon {
