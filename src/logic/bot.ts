@@ -16,7 +16,7 @@ type BotWeights = {
 
 const DEFAULT_WEIGHTS: BotWeights = {
   botMove: 1,
-  opponentMove: 1,
+  opponentMove: 2,
 };
 
 type LegalMove = {
