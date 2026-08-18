@@ -6,15 +6,20 @@ import type {GameState} from "../logic/gameInit";
 import type {DisplayState} from "./App";
 import type {GameReducerPayload} from "../logic/reducer";
 import DraggedTile from "./DraggedTile";
+import ControlBar from "./ControlBar";
 
 export function Game({
   dispatchGameState,
   gameState,
   setDisplay,
+  botIsThinking,
+  botPlayedBoardIndex,
 }: {
   dispatchGameState: React.Dispatch<GameReducerPayload>;
   gameState: GameState;
   setDisplay: React.Dispatch<React.SetStateAction<DisplayState>>;
+  botIsThinking: boolean;
+  botPlayedBoardIndex: number | null;
 }): React.JSX.Element {
   if (
     !gameState.gameOverCleared &&
@@ -51,27 +56,24 @@ export function Game({
       ) : (
         <></>
       )}
+      <ControlBar setDisplay={setDisplay}></ControlBar>
       <Offer
         remainingTileIDs={gameState.remainingTileIDs}
         dragData={gameState.dragData}
         dispatchGameState={dispatchGameState}
+        botIsThinking={botIsThinking}
       />
       <Board
         played={gameState.played}
         dragData={gameState.dragData}
         dispatchGameState={dispatchGameState}
+        botPlayedBoardIndex={botPlayedBoardIndex}
       />
       <div id="off-board">
-        <Score routes={gameState.routes} />
-        <button
-          id="new-game-button"
-          onClick={() =>
-            dispatchGameState({
-              action: "reset",
-            })
-          }
+        <Score
+          routes={gameState.routes}
+          currentColor={gameState.isBlueTurn ? "blue" : "red"}
         />
-        <button id="rules-button" onClick={() => setDisplay("rules")}></button>
       </div>
     </div>
   );

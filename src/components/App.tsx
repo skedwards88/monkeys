@@ -3,6 +3,7 @@ import Tutorial from "./Tutorial";
 import {Game} from "./Game";
 import {reducer} from "../logic/reducer";
 import {gameInit} from "../logic/gameInit";
+import {playBot} from "../logic/bot";
 import {useMetadataContext} from "@skedwards88/shared-components/src/components/MetadataContextProvider";
 import {useInstallPrompt} from "@skedwards88/shared-components/src/logic/handleInstall";
 import {saveToStorage} from "@skedwards88/shared-components/src/logic/safeStorage";
@@ -12,13 +13,10 @@ import PWAInstall from "@skedwards88/shared-components/src/components/PWAInstall
 import packageJson from "../../package.json";
 import MoreGames from "@skedwards88/shared-components/src/components/MoreGames";
 import {inferEventsToLog} from "../logic/inferEventsToLog";
+import Home from "./Home";
 
 export type DisplayState =
-  | "game"
-  | "rules"
-  | "heart"
-  | "installOverview"
-  | "pwaInstall";
+  "game" | "home" | "rules" | "heart" | "installOverview" | "pwaInstall";
 
 function App(): React.JSX.Element {
   const {userId, sessionId} = useMetadataContext();
@@ -27,7 +25,7 @@ function App(): React.JSX.Element {
   const {installPromptEvent, showInstallButton, handleInstall} =
     useInstallPrompt({userId, sessionId});
 
-  const [display, setDisplay] = React.useState<DisplayState>("game");
+  const [display, setDisplay] = React.useState<DisplayState>("home");
 
   const [gameState, dispatchGameState] = React.useReducer(
     reducer,
@@ -55,7 +53,88 @@ function App(): React.JSX.Element {
     saveToStorage("gameState", gameState);
   }, [gameState]);
 
+  const [botIsThinking, setBotIsThinking] = React.useState(false);
+
+  const [botPlayedBoardIndex, setBotPlayedBoardIndex] = React.useState<
+    number | null
+  >(null);
+
+  const [previousIsBlueTurn, setPreviousIsBlueTurn] = React.useState(
+    gameState.isBlueTurn,
+  );
+
+  const gameOver = gameState.remainingTileIDs.every((item) => item === null);
+
+  const botShouldThink =
+    gameState.isVsBot && !gameState.isBlueTurn && !gameOver;
+
+  if (previousIsBlueTurn !== gameState.isBlueTurn) {
+    setPreviousIsBlueTurn(gameState.isBlueTurn);
+    if (botShouldThink) {
+      setBotIsThinking(true);
+    }
+  }
+
+  const onTurnChange = React.useEffectEvent(() => {
+    if (!botShouldThink) {
+      return;
+    }
+
+    const timer = setTimeout(() => {
+      const {playedOfferIndex, playedBoardIndex} = playBot({
+        gameState,
+        botColor: "red",
+      });
+
+      dispatchGameState({
+        action: "playBot",
+        offerIndex: playedOfferIndex,
+        boardIndex: playedBoardIndex,
+      });
+
+      setBotIsThinking(false);
+
+      setBotPlayedBoardIndex(playedBoardIndex);
+    }, 3000); // time to animate the offer
+
+    return timer;
+  });
+
+  React.useEffect(() => {
+    const timer = onTurnChange();
+
+    return (): void => {
+      if (timer !== undefined) {
+        clearTimeout(timer);
+        setBotIsThinking(false);
+      }
+    };
+  }, [gameState.isBlueTurn]);
+
+  React.useEffect(() => {
+    if (botPlayedBoardIndex === null) {
+      return;
+    }
+
+    const timer = setTimeout(() => {
+      setBotPlayedBoardIndex(null);
+    }, 2000); // time to fade the played piece; this should be <= the animation time in css since the animation isn't infinite
+
+    return (): void => {
+      clearTimeout(timer);
+      setBotPlayedBoardIndex(null);
+    };
+  }, [botPlayedBoardIndex]);
+
   switch (display) {
+    case "home":
+      return (
+        <Home
+          dispatchGameState={dispatchGameState}
+          setDisplay={setDisplay}
+        ></Home>
+      );
+
     case "rules":
       return <Tutorial setDisplay={setDisplay}></Tutorial>;
 
@@ -63,7 +142,7 @@ function App(): React.JSX.Element {
       return (
         <MoreGames
           setDisplay={setDisplay}
-          games={["sector", "deepSpaceSlime","crossjig"]}
+          games={["sector", "deepSpaceSlime", "crossjig"]}
           repoName="https://github.com/skedwards88/sector"
           includeExtraInfo={true}
           version={packageJson.version}
@@ -98,6 +177,8 @@ function App(): React.JSX.Element {
           dispatchGameState={dispatchGameState}
           gameState={gameState}
           setDisplay={setDisplay}
+          botIsThinking={botIsThinking}
+          botPlayedBoardIndex={botPlayedBoardIndex}
         ></Game>
       );
   }

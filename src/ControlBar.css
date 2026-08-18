@@ -1,0 +1,52 @@
+
+#controls {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  grid-area: controlBar;
+  height: 100vh;
+  width: calc(var(--square-diameter) * 0.5);
+  margin-right: calc(var(--square-diameter) * 0.2);
+}
+
+#controls > button {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  border: 0;
+  width: calc(var(--square-diameter) * 0.45);
+  aspect-ratio: 1;
+
+  /* Instead of using background-image to use the white icons, using mask-image and background-color to make the icons a different color */
+  background-color: #626262;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+}
+
+#newGameButton {
+  -webkit-mask-image: url("@skedwards88/shared-components/src/images/icons/new_game.svg");
+  mask-image: url("@skedwards88/shared-components/src/images/icons/new_game.svg");
+}
+
+#heartButton {
+  -webkit-mask-image: url("@skedwards88/shared-components/src/images/icons/heart.svg");
+  mask-image: url("@skedwards88/shared-components/src/images/icons/heart.svg");
+}
+
+#rulesButton {
+  -webkit-mask-image: url("@skedwards88/shared-components/src/images/icons/question_mark.svg");
+  mask-image: url("@skedwards88/shared-components/src/images/icons/question_mark.svg");
+}
+
+#installButton {
+  -webkit-mask-image: url("@skedwards88/shared-components/src/images/icons/install.svg");
+  mask-image: url("@skedwards88/shared-components/src/images/icons/install.svg");
+}
+
+#shareButton {
+  -webkit-mask-image: url("@skedwards88/shared-components/src/images/icons/share.svg");
+  mask-image: url("@skedwards88/shared-components/src/images/icons/share.svg");
+}

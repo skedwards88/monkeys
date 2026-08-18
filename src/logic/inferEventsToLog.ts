@@ -1,5 +1,5 @@
 import type {GameState} from "./gameInit";
-import { tallyScore } from "./tallyScore";
+import {tallyScore} from "./tallyScore";
 
 export function inferEventsToLog(
   oldState: GameState,
@@ -15,7 +15,7 @@ export function inferEventsToLog(
     analyticsToLog.push({
       eventName: "new_game",
       eventInfo: {
-        isVsBot: false,
+        isVsBot: newState.isVsBot,
       },
     });
   }
@@ -25,13 +25,13 @@ export function inferEventsToLog(
     !newState.remainingTileIDs.every((item) => item === null) &&
     oldState.remainingTileIDs.every((item) => item === null)
   ) {
-      const score = tallyScore(oldState.routes);
+    const score = tallyScore(oldState.routes);
 
     const blueScore = score.blue;
     const redScore = score.red;
     let winner;
     if (redScore === blueScore) {
-      winner = "tie"
+      winner = "tie";
     } else {
       winner = redScore > blueScore ? "red" : "blue";
     }
@@ -39,7 +39,7 @@ export function inferEventsToLog(
     analyticsToLog.push({
       eventName: "gameOver",
       eventInfo: {
-        isVsBot: false,
+        isVsBot: newState.isVsBot,
         colorWon: winner,
       },
     });

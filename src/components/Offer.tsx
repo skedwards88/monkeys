@@ -1,6 +1,7 @@
 import React from "react";
 import type {GameReducerPayload} from "../logic/reducer";
 import {OFFER_SIZE, type DragData} from "../logic/gameInit";
+import type {CSSPropertiesWithVars} from "../CSSPropertiesWithVars";
 
 function getDeckStyling(deckSize: number): string[] {
   // The box shadow around the draw stack
@@ -61,16 +62,17 @@ function handlePointerDown(
 
 function OfferTile({
   offerIndex,
-  remainingTileIDs,
+  tileID,
   dispatchGameState,
   isDragging,
+  botIsThinking,
 }: {
   offerIndex: number;
-  remainingTileIDs: (number | null)[];
+  tileID: number | null;
   dispatchGameState: React.Dispatch<GameReducerPayload>;
   isDragging: boolean;
+  botIsThinking: boolean;
 }): React.JSX.Element {
-  const tileID = remainingTileIDs[offerIndex];
   let className = "square offer-tile";
 
   if (tileID != null) {
@@ -81,9 +83,18 @@ function OfferTile({
     className += " dragged";
   }
 
+  if (botIsThinking) {
+    className += " pulse";
+  }
+
   return (
     <div
       className={className}
+      style={
+        {
+          "--delay": `${offerIndex * 0.3}s`,
+        } as CSSPropertiesWithVars
+      }
       {...(tileID != null
         ? {
             onPointerDown: (event) =>
@@ -98,10 +109,12 @@ export default function Offer({
   remainingTileIDs,
   dragData,
   dispatchGameState,
+  botIsThinking,
 }: {
   remainingTileIDs: (number | null)[];
   dragData: null | DragData;
   dispatchGameState: React.Dispatch<GameReducerPayload>;
+  botIsThinking: boolean;
 }): React.JSX.Element {
   const offerRef = React.useRef<HTMLDivElement | null>(null);
 
@@ -116,28 +129,20 @@ export default function Offer({
     offerDiv.style.setProperty("--deck-size", deckStyling.join(","));
   }, [remainingTileIDs]);
 
+  const offerTiles = Array.from({length: OFFER_SIZE}, (_, index) => (
+    <OfferTile
+      key={`${index}-${remainingTileIDs[index]}`}
+      offerIndex={index}
+      tileID={remainingTileIDs[index]}
+      dispatchGameState={dispatchGameState}
+      isDragging={dragData?.draggedOfferIndex === index}
+      botIsThinking={botIsThinking}
+    />
+  ));
+
   return (
     <div id="offer-area" ref={offerRef}>
-      <div id="offer">
-        <OfferTile
-          offerIndex={0}
-          remainingTileIDs={remainingTileIDs}
-          dispatchGameState={dispatchGameState}
-          isDragging={dragData?.draggedOfferIndex === 0}
-        />
-        <OfferTile
-          offerIndex={1}
-          remainingTileIDs={remainingTileIDs}
-          dispatchGameState={dispatchGameState}
-          isDragging={dragData?.draggedOfferIndex === 1}
-        />
-        <OfferTile
-          offerIndex={2}
-          remainingTileIDs={remainingTileIDs}
-          dispatchGameState={dispatchGameState}
-          isDragging={dragData?.draggedOfferIndex === 2}
-        />
-      </div>
+      {offerTiles}
       <div className="square filled draw-pile">
         {Math.max(0, remainingTileIDs.length - OFFER_SIZE)}
       </div>
