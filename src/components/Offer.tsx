@@ -1,6 +1,7 @@
 import React from "react";
 import type {GameReducerPayload} from "../logic/reducer";
 import {OFFER_SIZE, type DragData} from "../logic/gameInit";
+import type {CSSPropertiesWithVars} from "../CSSPropertiesWithVars";
 
 function getDeckStyling(deckSize: number): string[] {
   // The box shadow around the draw stack
@@ -64,11 +65,13 @@ function OfferTile({
   tileID,
   dispatchGameState,
   isDragging,
+  botIsThinking,
 }: {
   offerIndex: number;
   tileID: number | null;
   dispatchGameState: React.Dispatch<GameReducerPayload>;
   isDragging: boolean;
+  botIsThinking: boolean;
 }): React.JSX.Element {
   let className = "square offer-tile";
 
@@ -80,9 +83,18 @@ function OfferTile({
     className += " dragged";
   }
 
+  if (botIsThinking) {
+    className += " pulse";
+  }
+
   return (
     <div
       className={className}
+      style={
+        {
+          "--delay": `${offerIndex * 0.3}s`,
+        } as CSSPropertiesWithVars
+      }
       {...(tileID != null
         ? {
             onPointerDown: (event) =>
@@ -97,10 +109,12 @@ export default function Offer({
   remainingTileIDs,
   dragData,
   dispatchGameState,
+  botIsThinking,
 }: {
   remainingTileIDs: (number | null)[];
   dragData: null | DragData;
   dispatchGameState: React.Dispatch<GameReducerPayload>;
+  botIsThinking: boolean;
 }): React.JSX.Element {
   const offerRef = React.useRef<HTMLDivElement | null>(null);
 
@@ -122,6 +136,7 @@ export default function Offer({
       tileID={remainingTileIDs[index]}
       dispatchGameState={dispatchGameState}
       isDragging={dragData?.draggedOfferIndex === index}
+      botIsThinking={botIsThinking}
     />
   ));
 

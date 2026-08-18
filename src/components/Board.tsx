@@ -22,13 +22,19 @@ export default function Board({
   played,
   dragData,
   dispatchGameState,
+  botPlayedBoardIndex,
 }: {
   played: (number | null)[];
   dragData: null | DragData;
   dispatchGameState: React.Dispatch<GameReducerPayload>;
+  botPlayedBoardIndex: number | null;
 }): React.JSX.Element {
   const board = played.map((tileID, boardIndex) => {
-    const className = tileID != null ? "square filled tile" + tileID : "square";
+    let className = tileID != null ? "square filled tile" + tileID : "square";
+
+    if (botPlayedBoardIndex === boardIndex) {
+      className += " highlight";
+    }
 
     return (
       <div

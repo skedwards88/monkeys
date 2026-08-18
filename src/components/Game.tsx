@@ -12,10 +12,14 @@ export function Game({
   dispatchGameState,
   gameState,
   setDisplay,
+  botIsThinking,
+  botPlayedBoardIndex,
 }: {
   dispatchGameState: React.Dispatch<GameReducerPayload>;
   gameState: GameState;
   setDisplay: React.Dispatch<React.SetStateAction<DisplayState>>;
+  botIsThinking: boolean;
+  botPlayedBoardIndex: number | null;
 }): React.JSX.Element {
   if (
     !gameState.gameOverCleared &&
@@ -57,11 +61,13 @@ export function Game({
         remainingTileIDs={gameState.remainingTileIDs}
         dragData={gameState.dragData}
         dispatchGameState={dispatchGameState}
+        botIsThinking={botIsThinking}
       />
       <Board
         played={gameState.played}
         dragData={gameState.dragData}
         dispatchGameState={dispatchGameState}
+        botPlayedBoardIndex={botPlayedBoardIndex}
       />
       <div id="off-board">
         <Score

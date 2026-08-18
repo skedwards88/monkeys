@@ -53,22 +53,78 @@ function App(): React.JSX.Element {
     saveToStorage("gameState", gameState);
   }, [gameState]);
 
-  // todo just temporary
-  if (
-    gameState.isVsBot &&
-    gameState.played.filter((i) => i != null).length % 2
-  ) {
-    const {playedOfferIndex, playedBoardIndex} = playBot({
-      gameState,
-      botColor: "red",
-    });
+  const [botIsThinking, setBotIsThinking] = React.useState(false);
 
-    dispatchGameState({
-      action: "playBot",
-      offerIndex: playedOfferIndex,
-      boardIndex: playedBoardIndex,
-    });
+  const [botPlayedBoardIndex, setBotPlayedBoardIndex] = React.useState<
+    number | null
+  >(null);
+
+  const [previousIsBlueTurn, setPreviousIsBlueTurn] = React.useState(
+    gameState.isBlueTurn,
+  );
+
+  const gameOver = gameState.remainingTileIDs.every((item) => item === null);
+
+  const botShouldThink =
+    gameState.isVsBot && !gameState.isBlueTurn && !gameOver;
+
+  if (previousIsBlueTurn !== gameState.isBlueTurn) {
+    setPreviousIsBlueTurn(gameState.isBlueTurn);
+    if (botShouldThink) {
+      setBotIsThinking(true);
+    }
   }
+
+  const onTurnChange = React.useEffectEvent(() => {
+    if (!botShouldThink) {
+      return;
+    }
+
+    const timer = setTimeout(() => {
+      const {playedOfferIndex, playedBoardIndex} = playBot({
+        gameState,
+        botColor: "red",
+      });
+
+      dispatchGameState({
+        action: "playBot", // todo this should use the endDrag action instead I think
+        offerIndex: playedOfferIndex,
+        boardIndex: playedBoardIndex,
+      });
+
+      setBotIsThinking(false);
+
+      setBotPlayedBoardIndex(playedBoardIndex);
+    }, 3000); // time to animate the offer
+
+    return timer;
+  });
+
+  React.useEffect(() => {
+    const timer = onTurnChange();
+
+    return (): void => {
+      if (timer !== undefined) {
+        clearTimeout(timer);
+        setBotIsThinking(false);
+      }
+    };
+  }, [gameState.isBlueTurn]);
+
+  React.useEffect(() => {
+    if (botPlayedBoardIndex === null) {
+      return;
+    }
+
+    const timer = setTimeout(() => {
+      setBotPlayedBoardIndex(null);
+    }, 2000); // time to fade the played piece; this should be <= the animation time in css since the animation isn't infinite
+
+    return (): void => {
+      clearTimeout(timer);
+      setBotPlayedBoardIndex(null);
+    };
+  }, [botPlayedBoardIndex]);
 
   switch (display) {
     case "home":
@@ -121,6 +177,8 @@ function App(): React.JSX.Element {
           dispatchGameState={dispatchGameState}
           gameState={gameState}
           setDisplay={setDisplay}
+          botIsThinking={botIsThinking}
+          botPlayedBoardIndex={botPlayedBoardIndex}
         ></Game>
       );
   }
