@@ -90,82 +90,11 @@ export const tiles = [
         tileHead: 0,
         tileTail: 2,
         coconuts: 1,
-      }),
-      new TileRoute({
-        tileHead: 1,
-        tileTail: 3,
-        coconuts: 1,
-      }),
-    ],
-  }),
-  new Tile({
-    routes: [
-      new TileRoute({
-        tileHead: 0,
-        tileTail: null,
-        blueShips: 1,
-      }),
-      new TileRoute({
-        tileHead: 1,
-        tileTail: 2,
-        coconuts: 1,
-        redShips: 1,
-      }),
-      new TileRoute({
-        tileHead: 3,
-        tileTail: null,
-        blueAnchors: 1,
-      }),
-    ],
-  }),
-  new Tile({
-    routes: [
-      new TileRoute({
-        tileHead: 0,
-        tileTail: 1,
         chests: 1,
       }),
       new TileRoute({
-        tileHead: 2,
-        tileTail: 3,
-        blueShips: 2,
-      }),
-    ],
-  }),
-  new Tile({
-    routes: [
-      new TileRoute({
-        tileHead: 0,
-        tileTail: null,
-        coconuts: 1,
-      }),
-      new TileRoute({
-        tileHead: 2,
-        tileTail: null,
-        blueAnchors: 1,
-      }),
-      new TileRoute({
         tileHead: 1,
         tileTail: 3,
-        redShips: 1,
-      }),
-    ],
-  }),
-  new Tile({
-    routes: [
-      new TileRoute({
-        tileHead: 0,
-        tileTail: null,
-        coconuts: 1,
-      }),
-      new TileRoute({
-        tileHead: 1,
-        tileTail: 2,
-        redShips: 1,
-      }),
-      new TileRoute({
-        tileHead: 3,
-        tileTail: null,
         coconuts: 2,
       }),
     ],
@@ -174,113 +103,119 @@ export const tiles = [
     routes: [
       new TileRoute({
         tileHead: 0,
-        tileTail: 1,
-        coconuts: 2,
-      }),
-      new TileRoute({
-        tileHead: null,
-        tileTail: 2,
-        redShips: 1,
-      }),
-      new TileRoute({
-        tileHead: 3,
-        tileTail: null,
-        blueShips: 1,
-      }),
-    ],
-  }),
-  new Tile({
-    routes: [
-      new TileRoute({
-        tileHead: 0,
-        tileTail: 2,
-        redShips: 1,
-      }),
-      new TileRoute({
-        tileHead: 1,
         tileTail: null,
         coconuts: 1,
       }),
       new TileRoute({
-        tileHead: 3,
-        tileTail: null,
-        redShips: 1,
-      }),
-    ],
-  }),
-  new Tile({
-    routes: [
-      new TileRoute({
-        tileHead: 0,
+        tileHead: 1,
         tileTail: 3,
-        blueShips: 1,
-      }),
-      new TileRoute({
-        tileHead: 1,
-        tileTail: 2,
         redShips: 1,
-      }),
-    ],
-  }),
-  new Tile({
-    routes: [
-      new TileRoute({
-        tileHead: 0,
-        tileTail: 3,
-        blueShips: 1,
-        coconuts: 1,
-      }),
-      new TileRoute({
-        tileHead: null,
-        tileTail: 2,
-        redAnchors: 1,
-      }),
-      new TileRoute({
-        tileHead: 1,
-        tileTail: null,
-        redShips: 1,
-      }),
-    ],
-  }),
-  new Tile({
-    routes: [
-      new TileRoute({
-        tileHead: 0,
-        tileTail: null,
-        redShips: 1,
-      }),
-      new TileRoute({
-        tileHead: 1,
-        tileTail: null,
-        redAnchors: 1,
       }),
       new TileRoute({
         tileHead: 2,
-        tileTail: 3,
-        coconuts: 1,
-        chests: 1,
-      }),
-    ],
-  }),
-  new Tile({
-    routes: [
-      new TileRoute({
-        tileHead: 0,
+        tileTail: null,
         blueAnchors: 1,
       }),
+    ],
+  }),
+  new Tile({
+    routes: [
+      new TileRoute({
+        tileHead: 0,
+        tileTail: null,
+        coconuts: 1,
+      }),
       new TileRoute({
         tileHead: 1,
+        tileTail: 3,
         blueShips: 1,
       }),
       new TileRoute({
         tileHead: 2,
-        tileTail: 3,
+        tileTail: null,
         redShips: 1,
-        coconuts: 1,
       }),
     ],
   }),
-  new Tile({
+    new Tile({
+    routes: [
+      new TileRoute({
+        tileHead: 0,
+        tileTail: 2,
+        redShips: 1,
+      }),
+      new TileRoute({
+        tileHead: 1,
+        tileTail: null,
+        coconuts: 1,
+      }),
+      new TileRoute({
+        tileHead: 3,
+        tileTail: null,
+        blueShips: 1,
+      }),
+    ],
+  }),
+    new Tile({
+    routes: [
+      new TileRoute({
+        tileHead: 0,
+        tileTail: 2,
+        blueShips: 1,
+      }),
+      new TileRoute({
+        tileHead: 1,
+        tileTail: null,
+        chests: 1,
+      }),
+      new TileRoute({
+        tileHead: 3,
+        tileTail: null,
+        redAnchors: 1,
+      }),
+    ],
+  }),
+    new Tile({
+    routes: [
+      new TileRoute({
+        tileHead: 0,
+        tileTail: null,
+        blueShips: 1,
+      }),
+      new TileRoute({
+        tileHead: 1,
+        tileTail: 2,
+        redShips: 1,
+        coconuts: 1,
+      }),
+      new TileRoute({
+        tileHead: 3,
+        tileTail: null,
+        blueAnchors: 1,
+      }),
+    ],
+  }),
+    new Tile({
+    routes: [
+      new TileRoute({
+        tileHead: 0,
+        tileTail: 3,
+        blueShips: 1,
+        coconuts: 1,
+      }),
+      new TileRoute({
+        tileHead: 1,
+        tileTail: null,
+        redShips: 1,
+      }),
+      new TileRoute({
+        tileHead: 2,
+        tileTail: null,
+        redAnchors: 1,
+      }),
+    ],
+  }),
+    new Tile({
     routes: [
       new TileRoute({
         tileHead: 0,
@@ -289,112 +224,22 @@ export const tiles = [
       }),
       new TileRoute({
         tileHead: 1,
+        tileTail: null,
         blueAnchors: 1,
       }),
       new TileRoute({
         tileHead: 2,
-        coconuts: 1,
-      }),
-    ],
-  }),
-  new Tile({
-    routes: [
-      new TileRoute({
-        tileHead: 0,
-        tileTail: 3,
-        redShips: 1,
-      }),
-      new TileRoute({
-        tileHead: 1,
-        tileTail: 2,
+        tileTail: null,
         coconuts: 2,
       }),
     ],
   }),
-  new Tile({
+    new Tile({
     routes: [
       new TileRoute({
         tileHead: 0,
-        tileTail: 2,
-        blueShips: 1,
-      }),
-      new TileRoute({
-        tileHead: 1,
+        tileTail: null,
         coconuts: 1,
-      }),
-      new TileRoute({
-        tileHead: 3,
-        redAnchors: 1,
-      }),
-    ],
-  }),
-  new Tile({
-    routes: [
-      new TileRoute({
-        tileHead: 0,
-        tileTail: 1,
-        coconuts: 2,
-      }),
-      new TileRoute({
-        tileHead: 2,
-        tileTail: 3,
-        chests: 1,
-      }),
-    ],
-  }),
-  new Tile({
-    routes: [
-      new TileRoute({
-        tileHead: 0,
-        coconuts: 2,
-      }),
-      new TileRoute({
-        tileHead: 1,
-        tileTail: 2,
-        blueShips: 1,
-      }),
-      new TileRoute({
-        tileHead: 3,
-        coconuts: 1,
-      }),
-    ],
-  }),
-  new Tile({
-    routes: [
-      new TileRoute({
-        tileHead: 0,
-        coconuts: 1,
-      }),
-      new TileRoute({
-        tileHead: 2,
-        blueShips: 1,
-      }),
-      new TileRoute({
-        tileHead: 1,
-        tileTail: 3,
-        blueShips: 1,
-      }),
-    ],
-  }),
-  new Tile({
-    routes: [
-      new TileRoute({
-        tileHead: 0,
-        tileTail: 3,
-        coconuts: 2,
-      }),
-      new TileRoute({
-        tileHead: 1,
-        tileTail: 2,
-        blueShips: 1,
-      }),
-    ],
-  }),
-  new Tile({
-    routes: [
-      new TileRoute({
-        tileHead: 0,
-        redAnchors: 1,
       }),
       new TileRoute({
         tileHead: 1,
@@ -403,15 +248,17 @@ export const tiles = [
       }),
       new TileRoute({
         tileHead: 3,
-        coconuts: 1,
+        tileTail: null,
+        coconuts: 2,
       }),
     ],
   }),
-  new Tile({
+    new Tile({
     routes: [
       new TileRoute({
         tileHead: 0,
         tileTail: 1,
+        coconuts: 1,
         chests: 1,
       }),
       new TileRoute({
@@ -421,4 +268,114 @@ export const tiles = [
       }),
     ],
   }),
-];
+    new Tile({
+    routes: [
+      new TileRoute({
+        tileHead: 0,
+        tileTail: 1,
+        coconuts: 1,
+        redAnchors: 1,
+      }),
+      new TileRoute({
+        tileHead: 2,
+        tileTail: 3,
+        blueShips: 2,
+      }),
+    ],
+  }),
+    new Tile({
+    routes: [
+      new TileRoute({
+        tileHead: 0,
+        tileTail: 1,
+        coconuts: 1,
+        redShips: 1,
+      }),
+      new TileRoute({
+        tileHead: 2,
+        tileTail: 3,
+        coconuts: 1,
+        chests: 1,
+      }),
+    ],
+  }),
+    new Tile({
+    routes: [
+      new TileRoute({
+        tileHead: 0,
+        tileTail: 1,
+        coconuts: 1,
+        blueAnchors: 1,
+      }),
+      new TileRoute({
+        tileHead: 2,
+        tileTail: null,
+        blueShips: 1,
+      }),
+        new TileRoute({
+        tileHead: 3,
+        tileTail: null,
+        redShips: 1,
+      }),
+    ],
+  }),
+    new Tile({
+    routes: [
+      new TileRoute({
+        tileHead: 0,
+        tileTail: null,
+        redShips: 1,
+      }),
+      new TileRoute({
+        tileHead: 1,
+        tileTail: null,
+        redAnchors: 1,
+      }),
+        new TileRoute({
+        tileHead: 2,
+        tileTail: 3,
+        blueAnchors: 1,
+        coconuts: 2,
+      }),
+    ],
+    }),
+    new Tile({
+    routes: [
+      new TileRoute({
+        tileHead: 0,
+        tileTail: null,
+        blueAnchors: 1,
+      }),
+      new TileRoute({
+        tileHead: 1,
+        tileTail: null,
+        blueShips: 1,
+      }),
+        new TileRoute({
+        tileHead: 2,
+        tileTail: 3,
+        redAnchors: 1,
+        coconuts: 2,
+      }),
+    ],
+    }),
+    new Tile({
+    routes: [
+      new TileRoute({
+        tileHead: 0,
+        tileTail: null,
+        redAnchors: 1,
+      }),
+      new TileRoute({
+        tileHead: 1,
+        tileTail: 2,
+        blueShips: 1,
+        coconuts: 1,
+      }),
+        new TileRoute({
+        tileHead: 3,
+        tileTail: null,
+        chests: 1,
+      }),
+    ],
+    })]

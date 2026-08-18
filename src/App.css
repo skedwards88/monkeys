@@ -212,34 +212,6 @@ button:focus {
   background-size: contain, auto;
 }
 
-.square.filled.tile16 {
-  background:
-    url("./images/tiles_200/Monkeys_Tile_17.webp"),
-    url("./images/backgrounds/waves.svg");
-  background-size: contain, auto;
-}
-
-.square.filled.tile17 {
-  background:
-    url("./images/tiles_200/Monkeys_Tile_18.webp"),
-    url("./images/backgrounds/waves.svg");
-  background-size: contain, auto;
-}
-
-.square.filled.tile18 {
-  background:
-    url("./images/tiles_200/Monkeys_Tile_19.webp"),
-    url("./images/backgrounds/waves.svg");
-  background-size: contain, auto;
-}
-
-.square.filled.tile19 {
-  background:
-    url("./images/tiles_200/Monkeys_Tile_20.webp"),
-    url("./images/backgrounds/waves.svg");
-  background-size: contain, auto;
-}
-
 #offer-area {
   margin: 3px 0 0 0;
 }
