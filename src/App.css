@@ -1,29 +1,28 @@
 html {
-  margin: auto;
+  margin: 0;
 }
 
 body {
-  height: 90vh; /* fallback if svh isn't handled */
-  height: 98svh;
-  width: 100vw;
+  --water-color: rgb(0, 234, 255);
+  --dark-water-color: rgb(125, 213, 245);
+  --square-diameter: min(19vh, 9vw);
+  --default-font-size: calc(var(--square-diameter) * 0.25);
+
   font-weight: bold;
   font-family: Verdana, Geneva, sans-serif;
-
-  --square-diameter: 19vmin; /* fallback (if clamp is not supported) */
-
+  font-size: var(--default-font-size);
   vertical-align: middle;
   margin: 0;
   background:
     linear-gradient(rgba(242, 234, 150, 0.5), rgba(217, 200, 43, 0.5)),
     url("./images/backgrounds/sand_texture.svg");
   background-attachment: fixed;
+}
 
-  --default-font-size: min(0.9cm, 5vmin);
-
-  font-size: var(--default-font-size);
-
-  --water-color: rgb(0, 234, 255);
-  --dark-water-color: rgb(125, 213, 245);
+#root {
+  display: flex;
+  align-items: center;
+  min-height: 100vh;
 }
 
 h1 {
@@ -58,12 +57,20 @@ button:focus {
   box-shadow: none;
 }
 
+.App {
+  height: 90vh; /* fallback if svh isn't handled */
+  height: 98svh;
+  width: 100vw;
+}
+
 #game {
   display: grid;
   grid-template-areas: "controlBar offer game scores";
   justify-content: center;
   gap: calc(var(--square-diameter) * 0.2);
   margin: 0 calc(var(--square-diameter) * 0.2);
+  height: min(100vh, 50vw); /* fallback if svh/svw isn't handled */
+  height: min(100svh, 50svw);
 }
 
 #board {

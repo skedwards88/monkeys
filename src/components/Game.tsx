@@ -36,6 +36,7 @@ export function Game({
 
   return (
     <div
+      className="App"
       id="game"
       onPointerMove={(event) => {
         event.preventDefault();

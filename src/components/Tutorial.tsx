@@ -117,7 +117,7 @@ export default function Tutorial({
   };
 
   return (
-    <div id="tutorial">
+    <div className="App" id="tutorial">
       <PreviousButton
         currentRule={currentRule}
         setCurrentRule={setCurrentRule}
