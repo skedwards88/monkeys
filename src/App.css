@@ -3,8 +3,8 @@ html {
 }
 
 body {
-  --water-color: rgb(0, 234, 255);
-  --dark-water-color: rgb(125, 213, 245);
+  --water-color: rgb(0 234 255);
+  --dark-water-color: rgb(125 213 245);
   --square-diameter: min(19vh, 9vw);
   --default-font-size: calc(var(--square-diameter) * 0.25);
 
@@ -14,15 +14,16 @@ body {
   vertical-align: middle;
   margin: 0;
   background:
-    linear-gradient(rgba(242, 234, 150, 0.5), rgba(217, 200, 43, 0.5)),
+    linear-gradient(rgb(242 234 150 / 50%), rgb(217 200 43 / 50%)),
     url("./images/backgrounds/sand_texture.svg");
   background-attachment: fixed;
 }
 
 #root {
   display: flex;
-  align-items: center;
   min-height: 100vh;
+  align-items: center;
+  justify-content: center;
 }
 
 h1 {
@@ -61,6 +62,7 @@ button:focus {
   height: 90vh; /* fallback if svh isn't handled */
   height: 98svh;
   width: 100vw;
+  justify-content: center;
 }
 
 #game {
@@ -75,7 +77,7 @@ button:focus {
 
 #board {
   height: calc(var(--square-diameter) * 5);
-  border: 3px rgb(150, 200, 230) solid;
+  border: 3px rgb(150 200 230) solid;
   border-radius: 10px;
   background-color: var(--dark-water-color);
   background-attachment: fixed;
@@ -209,7 +211,7 @@ button:focus {
 }
 
 .dragged.offer-tile {
-  opacity: 50%;
+  opacity: 0.5;
 }
 
 .drag-tile {
@@ -378,7 +380,7 @@ button:focus {
   background-size: contain;
   min-height: 100px;
   max-height: 80%;
-  margin: 20px 20px 0 20px;
+  margin: 20px 20px 0;
 }
 
 .caption {
@@ -391,7 +393,7 @@ button:focus {
 }
 
 .starting {
-  background-color: rgba(0, 0, 0, 0.1);
+  background-color: rgb(0 0 0 / 10%);
   flex: 1;
   background-image: url("./images/rule_illustrations/board_0.webp");
 }
@@ -399,7 +401,7 @@ button:focus {
 .turns {
   animation: turns-animation 6s;
   animation-timing-function: step-end;
-  background-color: rgba(0, 0, 0, 0.1);
+  background-color: rgb(0 0 0 / 10%);
   flex: 1;
   animation-fill-mode: forwards;
 }
