@@ -18,6 +18,47 @@ const handlePointerUp = (
   });
 };
 
+function Square({
+  played,
+  dragData,
+  dispatchGameState,
+  botPlayedBoardIndex,
+  tileID,
+  boardIndex,
+}: {
+  played: (number | null)[];
+  dragData: null | DragData;
+  dispatchGameState: React.Dispatch<GameReducerPayload>;
+  botPlayedBoardIndex: number | null;
+  tileID: number | null;
+  boardIndex: number;
+}): React.JSX.Element {
+  let className = tileID != null ? "square filled tile" + tileID : "square";
+
+  if (botPlayedBoardIndex === boardIndex) {
+    className += " highlight";
+  }
+
+  return (
+    <div
+      onPointerUp={(event) =>
+        handlePointerUp(event, boardIndex, dispatchGameState)
+      }
+      key={boardIndex}
+      className={className}
+      onPointerEnter={(event) => {
+        event.preventDefault();
+        if (dragData && validDropQ(played, boardIndex, NUM_COLUMNS)) {
+          event.currentTarget.style.backgroundColor = "darkblue";
+        }
+      }}
+      onPointerLeave={(event) => {
+        event.currentTarget.style.removeProperty("background-color");
+      }}
+    />
+  );
+}
+
 export default function Board({
   played,
   dragData,
@@ -29,32 +70,17 @@ export default function Board({
   dispatchGameState: React.Dispatch<GameReducerPayload>;
   botPlayedBoardIndex: number | null;
 }): React.JSX.Element {
-  const board = played.map((tileID, boardIndex) => {
-    let className = tileID != null ? "square filled tile" + tileID : "square";
-
-    if (botPlayedBoardIndex === boardIndex) {
-      className += " highlight";
-    }
-
-    return (
-      <div
-        onPointerUp={(event) =>
-          handlePointerUp(event, boardIndex, dispatchGameState)
-        }
-        key={boardIndex}
-        className={className}
-        onPointerEnter={(event) => {
-          event.preventDefault();
-          if (dragData && validDropQ(played, boardIndex, NUM_COLUMNS)) {
-            event.currentTarget.style.backgroundColor = "darkblue";
-          }
-        }}
-        onPointerLeave={(event) => {
-          event.currentTarget.style.removeProperty("background-color");
-        }}
-      />
-    );
-  });
+  const board = played.map((tileID, boardIndex) => (
+    <Square
+      played={played}
+      dragData={dragData}
+      dispatchGameState={dispatchGameState}
+      botPlayedBoardIndex={botPlayedBoardIndex}
+      tileID={tileID}
+      boardIndex={boardIndex}
+      key={`${boardIndex}-${tileID}`}
+    ></Square>
+  ));
 
   return <div id="board">{board}</div>;
 }
