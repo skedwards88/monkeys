@@ -24,6 +24,9 @@ export type GameReducerPayload =
       pointerPosition: Position;
     }
   | {
+      action: "cancelDrag";
+    }
+  | {
       action: "dragEnd";
       boardIndex: number | null;
     }
@@ -96,7 +99,7 @@ export function reducer(
       dragData: {
         draggedTileID: payload.draggedTileID,
         draggedOfferIndex: payload.draggedOfferIndex,
-        pointerOffset: {
+        tileDimension: {
           x: payload.tileDimension.x,
           y: payload.tileDimension.y,
         },
@@ -115,6 +118,8 @@ export function reducer(
         pointerPosition: payload.pointerPosition,
       },
     };
+  } else if (payload.action == "cancelDrag") {
+    return {...currentState, dragData: null};
   } else if (payload.action == "dragEnd") {
     if (!currentState.dragData) {
       return currentState;

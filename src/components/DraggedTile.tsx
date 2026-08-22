@@ -1,5 +1,5 @@
 import type {CSSPropertiesWithVars} from "../CSSPropertiesWithVars";
-import type {DragData} from "../logic/gameInit";
+import type {DragData, Position} from "../logic/gameInit";
 
 export default function DraggedTile({
   dragData,
@@ -9,9 +9,10 @@ export default function DraggedTile({
   const className =
     "square filled tile" + dragData.draggedTileID + " drag-tile";
 
-  // this places the pointer in the bottom center of the tile
-  const left = dragData.pointerPosition.x - dragData.pointerOffset.x / 2;
-  const top = dragData.pointerPosition.y - dragData.pointerOffset.y / 1.2;
+  const ghostCoordinates = getGhostCoordinates(
+    dragData.pointerPosition,
+    dragData.tileDimension,
+  );
 
   return (
     <div
@@ -19,10 +20,21 @@ export default function DraggedTile({
       style={
         {
           position: "absolute",
-          top,
-          left,
+          top: ghostCoordinates.y,
+          left: ghostCoordinates.x,
         } as CSSPropertiesWithVars
       }
     />
   );
+}
+
+// this places the pointer in the bottom center of the tile
+export function getGhostCoordinates(
+  pointer: Position,
+  tileDimension: Position,
+): Position {
+  return {
+    x: pointer.x - tileDimension.x / 2,
+    y: pointer.y - tileDimension.y / 1.2,
+  };
 }

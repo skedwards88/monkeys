@@ -47,8 +47,7 @@ export function Game({
       }}
       onPointerUp={() => {
         dispatchGameState({
-          action: "dragEnd",
-          boardIndex: null,
+          action: "cancelDrag",
         });
       }}
     >

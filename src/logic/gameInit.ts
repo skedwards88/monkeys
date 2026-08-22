@@ -16,7 +16,7 @@ export type DragData = {
   draggedTileID: number;
   draggedOfferIndex: number;
   pointerPosition: Position;
-  pointerOffset: Position;
+  tileDimension: Position;
 };
 
 export type GameState = {
