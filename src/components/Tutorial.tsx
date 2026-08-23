@@ -67,13 +67,11 @@ function Info(): React.JSX.Element {
     <div className="tutorial-step">
       <div className="tutorial-text">
         <h1>Monkeys of the Caribbean</h1>
-        <div>{`1-2 Players\n15 Minutes\n\nDesigned by Colin Thom\nBuilt by Sarah Edwards`}</div>
       </div>
       <img src={monkey3} alt="monkey artwork" className="rules-image" />
-      <div>
-        {`Want more games? Check `}
-        <a href="https://skedwards88.github.io/">these</a>
-        {` out.`}
+      <div className="caption">
+        <p>1-2 Players</p>
+        <p>15 Minutes</p>
       </div>
     </div>
   );

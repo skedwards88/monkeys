@@ -302,7 +302,6 @@ button:focus {
 #tutorial {
   font-weight: normal;
   background-color: var(--water-color);
-  background-attachment: fixed;
   height: 100vh;
   width: 100vw;
   overflow: scroll;
@@ -311,17 +310,16 @@ button:focus {
   grid-template-areas:
     "previous info exit"
     "previous info next";
-  grid-template-columns: auto 1fr auto;
-  grid-template-rows: auto 1fr;
+  grid-template-columns: 7vh 1fr 7vh;
+  grid-template-rows: 7vh 1fr;
   text-align: center;
 }
 
 .tutorial-step {
-  margin: 10px 35px;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  overflow: scroll;
+  justify-content: space-evenly;
+  overflow: auto;
   grid-area: info;
 }
 
@@ -334,16 +332,16 @@ button:focus {
   margin: 0;
 }
 
+.navigation-button:disabled {
+  display: none;
+}
+
 .prev-button {
-  width: 7vh;
-  height: 100vh;
   background-image: url("./images/button_icons/previous.svg");
   grid-area: previous;
 }
 
 .next-button {
-  width: 7vh;
-  height: 100vh;
   background-image: url("./images/button_icons/next.svg");
   grid-area: next;
 }
@@ -353,8 +351,6 @@ button:focus {
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
-  width: 7vh;
-  height: 7vh;
   z-index: 1;
   background-image: url("./images/button_icons/exit.svg");
   grid-area: exit;
@@ -364,23 +360,13 @@ button:focus {
   min-height: 50px;
   max-height: 40vh;
   object-fit: contain;
-  margin: 20px;
-}
-
-.rules-animation {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  justify-content: flex-start;
 }
 
 .image {
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
-  min-height: 100px;
-  max-height: 80%;
-  margin: 20px 20px 0;
+  height: 40vh;
 }
 
 .caption {
@@ -389,12 +375,10 @@ button:focus {
 
 .monkey {
   background-image: url("./images/button_icons/monkey_3.svg");
-  flex: 1;
 }
 
 .starting {
   background-color: rgb(0 0 0 / 10%);
-  flex: 1;
   background-image: url("./images/rule_illustrations/board_0.webp");
 }
 
@@ -402,7 +386,6 @@ button:focus {
   animation: turns-animation 6s;
   animation-timing-function: step-end;
   background-color: rgb(0 0 0 / 10%);
-  flex: 1;
   animation-fill-mode: forwards;
 }
 

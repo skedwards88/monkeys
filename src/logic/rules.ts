@@ -15,12 +15,12 @@ export type RuleInfo =
     };
 export const rules: RuleInfo[] = [
   {
-    text: `A crew of monkeys--with you as the captain--overthrew their pirate overlords. But it is not gold you want. Nay, coconuts are the bounty you seek.\n\nAlas! There be limited space on the sea. Compete for control of sea routes to get the most coconuts.`,
+    text: `A crew of monkeys–with you as the captain–overthrew their pirate overlords. But it is not gold you want. Nay, coconuts are the bounty you seek.\n\nAlas! There be limited space on the sea. Compete for control of sea routes to get the most coconuts.`,
     image: "coconuts",
     alt: "coconut artwork",
   },
   {
-    text: `Two competing monkey pirate fleets vie for the most coconuts.\n\nEach player will control a fleet.`,
+    text: `Two competing monkey pirate fleets vie for the most coconuts.\n\nEach player controls a fleet.`,
     image: "two_ships",
     alt: "two ship artwork",
   },
@@ -44,7 +44,7 @@ export const rules: RuleInfo[] = [
     caption: "The chest makes these 3 coconuts count as 6 coconuts",
   },
   {
-    text: `The player with the most ships on a route owns the coconuts on that route. If players tie, neither player owns the coconuts for the route. As players vie for control, the score will change.`,
+    text: `The player with the most ships on a route owns the coconuts on that route. If players tie, neither player owns the coconuts for the route. As players vie for control, the score changes.`,
     image: "route",
     alt: "route with 2 red ships and 3 blue ships",
     caption:
