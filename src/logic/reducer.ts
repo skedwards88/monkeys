@@ -51,7 +51,7 @@ function updateStateWithPlayedTile({
   updatedPlayed[playedBoardIndex] = playedTileID;
 
   const updatedRoutes = updateRoutes(
-    currentState.routes.slice(),
+    currentState.routes,
     tiles[playedTileID],
     playedBoardIndex,
     NUM_COLUMNS,

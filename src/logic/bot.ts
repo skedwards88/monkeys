@@ -59,7 +59,7 @@ function getMoves({
       }
 
       const updatedRoutes = updateRoutes(
-        routes.slice(),
+        routes,
         tiles[playedTileID],
         boardIndex,
         NUM_COLUMNS,
