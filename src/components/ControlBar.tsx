@@ -33,7 +33,7 @@ export default function ControlBar({
         id="shareButton"
         appName="Monkeys of the Caribbean"
         text="Check out this quick spatial strategy game!"
-        url="https://skedwards88.github.io/monkeys"
+        url="https://monkeys.twistedtrailgames.com"
         origin="control bar"
         userId={userId}
         sessionId={sessionId}

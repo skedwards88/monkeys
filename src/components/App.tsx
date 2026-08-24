@@ -143,7 +143,7 @@ function App(): React.JSX.Element {
         <MoreGames
           setDisplay={setDisplay}
           games={["sector", "deepSpaceSlime", "crossjig"]}
-          repoName="https://github.com/skedwards88/sector"
+          repoName="https://github.com/skedwards88/monkeys"
           includeExtraInfo={true}
           version={packageJson.version}
         ></MoreGames>
@@ -165,7 +165,7 @@ function App(): React.JSX.Element {
       return (
         <PWAInstall
           setDisplay={setDisplay}
-          pwaLink={"https://sector.twistedtrailgames.com"}
+          pwaLink={"https://monkeys.twistedtrailgames.com"}
           userId={userId}
           sessionId={sessionId}
         ></PWAInstall>
