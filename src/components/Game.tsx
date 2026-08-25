@@ -7,6 +7,7 @@ import type {DisplayState} from "./App";
 import type {GameReducerPayload} from "../logic/reducer";
 import DraggedTile from "./DraggedTile";
 import ControlBar from "./ControlBar";
+import React from "react";
 
 export function Game({
   dispatchGameState,
@@ -21,6 +22,8 @@ export function Game({
   botIsThinking: boolean;
   botPlayedBoardIndex: number | null;
 }): React.JSX.Element {
+  const [hoverIndex, setHoverIndex] = React.useState<number | null>(null);
+
   if (
     !gameState.gameOverCleared &&
     gameState.remainingTileIDs.every((item) => item === null)
@@ -68,11 +71,14 @@ export function Game({
         dragData={gameState.dragData}
         dispatchGameState={dispatchGameState}
         botPlayedBoardIndex={botPlayedBoardIndex}
+        setHoverIndex={setHoverIndex}
       />
       <div id="off-board">
         <Score
           routes={gameState.routes}
           currentColor={gameState.isBlueTurn ? "blue" : "red"}
+          hoverIndex={hoverIndex}
+          draggedTileID={gameState.dragData?.draggedTileID}
         />
       </div>
     </div>

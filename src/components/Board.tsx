@@ -71,16 +71,18 @@ export default function Board({
   dragData,
   dispatchGameState,
   botPlayedBoardIndex,
+  setHoverIndex,
 }: {
   played: (number | null)[];
   dragData: null | DragData;
   dispatchGameState: React.Dispatch<GameReducerPayload>;
   botPlayedBoardIndex: number | null;
+  setHoverIndex: React.Dispatch<React.SetStateAction<number | null>>;
 }): React.JSX.Element {
   const squareRefs = React.useRef<(HTMLDivElement | null)[]>([]);
 
   React.useLayoutEffect(() => {
-    const hoveredIndex = dragData
+    const newHoverIndex = dragData
       ? getBoardIndexAtPoint(
           getCenteredPointer(dragData.pointerPosition, dragData.tileDimension),
           squareRefs.current.map(
@@ -89,13 +91,15 @@ export default function Board({
         )
       : null;
 
+    setHoverIndex(newHoverIndex);
+
     squareRefs.current.forEach((squareDiv, boardIndex) => {
       if (!squareDiv) {
         return;
       }
 
       if (
-        boardIndex === hoveredIndex &&
+        boardIndex === newHoverIndex &&
         validDropQ(played, boardIndex, NUM_COLUMNS)
       ) {
         squareDiv.style.backgroundColor = "darkblue";
@@ -103,7 +107,7 @@ export default function Board({
         squareDiv.style.removeProperty("background-color");
       }
     });
-  }, [dragData, played]);
+  }, [dragData, played, setHoverIndex]);
 
   const board = played.map((tileID, boardIndex) => (
     <Square
