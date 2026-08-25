@@ -72,6 +72,7 @@ export function Game({
         dispatchGameState={dispatchGameState}
         botPlayedBoardIndex={botPlayedBoardIndex}
         setHoverIndex={setHoverIndex}
+        hoverIndex={hoverIndex}
       />
       <div id="off-board">
         <Score

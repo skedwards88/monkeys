@@ -49,18 +49,29 @@ function getCenteredPointer(
 function Square({
   ref,
   botPlayedBoardIndex,
+  hoverIndex,
   tileID,
   boardIndex,
+  played,
 }: {
   ref: React.Ref<HTMLDivElement>;
   botPlayedBoardIndex: number | null;
+  hoverIndex: number | null;
   tileID: number | null;
   boardIndex: number;
+  played: (number | null)[];
 }): React.JSX.Element {
   let className = tileID != null ? `square filled tile${tileID}` : "square";
 
   if (botPlayedBoardIndex === boardIndex) {
     className += " botPlayHighlight";
+  }
+
+  if (
+    hoverIndex === boardIndex &&
+    validDropQ(played, boardIndex, NUM_COLUMNS)
+  ) {
+    className += " hoverHighlight";
   }
 
   return <div ref={ref} className={className} />;
@@ -72,12 +83,14 @@ export default function Board({
   dispatchGameState,
   botPlayedBoardIndex,
   setHoverIndex,
+  hoverIndex,
 }: {
   played: (number | null)[];
   dragData: null | DragData;
   dispatchGameState: React.Dispatch<GameReducerPayload>;
   botPlayedBoardIndex: number | null;
   setHoverIndex: React.Dispatch<React.SetStateAction<number | null>>;
+  hoverIndex: number | null;
 }): React.JSX.Element {
   const squareRefs = React.useRef<(HTMLDivElement | null)[]>([]);
 
@@ -92,21 +105,6 @@ export default function Board({
       : null;
 
     setHoverIndex(newHoverIndex);
-
-    squareRefs.current.forEach((squareDiv, boardIndex) => {
-      if (!squareDiv) {
-        return;
-      }
-
-      if (
-        boardIndex === newHoverIndex &&
-        validDropQ(played, boardIndex, NUM_COLUMNS)
-      ) {
-        squareDiv.style.backgroundColor = "darkblue";
-      } else {
-        squareDiv.style.removeProperty("background-color");
-      }
-    });
   }, [dragData, played, setHoverIndex]);
 
   const board = played.map((tileID, boardIndex) => (
@@ -121,9 +119,11 @@ export default function Board({
         };
       }}
       botPlayedBoardIndex={botPlayedBoardIndex}
+      hoverIndex={hoverIndex}
       tileID={tileID}
       boardIndex={boardIndex}
       key={boardIndex}
+      played={played}
     />
   ));
 
