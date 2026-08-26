@@ -62,7 +62,6 @@ button:focus {
   height: 90vh; /* fallback if svh isn't handled */
   height: 98svh;
   width: 100vw;
-  justify-content: center;
 }
 
 #game {
