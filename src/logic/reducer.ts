@@ -85,7 +85,6 @@ export function reducer(
 ): GameState {
   if (payload.action == "newGame") {
     return gameInit({
-      useSaved: false,
       isVsBot: payload.isVsBot,
     });
   } else if (payload.action == "clearGameOver") {

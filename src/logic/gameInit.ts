@@ -1,7 +1,6 @@
 import {getBoardNodesFromFlatIndex} from "./getBoardNodesFromFlatIndex";
 import {shuffleArray} from "@skedwards88/word_logic";
 import {tiles, BoardRoute} from "./tiles";
-import {getFromStorage} from "@skedwards88/shared-components/src/logic/safeStorage";
 
 export const OFFER_SIZE = 3;
 export const NUM_COLUMNS = 7;
@@ -30,20 +29,7 @@ export type GameState = {
   isVsBot: boolean;
 };
 
-export function gameInit({
-  useSaved = true,
-  isVsBot = false,
-}: {
-  useSaved?: boolean;
-  isVsBot?: boolean;
-}): GameState {
-  if (useSaved) {
-    const savedState = getFromStorage<GameState>("gameState");
-    if (savedState) {
-      return savedState;
-    }
-  }
-
+export function gameInit({isVsBot = false}: {isVsBot?: boolean}): GameState {
   // Shuffle the tile IDs
   const remainingTileIDs = shuffleArray(
     Array.from({length: tiles.length}, (_, index) => index),
