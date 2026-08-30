@@ -41,7 +41,7 @@ export function gameInit({isVsBot = false}: {isVsBot?: boolean}): GameState {
   // Make the starting board
   const startingPositions = [10, 24, 38, 52]; // todo can calc instead
   const numSquares = NUM_COLUMNS * NUM_ROWS;
-  const startingBoard = Array(numSquares).fill(null);
+  const startingBoard = Array(numSquares).fill(null) as (null | number)[];
   initialTileIDs.forEach((tileID, index) => {
     const startingPosition = startingPositions[index];
     startingBoard[startingPosition] = tileID;

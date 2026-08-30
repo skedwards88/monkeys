@@ -1,4 +1,3 @@
-import type {CSSPropertiesWithVars} from "../CSSPropertiesWithVars";
 import type {DragData, Position} from "../logic/gameInit";
 
 export default function DraggedTile({
@@ -17,13 +16,11 @@ export default function DraggedTile({
   return (
     <div
       className={className}
-      style={
-        {
-          position: "absolute",
-          top: ghostCoordinates.y,
-          left: ghostCoordinates.x,
-        } as CSSPropertiesWithVars
-      }
+      style={{
+        position: "absolute",
+        top: ghostCoordinates.y,
+        left: ghostCoordinates.x,
+      }}
     />
   );
 }

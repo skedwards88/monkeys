@@ -84,7 +84,7 @@ export function updateRoutes(
     // and update the board route members
     else if ((headMatch && !tailMatch) || (tailMatch && !headMatch)) {
       // Get the matching board route
-      const matchingRoute = headMatch ? headMatch : tailMatch!; // need to ! assert for TS because it doesn't infer correctly
+      const matchingRoute = headMatch ? headMatch : tailMatch; // need to ! assert for TS below because it doesn't infer correctly
 
       // If the board route matched at the head of the tile route,
       // the tile tail will replace the board route head or tail
@@ -95,21 +95,21 @@ export function updateRoutes(
       const matchingValue = headMatch ? convertedTileHead : convertedTileTail;
 
       // Update the board route head or tail (whichever joins to the new tile) to be the new value
-      if (matchingRoute.boardHead === matchingValue) {
-        matchingRoute.boardHead = newValue;
+      if (matchingRoute!.boardHead === matchingValue) {
+        matchingRoute!.boardHead = newValue;
       } else {
-        matchingRoute.boardTail = newValue;
+        matchingRoute!.boardTail = newValue;
       }
 
       // Add the new tile to the route
-      matchingRoute.tileRoutes.push(tileRoute);
+      matchingRoute!.tileRoutes.push(tileRoute);
     }
 
     // If head and tail match the same board route, the route is now a loop.
     // Set the route head/tail to null
     // and update the board route members
-    else if (headMatch! === tailMatch!) {
-      // need to ! assert for TS because it doesn't infer
+    else if (headMatch === tailMatch && headMatch != null) {
+      // the headMatch != null is redundant with the checks above, but required since TS doesn't infer
       headMatch.boardHead = null;
       headMatch.boardTail = null;
       headMatch.tileRoutes.push(tileRoute);
