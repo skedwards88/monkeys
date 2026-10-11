@@ -95,7 +95,7 @@ export default function Board({
   const squareRefs = React.useRef<(HTMLDivElement | null)[]>([]);
 
   React.useLayoutEffect(() => {
-    const newHoverIndex = dragData
+    let newHoverIndex = dragData
       ? getBoardIndexAtPoint(
           getCenteredPointer(dragData.pointerPosition, dragData.tileDimension),
           squareRefs.current.map(
@@ -103,6 +103,10 @@ export default function Board({
           ),
         )
       : null;
+
+    if (newHoverIndex && !validDropQ(played, newHoverIndex, NUM_COLUMNS)) {
+      newHoverIndex = null;
+    }
 
     setHoverIndex(newHoverIndex);
   }, [dragData, played, setHoverIndex]);
