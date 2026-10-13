@@ -5,6 +5,7 @@ export type RuleInfo =
       alt: string;
       animation?: never;
       caption?: string;
+      isFirstWhirlpoolRule?: boolean;
     }
   | {
       text: string;
@@ -12,6 +13,7 @@ export type RuleInfo =
       alt?: never;
       animation?: string;
       caption?: string;
+      isFirstWhirlpoolRule?: boolean;
     };
 export const rules: RuleInfo[] = [
   {
@@ -67,5 +69,12 @@ export const rules: RuleInfo[] = [
     text: `The game ends once all tiles have been placed.\n\nThe player that owns the most coconuts at the end of the game wins!`,
     image: "coconuts",
     alt: "coconut artwork",
+  },
+  {
+    text: `Continue reading to learn about the whirlpool variant...`,
+  },
+  {
+    text: `Each player has a special whirlpool tile. Once per game, a player can place their whirlpool tile instead of a tile from the offer.\n\nThe whirlpool tile must fully cover another tile on the board.\n\nThe second whirlpool tile cannot be played adjacent to the first whirlpool tile.`,
+    isFirstWhirlpoolRule: true,
   },
 ];
