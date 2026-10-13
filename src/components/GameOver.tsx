@@ -4,11 +4,11 @@ import type {DisplayState} from "./App";
 import Score from "./Score";
 
 export default function GameOver({
-  setDisplay,
+  dispatchDisplayInfo,
   routes,
   dispatchGameState,
 }: {
-  setDisplay: React.Dispatch<React.SetStateAction<DisplayState>>;
+  dispatchDisplayInfo: React.Dispatch<DisplayState>;
   routes: BoardRoute[];
   dispatchGameState: React.Dispatch<GameReducerPayload>;
 }): React.JSX.Element {
@@ -16,7 +16,7 @@ export default function GameOver({
     <div
       id="game-over"
       onClick={() => {
-        setDisplay("game");
+        dispatchDisplayInfo("game");
         dispatchGameState({action: "clearGameOver"});
       }}
     >

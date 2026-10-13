@@ -17,6 +17,11 @@ import Home from "./Home";
 export type DisplayState =
   "game" | "home" | "rules" | "heart" | "installOverview" | "pwaInstall";
 
+export type DisplayInfo = {
+  currentDisplay: DisplayState;
+  previousDisplay: DisplayState;
+};
+
 function App(): React.JSX.Element {
   const {userId, sessionId} = useMetadataContext();
 
@@ -24,13 +29,25 @@ function App(): React.JSX.Element {
   const {installPromptEvent, showInstallButton, handleInstall} =
     useInstallPrompt({userId, sessionId});
 
-  const [display, setDisplay] = React.useState<DisplayState>("home");
+  const [displayInfo, dispatchDisplayInfo] = React.useReducer(
+    (
+      previousDisplayInfo: DisplayInfo,
+      newDisplay: DisplayState,
+    ): DisplayInfo => ({
+      currentDisplay: newDisplay,
+      previousDisplay: previousDisplayInfo.currentDisplay,
+    }),
+    {currentDisplay: "home", previousDisplay: "home"},
+  );
 
   const [gameState, dispatchGameState] = React.useReducer(
     reducer,
     {},
     gameInit,
   );
+
+  // Here instead of in the Tutorial component so that rule number can be set from the Home component too
+  const [currentRule, setCurrentRule] = React.useState<number>(0);
 
   // Store the previous state so that we can infer which analytics events to send
   const previousStateRef = React.useRef(gameState);
@@ -121,22 +138,31 @@ function App(): React.JSX.Element {
     };
   }, [botPlayedBoardIndex]);
 
-  switch (display) {
+  switch (displayInfo.currentDisplay) {
     case "home":
       return (
         <Home
           dispatchGameState={dispatchGameState}
-          setDisplay={setDisplay}
+          dispatchDisplayInfo={dispatchDisplayInfo}
+          previousIsWhirlpools={gameState.isWhirlpools}
+          setCurrentRule={setCurrentRule}
         ></Home>
       );
 
     case "rules":
-      return <Tutorial setDisplay={setDisplay}></Tutorial>;
+      return (
+        <Tutorial
+          dispatchDisplayInfo={dispatchDisplayInfo}
+          currentRule={currentRule}
+          setCurrentRule={setCurrentRule}
+          previousDisplay={displayInfo.previousDisplay}
+        ></Tutorial>
+      );
 
     case "heart":
       return (
         <MoreGames
-          setDisplay={setDisplay}
+          setDisplay={dispatchDisplayInfo}
           games={["sector", "deepSpaceSlime", "crossjig"]}
           repoName="https://github.com/skedwards88/monkeys"
           includeExtraInfo={true}
@@ -147,7 +173,7 @@ function App(): React.JSX.Element {
     case "installOverview":
       return (
         <InstallOverview
-          setDisplay={setDisplay}
+          setDisplay={dispatchDisplayInfo}
           userId={userId}
           sessionId={sessionId}
           installPromptEvent={installPromptEvent}
@@ -159,7 +185,7 @@ function App(): React.JSX.Element {
     case "pwaInstall":
       return (
         <PWAInstall
-          setDisplay={setDisplay}
+          setDisplay={dispatchDisplayInfo}
           pwaLink={"https://monkeys.twistedtrailgames.com"}
           userId={userId}
           sessionId={sessionId}
@@ -171,7 +197,7 @@ function App(): React.JSX.Element {
         <Game
           dispatchGameState={dispatchGameState}
           gameState={gameState}
-          setDisplay={setDisplay}
+          dispatchDisplayInfo={dispatchDisplayInfo}
           botIsThinking={botIsThinking}
           botPlayedBoardIndex={botPlayedBoardIndex}
         ></Game>

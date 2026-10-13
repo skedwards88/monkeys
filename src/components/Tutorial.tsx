@@ -1,4 +1,3 @@
-import {useState} from "react";
 import {type RuleInfo, rules} from "../logic/rules";
 import {type DisplayState} from "./App";
 import monkey_3 from "../images/button_icons/monkey_3.svg";
@@ -85,15 +84,19 @@ function Rule({info}: {info: RuleInfo}): React.JSX.Element {
 }
 
 export default function Tutorial({
-  setDisplay,
+  dispatchDisplayInfo,
+  currentRule,
+  setCurrentRule,
+  previousDisplay,
 }: {
-  setDisplay: React.Dispatch<React.SetStateAction<DisplayState>>;
+  dispatchDisplayInfo: React.Dispatch<DisplayState>;
+  currentRule: number;
+  setCurrentRule: React.Dispatch<React.SetStateAction<number>>;
+  previousDisplay: DisplayState;
 }): React.JSX.Element {
-  const [currentRule, setCurrentRule] = useState<number>(0);
-
   const handleHide = (): void => {
     setCurrentRule(0);
-    setDisplay("game");
+    dispatchDisplayInfo(previousDisplay ?? "game");
   };
 
   return (

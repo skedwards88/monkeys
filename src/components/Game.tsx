@@ -12,13 +12,13 @@ import React from "react";
 export function Game({
   dispatchGameState,
   gameState,
-  setDisplay,
+  dispatchDisplayInfo,
   botIsThinking,
   botPlayedBoardIndex,
 }: {
   dispatchGameState: React.Dispatch<GameReducerPayload>;
   gameState: GameState;
-  setDisplay: React.Dispatch<React.SetStateAction<DisplayState>>;
+  dispatchDisplayInfo: React.Dispatch<DisplayState>;
   botIsThinking: boolean;
   botPlayedBoardIndex: number | null;
 }): React.JSX.Element {
@@ -30,7 +30,7 @@ export function Game({
   ) {
     return (
       <GameOver
-        setDisplay={setDisplay}
+        dispatchDisplayInfo={dispatchDisplayInfo}
         routes={gameState.routes}
         dispatchGameState={dispatchGameState}
       ></GameOver>
@@ -59,7 +59,7 @@ export function Game({
       ) : (
         <></>
       )}
-      <ControlBar setDisplay={setDisplay}></ControlBar>
+      <ControlBar dispatchDisplayInfo={dispatchDisplayInfo}></ControlBar>
       <Offer
         remainingTileIDs={gameState.remainingTileIDs}
         dragData={gameState.dragData}

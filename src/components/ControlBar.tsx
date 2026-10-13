@@ -5,17 +5,20 @@ import {sendAnalyticsCF} from "@skedwards88/shared-components/src/logic/sendAnal
 import type {DisplayState} from "./App";
 
 export default function ControlBar({
-  setDisplay,
+  dispatchDisplayInfo,
 }: {
-  setDisplay: React.Dispatch<React.SetStateAction<DisplayState>>;
+  dispatchDisplayInfo: React.Dispatch<DisplayState>;
 }): React.JSX.Element {
   const {userId, sessionId} = useMetadataContext();
 
   return (
     <div id="controls">
-      <button id="newGameButton" onClick={() => setDisplay("home")} />
+      <button id="newGameButton" onClick={() => dispatchDisplayInfo("home")} />
 
-      <button id="heartButton" onClick={() => setDisplay("heart")}></button>
+      <button
+        id="heartButton"
+        onClick={() => dispatchDisplayInfo("heart")}
+      ></button>
 
       <button
         id="rulesButton"
@@ -25,7 +28,7 @@ export default function ControlBar({
             sessionId,
             analyticsToLog: [{eventName: "appRules"}],
           });
-          setDisplay("rules");
+          dispatchDisplayInfo("rules");
         }}
       ></button>
 
@@ -41,7 +44,7 @@ export default function ControlBar({
       {!isRunningStandalone() ? (
         <button
           id="installButton"
-          onClick={() => setDisplay("installOverview")}
+          onClick={() => dispatchDisplayInfo("installOverview")}
         ></button>
       ) : (
         <></>
