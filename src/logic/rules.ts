@@ -15,6 +15,12 @@ export type RuleInfo =
     };
 export const rules: RuleInfo[] = [
   {
+    text: `Monkeys of the Caribbean`,
+    image: "monkey_3",
+    alt: "monkey artwork",
+    caption: "1-2 Players\n\n15 Minutes",
+  },
+  {
     text: `A crew of monkeys–with you as the captain–overthrew their pirate overlords. But it is not gold you want. Nay, coconuts are the bounty you seek.\n\nAlas! There be limited space on the sea. Compete for control of sea routes to get the most coconuts.`,
     image: "coconuts",
     alt: "coconut artwork",

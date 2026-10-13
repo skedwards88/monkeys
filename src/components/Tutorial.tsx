@@ -1,7 +1,7 @@
 import {useState} from "react";
 import {type RuleInfo, rules} from "../logic/rules";
 import {type DisplayState} from "./App";
-import monkey3 from "../images/button_icons/monkey_3.svg";
+import monkey_3 from "../images/button_icons/monkey_3.svg";
 import coconuts from "../images/rule_illustrations/coconuts.webp";
 import two_ships from "../images/rule_illustrations/two_ships.webp";
 import chest from "../images/rule_illustrations/chest.webp";
@@ -9,6 +9,7 @@ import route from "../images/rule_illustrations/route.webp";
 import route_and_anchor from "../images/rule_illustrations/route_and_anchor.webp";
 
 const ruleImages: Record<string, string> = {
+  monkey_3: monkey_3,
   coconuts: coconuts,
   two_ships: two_ships,
   chest: chest,
@@ -23,20 +24,18 @@ function PreviousButton({
   currentRule: number;
   setCurrentRule: React.Dispatch<React.SetStateAction<number>>;
 }): React.JSX.Element {
-  if (currentRule !== 0) {
-    const handlePrevious = (): void => {
-      const newRule = currentRule - 1;
-      setCurrentRule(newRule);
-    };
+  const handlePrevious = (): void => {
+    const newRule = currentRule - 1;
+    setCurrentRule(newRule);
+  };
 
-    return (
-      <button
-        className="navigation-button prev-button"
-        onClick={handlePrevious}
-      ></button>
-    );
-  }
-  return <button disabled className="navigation-button"></button>;
+  return (
+    <button
+      disabled={currentRule === 0}
+      className="navigation-button prev-button"
+      onClick={handlePrevious}
+    ></button>
+  );
 }
 
 function NextButton({
@@ -46,34 +45,17 @@ function NextButton({
   currentRule: number;
   setCurrentRule: React.Dispatch<React.SetStateAction<number>>;
 }): React.JSX.Element {
-  if (currentRule < rules.length) {
-    const handleNext = (): void => {
-      const newRule = currentRule + 1;
-      setCurrentRule(newRule);
-    };
+  const handleNext = (): void => {
+    const newRule = currentRule + 1;
+    setCurrentRule(newRule);
+  };
 
-    return (
-      <button
-        className="navigation-button next-button"
-        onClick={handleNext}
-      ></button>
-    );
-  }
-  return <button disabled className="navigation-button"></button>;
-}
-
-function Info(): React.JSX.Element {
   return (
-    <div className="tutorial-step">
-      <div className="tutorial-text">
-        <h1>Monkeys of the Caribbean</h1>
-      </div>
-      <img src={monkey3} alt="monkey artwork" className="rules-image" />
-      <div className="caption">
-        <p>1-2 Players</p>
-        <p>15 Minutes</p>
-      </div>
-    </div>
+    <button
+      disabled={currentRule >= rules.length - 1}
+      className="navigation-button next-button"
+      onClick={handleNext}
+    ></button>
   );
 }
 
@@ -120,7 +102,7 @@ export default function Tutorial({
         currentRule={currentRule}
         setCurrentRule={setCurrentRule}
       />
-      {currentRule ? <Rule info={rules[currentRule - 1]} /> : <Info />}
+      <Rule info={rules[currentRule]} />
       <button
         className="navigation-button"
         id="exit-button"
