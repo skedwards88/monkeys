@@ -543,6 +543,27 @@ button:focus {
   background-color: darkblue;
 }
 
+.setting {
+  display: flex;
+  flex-direction: row;
+  font-weight: normal;
+  font-size: calc(var(--default-font-size) * 1.2);
+  margin: 10px;
+}
+
+.setting-info {
+  font-size: var(--default-font-size);
+  font-style: italic;
+}
+
+.setting > input {
+  margin-right: 10px;
+}
+
+.setting-description > p {
+  margin: 0;
+}
+
 /* Override the shared styling from MoreGames.css */
 .game-image {
   width: 28vmax !important;
