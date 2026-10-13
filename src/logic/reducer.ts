@@ -8,6 +8,7 @@ export type GameReducerPayload =
   | {
       action: "newGame";
       isVsBot: boolean;
+      isWhirlpools: boolean;
     }
   | {
       action: "clearGameOver";
@@ -86,6 +87,7 @@ export function reducer(
   if (payload.action == "newGame") {
     return gameInit({
       isVsBot: payload.isVsBot,
+      isWhirlpools: payload.isWhirlpools,
     });
   } else if (payload.action == "clearGameOver") {
     return {

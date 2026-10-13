@@ -27,9 +27,16 @@ export type GameState = {
   dragData: null | DragData;
   isBlueTurn: boolean;
   isVsBot: boolean;
+  isWhirlpools: boolean;
 };
 
-export function gameInit({isVsBot = false}: {isVsBot?: boolean}): GameState {
+export function gameInit({
+  isVsBot = false,
+  isWhirlpools = false,
+}: {
+  isVsBot?: boolean;
+  isWhirlpools?: boolean;
+}): GameState {
   // Shuffle the tile IDs
   const remainingTileIDs = shuffleArray(
     Array.from({length: tiles.length}, (_, index) => index),
@@ -81,5 +88,6 @@ export function gameInit({isVsBot = false}: {isVsBot?: boolean}): GameState {
     dragData: null,
     isBlueTurn: true,
     isVsBot,
+    isWhirlpools,
   };
 }

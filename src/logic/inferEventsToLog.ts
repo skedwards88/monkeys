@@ -16,6 +16,7 @@ export function inferEventsToLog(
       eventName: "new_game",
       eventInfo: {
         isVsBot: newState.isVsBot,
+        isWhirlpools: newState.isWhirlpools,
       },
     });
   }
@@ -40,6 +41,7 @@ export function inferEventsToLog(
       eventName: "gameOver",
       eventInfo: {
         isVsBot: newState.isVsBot,
+        isWhirlpools: newState.isWhirlpools,
         colorWon: winner,
       },
     });
