@@ -1,4 +1,4 @@
-import type {GameState} from "./gameInit";
+import {FIRST_COLOR, type GameState} from "./gameInit";
 import {tallyScore} from "./tallyScore";
 
 export function inferEventsToLog(
@@ -29,18 +29,19 @@ export function inferEventsToLog(
 
     const blueScore = score.blue;
     const redScore = score.red;
-    let winner;
+    let winner: "tie" | "first" | "second";
     if (redScore === blueScore) {
       winner = "tie";
     } else {
-      winner = redScore > blueScore ? "red" : "blue";
+      const winningColor = redScore > blueScore ? "red" : "blue";
+      winner = FIRST_COLOR === winningColor ? "first" : "second";
     }
 
     analyticsToLog.push({
       eventName: "gameOver",
       eventInfo: {
         isVsBot: newState.isVsBot,
-        colorWon: winner,
+        winner,
       },
     });
   }

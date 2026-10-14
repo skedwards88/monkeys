@@ -2,7 +2,7 @@ import React from "react";
 import Tutorial from "./Tutorial";
 import {Game} from "./Game";
 import {reducer} from "../logic/reducer";
-import {gameInit} from "../logic/gameInit";
+import {BOT_COLOR, gameInit} from "../logic/gameInit";
 import {playBot} from "../logic/bot";
 import {useMetadataContext} from "@skedwards88/shared-components/src/components/MetadataContextProvider";
 import {useInstallPrompt} from "@skedwards88/shared-components/src/logic/handleInstall";
@@ -60,7 +60,12 @@ function App(): React.JSX.Element {
 
   const gameOver = gameState.remainingTileIDs.every((item) => item === null);
 
-  const botShouldThink = gameState.isVsBot && gameState.isBlueTurn && !gameOver;
+  const botShouldThink =
+    (gameState.isVsBot &&
+      !gameOver &&
+      BOT_COLOR === "blue" &&
+      gameState.isBlueTurn) ||
+    (BOT_COLOR === "red" && !gameState.isBlueTurn);
 
   if (previousIsBlueTurn !== gameState.isBlueTurn) {
     setPreviousIsBlueTurn(gameState.isBlueTurn);
@@ -77,7 +82,7 @@ function App(): React.JSX.Element {
     const timer = setTimeout(() => {
       const {playedOfferIndex, playedBoardIndex} = playBot({
         gameState,
-        botColor: "blue",
+        botColor: BOT_COLOR,
       });
 
       dispatchGameState({

@@ -1,10 +1,13 @@
 import {getBoardNodesFromFlatIndex} from "./getBoardNodesFromFlatIndex";
 import {shuffleArray} from "@skedwards88/word_logic";
 import {tiles, BoardRoute} from "./tiles";
+import {type PlayerColor} from "./tallyScore";
 
 export const OFFER_SIZE = 3;
 export const NUM_COLUMNS = 7;
 export const NUM_ROWS = 9;
+export const FIRST_COLOR: PlayerColor = "red";
+export const BOT_COLOR: PlayerColor = FIRST_COLOR === "red" ? "blue" : "red";
 
 export type Position = {
   x: number;
@@ -79,7 +82,7 @@ export function gameInit({isVsBot = false}: {isVsBot?: boolean}): GameState {
     routes: startingRoutes,
     gameOverCleared: false,
     dragData: null,
-    isBlueTurn: false,
+    isBlueTurn: FIRST_COLOR === "blue",
     isVsBot,
   };
 }
