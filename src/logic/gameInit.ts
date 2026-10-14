@@ -6,8 +6,10 @@ import {type PlayerColor} from "./tallyScore";
 export const OFFER_SIZE = 3;
 export const NUM_COLUMNS = 7;
 export const NUM_ROWS = 9;
+
+const OPPOSITE: Record<PlayerColor, PlayerColor> = {blue: "red", red: "blue"};
 export const FIRST_COLOR: PlayerColor = "red";
-export const BOT_COLOR: PlayerColor = FIRST_COLOR === "red" ? "blue" : "red";
+export const BOT_COLOR = OPPOSITE[FIRST_COLOR];
 
 export type Position = {
   x: number;
