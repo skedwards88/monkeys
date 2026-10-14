@@ -95,7 +95,7 @@ function OfferTile({
           "--delay": `${offerIndex * 0.3}s`,
         } as CSSPropertiesWithVars
       }
-      {...(tileID != null
+      {...(tileID != null && !botIsThinking
         ? {
             onPointerDown: (event) =>
               handlePointerDown(event, offerIndex, tileID, dispatchGameState),

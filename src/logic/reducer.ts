@@ -24,6 +24,9 @@ export type GameReducerPayload =
       pointerPosition: Position;
     }
   | {
+      action: "cancelDrag";
+    }
+  | {
       action: "dragEnd";
       boardIndex: number | null;
     }
@@ -48,7 +51,7 @@ function updateStateWithPlayedTile({
   updatedPlayed[playedBoardIndex] = playedTileID;
 
   const updatedRoutes = updateRoutes(
-    currentState.routes.slice(),
+    currentState.routes,
     tiles[playedTileID],
     playedBoardIndex,
     NUM_COLUMNS,
@@ -82,7 +85,6 @@ export function reducer(
 ): GameState {
   if (payload.action == "newGame") {
     return gameInit({
-      useSaved: false,
       isVsBot: payload.isVsBot,
     });
   } else if (payload.action == "clearGameOver") {
@@ -96,7 +98,7 @@ export function reducer(
       dragData: {
         draggedTileID: payload.draggedTileID,
         draggedOfferIndex: payload.draggedOfferIndex,
-        pointerOffset: {
+        tileDimension: {
           x: payload.tileDimension.x,
           y: payload.tileDimension.y,
         },
@@ -115,6 +117,8 @@ export function reducer(
         pointerPosition: payload.pointerPosition,
       },
     };
+  } else if (payload.action == "cancelDrag") {
+    return {...currentState, dragData: null};
   } else if (payload.action == "dragEnd") {
     if (!currentState.dragData) {
       return currentState;

@@ -14,7 +14,7 @@ export default function Home({
   const {userId, sessionId} = useMetadataContext();
 
   return (
-    <div className="app" id="home">
+    <div className="App" id="home">
       <img src={logo} alt="Game logo" id="logo" />
 
       <button

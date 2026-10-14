@@ -1,14 +1,38 @@
-import {type PlayerColor, tallyScore} from "../logic/tallyScore";
-import type {BoardRoute} from "../logic/tiles";
+import {NUM_COLUMNS} from "../logic/gameInit";
+import {type PlayerColor, type Scores, tallyScore} from "../logic/tallyScore";
+import {tiles, type BoardRoute} from "../logic/tiles";
+import {updateRoutes} from "../logic/updateRoutes";
 
 export default function Score({
   routes,
   currentColor,
+  hoverIndex,
+  draggedTileID,
 }: {
   routes: BoardRoute[];
   currentColor?: PlayerColor;
+  hoverIndex?: number | null;
+  draggedTileID?: number | undefined;
 }): React.JSX.Element {
-  const score = tallyScore(routes);
+  let score: Scores;
+
+  if (
+    hoverIndex === null ||
+    hoverIndex === undefined ||
+    draggedTileID === null ||
+    draggedTileID === undefined
+  ) {
+    score = tallyScore(routes);
+  } else {
+    const routesWithHover = updateRoutes(
+      routes,
+      tiles[draggedTileID],
+      hoverIndex,
+      NUM_COLUMNS,
+    );
+
+    score = tallyScore(routesWithHover);
+  }
 
   return (
     <div className="score">

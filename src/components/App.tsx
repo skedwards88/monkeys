@@ -6,7 +6,6 @@ import {gameInit} from "../logic/gameInit";
 import {playBot} from "../logic/bot";
 import {useMetadataContext} from "@skedwards88/shared-components/src/components/MetadataContextProvider";
 import {useInstallPrompt} from "@skedwards88/shared-components/src/logic/handleInstall";
-import {saveToStorage} from "@skedwards88/shared-components/src/logic/safeStorage";
 import {sendAnalyticsCF} from "@skedwards88/shared-components/src/logic/sendAnalyticsCF";
 import InstallOverview from "@skedwards88/shared-components/src/components/InstallOverview";
 import PWAInstall from "@skedwards88/shared-components/src/components/PWAInstall";
@@ -48,10 +47,6 @@ function App(): React.JSX.Element {
 
     previousStateRef.current = gameState;
   }, [gameState, sessionId, userId]);
-
-  React.useEffect(() => {
-    saveToStorage("gameState", gameState);
-  }, [gameState]);
 
   const [botIsThinking, setBotIsThinking] = React.useState(false);
 
@@ -143,7 +138,7 @@ function App(): React.JSX.Element {
         <MoreGames
           setDisplay={setDisplay}
           games={["sector", "deepSpaceSlime", "crossjig"]}
-          repoName="https://github.com/skedwards88/sector"
+          repoName="https://github.com/skedwards88/monkeys"
           includeExtraInfo={true}
           version={packageJson.version}
         ></MoreGames>
@@ -165,7 +160,7 @@ function App(): React.JSX.Element {
       return (
         <PWAInstall
           setDisplay={setDisplay}
-          pwaLink={"https://sector.twistedtrailgames.com"}
+          pwaLink={"https://monkeys.twistedtrailgames.com"}
           userId={userId}
           sessionId={sessionId}
         ></PWAInstall>

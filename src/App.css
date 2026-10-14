@@ -1,29 +1,29 @@
 html {
-  margin: auto;
+  margin: 0;
 }
 
 body {
-  height: 90vh; /* fallback if svh isn't handled */
-  height: 98svh;
-  width: 100vw;
+  --water-color: rgb(0 234 255);
+  --dark-water-color: rgb(125 213 245);
+  --square-diameter: min(19vh, 9vw);
+  --default-font-size: calc(var(--square-diameter) * 0.25);
+
   font-weight: bold;
   font-family: Verdana, Geneva, sans-serif;
-
-  --square-diameter: 19vmin; /* fallback (if clamp is not supported) */
-
+  font-size: var(--default-font-size);
   vertical-align: middle;
   margin: 0;
   background:
-    linear-gradient(rgba(242, 234, 150, 0.5), rgba(217, 200, 43, 0.5)),
+    linear-gradient(rgb(242 234 150 / 50%), rgb(217 200 43 / 50%)),
     url("./images/backgrounds/sand_texture.svg");
   background-attachment: fixed;
+}
 
-  --default-font-size: min(0.9cm, 5vmin);
-
-  font-size: var(--default-font-size);
-
-  --water-color: rgb(0, 234, 255);
-  --dark-water-color: rgb(125, 213, 245);
+#root {
+  display: flex;
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
 }
 
 h1 {
@@ -58,17 +58,25 @@ button:focus {
   box-shadow: none;
 }
 
+.App {
+  height: 90vh; /* fallback if svh isn't handled */
+  height: 98svh;
+  width: 100vw;
+}
+
 #game {
   display: grid;
   grid-template-areas: "controlBar offer game scores";
   justify-content: center;
   gap: calc(var(--square-diameter) * 0.2);
   margin: 0 calc(var(--square-diameter) * 0.2);
+  height: min(100vh, 50vw); /* fallback if svh/svw isn't handled */
+  height: min(100svh, 50svw);
 }
 
 #board {
   height: calc(var(--square-diameter) * 5);
-  border: 3px rgb(150, 200, 230) solid;
+  border: 3px rgb(150 200 230) solid;
   border-radius: 10px;
   background-color: var(--dark-water-color);
   background-attachment: fixed;
@@ -95,97 +103,97 @@ button:focus {
 }
 
 .square.filled.tile0 {
-  background: url("./images/tiles_200/Monkeys_Tile_1.webp");
+  background: url("./images/tiles/Monkeys_Tile_1.webp");
   background-color: var(--water-color);
   background-size: contain, auto;
 }
 
 .square.filled.tile1 {
-  background: url("./images/tiles_200/Monkeys_Tile_2.webp");
+  background: url("./images/tiles/Monkeys_Tile_2.webp");
   background-color: var(--water-color);
   background-size: contain, auto;
 }
 
 .square.filled.tile2 {
-  background: url("./images/tiles_200/Monkeys_Tile_3.webp");
+  background: url("./images/tiles/Monkeys_Tile_3.webp");
   background-color: var(--water-color);
   background-size: contain, auto;
 }
 
 .square.filled.tile3 {
-  background: url("./images/tiles_200/Monkeys_Tile_4.webp");
+  background: url("./images/tiles/Monkeys_Tile_4.webp");
   background-color: var(--water-color);
   background-size: contain, auto;
 }
 
 .square.filled.tile4 {
-  background: url("./images/tiles_200/Monkeys_Tile_5.webp");
+  background: url("./images/tiles/Monkeys_Tile_5.webp");
   background-color: var(--water-color);
   background-size: contain, auto;
 }
 
 .square.filled.tile5 {
-  background: url("./images/tiles_200/Monkeys_Tile_6.webp");
+  background: url("./images/tiles/Monkeys_Tile_6.webp");
   background-color: var(--water-color);
   background-size: contain, auto;
 }
 
 .square.filled.tile6 {
-  background: url("./images/tiles_200/Monkeys_Tile_7.webp");
+  background: url("./images/tiles/Monkeys_Tile_7.webp");
   background-color: var(--water-color);
   background-size: contain, auto;
 }
 
 .square.filled.tile7 {
-  background: url("./images/tiles_200/Monkeys_Tile_8.webp");
+  background: url("./images/tiles/Monkeys_Tile_8.webp");
   background-color: var(--water-color);
   background-size: contain, auto;
 }
 
 .square.filled.tile8 {
-  background: url("./images/tiles_200/Monkeys_Tile_9.webp");
+  background: url("./images/tiles/Monkeys_Tile_9.webp");
   background-color: var(--water-color);
   background-size: contain, auto;
 }
 
 .square.filled.tile9 {
-  background: url("./images/tiles_200/Monkeys_Tile_10.webp");
+  background: url("./images/tiles/Monkeys_Tile_10.webp");
   background-color: var(--water-color);
   background-size: contain, auto;
 }
 
 .square.filled.tile10 {
-  background: url("./images/tiles_200/Monkeys_Tile_11.webp");
+  background: url("./images/tiles/Monkeys_Tile_11.webp");
   background-color: var(--water-color);
   background-size: contain, auto;
 }
 
 .square.filled.tile11 {
-  background: url("./images/tiles_200/Monkeys_Tile_12.webp");
+  background: url("./images/tiles/Monkeys_Tile_12.webp");
   background-color: var(--water-color);
   background-size: contain, auto;
 }
 
 .square.filled.tile12 {
-  background: url("./images/tiles_200/Monkeys_Tile_13.webp");
+  background: url("./images/tiles/Monkeys_Tile_13.webp");
   background-color: var(--water-color);
   background-size: contain, auto;
 }
 
 .square.filled.tile13 {
-  background: url("./images/tiles_200/Monkeys_Tile_14.webp");
+  background: url("./images/tiles/Monkeys_Tile_14.webp");
   background-color: var(--water-color);
   background-size: contain, auto;
 }
 
 .square.filled.tile14 {
-  background: url("./images/tiles_200/Monkeys_Tile_15.webp");
+  background: url("./images/tiles/Monkeys_Tile_15.webp");
   background-color: var(--water-color);
   background-size: contain, auto;
 }
 
 .square.filled.tile15 {
-  background: url("./images/tiles_200/Monkeys_Tile_16.webp");
+  background: url("./images/tiles/Monkeys_Tile_16.webp");
   background-color: var(--water-color);
   background-size: contain, auto;
 }
@@ -202,7 +210,7 @@ button:focus {
 }
 
 .dragged.offer-tile {
-  opacity: 50%;
+  opacity: 0.5;
 }
 
 .drag-tile {
@@ -293,7 +301,6 @@ button:focus {
 #tutorial {
   font-weight: normal;
   background-color: var(--water-color);
-  background-attachment: fixed;
   height: 100vh;
   width: 100vw;
   overflow: scroll;
@@ -302,17 +309,16 @@ button:focus {
   grid-template-areas:
     "previous info exit"
     "previous info next";
-  grid-template-columns: auto 1fr auto;
-  grid-template-rows: auto 1fr;
+  grid-template-columns: 7vh 1fr 7vh;
+  grid-template-rows: 7vh 1fr;
   text-align: center;
 }
 
 .tutorial-step {
-  margin: 10px 35px;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  overflow: scroll;
+  justify-content: space-evenly;
+  overflow: auto;
   grid-area: info;
 }
 
@@ -325,16 +331,16 @@ button:focus {
   margin: 0;
 }
 
+.navigation-button:disabled {
+  display: none;
+}
+
 .prev-button {
-  width: 7vh;
-  height: 100vh;
   background-image: url("./images/button_icons/previous.svg");
   grid-area: previous;
 }
 
 .next-button {
-  width: 7vh;
-  height: 100vh;
   background-image: url("./images/button_icons/next.svg");
   grid-area: next;
 }
@@ -344,8 +350,6 @@ button:focus {
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
-  width: 7vh;
-  height: 7vh;
   z-index: 1;
   background-image: url("./images/button_icons/exit.svg");
   grid-area: exit;
@@ -355,23 +359,13 @@ button:focus {
   min-height: 50px;
   max-height: 40vh;
   object-fit: contain;
-  margin: 20px;
-}
-
-.rules-animation {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  justify-content: flex-start;
 }
 
 .image {
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
-  min-height: 100px;
-  max-height: 80%;
-  margin: 20px 20px 0 20px;
+  height: 40vh;
 }
 
 .caption {
@@ -380,20 +374,17 @@ button:focus {
 
 .monkey {
   background-image: url("./images/button_icons/monkey_3.svg");
-  flex: 1;
 }
 
 .starting {
-  background-color: rgba(0, 0, 0, 0.1);
-  flex: 1;
+  background-color: rgb(0 0 0 / 10%);
   background-image: url("./images/rule_illustrations/board_0.webp");
 }
 
 .turns {
   animation: turns-animation 6s;
   animation-timing-function: step-end;
-  background-color: rgba(0, 0, 0, 0.1);
-  flex: 1;
+  background-color: rgb(0 0 0 / 10%);
   animation-fill-mode: forwards;
 }
 
@@ -544,8 +535,12 @@ button:focus {
   }
 }
 
-.square.highlight {
+.square.botPlayHighlight {
   animation: fade-highlight 3s ease-out forwards;
+}
+
+.square.hoverHighlight {
+  background-color: darkblue;
 }
 
 /* Override the shared styling from MoreGames.css */
@@ -556,7 +551,7 @@ button:focus {
 }
 
 /* Landscape, large screen */
-@media (orientation: landscape) and (min-width: 1000px) {
+@media (orientation: landscape) and (width >= 1000px) {
   #tutorial {
     transform: scale(0.5);
     justify-content: center;

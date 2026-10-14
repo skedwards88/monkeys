@@ -1,7 +1,6 @@
 import {getBoardNodesFromFlatIndex} from "./getBoardNodesFromFlatIndex";
 import {shuffleArray} from "@skedwards88/word_logic";
 import {tiles, BoardRoute} from "./tiles";
-import {getFromStorage} from "@skedwards88/shared-components/src/logic/safeStorage";
 
 export const OFFER_SIZE = 3;
 export const NUM_COLUMNS = 7;
@@ -16,7 +15,7 @@ export type DragData = {
   draggedTileID: number;
   draggedOfferIndex: number;
   pointerPosition: Position;
-  pointerOffset: Position;
+  tileDimension: Position;
 };
 
 export type GameState = {
@@ -30,20 +29,7 @@ export type GameState = {
   isVsBot: boolean;
 };
 
-export function gameInit({
-  useSaved = true,
-  isVsBot = false,
-}: {
-  useSaved?: boolean;
-  isVsBot?: boolean;
-}): GameState {
-  if (useSaved) {
-    const savedState = getFromStorage<GameState>("gameState");
-    if (savedState) {
-      return savedState;
-    }
-  }
-
+export function gameInit({isVsBot = false}: {isVsBot?: boolean}): GameState {
   // Shuffle the tile IDs
   const remainingTileIDs = shuffleArray(
     Array.from({length: tiles.length}, (_, index) => index),
@@ -55,7 +41,7 @@ export function gameInit({
   // Make the starting board
   const startingPositions = [10, 24, 38, 52]; // todo can calc instead
   const numSquares = NUM_COLUMNS * NUM_ROWS;
-  const startingBoard = Array(numSquares).fill(null);
+  const startingBoard = Array(numSquares).fill(null) as (null | number)[];
   initialTileIDs.forEach((tileID, index) => {
     const startingPosition = startingPositions[index];
     startingBoard[startingPosition] = tileID;
