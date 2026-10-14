@@ -33,6 +33,7 @@ export function Game({
         setDisplay={setDisplay}
         routes={gameState.routes}
         dispatchGameState={dispatchGameState}
+        isVsBot={gameState.isVsBot}
       ></GameOver>
     );
   }
@@ -80,6 +81,7 @@ export function Game({
           currentColor={gameState.isBlueTurn ? "blue" : "red"}
           hoverIndex={hoverIndex}
           draggedTileID={gameState.dragData?.draggedTileID}
+          isVsBot={gameState.isVsBot}
         />
       </div>
     </div>

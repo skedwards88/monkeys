@@ -79,7 +79,7 @@ export function gameInit({isVsBot = false}: {isVsBot?: boolean}): GameState {
     routes: startingRoutes,
     gameOverCleared: false,
     dragData: null,
-    isBlueTurn: true,
+    isBlueTurn: false,
     isVsBot,
   };
 }

@@ -8,11 +8,13 @@ export default function Score({
   currentColor,
   hoverIndex,
   draggedTileID,
+  isVsBot,
 }: {
   routes: BoardRoute[];
   currentColor?: PlayerColor;
   hoverIndex?: number | null;
   draggedTileID?: number | undefined;
+  isVsBot: boolean;
 }): React.JSX.Element {
   let score: Scores;
 
@@ -47,7 +49,7 @@ export default function Score({
           currentColor === "blue" ? " currentColor" : ""
         }`}
       >
-        <div className="score-icon blue" />
+        <div className={`score-icon blue ${isVsBot ? "bot" : ""}`} />
         {score.blue}
       </div>
     </div>

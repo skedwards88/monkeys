@@ -60,8 +60,7 @@ function App(): React.JSX.Element {
 
   const gameOver = gameState.remainingTileIDs.every((item) => item === null);
 
-  const botShouldThink =
-    gameState.isVsBot && !gameState.isBlueTurn && !gameOver;
+  const botShouldThink = gameState.isVsBot && gameState.isBlueTurn && !gameOver;
 
   if (previousIsBlueTurn !== gameState.isBlueTurn) {
     setPreviousIsBlueTurn(gameState.isBlueTurn);
@@ -78,7 +77,7 @@ function App(): React.JSX.Element {
     const timer = setTimeout(() => {
       const {playedOfferIndex, playedBoardIndex} = playBot({
         gameState,
-        botColor: "red",
+        botColor: "blue",
       });
 
       dispatchGameState({

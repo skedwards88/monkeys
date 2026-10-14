@@ -252,6 +252,10 @@ button:focus {
   background-image: url("./images/button_icons/blue_icon.svg");
 }
 
+.score-icon.blue.bot {
+  background-image: url("./images/button_icons/bot_icon_blue.svg");
+}
+
 .red-score {
   color: red;
   display: flex;

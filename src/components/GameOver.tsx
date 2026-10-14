@@ -7,10 +7,12 @@ export default function GameOver({
   setDisplay,
   routes,
   dispatchGameState,
+  isVsBot,
 }: {
   setDisplay: React.Dispatch<React.SetStateAction<DisplayState>>;
   routes: BoardRoute[];
   dispatchGameState: React.Dispatch<GameReducerPayload>;
+  isVsBot: boolean;
 }): React.JSX.Element {
   return (
     <div
@@ -21,7 +23,7 @@ export default function GameOver({
       }}
     >
       <div>GAME OVER!</div>
-      <Score routes={routes} />
+      <Score routes={routes} isVsBot={isVsBot} />
       <div>tap anywhere to return</div>
     </div>
   );
