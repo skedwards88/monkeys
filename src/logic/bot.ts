@@ -1,4 +1,9 @@
-import {NUM_COLUMNS, OFFER_SIZE, type GameState} from "./gameInit";
+import {
+  NUM_COLUMNS,
+  OFFER_SIZE,
+  OPPOSITE_COLOR,
+  type GameState,
+} from "./gameInit";
 import {tallyScore, type PlayerColor} from "./tallyScore";
 import {type BoardRoute, tiles} from "./tiles";
 import {updateRoutes} from "./updateRoutes";
@@ -98,7 +103,7 @@ export function playBot({
   botColor: PlayerColor;
   weights?: BotWeights;
 }): BotMove {
-  const opponentColor: PlayerColor = botColor === "red" ? "blue" : "red";
+  const opponentColor = OPPOSITE_COLOR[botColor];
   const {played, routes} = gameState;
 
   const offeredTileIDs = gameState.remainingTileIDs.slice(0, OFFER_SIZE);

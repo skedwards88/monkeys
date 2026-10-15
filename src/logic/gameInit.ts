@@ -7,9 +7,12 @@ export const OFFER_SIZE = 3;
 export const NUM_COLUMNS = 7;
 export const NUM_ROWS = 9;
 
-const OPPOSITE: Record<PlayerColor, PlayerColor> = {blue: "red", red: "blue"};
+export const OPPOSITE_COLOR: Record<PlayerColor, PlayerColor> = {
+  blue: "red",
+  red: "blue",
+};
 export const FIRST_COLOR: PlayerColor = "red";
-export const BOT_COLOR = OPPOSITE[FIRST_COLOR];
+export const BOT_COLOR = OPPOSITE_COLOR[FIRST_COLOR];
 
 export type Position = {
   x: number;
