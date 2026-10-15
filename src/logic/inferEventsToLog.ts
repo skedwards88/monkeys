@@ -22,10 +22,10 @@ export function inferEventsToLog(
 
   // If a game completed
   if (
-    !newState.remainingTileIDs.every((item) => item === null) &&
-    oldState.remainingTileIDs.every((item) => item === null)
+    newState.remainingTileIDs.every((item) => item === null) &&
+    !oldState.remainingTileIDs.every((item) => item === null)
   ) {
-    const score = tallyScore(oldState.routes);
+    const score = tallyScore(newState.routes);
 
     const blueScore = score.blue;
     const redScore = score.red;
