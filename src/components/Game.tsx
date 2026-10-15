@@ -2,7 +2,7 @@ import Offer from "./Offer";
 import Board from "./Board";
 import Score from "./Score";
 import GameOver from "./GameOver";
-import type {GameState} from "../logic/gameInit";
+import {FIRST_COLOR, OPPOSITE_COLOR, type GameState} from "../logic/gameInit";
 import type {DisplayState} from "./App";
 import type {GameReducerPayload} from "../logic/reducer";
 import DraggedTile from "./DraggedTile";
@@ -78,7 +78,11 @@ export function Game({
       <div id="off-board">
         <Score
           routes={gameState.routes}
-          currentColor={gameState.isBlueTurn ? "blue" : "red"}
+          currentColor={
+            gameState.isFirstPlayerTurn
+              ? FIRST_COLOR
+              : OPPOSITE_COLOR[FIRST_COLOR]
+          }
           hoverIndex={hoverIndex}
           draggedTileID={gameState.dragData?.draggedTileID}
           isVsBot={gameState.isVsBot}

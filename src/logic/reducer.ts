@@ -75,7 +75,7 @@ function updateStateWithPlayedTile({
     routes: updatedRoutes,
     remainingTileIDs: newRemainingTileIDs,
     dragData: null,
-    isBlueTurn: !currentState.isBlueTurn,
+    isFirstPlayerTurn: !currentState.isFirstPlayerTurn,
   };
 }
 

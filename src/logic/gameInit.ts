@@ -33,7 +33,7 @@ export type GameState = {
   routes: BoardRoute[];
   gameOverCleared: boolean;
   dragData: null | DragData;
-  isBlueTurn: boolean;
+  isFirstPlayerTurn: boolean;
   isVsBot: boolean;
 };
 
@@ -87,7 +87,7 @@ export function gameInit({isVsBot = false}: {isVsBot?: boolean}): GameState {
     routes: startingRoutes,
     gameOverCleared: false,
     dragData: null,
-    isBlueTurn: FIRST_COLOR === "blue",
+    isFirstPlayerTurn: true,
     isVsBot,
   };
 }

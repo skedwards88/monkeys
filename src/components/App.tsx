@@ -54,21 +54,16 @@ function App(): React.JSX.Element {
     number | null
   >(null);
 
-  const [previousIsBlueTurn, setPreviousIsBlueTurn] = React.useState(
-    gameState.isBlueTurn,
-  );
+  const [previousIsFirstPlayerTurn, setPreviousIsFirstPlayerTurn] =
+    React.useState(gameState.isFirstPlayerTurn);
 
   const gameOver = gameState.remainingTileIDs.every((item) => item === null);
 
   const botShouldThink =
-    (gameState.isVsBot &&
-      !gameOver &&
-      BOT_COLOR === "blue" &&
-      gameState.isBlueTurn) ||
-    (BOT_COLOR === "red" && !gameState.isBlueTurn);
+    gameState.isVsBot && !gameOver && !gameState.isFirstPlayerTurn;
 
-  if (previousIsBlueTurn !== gameState.isBlueTurn) {
-    setPreviousIsBlueTurn(gameState.isBlueTurn);
+  if (previousIsFirstPlayerTurn !== gameState.isFirstPlayerTurn) {
+    setPreviousIsFirstPlayerTurn(gameState.isFirstPlayerTurn);
     if (botShouldThink) {
       setBotIsThinking(true);
     }
@@ -108,7 +103,7 @@ function App(): React.JSX.Element {
         setBotIsThinking(false);
       }
     };
-  }, [gameState.isBlueTurn]);
+  }, [gameState.isFirstPlayerTurn]);
 
   React.useEffect(() => {
     if (botPlayedBoardIndex === null) {
