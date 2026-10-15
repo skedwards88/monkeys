@@ -6,7 +6,7 @@ body {
   --water-color: rgb(0 234 255);
   --dark-water-color: rgb(125 213 245);
   --square-diameter: min(19vh, 9vw);
-  --default-font-size: calc(var(--square-diameter) * 0.25);
+  --default-font-size: calc(var(--square-diameter) * 0.3);
 
   font-weight: bold;
   font-family: Verdana, Geneva, sans-serif;
@@ -318,6 +318,10 @@ button:focus {
   text-align: center;
 }
 
+.tutorial-text {
+  margin: 0 10px;
+}
+
 .tutorial-step {
   display: flex;
   flex-direction: column;
@@ -361,7 +365,7 @@ button:focus {
 
 .tutorial-step > img {
   min-height: 50px;
-  max-height: 40vh;
+  max-height: 59vh;
   object-fit: contain;
 }
 
@@ -369,7 +373,7 @@ button:focus {
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
-  height: 40vh;
+  height: 59vh;
 }
 
 .caption {
@@ -381,14 +385,12 @@ button:focus {
 }
 
 .starting {
-  background-color: rgb(0 0 0 / 10%);
   background-image: url("./images/rule_illustrations/board_0.webp");
 }
 
 .turns {
   animation: turns-animation 6s;
   animation-timing-function: step-end;
-  background-color: rgb(0 0 0 / 10%);
   animation-fill-mode: forwards;
 }
 
@@ -422,6 +424,7 @@ button:focus {
   animation: coconuts-animation 6s;
   animation-timing-function: step-end;
   animation-fill-mode: forwards;
+  height: 40vh;
 }
 
 @keyframes coconuts-animation {
