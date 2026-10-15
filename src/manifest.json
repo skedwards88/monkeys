@@ -8,7 +8,6 @@
   "display": "standalone",
   "orientation": "landscape",
   "start_url": "https://monkeys.twistedtrailgames.com",
-  "scope": "/monkeys/",
   "background_color": "#ece6a9",
   "theme_color": "#ece6a9",
   "shortcuts": [],
